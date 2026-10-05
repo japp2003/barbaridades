@@ -3721,20 +3721,26 @@ genr('pro', function () {
       var states = {}, conns = {}, snap = {}, peer = null, conn = null, bt = null, alive = true, stage = 'servidor';
 
       function emit() { listeners.slice().forEach(function (f) { try { f(); } catch (e) { /* nada */ } }); }
-      function broadcast() {
+      var pend = {};
+      function mark(id, patch) { var p = pend[id] || (pend[id] = {}), k; for (k in patch) p[k] = patch[k]; }
+      function sendAll(msg) { Object.keys(conns).forEach(function (id) { try { if (conns[id].open) conns[id].send(msg); } catch (e) { /* nada */ } }); }
+      function broadcast() {          /* solo se envían los cambios, agrupados cada 200 ms */
         if (bt) return;
         bt = setTimeout(function () {
           bt = null;
-          Object.keys(conns).forEach(function (id) { try { if (conns[id].open) conns[id].send({ t: 's', s: states }); } catch (e) { /* nada */ } });
-        }, 50);
+          if (!Object.keys(pend).length) return;
+          var d = pend; pend = {};
+          sendAll({ t: 'd', d: d });
+        }, 200);
       }
+      function full() { pend = {}; sendAll({ t: 's', s: states }); }
       function lost() { alive = false; errCbs.slice().forEach(function (f) { try { f(); } catch (e) { /* nada */ } }); }
 
       var nr = {
         presence: function (patch) {
           var k;
           for (k in patch) mine[k] = patch[k];
-          if (isHub) { states[myId] = mine; broadcast(); }
+          if (isHub) { states[myId] = mine; mark(myId, patch); broadcast(); }
           else if (conn && conn.open) { try { conn.send({ t: 'p', patch: patch }); } catch (e) { /* nada */ } }
           emit();
           return Promise.resolve();
@@ -3769,7 +3775,14 @@ genr('pro', function () {
           stage = 'directa';
           conn = peer.connect(hubId, { reliable: true });
           conn.on('open', function () { conn.send({ t: 'p', patch: mine }); ok(); });
-          conn.on('data', function (m) { if (m && m.t === 's') { snap = m.s || {}; emit(); } });
+          conn.on('data', function (m) {
+            if (!m) return;
+            if (m.t === 's') { snap = m.s || {}; emit(); }
+            else if (m.t === 'd') {
+              Object.keys(m.d || {}).forEach(function (id) { var o = snap[id] || (snap[id] = {}), k; for (k in m.d[id]) o[k] = m.d[id][k]; });
+              emit();
+            }
+          });
           conn.on('close', function () { lost(); });
           conn.on('error', function () { if (!done) ko('sin_conexion'); else lost(); });
         });
@@ -3786,16 +3799,15 @@ genr('pro', function () {
           var id = c.peer;
           c.on('open', function () {
             conns[id] = c; states[id] = states[id] || {};
-            try { c.send({ t: 's', s: states }); } catch (e) { /* nada */ }
-            broadcast(); emit();
+            full(); emit();
           });
           c.on('data', function (m) {
             if (!m || m.t !== 'p') return;
             var s = states[id] || (states[id] = {}), k;
             for (k in m.patch) s[k] = m.patch[k];
-            broadcast(); emit();
+            mark(id, m.patch); broadcast(); emit();
           });
-          var gone = function () { if (conns[id] === c) { delete conns[id]; delete states[id]; broadcast(); emit(); } };
+          var gone = function () { if (conns[id] === c) { delete conns[id]; delete states[id]; full(); emit(); } };
           c.on('close', gone); c.on('error', gone);
         });
         peer.on('error', function (e) {
