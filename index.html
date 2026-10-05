@@ -3696,11 +3696,12 @@ genr('pro', function () {
    El primero que entra con un código hace de "centro" (hub); los demás se conectan a él. */
 (function () {
   var ICE = [
+    { urls: 'stun:stun.relay.metered.ca:80' },
     { urls: 'stun:stun.l.google.com:19302' },
-    { urls: 'stun:stun1.l.google.com:19302' },
-    { urls: 'stun:global.stun.twilio.com:3478' },
-    { urls: ['turn:openrelay.metered.ca:80', 'turn:openrelay.metered.ca:443', 'turn:openrelay.metered.ca:443?transport=tcp'],
-      username: 'openrelayproject', credential: 'openrelayproject' }
+    { urls: 'turn:global.relay.metered.ca:80', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' },
+    { urls: 'turn:global.relay.metered.ca:80?transport=tcp', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' },
+    { urls: 'turn:global.relay.metered.ca:443', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' },
+    { urls: 'turns:global.relay.metered.ca:443?transport=tcp', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' }
   ];
   function mkPeer(id) {
     var cfg = {}, k, extra = window.PEER_CFG || {};
