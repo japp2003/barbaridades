@@ -3717,7 +3717,7 @@ genr('pro', function () {
       if (!window.Peer) { reject(fail('sin_peerjs')); return; }
       var hubId = 'gpa-' + String(name).replace(/[^a-z0-9-]/gi, ''), done = false, timer;
       var listeners = [], errCbs = [], mine = {}, myId = hubId, isHub = false;
-      var states = {}, conns = {}, snap = {}, peer = null, conn = null, bt = null, alive = true;
+      var states = {}, conns = {}, snap = {}, peer = null, conn = null, bt = null, alive = true, stage = 'servidor';
 
       function emit() { listeners.slice().forEach(function (f) { try { f(); } catch (e) { /* nada */ } }); }
       function broadcast() {
@@ -3758,13 +3758,14 @@ genr('pro', function () {
 
       function ok() { if (done) return; done = true; clearTimeout(timer); resolve(nr); }
       function ko(code) { if (done) return; done = true; clearTimeout(timer); try { if (peer) peer.destroy(); } catch (e) { /* nada */ } reject(fail(code)); }
-      timer = setTimeout(function () { ko('tiempo_agotado'); }, 15000);
+      timer = setTimeout(function () { ko(stage === 'servidor' ? 'sin_servidor' : 'sin_conexion_directa'); }, 20000);
 
       function asGuest() {
         try { if (peer) peer.destroy(); } catch (e) { /* nada */ }
         isHub = false; myId = hubId + '-' + rid();
         peer = mkPeer(myId);
         peer.on('open', function () {
+          stage = 'directa';
           conn = peer.connect(hubId, { reliable: true });
           conn.on('open', function () { conn.send({ t: 'p', patch: mine }); ok(); });
           conn.on('data', function (m) { if (m && m.t === 's') { snap = m.s || {}; emit(); } });
