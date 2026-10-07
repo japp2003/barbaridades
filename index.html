@@ -378,6 +378,7 @@ sup:has(.frac) { top: -.7em; }
   </section>
 </div>
 <script>
+window.ROOM_WS_URL='wss://barbaridades-salas.joseantonioparedes2003.workers.dev';
 /* Temas concretos y grupos del selector.
    Marcado: ^{..} sup · _{..} sub · √{..} raíz · √[n]{..} raíz de índice n · ⟨a|b⟩ fracción */
 var GROUPS = [
@@ -3737,6 +3738,7 @@ genr('pro', function () {
       function lost() { alive = false; errCbs.slice().forEach(function (f) { try { f(); } catch (e) { /* nada */ } }); }
 
       var nr = {
+        via: 'respaldo PeerJS',
         presence: function (patch) {
           var k;
           for (k in patch) mine[k] = patch[k];
@@ -3843,6 +3845,7 @@ genr('pro', function () {
       function ko(code) { if (done) return; done = true; clearTimeout(timer); try { ws.close(); } catch (e) { /* nada */ } reject(fail(code)); }
 
       var nr = {
+        via: 'servidor propio',
         presence: function (patch) {
           var k;
           for (k in patch) mine[k] = patch[k];
@@ -4673,7 +4676,7 @@ function drawScene(view, S) {
     $('d-status').innerHTML = msg;
     $('ready').disabled = (list.length > 0 && !inGame) || hostCfg.t.length === 0;
     var np = D.nr.peers().length, cn = (typeof D.nr.connected === 'function') ? D.nr.connected() : true;
-    $('d-diag').textContent = 'Conectados en la sala: ' + np + (cn ? '' : ' · sin conexión con el servidor');
+    $('d-diag').textContent = 'Conectados en la sala: ' + np + (D.nr.via ? ' · ' + D.nr.via : '') + (cn ? '' : ' · sin conexión con el servidor');
     $('ready').textContent = D.ready ? 'Cancelar' : 'Estoy listo';
     $('picker').style.opacity = host && !host.isMe ? .5 : '';
   }
