@@ -3821,6 +3821,84 @@ genr('pro', function () {
   }
   window.PeerRoom = { join: join };
 })();
+/* Sala online con servidor propio (WebSocket). Misma interfaz que peerroom.js.
+   La dirección del servidor se pone en window.ROOM_WS_URL (p. ej. 'wss://barbaridades-salas.xxx.workers.dev').
+   Si no hay dirección o el servidor no responde, el juego usa PeerJS como respaldo. */
+(function () {
+  function fail(code) { var e = new Error(code); e.code = code; return e; }
+
+  function join(name) {
+    return new Promise(function (resolve, reject) {
+      var base = window.ROOM_WS_URL;
+      if (!base || typeof WebSocket === 'undefined') { reject(fail('sin_servidor_propio')); return; }
+      var ws, done = false, alive = true, myId = null, snap = {}, mine = {}, listeners = [], errCbs = [];
+      var hb = null, lastPong = Date.now(), timer;
+
+      function emit() { listeners.slice().forEach(function (f) { try { f(); } catch (e) { /* nada */ } }); }
+      function lost() {
+        if (!alive) return;
+        alive = false; clearInterval(hb);
+        errCbs.slice().forEach(function (f) { try { f(); } catch (e) { /* nada */ } });
+      }
+      function ko(code) { if (done) return; done = true; clearTimeout(timer); try { ws.close(); } catch (e) { /* nada */ } reject(fail(code)); }
+
+      var nr = {
+        presence: function (patch) {
+          var k;
+          for (k in patch) mine[k] = patch[k];
+          if (ws && ws.readyState === 1) { try { ws.send(JSON.stringify({ t: 'p', patch: patch })); } catch (e) { /* nada */ } }
+          emit();
+          return Promise.resolve();
+        },
+        peers: function () {
+          var ids = Object.keys(snap);
+          if (myId && ids.indexOf(myId) < 0) ids.push(myId);
+          return ids.map(function (id) {
+            return { peer: id, presence: id === myId ? mine : snap[id], isMe: id === myId, kind: 'user' };
+          });
+        },
+        onPeers: function (fn, onErr) {
+          listeners.push(fn); if (onErr) errCbs.push(onErr);
+          return function () { listeners = listeners.filter(function (f) { return f !== fn; }); errCbs = errCbs.filter(function (f) { return f !== onErr; }); };
+        },
+        connected: function () { return alive && !!ws && ws.readyState === 1; },
+        leave: function () { alive = false; clearInterval(hb); try { ws.close(); } catch (e) { /* nada */ } }
+      };
+
+      timer = setTimeout(function () { ko('sin_servidor'); }, 7000);
+      try { ws = new WebSocket(base.replace(/\/$/, '') + '/sala/' + String(name).replace(/[^a-z0-9-]/gi, '').toLowerCase()); }
+      catch (e) { ko('sin_servidor'); return; }
+
+      ws.onmessage = function (ev) {
+        if (ev.data === 'pong') { lastPong = Date.now(); return; }
+        var m; try { m = JSON.parse(ev.data); } catch (e) { return; }
+        if (!m) return;
+        if (m.t === 'hola') {
+          myId = m.id; snap = m.s || {}; delete snap[myId];
+          if (!done) {
+            done = true; clearTimeout(timer);
+            hb = setInterval(function () {
+              if (Date.now() - lastPong > 45000) { lost(); return; }
+              try { ws.send('ping'); } catch (e) { /* nada */ }
+            }, 15000);
+            resolve(nr);
+          }
+          emit();
+        } else if (m.t === 'd') {
+          Object.keys(m.d || {}).forEach(function (id) {
+            if (id === myId) return;
+            var o = snap[id] || (snap[id] = {}), k;
+            for (k in m.d[id]) o[k] = m.d[id][k];
+          });
+          emit();
+        } else if (m.t === 'x') { delete snap[m.id]; emit(); }
+      };
+      ws.onclose = function () { if (!done) ko('sin_servidor'); else lost(); };
+      ws.onerror = function () { if (!done) ko('sin_servidor'); };
+    });
+  }
+  window.RoomWS = { join: join };
+})();
 /* Dibujo de la pista, el coche y los carteles. Todo en metros; ppm = píxeles por metro. */
 var CC = null;
 function colors() {
@@ -4791,7 +4869,17 @@ function drawScene(view, S) {
   setInterval(function () { if (D.nr) { renderLobby(); onPeersChange(); } }, 1000);
   (async function () {
     try { if (window.claude && window.claude.use) roomNS = await window.claude.use('room'); } catch (e) { roomNS = null; }
-    if (!roomNS && window.PeerRoom && window.Peer) roomNS = window.PeerRoom;
+    if (!roomNS && (window.RoomWS || (window.PeerRoom && window.Peer))) {
+      roomNS = {   /* primero el servidor propio; si no responde, PeerJS */
+        join: async function (name) {
+          if (window.RoomWS && window.ROOM_WS_URL) {
+            try { return await window.RoomWS.join(name); } catch (e) { /* respaldo */ }
+          }
+          if (window.PeerRoom && window.Peer) return window.PeerRoom.join(name);
+          var er = new Error('sin_servidor'); er.code = 'sin_servidor'; throw er;
+        }
+      };
+    }
     if (!roomNS) { $('mode-duel').disabled = true; $('mode-duel').querySelector('small').textContent = 'No disponible aquí'; }
   })();
 
