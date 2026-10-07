@@ -679,7 +679,7 @@ add('sis1', 'Dos rectas que coinciden forman un sistema', 'Compatible indetermin
 add('sis1', 'Dos rectas que se cortan en un punto forman un sistema', 'Compatible determinado', ['Incompatible', 'Compatible indeterminado', 'Con infinitas soluciones'], 'Una única solución.');
 add('sis1', 'Si al reducir llegas a 0 = 5, el sistema es', 'Incompatible', ['Compatible determinado', 'Compatible indeterminado', 'x = 5'], 'Es una contradicción: no hay solución.');
 add('sis1', 'Si al reducir llegas a 0 = 0, el sistema es', 'Compatible indeterminado', ['Incompatible', 'Compatible determinado', 'Solución x = 0'], 'Es una ecuación redundante: hay infinitas soluciones.');
-add('eqr', 'La ecuación √{x + 1} = 3 tiene solución', 'x = 8', ['x = 2', 'x = 4', 'x = 10'], 'Elevando al cuadrado: x + 1 = 9.');
+add('eqr', 'La solución de √{x + 1} = 3 es', 'x = 8', ['x = 2', 'x = 4', 'x = 10'], 'Elevando al cuadrado: x + 1 = 9.');
 add('eqr', 'Tras elevar al cuadrado una ecuación con raíces hay que', 'Comprobar las soluciones', ['Dividir entre 2', 'Quitar los signos', 'No hacer nada más'], 'Pueden aparecer soluciones falsas.');
 add('eql', 'En una ecuación con logaritmos, al terminar hay que comprobar que', 'Los argumentos son positivos', ['x es entero', 'x es positivo siempre', 'El resultado es 0'], 'Un logaritmo solo existe si su argumento es mayor que 0.');
 add('eqr', 'Al elevar al cuadrado √{x} = 3 − x se obtiene', 'x = (3 − x)^{2}', ['x = 9 − x^{2}', 'x = 3^{2} − x', 'x^{2} = 3 − x'], 'Se eleva al cuadrado todo el lado derecho, no cada término.');
@@ -891,44 +891,44 @@ add('seg3', 'x^{3} − 2x^{2} − 5x + 6 = 0 tiene soluciones', 'x = 1, x = 3 y 
 add('seg3', 'Para resolver x^{3} + 2x^{2} − x − 2 = 0 por Ruffini probamos', 'Los divisores de −2', ['Los divisores de 3', 'Los múltiplos de 2', 'Solo x = 0'], 'Las raíces enteras dividen al término independiente.');
 
 /* ---------- Ecuaciones con radicales ---------- */
-add('eqr', '√{x} = 4 tiene solución', 'x = 16', ['x = 2', 'x = 8', 'x = ±16'], 'Elevamos al cuadrado los dos lados.');
-add('eqr', '√{x + 3} = 5 tiene solución', 'x = 22', ['x = 2', 'x = 28', 'x = 8'], 'x + 3 = 25.');
-add('eqr', '√{2x − 1} = 3 tiene solución', 'x = 5', ['x = 4', 'x = 2', 'x = 10'], '2x − 1 = 9.');
+add('eqr', 'La solución de √{x} = 4 es', 'x = 16', ['x = 2', 'x = 8', 'x = ±16'], 'Elevamos al cuadrado los dos lados.');
+add('eqr', 'La solución de √{x + 3} = 5 es', 'x = 22', ['x = 2', 'x = 28', 'x = 8'], 'x + 3 = 25.');
+add('eqr', 'La solución de √{2x − 1} = 3 es', 'x = 5', ['x = 4', 'x = 2', 'x = 10'], '2x − 1 = 9.');
 add('eqr', '√{x} = −2 tiene', 'Ninguna solución', ['x = 4', 'x = −4', 'x = 2'], 'Una raíz cuadrada no puede ser negativa. Elevar al cuadrado daría x = 4, pero no cumple la ecuación.');
 add('eqr', 'Para resolver √{x + 1} + 2 = 5, el primer paso es', 'Aislar la raíz: √{x + 1} = 3', ['Elevar al cuadrado cada término', 'Restar 1 a los dos lados', 'Dividir entre 2'], 'Primero se deja la raíz sola y después se eleva al cuadrado.');
 add('eqr', 'Al elevar al cuadrado el lado x − 2 queda', 'x^{2} − 4x + 4', ['x^{2} + 4', 'x^{2} − 4', 'x^{2} − 2x + 4'], '(x − 2)^{2} es una identidad notable, no se eleva término a término.');
 add('eqr', '√{x + 6} = x tiene como solución válida', 'x = 3', ['x = −2', 'x = 3 y x = −2', 'x = 6'], 'x + 6 = x^{2} da x = 3 y x = −2, pero √{4} = 2 ≠ −2, así que x = −2 es falsa.');
 add('eqr', '√{2x + 3} = x tiene como solución válida', 'x = 3', ['x = −1', 'x = 3 y x = −1', 'x = 1'], '2x + 3 = x^{2} da x = 3 y x = −1, pero √{1} = 1 ≠ −1.');
 add('eqr', 'x − 2 = √{x} tiene como solución válida', 'x = 4', ['x = 1', 'x = 1 y x = 4', 'x = 2'], 'Da x = 1 y x = 4, pero con x = 1: −1 ≠ 1, así que solo vale x = 4.');
-add('eqr', '√[3]{x} = 2 tiene solución', 'x = 8', ['x = 6', 'x = 4', 'x = 2'], 'Se eleva al cubo: 2^{3} = 8.');
+add('eqr', 'La solución de √[3]{x} = 2 es', 'x = 8', ['x = 6', 'x = 4', 'x = 2'], 'Se eleva al cubo: 2^{3} = 8.');
 add('eqr', 'Las soluciones falsas aparecen en las ecuaciones con radicales porque', 'Al elevar al cuadrado se pierde el signo', ['Hay que dividir entre x', 'La raíz siempre es negativa', 'El discriminante es 0'], '(−2)^{2} y 2^{2} dan lo mismo, así que al elevar se mezclan soluciones.');
-add('eqr', '√{x − 1} = 0 tiene solución', 'x = 1', ['x = 0', 'x = −1', 'Ninguna solución'], 'x − 1 = 0.');
+add('eqr', 'La solución de √{x − 1} = 0 es', 'x = 1', ['x = 0', 'x = −1', 'x = 2'], 'x − 1 = 0.');
 
 /* ---------- Ecuaciones con fracciones ---------- */
 add('eqf', 'Antes de resolver una ecuación con fracciones algebraicas hay que', 'Excluir los valores que anulan un denominador', ['Elevar al cuadrado', 'Cancelar las x', 'Sumar los denominadores'], 'Esos valores no pueden ser solución.');
-add('eqf', '⟨x|2⟩ = ⟨3|4⟩ tiene solución', 'x = ⟨3|2⟩', ['x = ⟨3|8⟩', 'x = 2', 'x = ⟨2|3⟩'], 'Producto cruzado: 4x = 6.');
-add('eqf', '⟨2|x⟩ = 4 tiene solución', 'x = ⟨1|2⟩', ['x = 2', 'x = 8', 'x = ⟨1|8⟩'], '2 = 4x, así que x = 1/2.');
-add('eqf', '⟨1|x⟩ = ⟨1|3⟩ tiene solución', 'x = 3', ['x = ⟨1|3⟩', 'x = 1', 'x = −3'], 'Los inversos son iguales cuando los números lo son.');
-add('eqf', '⟨x + 1|2⟩ = 3 tiene solución', 'x = 5', ['x = 2', 'x = 7', 'x = 8'], 'x + 1 = 6.');
-add('eqf', '⟨x|x − 1⟩ = 2 tiene solución', 'x = 2', ['x = 1', 'x = −2', 'x = 0'], 'x = 2(x − 1) → x = 2.');
-add('eqf', '⟨3|x − 2⟩ = 1 tiene solución', 'x = 5', ['x = 1', 'x = 3', 'x = −1'], '3 = x − 2.');
-add('eqf', '⟨1|x⟩ + ⟨1|x⟩ = 4 tiene solución', 'x = ⟨1|2⟩', ['x = 2', 'x = ⟨1|4⟩', 'x = 8'], '2/x = 4, así que x = 1/2.');
+add('eqf', 'La solución de ⟨x|2⟩ = ⟨3|4⟩ es', 'x = ⟨3|2⟩', ['x = ⟨3|8⟩', 'x = 2', 'x = ⟨2|3⟩'], 'Producto cruzado: 4x = 6.');
+add('eqf', 'La solución de ⟨2|x⟩ = 4 es', 'x = ⟨1|2⟩', ['x = 2', 'x = 8', 'x = ⟨1|8⟩'], '2 = 4x, así que x = 1/2.');
+add('eqf', 'La solución de ⟨1|x⟩ = ⟨1|3⟩ es', 'x = 3', ['x = ⟨1|3⟩', 'x = 1', 'x = −3'], 'Los inversos son iguales cuando los números lo son.');
+add('eqf', 'La solución de ⟨x + 1|2⟩ = 3 es', 'x = 5', ['x = 2', 'x = 7', 'x = 8'], 'x + 1 = 6.');
+add('eqf', 'La solución de ⟨x|x − 1⟩ = 2 es', 'x = 2', ['x = 1', 'x = −2', 'x = 0'], 'x = 2(x − 1) → x = 2.');
+add('eqf', 'La solución de ⟨3|x − 2⟩ = 1 es', 'x = 5', ['x = 1', 'x = 3', 'x = −1'], '3 = x − 2.');
+add('eqf', 'La solución de ⟨1|x⟩ + ⟨1|x⟩ = 4 es', 'x = ⟨1|2⟩', ['x = 2', 'x = ⟨1|4⟩', 'x = 8'], '2/x = 4, así que x = 1/2.');
 add('eqf', '⟨x|x − 2⟩ = ⟨2|x − 2⟩ tiene', 'Ninguna solución válida', ['x = 2', 'x = 0', 'x = −2'], 'Sale x = 2, pero anula el denominador.');
-add('eqf', '⟨x^{2}|x⟩ = 5 (con x ≠ 0) tiene solución', 'x = 5', ['x = 0 y x = 5', 'x = ⟨5|2⟩', 'x = 25'], 'x^{2}/x = x.');
+add('eqf', 'La solución de ⟨x^{2}|x⟩ = 5 (con x ≠ 0) es', 'x = 5', ['x = 0 y x = 5', 'x = ⟨5|2⟩', 'x = 25'], 'x^{2}/x = x.');
 add('eqf', 'En ⟨x^{2} − 4|x − 2⟩ = 0 salen x = 2 y x = −2. La solución válida es', 'x = −2', ['x = 2', 'Las dos', 'Ninguna'], 'x = 2 anula el denominador.');
-add('eqf', '⟨2|x − 1⟩ = ⟨3|x + 1⟩ tiene solución', 'x = 5', ['x = −5', 'x = 1', 'x = 3'], '2(x + 1) = 3(x − 1) → x = 5.');
-add('eqf', '⟨1|x⟩ + ⟨1|2⟩ = 1 tiene solución', 'x = 2', ['x = ⟨1|2⟩', 'x = 1', 'x = 3'], '1/x = 1/2.');
+add('eqf', 'La solución de ⟨2|x − 1⟩ = ⟨3|x + 1⟩ es', 'x = 5', ['x = −5', 'x = 1', 'x = 3'], '2(x + 1) = 3(x − 1) → x = 5.');
+add('eqf', 'La solución de ⟨1|x⟩ + ⟨1|2⟩ = 1 es', 'x = 2', ['x = ⟨1|2⟩', 'x = 1', 'x = 3'], '1/x = 1/2.');
 
 /* ---------- Ecuaciones con logaritmos y exponenciales ---------- */
-add('eql', 'log_{2} x = 4 tiene solución', 'x = 16', ['x = 8', 'x = 6', 'x = ⟨1|16⟩'], '2^{4} = x.');
-add('eql', 'log(x + 1) = 1 tiene solución', 'x = 9', ['x = 0', 'x = 10', 'x = 11'], 'x + 1 = 10.');
-add('eql', 'log_{3}(x − 1) = 2 tiene solución', 'x = 10', ['x = 7', 'x = 9', 'x = 5'], 'x − 1 = 3^{2} = 9.');
-add('eql', 'ln x = 1 tiene solución', 'x = e', ['x = 1', 'x = 0', 'x = 10'], 'e^{1} = x.');
-add('eql', '2^{x} = 8 tiene solución', 'x = 3', ['x = 4', 'x = 6', 'x = 16'], '2^{3} = 8.');
-add('eql', '3^{x} = 81 tiene solución', 'x = 4', ['x = 27', 'x = 3', 'x = 9'], '3^{4} = 81.');
-add('eql', '2^{x + 1} = 16 tiene solución', 'x = 3', ['x = 4', 'x = 2', 'x = 7'], 'x + 1 = 4.');
-add('eql', '5^{x} = 1 tiene solución', 'x = 0', ['x = 1', 'x = 5', 'No tiene solución'], '5^{0} = 1.');
-add('eql', 'log x + log 5 = 2 tiene solución', 'x = 20', ['x = 95', 'x = 25', 'x = 10'], 'log(5x) = 2, 5x = 100.');
+add('eql', 'La solución de log_{2} x = 4 es', 'x = 16', ['x = 8', 'x = 6', 'x = ⟨1|16⟩'], '2^{4} = x.');
+add('eql', 'La solución de log(x + 1) = 1 es', 'x = 9', ['x = 0', 'x = 10', 'x = 11'], 'x + 1 = 10.');
+add('eql', 'La solución de log_{3}(x − 1) = 2 es', 'x = 10', ['x = 7', 'x = 9', 'x = 5'], 'x − 1 = 3^{2} = 9.');
+add('eql', 'La solución de ln x = 1 es', 'x = e', ['x = 1', 'x = 0', 'x = 10'], 'e^{1} = x.');
+add('eql', 'La solución de 2^{x} = 8 es', 'x = 3', ['x = 4', 'x = 6', 'x = 16'], '2^{3} = 8.');
+add('eql', 'La solución de 3^{x} = 81 es', 'x = 4', ['x = 27', 'x = 3', 'x = 9'], '3^{4} = 81.');
+add('eql', 'La solución de 2^{x + 1} = 16 es', 'x = 3', ['x = 4', 'x = 2', 'x = 7'], 'x + 1 = 4.');
+add('eql', 'La solución de 5^{x} = 1 es', 'x = 0', ['x = 1', 'x = 5', 'x = −1'], '5^{0} = 1.');
+add('eql', 'La solución de log x + log 5 = 2 es', 'x = 20', ['x = 95', 'x = 25', 'x = 10'], 'log(5x) = 2, 5x = 100.');
 add('eql', 'log_{2} x + log_{2}(x − 2) = 3 tiene como solución válida', 'x = 4', ['x = −2', 'x = 4 y x = −2', 'x = 8'], 'x(x − 2) = 8 da x = 4 y x = −2, pero con x = −2 los argumentos serían negativos.');
 add('eql', 'log(x + 2) + log x = log 3 tiene como solución válida', 'x = 1', ['x = −3', 'x = 1 y x = −3', 'x = 3'], 'x(x + 2) = 3 da x = 1 y x = −3, pero x = −3 hace negativos los argumentos.');
 add('eql', 'En log(x − 3) = 1, la solución x = 13 es válida porque', 'x − 3 = 10 es positivo', ['x es entero', 'x = 10', 'x es positivo siempre'], 'Se comprueba que el argumento queda mayor que 0.');
@@ -2351,7 +2351,7 @@ genr('seg3', function () {
 genr('eqr', function () {
   if (Math.random() < 0.5) {
     var a = nz(-5, 8), b = ri(2, 6);
-    return mk('eqr', '√{x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + '} = ' + b + ' tiene solución', sol(b * b - a),
+    return mk('eqr', 'La solución de √{x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + '} = ' + b + ' es', sol(b * b - a),
       [sol(b - a), sol(b * b + a), sol(2 * b - a)], 'Se eleva al cuadrado: x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + ' = ' + b * b + '.');
   }
   var d = ri(1, 3), r = ri(d + 3, d + 6), e = 2 * d + 2 - r, c = d * d - r * e;
@@ -2372,7 +2372,7 @@ genr('eqf', function () {
     if (s === -p || s === -q) continue;
     break;
   }
-  return mk('eqf', '⟨' + a + '|' + xp(p) + '⟩ = ⟨' + b + '|' + xp(q) + '⟩ tiene solución', sol(s), [sol(-s), sol(s + 1), sol(s - 1), sol(s + 2)],
+  return mk('eqf', 'La solución de ⟨' + a + '|' + xp(p) + '⟩ = ⟨' + b + '|' + xp(q) + '⟩ es', sol(s), [sol(-s), sol(s + 1), sol(s - 1), sol(s + 2)],
     'Producto cruzado: ' + a + '(x ' + (q < 0 ? '− ' : '+ ') + Math.abs(q) + ') = ' + b + '(x ' + (p < 0 ? '− ' : '+ ') + Math.abs(p) + ').');
 });
 
@@ -2381,7 +2381,7 @@ genr('eql', function () {
   var v = ri(0, 2);
   if (v === 0) {
     var n = ri(2, 5), a = nz(-4, 6);
-    return mk('eql', 'log_{2}(' + xp(a) + ') = ' + n + ' tiene solución', sol(Math.pow(2, n) - a), [sol(2 * n - a), sol(Math.pow(2, n) + a), sol(n * n - a)],
+    return mk('eql', 'La solución de log_{2}(' + xp(a) + ') = ' + n + ' es', sol(Math.pow(2, n) - a), [sol(2 * n - a), sol(Math.pow(2, n) + a), sol(n * n - a)],
       xp(a) + ' = 2^{' + n + '} = ' + Math.pow(2, n) + '.');
   }
   if (v === 1) {
@@ -7317,6 +7317,1053 @@ genr('fra2', function () {
     e = 'x^{2} − ' + 2 * a + 'x + ' + a * a + ' = (x − ' + a + ')^{2}. Se cancelan un (x − ' + a + ') y una x, y queda ⟨x − ' + a + '|x⟩.';
   }
   return g10_pp(g10_q('fra2', 'Calcula y simplifica: ' + O.s, O, A, W, e));
+});
+/* gens11.js — Generadores: ecuaciones con radicales (eqr), con fracciones (eqf), sistemas lineales (sis1), no lineales (sis2) y con radicales/logaritmos (sis3). Incluye problemas de varios pasos (r.p = 1). */
+var G11_START = GENS.length;
+
+/* expresión lineal/polinómica: coeficientes y nombres ('' = término independiente) */
+function g11_E(c, v) {
+  var out = '', i, k, ab, body;
+  for (i = 0; i < c.length; i++) {
+    k = c[i];
+    if (k === 0) continue;
+    ab = Math.abs(k);
+    body = v[i] === '' ? String(ab) : (ab === 1 ? '' : String(ab)) + v[i];
+    if (out === '') out = (k < 0 ? '−' : '') + body;
+    else out += ' ' + (k < 0 ? '−' : '+') + ' ' + body;
+  }
+  return out === '' ? '0' : out;
+}
+function g11_xa(a) { return a === 0 ? 'x' : a > 0 ? 'x + ' + a : 'x − ' + (-a); }   /* x + a */
+function g11_sol(v) { return 'x = ' + mn(v); }
+function g11_fr(n, d) {
+  var g = gcd(n, d), s = (n < 0) !== (d < 0) ? '−' : '';
+  n = Math.abs(n) / g; d = Math.abs(d) / g;
+  return d === 1 ? s + n : s + '⟨' + n + '|' + d + '⟩';
+}
+function g11_solq(n, d) { return 'x = ' + g11_fr(n, d); }
+function g11_uniq(arr) {
+  var u = [];
+  arr.slice().sort(function (p, q) { return p - q; }).forEach(function (v) { if (u.indexOf(v) < 0) u.push(v); });
+  return u;
+}
+function g11_sols(arr) {
+  var u = g11_uniq(arr);
+  if (!u.length) return 'Ninguna solución';
+  return u.map(function (v) { return 'x = ' + mn(v); }).join(' y ');
+}
+function g11_ptn(p) { return '(' + p.map(mn).join(', ') + ')'; }
+function g11_cmp(p, q) { for (var i = 0; i < p.length; i++) if (p[i] !== q[i]) return p[i] - q[i]; return 0; }
+function g11_pts(list) {
+  var s = list.slice().sort(g11_cmp), out = [];
+  s.forEach(function (p) { if (!out.length || g11_cmp(out[out.length - 1], p) !== 0) out.push(p); });
+  return out.map(g11_ptn).join(' y ');
+}
+function g11_np(n, sing, plur) { return n + ' ' + (n === 1 ? sing : plur); }
+function g11_ok(v) { return typeof v === 'number' && isFinite(v) && Math.abs(v) < 1e-9; }
+function g11_isSol(f) {
+  var v = f.apply(null, Array.prototype.slice.call(arguments, 1)), i;
+  if (!(v instanceof Array)) v = [v];
+  for (i = 0; i < v.length; i++) if (!g11_ok(v[i])) return false;
+  return true;
+}
+
+/* una variable. sols: soluciones enteras; wr: incorrectas (número → "x = n", array → conjunto, string tal cual) */
+function g11_f1q(t, q, sols, wr, ex, f, p, o) {
+  o = o || {};
+  var a = o.ans !== undefined ? o.ans : g11_sols(sols), w = [];
+  wr.forEach(function (v) {
+    var s;
+    if (typeof v === 'number') { if (sols.indexOf(v) >= 0 || g11_ok(f(v))) return; s = g11_sol(v); }
+    else if (typeof v === 'string') s = v;
+    else s = g11_sols(v);
+    w.push(s);
+  });
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = { k: 'f1', f: f, sols: sols, lo: o.lo === undefined ? -60 : o.lo, hi: o.hi === undefined ? 60 : o.hi, def: o.ans === undefined ? 1 : 0, show: o.show };
+  return r;
+}
+/* sistemas: sols = lista de soluciones (pares o ternas); wr: [x,y] (par que no sea solución), [[..],[..]] (conjunto) o string */
+function g11_fix(r) {   /* guion ASCII usado como signo menos → − */
+  var f = function (x) { return String(x).replace(/(^|[\s(=;,⟨|{^])-(?=[\dx(])/g, '$1−').replace(/ \+ −/g, ' − ').replace(/ − −/g, ' + '); };
+  r.q = f(r.q); r.a = f(r.a); r.e = f(r.e); r.w = r.w.map(f);
+  return r;
+}
+function g11_sysq(t, q, sols, wr, ex, f, p, o) {
+  o = o || {};
+  var n = sols[0].length, a = o.ans !== undefined ? o.ans : g11_pts(sols), w = [];
+  wr.forEach(function (v) {
+    var s;
+    if (typeof v === 'string') s = v;
+    else if (v[0] instanceof Array) s = g11_pts(v);
+    else { if (g11_isSol.apply(null, [f].concat(v))) return; s = g11_ptn(v); }
+    w.push(s);
+  });
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = { k: 'sys', n: n, f: f, sols: sols, r: o.r, def: o.ans === undefined ? 1 : 0, show: o.show };
+  return r;
+}
+/* valor de una combinación de las incógnitas de un sistema */
+function g11_vq(t, q, val, wr, ex, f, g, p, o) {
+  o = o || {};
+  var a = o.ans !== undefined ? o.ans : mn(val), w = [];
+  wr.forEach(function (v) { if (typeof v === 'number') { if (Math.abs(v - val) < 1e-9) return; v = mn(v); } w.push(v); });
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = { k: 'sysval', n: o.n || 2, f: f, g: g, v: val, r: o.r };
+  return r;
+}
+function g11_nq(t, q, a, w, ex, p, c) {      /* sin comprobación por malla */
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = c || { k: 'none' };
+  return r;
+}
+
+/* ================= ECUACIONES CON RADICALES ================= */
+/* k√{x + a} = x − d  →  raíces r > e de x^2 − (2d + k^2)x + d^2 − k^2·a = 0; two = ambas válidas */
+function g11_rk(k, two) {
+  var i, r, e, t, d, m, a;
+  for (i = 0; i < 4000; i++) {
+    r = ri(-5, 11); e = ri(-6, 10);
+    if (r <= e) continue;
+    t = r + e - k * k;
+    if (t % 2 !== 0) continue;
+    d = t / 2; m = d * d - r * e;
+    if (m % (k * k) !== 0) continue;
+    a = m / (k * k);
+    if (Math.abs(a) > 12 || Math.abs(d) > 8) continue;
+    if ((e - d >= 0) !== !!two) continue;
+    return { k: k, a: a, d: d, r: r, e: e, valid: two ? [r, e] : [r] };
+  }
+  return g11_rk(1, true);
+}
+function g11_rkt(o) { return (o.k > 1 ? o.k : '') + '√{' + g11_xa(o.a) + '} = ' + (o.d === 0 ? 'x' : g11_xa(-o.d)); }
+function g11_rkf(o) { return function (x) { return o.k * Math.sqrt(x + o.a) - (x - o.d); }; }
+function g11_rke(o) {
+  var lhs = o.k === 1 ? g11_xa(o.a) : (o.k * o.k) + '(' + g11_xa(o.a) + ')';
+  var rhs = o.d === 0 ? 'x^{2}' : '(' + g11_xa(-o.d) + ')^{2}';
+  var s = 'Al elevar al cuadrado: ' + lhs + ' = ' + rhs + ', es decir ' + g11_E([1, -(o.r + o.e), o.r * o.e], ['x^{2}', 'x', '']) + ' = 0, con soluciones x = ' + mn(o.r) + ' y x = ' + mn(o.e) + '. ';
+  if (o.valid.length === 1) s += 'Al comprobar, con x = ' + mn(o.e) + ' el lado derecho vale ' + mn(o.e - o.d) + ' (negativo) y una raíz no puede serlo: solución falsa.';
+  else s += 'Al comprobar, las dos cumplen la ecuación original.';
+  return s;
+}
+
+/* 1. k√{x + a} + c = n */
+genr('eqr', function () {
+  var u = ri(1, 6), k = ri(2, 4), c = nz(-6, 6), a = ri(-6, 8), n = k * u + c, x0 = u * u - a;
+  var lhs = k + '√{' + g11_xa(a) + '}' + (c > 0 ? ' + ' + c : ' − ' + (-c));
+  return g11_f1q('eqr', 'Resuelve: ' + lhs + ' = ' + mn(n), [x0],
+    [u - a, (n - c) * (n - c) - a, u * u + a, n * n - a, x0 + 1],
+    'Aísla la raíz: ' + k + '√{' + g11_xa(a) + '} = ' + (n - c) + ', luego √{' + g11_xa(a) + '} = ' + u + '. Al elevar al cuadrado, ' + g11_xa(a) + ' = ' + u * u + ' y x = ' + mn(x0) + '.',
+    function (x) { return k * Math.sqrt(x + a) + c - n; }, 0);
+});
+
+/* 2. raíz cúbica */
+genr('eqr', function () {
+  var b = nz(-3, 4), a = ri(-6, 8), k = Math.random() < 0.5 ? 1 : ri(2, 3), x0 = b * b * b - a;
+  var lhs = (k > 1 ? k : '') + '√[3]{' + g11_xa(a) + '}';
+  return g11_f1q('eqr', 'Resuelve: ' + lhs + ' = ' + mn(k * b), [x0],
+    [b * b - a, 3 * b - a, b * b * b + a, x0 + 1, k * b - a],
+    (k > 1 ? 'Divide entre ' + k + ': √[3]{' + g11_xa(a) + '} = ' + mn(b) + '. ' : '') + 'Se eleva al cubo (el signo se conserva): ' + g11_xa(a) + ' = ' + mn(b * b * b) + ', así que x = ' + mn(x0) + '.',
+    function (x) { return k * Math.cbrt(x + a) - k * b; }, 0, { lo: -150, hi: 150 });
+});
+
+/* 3. (problema) una solución válida y una falsa */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 3), false);
+  return g11_f1q('eqr', 'Resuelve ' + g11_rkt(o) + ' y da la solución válida.', o.valid,
+    [o.e, [o.r, o.e], -o.r, o.r + 1, o.d, -o.e], g11_rke(o), g11_rkf(o), 1);
+});
+
+/* 4. (problema) ¿cuántas soluciones? */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 3), Math.random() < 0.4), c = o.valid.length;
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Tres soluciones'];
+  return g11_f1q('eqr', '¿Cuántas soluciones tiene la ecuación ' + g11_rkt(o) + '?', o.valid,
+    lab, g11_rke(o), g11_rkf(o), 1, { ans: lab[c], show: function (F) { return lab[F.length]; } });
+});
+
+/* 5. (problema) suma de las soluciones */
+genr('eqr', function () {
+  if (Math.random() < 0.45) {
+    var m = ri(1, 6), x0 = ri(m + 1, m + 6), n = x0 * x0 - m * m;
+    return g11_f1q('eqr', '¿Cuál es la suma de las soluciones de √{x^{2} − ' + n + '} = ' + m + '?', [-x0, x0],
+      [String(x0), String(2 * x0), String(m), String(-x0), String(x0 * x0)],
+      'Al elevar al cuadrado: x^{2} − ' + n + ' = ' + m * m + ', luego x^{2} = ' + x0 * x0 + ' y x = ±' + x0 + '. Las dos valen y suman 0.',
+      function (x) { return Math.sqrt(x * x - n) - m; }, 1, { ans: '0', show: function (F) { return mn(F.reduce(function (s, v) { return s + v; }, 0)); } });
+  }
+  var o = g11_rk(ri(1, 3), Math.random() < 0.5), S = o.valid.reduce(function (s, v) { return s + v; }, 0);
+  var wr = o.valid.length === 2 ? [o.r, o.e, o.r - o.e, o.r * o.e] : [o.r + o.e, o.e, o.r - o.e, -o.r];
+  return g11_f1q('eqr', '¿Cuál es la suma de las soluciones válidas de ' + g11_rkt(o) + '?', o.valid,
+    wr.map(function (v) { return mn(v); }), g11_rke(o) + ' Suma de las válidas: ' + mn(S) + '.', g11_rkf(o), 1,
+    { ans: mn(S), show: function (F) { return mn(F.reduce(function (s, v) { return s + v; }, 0)); } });
+});
+
+/* 6. (problema) dos radicales */
+genr('eqr', function () {
+  var u = ri(1, 5), v, x0 = ri(0, 6), minus;
+  do { v = ri(1, 5); } while (v === u);
+  minus = Math.random() < 0.35;
+  if (minus && u < v) { var tt = u; u = v; v = tt; }
+  var a = u * u - x0, b = v * v - x0, c = minus ? u - v : u + v;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} ' + (minus ? '−' : '+') + ' √{' + g11_xa(b) + '} = ' + c, [x0],
+    [x0 + 1, x0 - 1, c * c - a - b, u * u, v * v, -x0, c],
+    'Se aísla una raíz y se eleva al cuadrado, luego se repite con la otra raíz que queda. Resulta x = ' + x0 + '. Comprobación: √{' + u * u + '} ' + (minus ? '−' : '+') + ' √{' + v * v + '} = ' + u + (minus ? ' − ' : ' + ') + v + ' = ' + c + '.',
+    function (x) { return Math.sqrt(x + a) + (minus ? -1 : 1) * Math.sqrt(x + b) - c; }, 1);
+});
+
+/* 7. (problema) resolver k√{x + a} = x − d (una o dos válidas) */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 3), Math.random() < 0.45);
+  return g11_f1q('eqr', 'Resuelve: ' + g11_rkt(o), o.valid,
+    [[o.r, o.e], o.r, o.e, [-o.r, -o.e], [o.r + 1, o.e + 1], -o.r], g11_rke(o), g11_rkf(o), 1);
+});
+
+/* 8. ¿cuál de estos valores es solución? */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 2), false);
+  return g11_f1q('eqr', '¿Cuál de estos valores de x es solución de ' + g11_rkt(o) + '?', o.valid,
+    [o.e, o.d, -o.r, o.r + 1, o.r - 1], 'Sustituye: con x = ' + mn(o.r) + ' ambos lados valen ' + mn(o.r - o.d) + '. El otro valor que sale al elevar al cuadrado, x = ' + mn(o.e) + ', da un lado derecho negativo.',
+    g11_rkf(o), 0, { ans: g11_sol(o.r), show: function (F) { return g11_sol(F[0]); } });
+});
+
+/* 9. dominio de la raíz */
+genr('eqr', function () {
+  var a = nz(-8, 8);
+  if (Math.random() < 0.5) {
+    return g11_nq('eqr', '¿Para qué valores de x existe √{' + g11_xa(a) + '}?', 'x ≥ ' + mn(-a),
+      ['x ≤ ' + mn(-a), 'x > ' + mn(-a), 'x ≥ ' + mn(a), 'x ≤ ' + mn(a)],
+      'El radicando no puede ser negativo: ' + g11_xa(a) + ' ≥ 0, es decir x ≥ ' + mn(-a) + '.', 0,
+      { k: 'dom', f: function (x) { return Math.sqrt(x + a); }, ok: function (x) { return x >= -a; } });
+  }
+  return g11_nq('eqr', '¿Para qué valores de x existe √{' + mn(a) + ' − x}?', 'x ≤ ' + mn(a),
+    ['x ≥ ' + mn(a), 'x < ' + mn(a), 'x ≤ ' + mn(-a), 'x ≥ ' + mn(-a)],
+    'Hace falta ' + mn(a) + ' − x ≥ 0, es decir x ≤ ' + mn(a) + '.', 0,
+    { k: 'dom', f: function (x) { return Math.sqrt(a - x); }, ok: function (x) { return x <= a; } });
+});
+
+/* 10. dos raíces iguales */
+genr('eqr', function () {
+  var b = ri(2, 4), a, x0 = nz(-4, 6), c;
+  do { a = ri(-5, 8); } while (x0 + a <= 0);
+  c = x0 + a - b * x0;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} = √{' + g11_E([b, c], ['x', '']) + '}', [x0],
+    [-x0, x0 + 1, x0 - 1, c - a, a - c],
+    'Dos raíces iguales con el mismo índice: se igualan los radicandos, ' + g11_xa(a) + ' = ' + g11_E([b, c], ['x', '']) + ', y sale x = ' + mn(x0) + '. Ambos radicandos valen ' + (x0 + a) + ' > 0.',
+    function (x) { return Math.sqrt(x + a) - Math.sqrt(b * x + c); }, 0);
+});
+
+/* 11. qué se obtiene al elevar al cuadrado */
+genr('eqr', function () {
+  var k = ri(1, 3), d = ri(1, 6), a = nz(-6, 8), K = k * k;
+  var lhsK = K === 1 ? g11_xa(a) : K + '(' + g11_xa(a) + ')';
+  var orig = (k > 1 ? k : '') + '√{' + g11_xa(a) + '} = ' + g11_xa(-d);
+  var right = g11_E([1, -2 * d, d * d], ['x^{2}', 'x', '']);
+  var wrs = ['x^{2} + ' + d * d, 'x^{2} − ' + d * d, g11_E([1, -d, d * d], ['x^{2}', 'x', '']), g11_E([1, 2 * d, d * d], ['x^{2}', 'x', ''])].map(function (s) { return lhsK + ' = ' + s; });
+  if (k > 1) wrs.push(k + '(' + g11_xa(a) + ') = ' + right);
+  return g11_nq('eqr', 'Al elevar al cuadrado los dos lados de ' + orig + ' se obtiene', lhsK + ' = ' + right, wrs,
+    'Se eleva al cuadrado cada lado completo: ' + (k > 1 ? '(' + k + '√{...})^{2} = ' + K + '(' + g11_xa(a) + '), y ' : '') + '(' + g11_xa(-d) + ')^{2} = ' + right + ' (cuadrado de una diferencia).', 0);
+});
+
+/* 12. √{ax + b} = c */
+genr('eqr', function () {
+  var a = ri(2, 5), c = ri(1, 6), x0 = nz(-5, 8), b = c * c - a * x0;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_E([a, b], ['x', '']) + '} = ' + c, [x0],
+    [g11_solq(c - b, a), g11_solq(c * c + b, a), -x0, g11_solq(c * c - b, 1), x0 + 1],
+    'Se eleva al cuadrado: ' + g11_E([a, b], ['x', '']) + ' = ' + c * c + ', luego ' + a + 'x = ' + (c * c - b) + ' y x = ' + mn(x0) + '.',
+    function (x) { return Math.sqrt(a * x + b) - c; }, 0);
+});
+
+/* 13. raíz igual a un número negativo / aislada */
+genr('eqr', function () {
+  var a = ri(-6, 8), m = ri(1, 6), v = ri(0, 2), f, ex, ans, sols, wr;
+  if (v === 0) {
+    f = function (x) { return Math.sqrt(x + a) + m; };
+    return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} = −' + m, [],
+      [m * m - a, -m * m - a, m - a, -m - a], 'Una raíz cuadrada nunca es negativa, así que no hay solución. (Al elevar al cuadrado saldría x = ' + mn(m * m - a) + ', que no cumple la ecuación original.)', f, 0);
+  }
+  if (v === 1) {
+    var n = ri(0, m - 1);
+    return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} + ' + m + ' = ' + n, [],
+      [(n - m) * (n - m) - a, (m - n) * (m - n) - a, n * n - a, m * m - a],
+      'Al aislar la raíz: √{' + g11_xa(a) + '} = ' + mn(n - m) + ', negativo. No existe ningún x que lo cumpla.',
+      function (x) { return Math.sqrt(x + a) + m - n; }, 0);
+  }
+  var n2 = m + ri(1, 5), x0 = (n2 - m) * (n2 - m) - a;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} + ' + m + ' = ' + n2, [x0],
+    ['Ninguna solución', n2 * n2 - a, (n2 + m) * (n2 + m) - a, n2 - m - a],
+    'Aislamos: √{' + g11_xa(a) + '} = ' + (n2 - m) + ', positivo. Al elevar al cuadrado: ' + g11_xa(a) + ' = ' + (n2 - m) * (n2 - m) + ' y x = ' + mn(x0) + '.',
+    function (x) { return Math.sqrt(x + a) + m - n2; }, 0);
+});
+
+/* 14. (problema) el cuadrado: área x + a y lado x − d */
+genr('eqr', function () {
+  var o = g11_rk(1, false), side = o.r - o.d;
+  if (Math.random() < 0.5) {
+    return g11_f1q('eqr', 'El área de un cuadrado es (' + g11_xa(o.a) + ') cm² y su lado mide ' + (o.d === 0 ? 'x' : '(' + g11_xa(-o.d) + ')') + ' cm, con x un número real. ¿Cuánto mide el lado?', o.valid,
+      [(o.e - o.d) + ' cm', o.r + ' cm', (o.r + o.d) + ' cm', (side + 1) + ' cm', (side * side) + ' cm'].map(function (s) { return s.replace('-', '−'); }),
+      'El área es el lado al cuadrado: ' + g11_xa(o.a) + ' = (' + (o.d === 0 ? 'x' : g11_xa(-o.d)) + ')^{2}, o sea ' + g11_E([1, -(o.r + o.e), o.r * o.e], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(o.r) + ' y x = ' + mn(o.e) + '. Con x = ' + mn(o.e) + ' el lado sería negativo; con x = ' + mn(o.r) + ' mide ' + side + ' cm.',
+      g11_rkf(o), 1, { ans: side + ' cm', show: function (F) { return (F[0] - o.d) + ' cm'; } });
+  }
+  return g11_f1q('eqr', 'Un número x cumple que la raíz cuadrada de ' + g11_xa(o.a) + ' es igual a ' + (o.d === 0 ? 'x' : g11_xa(-o.d)) + '. ¿De qué número se trata?', o.valid,
+    [o.e, o.d, -o.r, o.r + 1, o.r - 1].map(function (v) { return v; }).filter(function (v) { return true; }).map(function (v) { return g11_sol(v); }).map(function (s) { return s.replace('x = ', ''); }),
+    g11_rke(o), g11_rkf(o), 1, { ans: String(mn(o.r)), show: function (F) { return mn(F[0]); } });
+});
+
+/* ================= ECUACIONES CON FRACCIONES ================= */
+function g11_ft(n, den, first) { return (n < 0 ? (first ? '−' : ' − ') : (first ? '' : ' + ')) + '⟨' + Math.abs(n) + '|' + den + '⟩'; }
+function g11_lcm(a, b) { return a * b / gcd(a, b); }
+function g11_sum(F) { return F.reduce(function (s, v) { return s + v; }, 0); }
+/* ⟨A|x⟩ + ⟨B|x + m⟩ = 1 con raíces r > e */
+function g11_ab() {
+  var i, r, e, m, A, B;
+  for (i = 0; i < 6000; i++) {
+    r = nz(-7, 7); e = nz(-7, 7); m = nz(-4, 4);
+    if (r <= e || r === -m || e === -m) continue;
+    if ((r * e) % m !== 0) continue;
+    A = -(r * e) / m; B = r + e + m - A;
+    if (A === 0 || B === 0 || Math.abs(A) > 12 || Math.abs(B) > 12) continue;
+    return { A: A, B: B, m: m, r: r, e: e };
+  }
+  return { A: 6, B: -2, m: 1, r: 2, e: -3 };
+}
+function g11_abt(o) { return g11_ft(o.A, 'x', true) + g11_ft(o.B, g11_xa(o.m), false) + ' = 1'; }
+function g11_abe(o) {
+  var s = 'Se multiplica por x(' + g11_xa(o.m) + '): ' + g11_E([o.A], ['']) + '(' + g11_xa(o.m) + ') + ' + '(' + o.B + ')x = x(' + g11_xa(o.m) + '), que da ' + g11_E([1, -(o.r + o.e), o.r * o.e], ['x^{2}', 'x', '']) + ' = 0 y x = ' + mn(o.r) + ', x = ' + mn(o.e) + '. Ninguna anula un denominador.';
+  return s;
+}
+function g11_abf(o) { return function (x) { return o.A / x + o.B / (x + o.m) - 1; }; }
+/* ⟨A|x⟩ = x + c con raíces r > e */
+function g11_rc() {
+  var r, e;
+  do { r = nz(-7, 7); e = nz(-7, 7); } while (r <= e);
+  return { r: r, e: e, c: -(r + e), A: -r * e };
+}
+var G11_TUB = null, G11_CIC = null;
+function g11_tub() {
+  if (!G11_TUB) { G11_TUB = []; var x0, a, num, den; for (x0 = 2; x0 <= 14; x0++) for (a = 1; a <= 8; a++) { num = x0 * (x0 + a); den = 2 * x0 + a; if (num % den === 0) G11_TUB.push([x0, a, num / den]); } }
+  return pick(G11_TUB);
+}
+function g11_cic() {
+  if (!G11_CIC) { G11_CIC = []; var v, a, t, d; for (v = 4; v <= 30; v++) for (a = 1; a <= 10; a++) for (t = 1; t <= 2; t++) { d = t * v * (v + a) / a; if (d === Math.floor(d) && d >= 20 && d <= 240) G11_CIC.push([v, a, t, d]); } }
+  return pick(G11_CIC);
+}
+
+/* 1. ⟨a|x⟩ + ⟨b|x⟩ = número */
+genr('eqf', function () {
+  var x0 = nz(-8, 8), a = ri(1, 6), b = ri(1, 6), rhs = g11_fr(a + b, x0);
+  return g11_f1q('eqf', 'Resuelve: ⟨' + a + '|x⟩ + ⟨' + b + '|x⟩ = ' + rhs, [x0],
+    [-x0, x0 + 1, a + b, g11_solq(1, x0), 2 * x0, x0 - 1],
+    'Las dos fracciones tienen el mismo denominador: ⟨' + (a + b) + '|x⟩ = ' + rhs + '. Por tanto x = ' + mn(x0) + '.',
+    function (x) { return a / x + b / x - (a + b) / x0; }, 0);
+});
+
+/* 2. ⟨x + a|x − b⟩ = k */
+genr('eqf', function () {
+  var k = ri(2, 4), b, x0, a;
+  do { b = nz(-5, 5); x0 = nz(-6, 8); } while (x0 === b);
+  a = k * (x0 - b) - x0;
+  return g11_f1q('eqf', 'Resuelve: ⟨' + g11_xa(a) + '|' + g11_xa(-b) + '⟩ = ' + k, [x0],
+    [-x0, b, g11_solq(a - k * b, k - 1), x0 + 1, x0 - 1],
+    'Con x ≠ ' + b + ', se multiplica por ' + g11_xa(-b) + ': ' + g11_xa(a) + ' = ' + k + '(' + g11_xa(-b) + '). Despejando, x = ' + mn(x0) + ', que no anula el denominador.',
+    function (x) { return (x + a) / (x - b) - k; }, 0);
+});
+
+/* 3. (problema) solución falsa que anula el denominador */
+genr('eqf', function () {
+  var s = nz(-5, 6), t = Math.random() < 0.15 ? s : ri(-5, 6), a = ri(-4, 4), b = a + s + t, c = -s * t;
+  var eq = '⟨' + g11_E([1, a], ['x^{2}', 'x']) + '|' + g11_xa(-s) + '⟩ = ' + '⟨' + g11_E([b, c], ['x', '']) + '|' + g11_xa(-s) + '⟩';
+  var sols = t === s ? [] : [t];
+  var f = function (x) { return (x * x + a * x) / (x - s) - (b * x + c) / (x - s); };
+  var ex = 'Con x ≠ ' + s + ' se igualan los numeradores: ' + g11_E([1, a], ['x^{2}', 'x']) + ' = ' + g11_E([b, c], ['x', '']) + ', es decir ' + g11_E([1, -(s + t), s * t], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(s) + ' y x = ' + mn(t) + '. ';
+  ex += t === s ? 'Pero x = ' + mn(s) + ' anula el denominador, así que no hay solución.' : 'x = ' + mn(s) + ' anula el denominador y es solución falsa; solo vale x = ' + mn(t) + '.';
+  if (Math.random() < 0.5) {
+    return g11_f1q('eqf', 'Resuelve: ' + eq, sols, [s, [s, t], -t, t + 1, a, -s], ex, f, 1);
+  }
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Infinitas soluciones'];
+  return g11_f1q('eqf', '¿Cuántas soluciones tiene la ecuación ' + eq + '?', sols, lab, ex, f, 1, { ans: lab[sols.length], show: function (F) { return lab[F.length]; } });
+});
+
+/* 4. (problema) ⟨A|x⟩ + ⟨B|x + m⟩ = 1: soluciones, suma o producto */
+genr('eqf', function () {
+  var o = g11_ab(), v = ri(0, 2), f = g11_abf(o);
+  if (v === 0) return g11_f1q('eqf', 'Resuelve: ' + g11_abt(o), [o.r, o.e], [[-o.r, -o.e], o.r, o.e, [o.r + 1, o.e + 1], [-o.r, o.e]], g11_abe(o), f, 1);
+  if (v === 1) return g11_f1q('eqf', '¿Cuál es la suma de las soluciones de ' + g11_abt(o) + '?', [o.r, o.e],
+    [o.r * o.e, o.r - o.e, -(o.r + o.e), o.r, o.A + o.B].map(function (z) { return mn(z); }), g11_abe(o) + ' Suma: ' + mn(o.r + o.e) + '.', f, 1,
+    { ans: mn(o.r + o.e), show: function (F) { return mn(g11_sum(F)); } });
+  return g11_f1q('eqf', '¿Cuál es el producto de las soluciones de ' + g11_abt(o) + '?', [o.r, o.e],
+    [o.r + o.e, o.r - o.e, -(o.r * o.e), o.A * o.m, o.A * o.B].map(function (z) { return mn(z); }), g11_abe(o) + ' Producto: ' + mn(o.r * o.e) + '.', f, 1,
+    { ans: mn(o.r * o.e), show: function (F) { return mn(F[0] * F[1]); } });
+});
+
+/* 5. (problema) ⟨A|x⟩ = x + c */
+genr('eqf', function () {
+  var o = g11_rc(), v = ri(0, 3), eq = '⟨' + o.A + '|x⟩ = ' + (o.c === 0 ? 'x' : g11_xa(o.c));
+  var f = function (x) { return o.A / x - (x + o.c); };
+  var ex = 'Multiplicando por x: ' + mn(o.A) + ' = x(' + (o.c === 0 ? 'x' : g11_xa(o.c)) + '), es decir ' + g11_E([1, o.c, -o.A], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(o.r) + ' y x = ' + mn(o.e) + '. Ninguna es 0.';
+  if (v === 0) return g11_f1q('eqf', 'Resuelve: ' + eq, [o.r, o.e], [[-o.r, -o.e], o.r, o.e, [o.r + 1, o.e + 1], [o.r, -o.e]], ex, f, 1);
+  if (v === 1) return g11_f1q('eqf', '¿Cuál es la suma de las soluciones de ' + eq + '?', [o.r, o.e],
+    [o.c, o.A, o.r - o.e, o.r * o.e].map(function (z) { return mn(z); }), ex + ' Suma: ' + mn(o.r + o.e) + '.', f, 1,
+    { ans: mn(o.r + o.e), show: function (F) { return mn(g11_sum(F)); } });
+  if (v === 2) return g11_f1q('eqf', '¿Cuál es el producto de las soluciones de ' + eq + '?', [o.r, o.e],
+    [o.A, o.r + o.e, o.c, o.r - o.e].map(function (z) { return mn(z); }), ex + ' Producto: ' + mn(o.r * o.e) + '.', f, 1,
+    { ans: mn(o.r * o.e), show: function (F) { return mn(F[0] * F[1]); } });
+  return g11_f1q('eqf', '¿Cuál es la mayor solución de ' + eq + '?', [o.r, o.e],
+    [o.e, -o.r, o.r + 1, o.A].map(function (z) { return mn(z); }), ex + ' La mayor es ' + mn(o.r) + '.', f, 1,
+    { ans: mn(o.r), show: function (F) { return mn(F[F.length - 1]); } });
+});
+
+/* 6. (problema) dos grifos */
+genr('eqf', function () {
+  var q = g11_tub(), x0 = q[0], a = q[1], T = q[2];
+  return g11_f1q('eqf', 'Un grifo tarda x horas en llenar un depósito y otro, más lento, tarda ' + g11_xa(a) + ' horas. Abiertos a la vez lo llenan en ' + g11_np(T, 'hora', 'horas') + '. ¿Cuánto tarda el grifo rápido él solo?', [x0],
+    [(x0 + a) + ' horas', T + ' horas', (2 * T) + ' horas', (x0 + 1) + ' horas', a + ' horas', (x0 - 1) + ' horas'],
+    'En una hora llenan ⟨1|x⟩ + ⟨1|' + g11_xa(a) + '⟩ = ⟨1|' + T + '⟩ del depósito. Multiplicando por ' + T + 'x(' + g11_xa(a) + ') sale ' + g11_E([1, a - 2 * T, -a * T], ['x^{2}', 'x', '']) + ' = 0, cuya única raíz positiva es x = ' + x0 + '.',
+    function (x) { return 1 / x + 1 / (x + a) - 1 / T; }, 1, { lo: 1, hi: 60, ans: x0 + ' horas', show: function (F) { return F[0] + ' horas'; } });
+});
+
+/* 7. (problema) ciclista */
+genr('eqf', function () {
+  var q = g11_cic(), v0 = q[0], a = q[1], t = q[2], d = q[3];
+  var wr = [(v0 + a) + ' km/h', a + ' km/h', Math.round(d / t) + ' km/h', (v0 + 1) + ' km/h', (v0 - 1) + ' km/h'];
+  return g11_f1q('eqf', 'Un ciclista recorre ' + d + ' km a velocidad constante. Si fuese ' + a + ' km/h más rápido, tardaría ' + g11_np(t, 'hora', 'horas') + ' menos. ¿A qué velocidad va?', [v0],
+    wr, 'Con x km/h: ⟨' + d + '|x⟩ − ⟨' + d + '|' + g11_xa(a) + '⟩ = ' + t + '. Multiplicando por x(' + g11_xa(a) + ') sale ' + g11_E([t, t * a, -d * a], ['x^{2}', 'x', '']) + ' = 0, con una única raíz positiva: x = ' + v0 + '.',
+    function (x) { return d / x - d / (x + a) - t; }, 1, { lo: 1, hi: 60, ans: v0 + ' km/h', show: function (F) { return F[0] + ' km/h'; } });
+});
+
+/* 8. valores excluidos */
+genr('eqf', function () {
+  var p, q, a = ri(1, 6), b = ri(1, 6);
+  do { p = ri(1, 6); q = ri(1, 6); } while (p === -q || p === q);
+  return g11_nq('eqf', '¿Qué valores de x hay que excluir al resolver ⟨' + a + '|' + g11_xa(-p) + '⟩ + ⟨' + b + '|' + g11_xa(q) + '⟩ = 1?',
+    'x ≠ ' + p + ' y x ≠ ' + mn(-q), ['x ≠ ' + mn(-p) + ' y x ≠ ' + q, 'x ≠ ' + p + ' y x ≠ ' + q, 'x ≠ 0', 'x ≠ ' + mn(-p) + ' y x ≠ ' + mn(-q)],
+    'Cada denominador no puede ser 0: ' + g11_xa(-p) + ' = 0 da x = ' + p + ' y ' + g11_xa(q) + ' = 0 da x = ' + mn(-q) + '.', 0,
+    { k: 'dom', f: function (x) { return a / (x - p) + b / (x + q); }, ok: function (x) { return x !== p && x !== -q; } });
+});
+
+/* 9. paso de quitar denominadores */
+genr('eqf', function () {
+  var a, b, m = ri(1, 5), c = ri(2, 5);
+  do { a = ri(1, 6); b = ri(1, 6); } while (a === b);
+  var cf = function (n, s) { return n === 1 ? s : n + s; };
+  var xm = '(' + g11_xa(m) + ')', A1 = a === 1 ? xm : a + xm, B1 = b === 1 ? xm : b + xm;
+  var ok = A1 + ' + ' + cf(b, 'x') + ' = ' + cf(c, 'x') + xm;
+  return g11_nq('eqf', 'Al multiplicar ⟨' + a + '|x⟩ + ⟨' + b + '|' + g11_xa(m) + '⟩ = ' + c + ' por el m.c.m. de los denominadores, x(' + g11_xa(m) + '), se obtiene',
+    ok, [
+      A1 + ' + ' + cf(b, 'x') + ' = ' + c,
+      a + ' + ' + b + ' = ' + c + 'x' + xm,
+      cf(a, 'x') + ' + ' + B1 + ' = ' + c + 'x' + xm,
+      A1 + ' + ' + B1 + ' = ' + c + 'x' + xm
+    ],
+    'Cada término se multiplica por x(' + g11_xa(m) + '): ⟨' + a + '|x⟩ pasa a ' + A1 + ', ⟨' + b + '|' + g11_xa(m) + '⟩ pasa a ' + cf(b, 'x') + ', y el ' + c + ' del segundo miembro pasa a ' + c + 'x' + xm + '.', 0);
+});
+
+/* 10. denominadores numéricos */
+genr('eqf', function () {
+  var m = ri(2, 6), n, x0 = nz(-8, 10), a = nz(-5, 5), b = nz(-5, 5);
+  do { n = ri(2, 6); } while (n === m);
+  var rhs = g11_fr((x0 + a) * n + (x0 - b) * m, m * n), L = g11_lcm(m, n);
+  return g11_f1q('eqf', 'Resuelve: ⟨' + g11_xa(a) + '|' + m + '⟩ + ⟨' + g11_xa(-b) + '|' + n + '⟩ = ' + rhs, [x0],
+    [-x0, x0 + 1, x0 - 1, x0 + a, 2 * x0], 'Se multiplica por el m.c.m. ' + L + ' para quitar denominadores y se despeja: x = ' + mn(x0) + '.',
+    function (x) { return (x + a) / m + (x - b) / n - ((x0 + a) / m + (x0 - b) / n); }, 0);
+});
+
+/* 11. ⟨x + a|x⟩ = ⟨b|x⟩ + c */
+genr('eqf', function () {
+  var c = pick([2, 3, -1, -2]), x0 = nz(-6, 8), a = nz(-6, 6), b = a + x0 * (1 - c);
+  var eq = '⟨' + g11_xa(a) + '|x⟩ = ' + (b === 0 ? String(c) : g11_ft(b, 'x', true) + (c > 0 ? ' + ' + c : ' − ' + (-c)));
+  return g11_f1q('eqf', 'Resuelve: ' + eq, [x0],
+    [-x0, g11_solq(b - a, 1 + c), x0 + 1, x0 - 1, c],
+    'Con x ≠ 0 se multiplica por x: ' + g11_xa(a) + ' = ' + g11_E([b, c], ['', 'x']) + '. Entonces ' + g11_E([1 - c], ['x']) + ' = ' + mn(b - a) + ' y x = ' + mn(x0) + '.',
+    function (x) { return (x + a) / x - (b / x + c); }, 0);
+});
+
+/* 12. ¿cuántas soluciones? ninguna / infinitas */
+genr('eqf', function () {
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Infinitas soluciones'];
+  if (Math.random() < 0.6) {
+    var a = nz(-6, 6), b;
+    do { b = nz(-4, 6); } while (a + b === 0);
+    return g11_f1q('eqf', '¿Cuántas soluciones tiene ⟨' + g11_xa(b) + '|' + g11_xa(-a) + '⟩ = ⟨' + (a + b) + '|' + g11_xa(-a) + '⟩?', [], lab,
+      'Con x ≠ ' + a + ' se igualan los numeradores: ' + g11_xa(b) + ' = ' + (a + b) + ' da x = ' + a + ', que anula el denominador. No hay solución.',
+      function (x) { return (x + b) / (x - a) - (a + b) / (x - a); }, 0, { ans: lab[0], show: function (F) { return lab[F.length]; } });
+  }
+  var c = ri(2, 7);
+  return g11_nq('eqf', '¿Cuántas soluciones tiene ⟨' + g11_E([1, -c * c], ['x^{2}', '']) + '|' + g11_xa(-c) + '⟩ = ' + g11_xa(c) + '?', lab[3], lab.slice(0, 3),
+    'Como x^{2} − ' + c * c + ' = (x − ' + c + ')(x + ' + c + '), la fracción se simplifica a x + ' + c + ' para todo x ≠ ' + c + ': infinitas soluciones.', 0,
+    { k: 'ident', f: function (x) { return (x * x - c * c) / (x - c) - (x + c); } });
+});
+
+/* 13. (problema) un número y su inverso */
+genr('eqf', function () {
+  var s1 = Math.random() < 0.5 ? 1 : -1, r, e, k, S, p;
+  do { r = ri(1, 7); e = ri(1, 7); } while (r === e);
+  r *= s1; e *= s1;
+  if (r < e) { var tmp = r; r = e; e = tmp; }
+  k = r * e; S = r + e;
+  var kk = k === 1 ? 'su inverso' : k + ' veces su inverso';
+  return g11_f1q('eqf', 'La suma de un número y ' + kk + ' es ' + mn(S) + '. ¿Qué números cumplen esta condición?', [r, e],
+    [[-r, -e], r, e, [r + 1, e + 1], [r, -e]],
+    'Con x el número: x + ⟨' + k + '|x⟩ = ' + mn(S) + '. Multiplicando por x: ' + g11_E([1, -S, k], ['x^{2}', 'x', '']) + ' = 0, con soluciones x = ' + mn(r) + ' y x = ' + mn(e) + '.',
+    function (x) { return x + k / x - S; }, 1);
+});
+
+/* 14. (problema) inversos de dos consecutivos */
+genr('eqf', function () {
+  var x0 = ri(1, 9), rhs = g11_fr(2 * x0 + 1, x0 * (x0 + 1));
+  return g11_f1q('eqf', 'La suma de los inversos de dos números naturales consecutivos es ' + rhs + '. ¿Cuál es el menor de los dos?', [x0],
+    [x0 + 1, x0 - 1, 2 * x0 + 1, x0 * (x0 + 1), -x0 - 1].map(function (v) { return mn(v); }),
+    'Con x y x + 1: ⟨1|x⟩ + ⟨1|x + 1⟩ = ⟨2x + 1|x(x + 1)⟩ = ' + rhs + '. Al resolver la ecuación de 2.º grado, la única raíz natural es x = ' + x0 + ' (comprobación: ⟨1|' + x0 + '⟩ + ⟨1|' + (x0 + 1) + '⟩ = ' + rhs + ').',
+    function (x) { return 1 / x + 1 / (x + 1) - (2 * x0 + 1) / (x0 * (x0 + 1)); }, 1, { lo: 1, hi: 60, ans: String(x0), show: function (F) { return String(F[0]); } });
+});
+
+/* ================= SISTEMAS LINEALES ================= */
+function g11_L(a, b, c) { return g11_E([a, b], ['x', 'y']) + ' = ' + mn(c); }
+function g11_pw(x0, y0) { return [[y0, x0], [x0, -y0], [-x0, y0], [x0 + 1, y0], [x0, y0 + 1], [-x0, -y0], [x0 - 1, y0 + 1]]; }
+function g11_pr(n) { return n < 0 ? '(' + mn(n) + ')' : String(n); }
+function g11_ck(a, b, e, x0, y0) { return g11_pr(a) + '·' + g11_pr(x0) + ' + ' + g11_pr(b) + '·' + g11_pr(y0) + ' = ' + mn(e); }
+
+/* 1. (problema) sustitución */
+genr('sis1', function () {
+  var x0, y0, a, b, c, d, e, flip = Math.random() < 0.5, det;
+  do {
+    x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-3, 3); c = nz(-4, 5); d = nz(-4, 5);
+    det = flip ? c * a + d : c + d * a;
+  } while (x0 === y0 || x0 === -y0 || det === 0);
+  b = flip ? x0 - a * y0 : y0 - a * x0;
+  e = c * x0 + d * y0;
+  var eq1 = flip ? 'x = ' + g11_E([a, b], ['y', '']) : 'y = ' + g11_E([a, b], ['x', '']);
+  return g11_sysq('sis1', 'Resuelve por sustitución: ' + eq1 + ' ; ' + g11_L(c, d, e), [[x0, y0]], g11_pw(x0, y0),
+    'Se sustituye ' + eq1 + ' en la 2.ª ecuación y queda una ecuación con una sola incógnita. Resulta x = ' + mn(x0) + ' e y = ' + mn(y0) + '. Comprobación en la 2.ª: ' + g11_ck(c, d, e, x0, y0) + '.',
+    function (x, y) { return [flip ? x - a * y - b : y - a * x - b, c * x + d * y - e]; }, 1);
+});
+
+/* 2. (problema) igualación */
+genr('sis1', function () {
+  var x0, y0, a, c, b, d;
+  do { x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-4, 4); c = nz(-4, 4); } while (a === c || x0 === y0 || x0 === -y0);
+  b = y0 - a * x0; d = y0 - c * x0;
+  return g11_sysq('sis1', 'Resuelve por igualación: y = ' + g11_E([a, b], ['x', '']) + ' ; y = ' + g11_E([c, d], ['x', '']), [[x0, y0]], g11_pw(x0, y0),
+    'Se igualan las dos expresiones de y: ' + g11_E([a, b], ['x', '']) + ' = ' + g11_E([c, d], ['x', '']) + '. Sale x = ' + mn(x0) + ' y, sustituyendo, y = ' + mn(y0) + '.',
+    function (x, y) { return [y - a * x - b, y - c * x - d]; }, 1);
+});
+
+/* 3. (problema) reducción */
+genr('sis1', function () {
+  var x0, y0, a, b, c, d;
+  do { x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-4, 5); b = nz(-4, 5); c = nz(-4, 5); d = nz(-4, 5); } while (x0 === y0 || x0 === -y0 || a * d - b * c === 0 || Math.abs(a) === Math.abs(c));
+  var e = a * x0 + b * y0, f = c * x0 + d * y0;
+  return g11_sysq('sis1', 'Resuelve por reducción: ' + g11_L(a, b, e) + ' ; ' + g11_L(c, d, f), [[x0, y0]], g11_pw(x0, y0),
+    'Se multiplican las ecuaciones por números adecuados para que una incógnita tenga coeficientes opuestos y al sumar desaparezca. Resulta x = ' + mn(x0) + ' e y = ' + mn(y0) + '.',
+    function (x, y) { return [a * x + b * y - e, c * x + d * y - f]; }, 1);
+});
+
+/* 4. (problema) valor de x + y, x − y... sin resolver */
+genr('sis1', function () {
+  var x0, y0, a, b;
+  do { x0 = ri(1, 8); y0 = ri(1, 8); a = ri(1, 6); b = ri(1, 6); } while (x0 === y0 || a === b);
+  var e = a * x0 + b * y0, f = b * x0 + a * y0, plus = Math.random() < 0.5;
+  var val = plus ? x0 + y0 : x0 - y0, lab = plus ? 'x + y' : 'x − y';
+  return g11_vq('sis1', 'Si ' + g11_L(a, b, e) + ' y ' + g11_L(b, a, f) + ', ¿cuánto vale ' + lab + '?', val,
+    plus ? [e + f, x0 * y0, x0 - y0, val + 1, val - 1] : [e - f, x0 * y0, x0 + y0, val + 1, val - 1],
+    plus ? 'Sumando las dos ecuaciones: ' + (a + b) + 'x + ' + (a + b) + 'y = ' + (e + f) + ', así que x + y = ' + val + '.'
+         : 'Restando la 2.ª de la 1.ª: ' + g11_E([a - b, b - a], ['x', 'y']) + ' = ' + mn(e - f) + ', y dividiendo entre ' + mn(a - b) + ' queda x − y = ' + mn(val) + '.',
+    function (x, y) { return [a * x + b * y - e, b * x + a * y - f]; }, function (x, y) { return plus ? x + y : x - y; }, 1);
+});
+
+/* 5. (problema) edades */
+genr('sis1', function () {
+  var m, k, past = Math.random() < 0.4, x0, y0, S;
+  do {
+    m = ri(2, 4); k = ri(1, 6);
+    y0 = past ? ri(k + 1, k + 10) : ri(3, 12);
+    x0 = past ? m * (y0 - k) + k : m * (y0 + k) - k;
+  } while (x0 - y0 < 15 || x0 > 75);
+  S = x0 + y0;
+  var w = ['', '', 'el doble', 'el triple', 'el cuádruple'][m];
+  var askSon = Math.random() < 0.5, ans = (askSon ? y0 : x0) + ' años', oth = (askSon ? x0 : y0);
+  var txt = 'La suma de las edades de un padre y su hijo es ' + S + ' años. ' + (past ? 'Hace ' + g11_np(k, 'año', 'años') + ', el padre tenía ' + w + ' de la edad del hijo.' : 'Dentro de ' + g11_np(k, 'año', 'años') + ', el padre tendrá ' + w + ' de la edad del hijo.') + ' ¿Qué edad tiene ahora ' + (askSon ? 'el hijo' : 'el padre') + '?';
+  var tgt = askSon ? y0 : x0;
+  return g11_sysq('sis1', txt, [[x0, y0]],
+    [oth + ' años', (tgt + k) + ' años', (tgt - k) + ' años', (tgt + 1) + ' años', S + ' años', (tgt * 2) + ' años'].map(function (z) { return z.replace('-', '−'); }),
+    'Con x la edad del padre e y la del hijo: x + y = ' + S + ' y x ' + (past ? '− ' : '+ ') + k + ' = ' + m + '(y ' + (past ? '− ' : '+ ') + k + '). Resolviendo: padre ' + x0 + ' años, hijo ' + y0 + ' años.',
+    function (x, y) { return [x + y - S, past ? (x - k) - m * (y - k) : (x + k) - m * (y + k)]; }, 1,
+    { r: [0, 90], ans: ans, show: function (F) { return F[0][askSon ? 1 : 0] + ' años'; } });
+});
+
+/* 6. (problema) precios */
+genr('sis1', function () {
+  var it = pick([['bolígrafos', 'bolígrafo', 'cuadernos', 'cuaderno'], ['bocadillos', 'bocadillo', 'refrescos', 'refresco'], ['entradas de adulto', 'entrada de adulto', 'entradas infantiles', 'entrada infantil'], ['camisetas', 'camiseta', 'gorras', 'gorra'], ['kilos de manzanas', 'kilo de manzanas', 'kilos de peras', 'kilo de peras']]);
+  var x0, y0, a, b, c, d;
+  do { x0 = ri(1, 9); y0 = ri(1, 9); a = ri(1, 5); b = ri(1, 5); c = ri(1, 5); d = ri(1, 5); } while (x0 === y0 || a * d - b * c === 0);
+  var P = a * x0 + b * y0, Q = c * x0 + d * y0, askB = Math.random() < 0.5, v = askB ? y0 : x0, o = askB ? x0 : y0;
+  var nm = askB ? it[3] : it[1];
+  var plu = function (n, i) { return n === 1 ? it[i + 1] : it[i]; };
+  var txt = 'Por ' + a + ' ' + plu(a, 0) + ' y ' + b + ' ' + plu(b, 2) + ' se pagan ' + P + ' €, y por ' + c + ' ' + plu(c, 0) + ' y ' + d + ' ' + plu(d, 2) + ', ' + Q + ' €. ¿Cuánto cuesta cada ' + (askB ? it[3].replace(/^kilo de /, 'kilo de ') : it[1]) + '?';
+  return g11_sysq('sis1', txt, [[x0, y0]], [o + ' €', (v + 1) + ' €', (v + 2) + ' €', (P - Q) + ' €', Math.abs(v - o) + ' €', (v * 2) + ' €'].map(function (z) { return z.replace('-', '−'); }),
+    'Con x e y los precios de cada artículo: ' + g11_L(a, b, P) + ' y ' + g11_L(c, d, Q) + '. Resolviendo, x = ' + x0 + ' € e y = ' + y0 + ' €.',
+    function (x, y) { return [a * x + b * y - P, c * x + d * y - Q]; }, 1, { r: [0, 15], ans: v + ' €', show: function (F) { return F[0][askB ? 1 : 0] + ' €'; } });
+});
+
+/* 7. (problema) mezclas */
+genr('sis1', function () {
+  var it = pick(['café', 'té', 'almendras', 'pienso']), x0, y0, pa, pb, M, c, i;
+  for (i = 0; i < 500; i++) {
+    x0 = ri(1, 9); y0 = ri(1, 9); pa = ri(3, 10); pb = pa + ri(1, 6); M = x0 + y0;
+    if (x0 !== y0 && (pa * x0 + pb * y0) % M === 0) break;
+  }
+  c = (pa * x0 + pb * y0) / M;
+  var cheap = Math.random() < 0.5, v = cheap ? x0 : y0, o = cheap ? y0 : x0;
+  return g11_sysq('sis1', 'Se mezclan ' + it + ' de ' + pa + ' €/kg con ' + it + ' de ' + pb + ' €/kg para obtener ' + M + ' kg de mezcla a ' + c + ' €/kg. ¿Cuántos kg se usan del ' + (cheap ? 'más barato' : 'más caro') + '?', [[x0, y0]],
+    [o + ' kg', (v + 1) + ' kg', (v - 1) + ' kg', (M / 2) + ' kg', c + ' kg', M + ' kg'].filter(function (s) { return s.indexOf('-') < 0 && s !== '0 kg'; }),
+    'Con x kg del barato e y kg del caro: x + y = ' + M + ' y ' + pa + 'x + ' + pb + 'y = ' + c * M + ' (importe total). Resolviendo, x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [x + y - M, pa * x + pb * y - c * M]; }, 1, { r: [0, 30], ans: v + ' kg', show: function (F) { return F[0][cheap ? 0 : 1] + ' kg'; } });
+});
+
+/* 8. (problema) tres incógnitas sencillas */
+genr('sis1', function () {
+  var x0, y0, z0, v = ri(0, 2);
+  do { x0 = ri(1, 9); y0 = ri(1, 9); z0 = ri(1, 9); } while (x0 === y0 || y0 === z0 || x0 === z0);
+  var eqs, f, ex;
+  if (v === 0) {
+    var S = x0 + y0 + z0, A = x0 + y0, B = y0 + z0;
+    eqs = 'x + y + z = ' + S + ' ; x + y = ' + A + ' ; y + z = ' + B;
+    f = function (x, y, z) { return [x + y + z - S, x + y - A, y + z - B]; };
+    ex = 'Restando x + y = ' + A + ' a la 1.ª: z = ' + z0 + '. Restando y + z = ' + B + ': x = ' + x0 + '. Entonces y = ' + A + ' − ' + x0 + ' = ' + y0 + '.';
+  } else if (v === 1) {
+    var A1 = x0 + y0, B1 = y0 + z0, C1 = x0 + z0;
+    eqs = 'x + y = ' + A1 + ' ; y + z = ' + B1 + ' ; x + z = ' + C1;
+    f = function (x, y, z) { return [x + y - A1, y + z - B1, x + z - C1]; };
+    ex = 'Sumando las tres: 2(x + y + z) = ' + 2 * (x0 + y0 + z0) + ', así que x + y + z = ' + (x0 + y0 + z0) + '. Restando cada ecuación: z = ' + z0 + ', x = ' + x0 + ', y = ' + y0 + '.';
+  } else {
+    var S2 = x0 + y0 + z0, d1 = x0 - y0, d2 = y0 - z0;
+    eqs = 'x − y = ' + mn(d1) + ' ; y − z = ' + mn(d2) + ' ; x + y + z = ' + S2;
+    f = function (x, y, z) { return [x - y - d1, y - z - d2, x + y + z - S2]; };
+    ex = 'Se expresan x e y en función de z: y = ' + g11_E([1, d2], ['z', '']) + ', x = ' + g11_E([1, d1], ['y', '']) + '. Al sustituir en la 3.ª: ' + g11_E([3, 2 * d2 + d1], ['z', '']) + ' = ' + S2 + ', de donde z = ' + z0 + ', y = ' + y0 + ' y x = ' + x0 + '.';
+  }
+  var P3 = [[y0, x0, z0], [x0, z0, y0], [z0, y0, x0], [y0, z0, x0], [z0, x0, y0], [x0 + 1, y0, z0]];
+  return g11_sysq('sis1', 'Resuelve el sistema: ' + eqs, [[x0, y0, z0]], P3, ex, f, 1, { r: [-12, 12] });
+});
+
+/* 9. (problema) monedas y billetes */
+genr('sis1', function () {
+  var den = pick([['monedas', 1, 2], ['monedas', 1, 2], ['billetes', 5, 10], ['billetes', 10, 20], ['billetes', 5, 20], ['monedas', 2, 5]]);
+  var x0, y0;
+  do { x0 = ri(3, 15); y0 = ri(3, 15); } while (x0 === y0);
+  var N = x0 + y0, M = den[1] * x0 + den[2] * y0, askB = Math.random() < 0.6, v = askB ? y0 : x0, o = askB ? x0 : y0, dv = askB ? den[2] : den[1];
+  return g11_sysq('sis1', 'En una caja hay ' + N + ' ' + den[0] + ', unas de ' + den[1] + ' € y otras de ' + den[2] + ' €, que suman ' + M + ' €. ¿Cuántas ' + den[0] + ' de ' + dv + ' € hay?', [[x0, y0]],
+    [String(o), String(v + 1), String(v - 1), String(N), String(Math.round(M / dv)), String(v + 2)].filter(function (s) { return s.indexOf('-') < 0; }),
+    'Con x las de ' + den[1] + ' € e y las de ' + den[2] + ' €: x + y = ' + N + ' y ' + den[1] + 'x + ' + den[2] + 'y = ' + M + '. Resolviendo, x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [x + y - N, den[1] * x + den[2] * y - M]; }, 1, { r: [0, 40], ans: String(v), show: function (F) { return String(F[0][askB ? 1 : 0]); } });
+});
+
+/* 10. clasificar un sistema */
+genr('sis1', function () {
+  var v = ri(0, 2), a, b, c, d, e, f, k, ans, ex;
+  a = nz(-5, 5); b = nz(-5, 5); e = nz(-8, 8);
+  if (v === 0) {
+    do { c = nz(-5, 5); d = nz(-5, 5); } while (a * d - b * c === 0);
+    f = nz(-8, 8); ans = 'Compatible determinado'; ex = 'Los coeficientes no son proporcionales (' + a + '·' + g11_pr(d) + ' ≠ ' + g11_pr(b) + '·' + g11_pr(c) + '): las rectas se cortan en un punto.';
+  } else {
+    k = pick([2, 3, -1, -2]); c = k * a; d = k * b;
+    if (v === 1) { f = k * e; ans = 'Compatible indeterminado'; ex = 'La 2.ª ecuación es la 1.ª multiplicada por ' + mn(k) + ': son la misma recta y hay infinitas soluciones.'; }
+    else { f = k * e + nz(-5, 5); ans = 'Incompatible'; ex = 'Los coeficientes de x e y son proporcionales (factor ' + mn(k) + ') pero los términos independientes no: rectas paralelas, sin solución.'; }
+  }
+  var lab = ['Compatible determinado', 'Compatible indeterminado', 'Incompatible', 'Compatible con dos soluciones'];
+  return g11_nq('sis1', '¿Cómo es el sistema ' + g11_L(a, b, e) + ' ; ' + g11_L(c, d, f) + '?', ans, lab, ex, 0, { k: 'cls', a: a, b: b, c: c, d: d, e: e, f: f, ans: ans });
+});
+
+/* 11. despejar una incógnita */
+genr('sis1', function () {
+  var a = ri(2, 6), c = ri(3, 12), b = ri(2, 6);
+  if (Math.random() < 0.5) {
+    return g11_nq('sis1', 'Al despejar y en ' + a + 'x + y = ' + c + ' se obtiene', 'y = ' + g11_E([c, -a], ['', 'x']),
+      ['y = ' + g11_E([a, -c], ['x', '']), 'y = ' + g11_E([c, a], ['', 'x']), 'y = ' + g11_E([a, c], ['x', '']), 'y = ' + g11_E([-c, a], ['', 'x'])],
+      'Se pasa ' + a + 'x al otro lado cambiando de signo: y = ' + c + ' − ' + a + 'x.', 0);
+  }
+  return g11_nq('sis1', 'Al despejar x en x − ' + b + 'y = ' + c + ' se obtiene', 'x = ' + g11_E([b, c], ['y', '']),
+    ['x = ' + g11_E([b, -c], ['y', '']), 'x = ' + g11_E([-b, c], ['y', '']), 'x = ' + g11_E([c, -b], ['', 'y']), 'x = ' + g11_E([-b, -c], ['y', ''])],
+    'Se pasa −' + b + 'y al otro lado como +' + b + 'y: x = ' + b + 'y + ' + c + '.', 0);
+});
+
+/* 12. cómo eliminar x */
+genr('sis1', function () {
+  var a, c, b = nz(-5, 5), d = nz(-5, 5), e = nz(-9, 9), f = nz(-9, 9);
+  do { a = ri(1, 6); c = ri(1, 6); } while (a === c || gcd(a, c) !== 1);
+  return g11_nq('sis1', 'Para eliminar x sumando las ecuaciones ' + g11_L(a, b, e) + ' y ' + g11_L(c, d, f) + ', hay que multiplicar',
+    'La 1.ª por ' + c + ' y la 2.ª por −' + a,
+    ['La 1.ª por ' + a + ' y la 2.ª por ' + c, 'La 1.ª por ' + c + ' y la 2.ª por ' + a, 'La 1.ª por −' + c + ' y la 2.ª por −' + a, 'La 1.ª por ' + a + ' y la 2.ª por −' + c],
+    'Para que los términos en x se anulen al sumar deben quedar ' + a * c + 'x y −' + a * c + 'x: la 1.ª se multiplica por ' + c + ' y la 2.ª por −' + a + '.', 0);
+});
+
+/* 13. ¿cuál de estas parejas es solución? */
+genr('sis1', function () {
+  var x0, y0, a, b, c, d;
+  do { x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-4, 5); b = nz(-4, 5); c = nz(-4, 5); d = nz(-4, 5); } while (a * d - b * c === 0);
+  var e = a * x0 + b * y0, f = c * x0 + d * y0;
+  return g11_sysq('sis1', '¿Cuál de estas parejas (x, y) es solución del sistema ' + g11_L(a, b, e) + ' ; ' + g11_L(c, d, f) + '?', [[x0, y0]],
+    [[x0 + b, y0 - a], [x0 - b, y0 + a], [x0 + 2 * b, y0 - 2 * a], [y0, x0]],
+    'Una solución debe cumplir las dos ecuaciones. Sustituyendo ' + g11_ptn([x0, y0]) + ': ' + g11_ck(a, b, e, x0, y0) + ' y ' + g11_ck(c, d, f, x0, y0) + '. Las demás solo cumplen la 1.ª o ninguna.',
+    function (x, y) { return [a * x + b * y - e, c * x + d * y - f]; }, 0, { ans: g11_ptn([x0, y0]) });
+});
+
+/* 14. resultado de sumar dos ecuaciones */
+genr('sis1', function () {
+  var a, d, b = ri(1, 5), c = nz(-9, 9), f = nz(-9, 9);
+  do { a = nz(-5, 5); d = nz(-5, 5); } while (a + d === 0 || a === d || a === -d);
+  return g11_nq('sis1', 'Al sumar las ecuaciones ' + g11_L(a, b, c) + ' y ' + g11_E([d, -b], ['x', 'y']) + ' = ' + mn(f) + ' se obtiene', g11_E([a + d], ['x']) + ' = ' + mn(c + f),
+    [g11_E([a + d], ['x']) + ' = ' + mn(c - f), g11_E([a - d], ['x']) + ' = ' + mn(c + f), g11_E([a + d, 2 * b], ['x', 'y']) + ' = ' + mn(c + f), g11_E([a - d], ['x']) + ' = ' + mn(c - f)],
+    'Los términos en y se anulan (' + b + 'y − ' + b + 'y = 0). Se suman los coeficientes de x (' + mn(a) + ' + ' + g11_pr(d) + ') y los segundos miembros (' + mn(c) + ' + ' + g11_pr(f) + ').', 0);
+});
+
+/* ================= SISTEMAS NO LINEALES ================= */
+var G11_CIRC = null;
+function g11_circ() {
+  if (!G11_CIRC) {
+    G11_CIRC = [];
+    [25, 50, 65, 85, 100, 125, 130, 169].forEach(function (N) {
+      var pts = [], x, y;
+      for (x = -13; x <= 13; x++) for (y = -13; y <= 13; y++) if (x * x + y * y === N) pts.push([x, y]);
+      G11_CIRC.push({ N: N, pts: pts });
+    });
+  }
+  return pick(G11_CIRC);
+}
+function g11_neg(s) { return s.replace(/-/g, '−'); }
+
+/* 1. (problema) x − y = D ; xy = P */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = nz(-6, 6); y0 = nz(-6, 6); } while (x0 === y0 || x0 === -y0);
+  var D = x0 - y0, P = x0 * y0;
+  return g11_sysq('sis2', 'Resuelve el sistema: x − y = ' + mn(D) + ' ; xy = ' + mn(P), [[x0, y0], [-y0, -x0]],
+    [[[x0, y0]], [[x0, y0], [y0, x0]], [[-x0, -y0], [y0, x0]], [[x0, -y0], [-x0, y0]]],
+    'De la 1.ª, x = y + ' + mn(D) + '. En la 2.ª: y(y + ' + mn(D) + ') = ' + mn(P) + ', es decir ' + g11_E([1, D, -P], ['y^{2}', 'y', '']) + ' = 0, con y = ' + mn(y0) + ' o y = ' + mn(-x0) + '. Cada y da su x: ' + g11_ptn([x0, y0]) + ' y ' + g11_ptn([-y0, -x0]) + '.',
+    function (x, y) { return [x - y - D, x * y - P]; }, 1, { r: [-40, 40] });
+});
+
+/* 2. (problema) recta y circunferencia con ordenada y = x + m */
+genr('sis2', function () {
+  var x0, m;
+  do { x0 = ri(-4, 5); m = nz(-3, 3); } while (2 * x0 === -m);
+  var y0 = x0 + m, N = x0 * x0 + y0 * y0, x1 = -m - x0, y1 = -x0;
+  return g11_sysq('sis2', 'Resuelve el sistema: x^{2} + y^{2} = ' + N + ' ; y = ' + g11_xa(m), [[x0, y0], [x1, y1]],
+    [[[x0, y0]], [[x0, y0], [-x0, -y0]], [[x0, y0], [y0, x0]], [[x0, -y0], [x1, -y1]]],
+    'Se sustituye y = ' + g11_xa(m) + ': x^{2} + (' + g11_xa(m) + ')^{2} = ' + N + ', que da ' + g11_E([2, 2 * m, m * m - N], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(x0) + ' y x = ' + mn(x1) + '. Soluciones: ' + g11_ptn([x0, y0]) + ' y ' + g11_ptn([x1, y1]) + '.',
+    function (x, y) { return [x * x + y * y - N, y - x - m]; }, 1, { r: [-40, 40] });
+});
+
+/* 3. (problema) parábola y recta */
+genr('sis2', function () {
+  var r, e, b = ri(-3, 3), c = ri(-4, 4);
+  do { r = ri(-4, 4); e = ri(-4, 4); } while (r === e);
+  var m = b + r + e, n = c - r * e;
+  var S = [[r, m * r + n], [e, m * e + n]];
+  return g11_sysq('sis2', 'Resuelve el sistema: y = ' + g11_E([1, b, c], ['x^{2}', 'x', '']) + ' ; y = ' + g11_E([m, n], ['x', '']), S,
+    [[S[0]], [[r, m * r + n], [e, m * r + n]], [[m * r + n, r], [m * e + n, e]], [[-r, m * r + n], [-e, m * e + n]]],
+    'Se igualan las dos expresiones de y: ' + g11_E([1, b, c], ['x^{2}', 'x', '']) + ' = ' + g11_E([m, n], ['x', '']) + ', es decir ' + g11_E([1, -(r + e), r * e], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(r) + ' y x = ' + mn(e) + '. Se calcula cada y con la recta.',
+    function (x, y) { return [y - (x * x + b * x + c), y - (m * x + n)]; }, 1, { r: [-60, 60] });
+});
+
+/* 4. (problema) x² + y² = N ; xy = P con x, y positivos */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = ri(1, 7); y0 = ri(1, 8); } while (x0 >= y0);
+  var N = x0 * x0 + y0 * y0, P = x0 * y0, s = x0 + y0;
+  return g11_sysq('sis2', 'Con x > 0 e y > 0, resuelve: x^{2} + y^{2} = ' + N + ' ; xy = ' + P, [[x0, y0], [y0, x0]],
+    [[[x0, y0]], [[x0, y0], [-x0, -y0]], [[x0, y0], [P, 1]], [[N, P], [P, N]]],
+    '(x + y)^{2} = x^{2} + y^{2} + 2xy = ' + N + ' + ' + 2 * P + ' = ' + s * s + ', y como son positivos x + y = ' + s + '. Con x + y = ' + s + ' y xy = ' + P + ' salen ' + g11_ptn([x0, y0]) + ' y ' + g11_ptn([y0, x0]) + '.',
+    function (x, y) { return [x * x + y * y - N, x * y - P]; }, 1, { r: [1, 40] });
+});
+
+/* 5. (problema) rectángulo */
+genr('sis2', function () {
+  var x0, y0;
+  if (Math.random() < 0.5) {
+    do { x0 = ri(2, 9); y0 = ri(3, 14); } while (x0 >= y0);
+    var S = x0 + y0, P = x0 * y0, big = Math.random() < 0.5, v = big ? y0 : x0, o = big ? x0 : y0;
+    return g11_sysq('sis2', 'Un rectángulo tiene ' + 2 * S + ' cm de perímetro y ' + P + ' cm² de área. ¿Cuánto mide su lado ' + (big ? 'mayor' : 'menor') + '?', [[x0, y0], [y0, x0]],
+      [o + ' cm', (v + 1) + ' cm', S + ' cm', (v - 1) + ' cm', P + ' cm'].map(g11_neg),
+      'Con lados x e y: x + y = ' + S + ' (semiperímetro) y xy = ' + P + '. Son las raíces de t^{2} − ' + S + 't + ' + P + ' = 0, es decir ' + x0 + ' y ' + y0 + '.',
+      function (x, y) { return [x + y - S, x * y - P]; }, 1, { r: [1, 40], ans: v + ' cm', show: function (F) { return (big ? F[1][0] : F[0][0]) + ' cm'; } });
+  }
+  var T = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]]), small = Math.random() < 0.5;
+  var S2 = T[0] + T[1], D = T[2], v2 = small ? T[0] : T[1], o2 = small ? T[1] : T[0];
+  return g11_sysq('sis2', 'Un rectángulo tiene ' + 2 * S2 + ' cm de perímetro y ' + D + ' cm de diagonal. ¿Cuánto mide su lado ' + (small ? 'menor' : 'mayor') + '?', [[T[0], T[1]], [T[1], T[0]]],
+    [o2 + ' cm', (v2 + 1) + ' cm', D + ' cm', S2 + ' cm', (v2 - 1) + ' cm'].map(g11_neg),
+    'Con lados x e y: x + y = ' + S2 + ' y x^{2} + y^{2} = ' + D * D + ' (Pitágoras). Entonces xy = ((' + S2 + ')^{2} − ' + D * D + ')/2 = ' + T[0] * T[1] + ' y los lados son ' + T[0] + ' y ' + T[1] + '.',
+    function (x, y) { return [x + y - S2, x * x + y * y - D * D]; }, 1, { r: [1, 40], ans: v2 + ' cm', show: function (F) { return (small ? F[0][0] : F[1][0]) + ' cm'; } });
+});
+
+/* 6. (problema) x² − y² = N ; x + y = S */
+genr('sis2', function () {
+  var x0, y0, S;
+  do { x0 = nz(-6, 8); y0 = nz(-6, 8); S = x0 + y0; } while (x0 === y0 || S === 0);
+  var N = (x0 - y0) * S;
+  return g11_sysq('sis2', 'Resuelve el sistema: x^{2} − y^{2} = ' + mn(N) + ' ; x + y = ' + mn(S), [[x0, y0]], g11_pw(x0, y0),
+    'x^{2} − y^{2} = (x − y)(x + y), así que ' + mn(S) + '(x − y) = ' + mn(N) + ' y x − y = ' + mn(x0 - y0) + '. Con x + y = ' + mn(S) + ' sale x = ' + mn(x0) + ' e y = ' + mn(y0) + '.',
+    function (x, y) { return [x * x - y * y - N, x + y - S]; }, 1);
+});
+
+/* 7. parábola cortada por una recta horizontal */
+genr('sis2', function () {
+  var k = ri(1, 5), a = ri(-5, 5), b = k * k + a;
+  return g11_sysq('sis2', 'Resuelve el sistema: y = ' + g11_E([1, a], ['x^{2}', '']) + ' ; y = ' + mn(b), [[k, b], [-k, b]],
+    [[[k, b]], [[b, k], [b, -k]], [[k, b], [k, -b]], [[k * k, b], [-k * k, b]]],
+    'Se igualan: ' + g11_E([1, a], ['x^{2}', '']) + ' = ' + mn(b) + ', luego x^{2} = ' + k * k + ' y x = ±' + k + '. En los dos casos y = ' + mn(b) + '.',
+    function (x, y) { return [y - (x * x + a), y - b]; }, 0, { r: [-40, 40] });
+});
+
+/* 8. (problema) recta y circunferencia con puntos de coordenadas enteras */
+genr('sis2', function () {
+  var C = g11_circ(), i = ri(0, C.pts.length - 1), j;
+  do { j = ri(0, C.pts.length - 1); } while (j === i);
+  var P1 = C.pts[i], P2 = C.pts[j];
+  var a = P2[1] - P1[1], b = -(P2[0] - P1[0]), g = gcd(gcd(a, b), a * P1[0] + b * P1[1]);
+  var c = a * P1[0] + b * P1[1];
+  a /= g; b /= g; c /= g;
+  if (a < 0 || (a === 0 && b < 0)) { a = -a; b = -b; c = -c; }
+  return g11_sysq('sis2', 'Resuelve el sistema: x^{2} + y^{2} = ' + C.N + ' ; ' + g11_L(a, b, c), [P1, P2],
+    [[P1], [P2], [[-P1[0], -P1[1]], [-P2[0], -P2[1]]], [[P1[1], P1[0]], [P2[1], P2[0]]]],
+    'Se despeja una incógnita de la recta y se sustituye en la circunferencia; queda una ecuación de 2.º grado con dos raíces. Los puntos de corte son ' + g11_ptn(P1) + ' y ' + g11_ptn(P2) + ', que cumplen las dos ecuaciones.',
+    function (x, y) { return [x * x + y * y - C.N, a * x + b * y - c]; }, 1, { r: [-15, 15] });
+});
+
+/* 9. ¿cuántas soluciones? recta y circunferencia */
+genr('sis2', function () {
+  var v = ri(0, 2), m, N, j;
+  if (v === 1) { j = ri(1, 4); m = Math.random() < 0.5 ? 2 * j : -2 * j; N = 2 * j * j; }
+  else { m = nz(-6, 6); N = v === 0 ? ri(Math.floor(m * m / 2) + 1, Math.floor(m * m / 2) + 12) : ri(1, Math.max(1, Math.ceil(m * m / 2) - 1)); }
+  var disc = 8 * N - 4 * m * m, cnt = disc > 0 ? 2 : disc === 0 ? 1 : 0;
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Cuatro soluciones'], ans = lab[cnt];
+  return g11_nq('sis2', '¿Cuántas soluciones tiene el sistema x^{2} + y^{2} = ' + N + ' ; y = ' + g11_xa(m) + '?', ans, lab,
+    'Al sustituir queda ' + g11_E([2, 2 * m, m * m - N], ['x^{2}', 'x', '']) + ' = 0, con Δ = (' + mn(2 * m) + ')^{2} − 8(' + mn(m * m - N) + ') = ' + mn(disc) + (disc > 0 ? ' > 0: dos soluciones.' : disc === 0 ? ' = 0: una solución (recta tangente).' : ' < 0: ninguna solución.'), 0,
+    { k: 'cnt', g: function (x) { return x * x + (x + m) * (x + m) - N; }, n: cnt });
+});
+
+/* 10. valor de una combinación sin resolver el sistema */
+genr('sis2', function () {
+  var x0, y0, v = ri(0, 4);
+  do { x0 = nz(-6, 7); y0 = nz(-6, 7); } while (x0 === y0 || x0 === -y0);
+  var S = x0 + y0, D = x0 - y0, P = x0 * y0, N = x0 * x0 + y0 * y0;
+  if (v === 0) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y xy = ' + mn(P) + ', ¿cuánto vale x^{2} + y^{2}?', N, [S * S, S * S + 2 * P, S * S - P, S * S - 4 * P, 2 * P],
+    'x^{2} + y^{2} = (x + y)^{2} − 2xy = ' + S * S + ' − (' + mn(2 * P) + ') = ' + N + '.', function (x, y) { return [x + y - S, x * y - P]; }, function (x, y) { return x * x + y * y; }, 0);
+  if (v === 1) return g11_vq('sis2', 'Si x − y = ' + mn(D) + ' y xy = ' + mn(P) + ', ¿cuánto vale x^{2} + y^{2}?', N, [D * D, D * D - 2 * P, D * D + P, D * D - P, 2 * P],
+    'x^{2} + y^{2} = (x − y)^{2} + 2xy = ' + D * D + ' + (' + mn(2 * P) + ') = ' + N + '.', function (x, y) { return [x - y - D, x * y - P]; }, function (x, y) { return x * x + y * y; }, 0);
+  if (v === 2) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y x − y = ' + mn(D) + ', ¿cuánto vale x^{2} − y^{2}?', S * D, [S + D, S - D, S * S - D * D, S * S + D * D, 2 * S * D],
+    'x^{2} − y^{2} = (x + y)(x − y) = ' + g11_pr(S) + '·' + g11_pr(D) + ' = ' + mn(S * D) + '.', function (x, y) { return [x + y - S, x - y - D]; }, function (x, y) { return x * x - y * y; }, 0);
+  if (v === 3) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y xy = ' + mn(P) + ', ¿cuánto vale ⟨1|x⟩ + ⟨1|y⟩?', S / P, [g11_fr(-S, P), g11_fr(P, S), mn(S * P), mn(S + P), g11_fr(S, P + 1)],
+    '⟨1|x⟩ + ⟨1|y⟩ = ⟨x + y|xy⟩ = ⟨' + mn(S) + '|' + mn(P) + '⟩.', function (x, y) { return [x + y - S, x * y - P]; }, function (x, y) { return 1 / x + 1 / y; }, 0, { ans: g11_fr(S, P) });
+  return g11_vq('sis2', 'Si x^{2} + y^{2} = ' + N + ' y xy = ' + mn(P) + ', ¿cuánto vale (x + y)^{2}?', N + 2 * P, [N, N - 2 * P, N + P, 2 * N + P, N * P],
+    '(x + y)^{2} = x^{2} + y^{2} + 2xy = ' + N + ' + (' + mn(2 * P) + ') = ' + mn(N + 2 * P) + '.', function (x, y) { return [x * x + y * y - N, x * y - P]; }, function (x, y) { return (x + y) * (x + y); }, 0);
+});
+
+/* 11. producto xy a partir de otras dos condiciones */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = nz(-6, 7); y0 = nz(-6, 7); } while (x0 === y0 || x0 === -y0);
+  var S = x0 + y0, D = x0 - y0, P = x0 * y0, N = x0 * x0 + y0 * y0;
+  if (Math.random() < 0.5) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y x^{2} + y^{2} = ' + N + ', ¿cuánto vale xy?', P, [N - S * S, S * S - N, (S * S - N) / 2 + 1, S * N, 2 * P].map(function (z) { return z; }),
+    '(x + y)^{2} = x^{2} + y^{2} + 2xy, así que ' + S * S + ' = ' + N + ' + 2xy y xy = ' + mn(P) + '.', function (x, y) { return [x + y - S, x * x + y * y - N]; }, function (x, y) { return x * y; }, 0);
+  return g11_vq('sis2', 'Si x − y = ' + mn(D) + ' y x^{2} + y^{2} = ' + N + ', ¿cuánto vale xy?', P, [N - D * D, D * D - N, (N + D * D) / 2, 2 * P, -P],
+    '(x − y)^{2} = x^{2} + y^{2} − 2xy, así que ' + D * D + ' = ' + N + ' − 2xy y xy = ' + mn(P) + '.', function (x, y) { return [x - y - D, x * x + y * y - N]; }, function (x, y) { return x * y; }, 0);
+});
+
+/* 12. (problema) x + y = S ; x² + y² = N */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = ri(-6, 6); y0 = ri(-5, 8); } while (x0 >= y0 || x0 + y0 === 0);
+  var S = x0 + y0, N = x0 * x0 + y0 * y0, P = x0 * y0;
+  return g11_sysq('sis2', 'Resuelve el sistema: x + y = ' + mn(S) + ' ; x^{2} + y^{2} = ' + N, [[x0, y0], [y0, x0]],
+    [[[x0, y0]], [[-x0, -y0], [-y0, -x0]], [[x0, y0], [-y0, -x0]], [[x0, -y0], [y0, -x0]]],
+    'Se despeja y = ' + g11_E([-1, S], ['x', '']) + ' y se sustituye: ' + g11_E([2, -2 * S, S * S - N], ['x^{2}', 'x', '']) + ' = 0, es decir ' + g11_E([1, -S, P], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(x0) + ' y x = ' + mn(y0) + '.',
+    function (x, y) { return [x + y - S, x * x + y * y - N]; }, 1, { r: [-30, 30] });
+});
+
+/* 13. sustituir en una ecuación de 2.º grado */
+genr('sis2', function () {
+  var a = pick([-3, -2, -1, 1, 2, 3]), b = nz(-4, 4), yy = g11_E([a, b], ['x', '']);
+  if (Math.random() < 0.55) {
+    var N = ri(5, 30);
+    return g11_nq('sis2', 'Al sustituir y = ' + yy + ' en x^{2} + y^{2} = ' + N + ' y pasar todo al primer miembro se obtiene', g11_E([1 + a * a, 2 * a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0',
+      [g11_E([1 + a * a, 0, b * b - N], ['x^{2}', 'x', '']) + ' = 0', g11_E([1 + a * a, a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0', g11_E([1 + a * a, -2 * a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0', g11_E([a * a, 2 * a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0'],
+      '(' + yy + ')^{2} = ' + g11_E([a * a, 2 * a * b, b * b], ['x^{2}', 'x', '']) + ' (cuadrado de un binomio, con doble producto). Sumando x^{2} y restando ' + N + ' sale la ecuación.', 0);
+  }
+  var P = nz(-12, 12);
+  return g11_nq('sis2', 'Al sustituir y = ' + yy + ' en xy = ' + mn(P) + ' y pasar todo al primer miembro se obtiene', g11_E([a, b, -P], ['x^{2}', 'x', '']) + ' = 0',
+    [g11_E([a, b, P], ['x^{2}', 'x', '']) + ' = 0', g11_E([a, -b, -P], ['x^{2}', 'x', '']) + ' = 0', g11_E([1, b, -P], ['x^{2}', 'x', '']) + ' = 0', g11_E([b, -P], ['x', '']) + ' = 0'],
+    'x(' + yy + ') = ' + g11_E([a, b], ['x^{2}', 'x']) + ', y al pasar ' + mn(P) + ' al primer miembro queda ' + g11_E([a, b, -P], ['x^{2}', 'x', '']) + ' = 0.', 0);
+});
+
+/* 14. suma o producto de las abscisas de las soluciones */
+genr('sis2', function () {
+  var r, e, b = ri(-3, 3), c = ri(-4, 4);
+  do { r = ri(-4, 4); e = ri(-4, 4); } while (r === e);
+  var m = b + r + e, n = c - r * e, sum = Math.random() < 0.5;
+  var f = function (x, y) { return [y - (x * x + b * x + c), y - (m * x + n)]; };
+  var sys = 'y = ' + g11_E([1, b, c], ['x^{2}', 'x', '']) + ' ; y = ' + g11_E([m, n], ['x', '']);
+  var ex = 'Al igualar: ' + g11_E([1, -(r + e), r * e], ['x^{2}', 'x', '']) + ' = 0. Por Cardano, la suma de sus raíces es ' + mn(r + e) + ' y su producto ' + mn(r * e) + '.';
+  var v = sum ? r + e : r * e;
+  var wr = sum ? [r * e, -(r + e), r - e, m, c - n].filter(function (z) { return z !== v; }) : [r + e, -(r * e), r - e, c, n];
+  var r1 = g11_vq('sis2', '¿Cuánto vale ' + (sum ? 'la suma' : 'el producto') + ' de los valores de x de las soluciones del sistema ' + sys + '?', v, wr, ex, f, function (x, y) { return x; }, 0);
+  r1._c = { k: 'sysall', f: f, h: function (S) { return sum ? S.reduce(function (s, p) { return s + p[0]; }, 0) : S.reduce(function (s, p) { return s * p[0]; }, 1); }, v: v, r: [-60, 60] };
+  return r1;
+});
+
+/* ================= SISTEMAS CON RADICALES, LOGARITMOS Y EXPONENCIALES ================= */
+function g11_lg(b) { return function (x) { return Math.log(x) / Math.log(b); }; }
+function g11_lgt(b) { return b === 10 ? 'log' : 'log_{' + b + '}'; }
+
+/* 1. (problema) log_b x + log_b y = n ; x + y = S */
+genr('sis3', function () {
+  var b = pick([2, 2, 3, 5]), mx = b === 2 ? 5 : b === 3 ? 3 : 2, i, j;
+  do { i = ri(0, mx); j = ri(0, mx); } while (i >= j);
+  var x0 = Math.pow(b, i), y0 = Math.pow(b, j), n = i + j, S = x0 + y0, L = g11_lg(b), T = g11_lgt(b);
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + T + ' x + ' + T + ' y = ' + n + ' ; x + y = ' + S, [[x0, y0], [y0, x0]],
+    [[[x0, y0]], [[S - 1, 1], [1, S - 1]], [[i, j], [j, i]], [[x0, -y0], [-y0, x0]], [[b * n, S - b * n], [S - b * n, b * n]]],
+    T + ' x + ' + T + ' y = ' + T + '(xy) = ' + n + ' significa xy = ' + b + '^{' + n + '} = ' + Math.pow(b, n) + '. Con x + y = ' + S + ', x e y son las raíces de t^{2} − ' + S + 't + ' + Math.pow(b, n) + ' = 0: ' + x0 + ' y ' + y0 + ' (ambas positivas, valen).',
+    function (x, y) { return [L(x) + L(y) - n, x + y - S]; }, 1, { r: [1, 100] });
+});
+
+/* 2. (problema) log_b x − log_b y = k ; x + y = S */
+genr('sis3', function () {
+  var b = pick([10, 2, 3]), k = ri(1, 2), y0 = ri(1, 8), q = Math.pow(b, k), x0 = q * y0, S = x0 + y0, L = g11_lg(b), T = g11_lgt(b);
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + T + ' x − ' + T + ' y = ' + k + ' ; x + y = ' + S, [[x0, y0]],
+    [[y0, x0], [S - k, k], [x0, -y0], [S - q, q], [x0 + 1, y0 - 1]],
+    T + ' x − ' + T + ' y = ' + T + '(⟨x|y⟩) = ' + k + ' significa x = ' + q + 'y. Entonces ' + q + 'y + y = ' + S + ' y y = ' + y0 + ', x = ' + x0 + '.',
+    function (x, y) { return [L(x) - L(y) - k, x + y - S]; }, 1, { r: [1, 150] });
+});
+
+/* 3. (problema) log_b(x + y) = n ; x − y = d */
+genr('sis3', function () {
+  var q = pick([[2, 2], [2, 3], [2, 4], [3, 2], [3, 3], [5, 1], [5, 2], [10, 1]]), b = q[0], n = q[1], T = Math.pow(b, n), d, x0, y0, tries = 0;
+  do { d = nz(-T + 2, T - 2); tries++; } while (((T + d) % 2 !== 0) && tries < 200);
+  x0 = (T + d) / 2; y0 = (T - d) / 2;
+  var ex = g11_lgt(b);
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + ex + '(x + y) = ' + n + ' ; x − y = ' + mn(d), [[x0, y0]],
+    [[y0, x0], [T, d], [n + d, n - d], [x0, -y0], [(n + d) / 2, (n - d) / 2]],
+    ex + '(x + y) = ' + n + ' significa x + y = ' + b + '^{' + n + '} = ' + T + '. Sumando con x − y = ' + mn(d) + ': 2x = ' + (T + d) + ', x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [Math.log(x + y) / Math.log(b) - n, x - y - d]; }, 1, { r: [-5, 40] });
+});
+
+/* 4. (problema) c^x + c^y = S ; x + y = n */
+genr('sis3', function () {
+  var c = pick([2, 2, 3]), a, b, mx = c === 2 ? 5 : 3;
+  do { a = ri(0, mx); b = ri(0, mx); } while (a >= b);
+  var S = Math.pow(c, a) + Math.pow(c, b), n = a + b;
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + c + '^{x} + ' + c + '^{y} = ' + S + ' ; x + y = ' + n, [[a, b], [b, a]],
+    [[[a, b]], [[Math.pow(c, a), Math.pow(c, b)], [Math.pow(c, b), Math.pow(c, a)]], [[S - n, n], [n, S - n]], [[-a, -b], [-b, -a]]],
+    'Si u = ' + c + '^{x} y v = ' + c + '^{y}, entonces u + v = ' + S + ' y uv = ' + c + '^{x + y} = ' + Math.pow(c, n) + ', así que u y v son ' + Math.pow(c, a) + ' y ' + Math.pow(c, b) + '. Por tanto x e y valen ' + a + ' y ' + b + ' (en cualquier orden).',
+    function (x, y) { return [Math.pow(c, x) + Math.pow(c, y) - S, x + y - n]; }, 1, { r: [-10, 15] });
+});
+
+/* 5. (problema) b^x · B^y = b^m ; x − y = d */
+genr('sis3', function () {
+  var q = pick([[2, 4, 2], [2, 8, 3], [3, 9, 2], [3, 27, 3], [2, 4, 2]]), b = q[0], B = q[1], k = q[2], x0, y0;
+  do { x0 = ri(-4, 5); y0 = ri(-4, 5); } while (x0 === y0);
+  var m = x0 + k * y0, d = x0 - y0;
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + b + '^{x} · ' + B + '^{y} = ' + b + '^{' + mn(m) + '} ; x − y = ' + mn(d), [[x0, y0]],
+    [[y0, x0], [m - d, d], [x0, -y0], [-x0, -y0], [x0 + 1, y0 + 1]],
+    'Como ' + B + ' = ' + b + '^{' + k + '}, ' + B + '^{y} = ' + b + '^{' + k + 'y} y queda x + ' + k + 'y = ' + mn(m) + '. Restando x − y = ' + mn(d) + ': ' + (k + 1) + 'y = ' + mn(m - d) + ', luego y = ' + mn(y0) + ' y x = ' + mn(x0) + '.',
+    function (x, y) { return [Math.pow(b, x) * Math.pow(B, y) / Math.pow(b, m) - 1, x - y - d]; }, 1, { r: [-12, 12] });
+});
+
+/* 6. (problema) √x + √y = S ; x + y = T */
+genr('sis3', function () {
+  var u, v;
+  do { u = ri(1, 6); v = ri(1, 6); } while (u >= v);
+  var S = u + v, T = u * u + v * v;
+  return g11_sysq('sis3', 'Resuelve el sistema: √{x} + √{y} = ' + S + ' ; x + y = ' + T, [[u * u, v * v], [v * v, u * u]],
+    [[[u * u, v * v]], [[u, v], [v, u]], [[S, T - S], [T - S, S]], [[u * u, -v * v], [-v * v, u * u]]],
+    'Con a = √{x} y b = √{y}: a + b = ' + S + ' y a^{2} + b^{2} = ' + T + ', luego 2ab = ' + S * S + ' − ' + T + ' = ' + 2 * u * v + ' y ab = ' + u * v + '. Entonces a, b son ' + u + ' y ' + v + ', y x, y valen ' + u * u + ' y ' + v * v + '.',
+    function (x, y) { return [Math.sqrt(x) + Math.sqrt(y) - S, x + y - T]; }, 1, { r: [0, 80] });
+});
+
+/* 7. (problema) √{x + y} = a ; x − y = d */
+genr('sis3', function () {
+  var a = ri(2, 6), T = a * a, d, x0, y0, tries = 0;
+  do { d = nz(-T + 2, T - 2); tries++; } while (((T + d) % 2 !== 0) && tries < 200);
+  x0 = (T + d) / 2; y0 = (T - d) / 2;
+  return g11_sysq('sis3', 'Resuelve el sistema: √{x + y} = ' + a + ' ; x − y = ' + mn(d), [[x0, y0]],
+    [[y0, x0], [a, d], [T, d], [x0, -y0], [(a + d) / 2, (a - d) / 2]].filter(function (p) { return p[0] === Math.floor(p[0]) && p[1] === Math.floor(p[1]); }),
+    'Elevando al cuadrado, x + y = ' + T + '. Sumando con x − y = ' + mn(d) + ': 2x = ' + (T + d) + ', x = ' + x0 + ' e y = ' + y0 + '. Comprobación: √{' + (x0 + y0) + '} = ' + a + '.',
+    function (x, y) { return [Math.sqrt(x + y) - a, x - y - d]; }, 1, { r: [-40, 40] });
+});
+
+/* 8. (problema) y = √{x + a} ; x − y = d  (una solución falsa) */
+genr('sis3', function () {
+  var y0 = ri(2, 5), d = nz(-4, 6), x0 = y0 + d, a = y0 * y0 - x0, y1 = 1 - y0, x1 = y1 + d;
+  return g11_sysq('sis3', 'Resuelve el sistema: y = √{' + g11_xa(a) + '} ; x − y = ' + mn(d), [[x0, y0]],
+    [[[x0, y0], [x1, y1]], [x1, y1], [y0, x0], [x0, -y0], [x0 + 1, y0 + 1]],
+    'De la 2.ª, x = y + ' + mn(d) + '. En la 1.ª: y = √{' + g11_E([1, d + a], ['y', '']) + '}; al elevar al cuadrado, ' + g11_E([1, -1, -(d + a)], ['y^{2}', 'y', '']) + ' = 0, con y = ' + y0 + ' e y = ' + y1 + '. Como una raíz no es negativa, y = ' + y1 + ' es falsa. Solución: ' + g11_ptn([x0, y0]) + '.',
+    function (x, y) { return [y - Math.sqrt(x + a), x - y - d]; }, 1, { r: [-40, 40] });
+});
+
+/* 9. (problema) log x + log y = log P ; x − y = D (solo vale una solución) */
+genr('sis3', function () {
+  var x0, y0;
+  do { x0 = ri(1, 9); y0 = ri(1, 9); } while (x0 === y0);
+  var P = x0 * y0, D = x0 - y0;
+  return g11_sysq('sis3', 'Resuelve el sistema: log x + log y = log ' + P + ' ; x − y = ' + mn(D), [[x0, y0]],
+    [[[x0, y0], [-y0, -x0]], [-y0, -x0], [y0, x0], [P, 1], [x0, -y0]],
+    'log x + log y = log(xy), así que xy = ' + P + '. Con x = y + ' + mn(D) + ': ' + g11_E([1, D, -P], ['y^{2}', 'y', '']) + ' = 0, con y = ' + y0 + ' o y = ' + mn(-x0) + '. El valor negativo no vale (el logaritmo exige x, y > 0). Solución: ' + g11_ptn([x0, y0]) + '.',
+    function (x, y) { return [Math.log(x) + Math.log(y) - Math.log(P), x - y - D]; }, 1, { r: [-40, 40] });
+});
+
+/* 10. valor de x + y o xy con dos logaritmos */
+genr('sis3', function () {
+  var q = [[2, 5], [3, 3], [5, 3], [10, 2]], p1 = pick(q), p2 = pick(q), b1 = p1[0], b2 = p2[0], n1 = ri(1, p1[1]), n2 = ri(1, p2[1]);
+  var x0 = Math.pow(b1, n1), y0 = Math.pow(b2, n2), sum = Math.random() < 0.5, v = sum ? x0 + y0 : x0 * y0;
+  var wr = sum ? [n1 + n2, x0 * y0, b1 * n1 + b2 * n2, v + 1] : [x0 + y0, n1 * n2, n1 + n2, v + 1];
+  return g11_vq('sis3', 'Si ' + g11_lgt(b1) + ' x = ' + n1 + ' y ' + g11_lgt(b2) + ' y = ' + n2 + ', ¿cuánto vale ' + (sum ? 'x + y' : 'xy') + '?', v, wr,
+    g11_lgt(b1) + ' x = ' + n1 + ' da x = ' + b1 + '^{' + n1 + '} = ' + x0 + ' y ' + g11_lgt(b2) + ' y = ' + n2 + ' da y = ' + b2 + '^{' + n2 + '} = ' + y0 + '. Por tanto ' + (sum ? 'x + y' : 'xy') + ' = ' + v + '.',
+    function (x, y) { return [g11_lg(b1)(x) - n1, g11_lg(b2)(y) - n2]; }, function (x, y) { return sum ? x + y : x * y; }, 0, { r: [1, 130] });
+});
+
+/* 11. exponenciales con bases distintas */
+genr('sis3', function () {
+  var b = pick([2, 3]), k = ri(2, 3), B = Math.pow(b, k), x0 = ri(1, 5), y0 = k * x0, S = x0 + y0;
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + B + '^{x} = ' + b + '^{y} ; x + y = ' + S, [[x0, y0]],
+    [[y0, x0], [S - k, k], [x0, S - x0 + 1], [S / 2, S / 2].map(function (z) { return Math.round(z); }), [x0 + 1, y0 - 1]],
+    'Como ' + B + ' = ' + b + '^{' + k + '}, ' + B + '^{x} = ' + b + '^{' + k + 'x}, luego y = ' + k + 'x. Entonces x + ' + k + 'x = ' + S + ', x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [Math.pow(B, x) / Math.pow(b, y) - 1, x + y - S]; }, 0, { r: [-10, 30] });
+});
+
+/* 12. condiciones de existencia */
+genr('sis3', function () {
+  var a = ri(1, 6), k = ri(1, 3), v = ri(0, 3), q, ans, wr, ex;
+  if (v === 0) { q = 'log x + log(y − ' + a + ') = ' + k; ans = 'x > 0 e y > ' + a; wr = ['x ≥ 0 e y ≥ ' + a, 'x > 0 e y < ' + a, 'x > ' + a + ' e y > 0', 'x > 0 e y > ' + mn(-a)]; ex = 'Los argumentos de los logaritmos deben ser positivos: x > 0 e y − ' + a + ' > 0.'; }
+  else if (v === 1) { q = 'log(x + ' + a + ') − log y = ' + k; ans = 'x > ' + mn(-a) + ' e y > 0'; wr = ['x > ' + a + ' e y > 0', 'x ≥ ' + mn(-a) + ' e y ≥ 0', 'x < ' + mn(-a) + ' e y > 0', 'x > ' + mn(-a) + ' e y < 0']; ex = 'Hace falta x + ' + a + ' > 0 e y > 0.'; }
+  else if (v === 2) { q = '√{x} + log y = ' + k; ans = 'x ≥ 0 e y > 0'; wr = ['x > 0 e y > 0', 'x ≥ 0 e y ≥ 0', 'x ≤ 0 e y > 0', 'x ≥ 0 e y < 0']; ex = 'La raíz admite el radicando 0 (x ≥ 0), pero el argumento del logaritmo debe ser estrictamente positivo (y > 0).'; }
+  else { q = '√{x − ' + a + '} + log_{2} y = ' + k; ans = 'x ≥ ' + a + ' e y > 0'; wr = ['x > ' + a + ' e y > 0', 'x ≥ ' + mn(-a) + ' e y > 0', 'x ≥ ' + a + ' e y ≥ 0', 'x ≤ ' + a + ' e y > 0']; ex = 'Radicando no negativo: x − ' + a + ' ≥ 0; argumento del logaritmo positivo: y > 0.'; }
+  return g11_nq('sis3', 'Para que tenga sentido ' + q + ', hay que exigir', ans, wr, ex, 0);
+});
+
+/* 13. (problema) √x + √y = S ; x − y = D */
+genr('sis3', function () {
+  var u, v;
+  do { u = ri(2, 7); v = ri(1, 6); } while (u <= v);
+  var S = u + v, D = u * u - v * v;
+  return g11_sysq('sis3', 'Resuelve el sistema: √{x} + √{y} = ' + S + ' ; x − y = ' + D, [[u * u, v * v]],
+    [[u, v], [v * v, u * u], [S, D], [u * u, -v * v], [u * u + 1, v * v + 1]],
+    'x − y = (√{x} − √{y})(√{x} + √{y}), así que √{x} − √{y} = ' + D + '/' + S + ' = ' + (u - v) + '. Sumando con √{x} + √{y} = ' + S + ': √{x} = ' + u + ' y √{y} = ' + v + '. Entonces x = ' + u * u + ' e y = ' + v * v + '.',
+    function (x, y) { return [Math.sqrt(x) + Math.sqrt(y) - S, x - y - D]; }, 1, { r: [0, 100] });
+});
+
+/* 14. propiedades de los logaritmos con dos datos */
+genr('sis3', function () {
+  var a = nz(-3, 4), b = nz(-3, 4), v = ri(0, 5), q, ans, wr;
+  if (v === 0) { q = 'log(xy)'; ans = a + b; wr = [a * b, a - b, 2 * (a + b), a + b + 1]; }
+  else if (v === 1) { q = 'log(⟨x|y⟩)'; ans = a - b; wr = [a + b, ((a !== 0 && b !== 0 && a % b === 0) ? a / b : a * b), b - a, a * b]; }
+  else if (v === 2) { q = 'log(x^{2}y)'; ans = 2 * a + b; wr = [a * a + b, 2 * (a + b), a + b, 2 * a * b]; }
+  else if (v === 3) { q = 'log(xy^{2})'; ans = a + 2 * b; wr = [a + b * b, 2 * (a + b), a + b, 2 * a * b]; }
+  else if (v === 4) { q = 'log(⟨x^{2}|y⟩)'; ans = 2 * a - b; wr = [a * a - b, 2 * (a - b), a - b, 2 * a + b]; }
+  else { q = 'log(x^{3}y)'; ans = 3 * a + b; wr = [a * a * a + b, 3 * (a + b), a + b, 3 * a * b]; }
+  return g11_nq('sis3', 'Si log x = ' + mn(a) + ' y log y = ' + mn(b) + ', entonces ' + q + ' =', mn(ans), wr.map(mn),
+    'Se usan las propiedades: el logaritmo de un producto es la suma, el de un cociente la resta y el de una potencia multiplica por el exponente. Resulta ' + mn(ans) + '.', 0);
 });
 /* Generadores 12: pol1, pol2, pol3, seg1, seg2, seg3, ine, dom */
 var G12_START = GENS.length;
