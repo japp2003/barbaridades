@@ -12099,8 +12099,7 @@ function drawScene(view, S) {
       G.t.forEach(function (k) {
         var b = document.createElement('button');
         b.type = 'button'; b.className = 'chip';
-        var n = CNT[k] || 0;
-        b.innerHTML = TOPICS[k] + ' <small>' + n + (HASGEN[k] ? '+' : '') + '</small>';
+        b.textContent = TOPICS[k];
         b.setAttribute('aria-pressed', st.topics.indexOf(k) >= 0 ? 'true' : 'false');
         b.addEventListener('click', function () {
           var i = st.topics.indexOf(k);
