@@ -258,6 +258,16 @@ sup:has(.frac) { top: -.7em; }
 .blk { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 10px; padding-top: 14px; border-top: 3px solid var(--ink); }
 .blk:first-child { margin-top: 0; }
 .blk h3 { margin: 0; font-size: 1.35rem; color: var(--ink); }
+
+.miss-item.good { border-left: 5px solid var(--good); }
+.miss-item:not(.good) { border-left: 5px solid var(--bad); }
+@media print {
+  body { background: #fff; color: #000; }
+  .actions, .share, #duelres, .stats { display: none !important; }
+  .miss-item { break-inside: avoid; background: #fff; border-color: #888; }
+  .miss-e { color: #333; }
+  #e-topics { break-inside: avoid; }
+}
 </style>
 <div class="wrap">
   <header class="top">
@@ -369,10 +379,13 @@ sup:has(.frac) { top: -.7em; }
     <div id="e-topics"></div>
     <h3 id="e-miss-h">Para repasar</h3>
     <div class="miss" id="e-miss"></div>
+    <h3 id="e-all-h">Todas las preguntas de la carrera</h3>
+    <div class="miss" id="e-all"></div>
     <div class="actions">
       <button class="btn main" id="again" type="button">Otra carrera</button>
       <button class="btn" id="menu" type="button">Cambiar temas</button>
       <button class="btn" id="copy" type="button">Copiar resultado</button>
+      <button class="btn" id="print" type="button">Imprimir / PDF</button>
     </div>
     <input class="share" id="share" type="text" readonly hidden aria-label="Resultado para copiar">
   </section>
@@ -12433,12 +12446,16 @@ function drawScene(view, S) {
       return '<div class="trow"><span>' + TOPICS[k] + '</span><span class="bar' + (p < 70 ? ' low' : '') + '"><i style="width:' + p + '%"></i></span><span>' + by[k].ok + ' / ' + by[k].n + '</span></div>';
     }).join('');
 
-    var seen = {}, miss = r.log.filter(function (x) { if (x.ok || seen[x.q]) return false; seen[x.q] = 1; return true; });
+    var miss = r.log.filter(function (x) { return !x.ok; });
+    function item(x, i) {
+      return '<div class="miss-item' + (x.ok ? ' good' : '') + '"><span class="miss-t">' + (i + 1) + '. ' + TOPICS[x.t] + ' · ' + (x.ok ? 'acertada' : 'fallada') + '</span><div class="miss-q">' + R(x.q) + '</div>' +
+        '<div class="miss-a">Correcta: <b>' + R(x.a) + '</b>' + (x.ok ? '' : ' · Tú elegiste: ' + R(x.picked)) + '</div><div class="miss-e">' + R(x.e) + '</div></div>';
+    }
     $('e-miss-h').hidden = miss.length === 0;
-    $('e-miss').innerHTML = miss.length === 0 ? '' : miss.slice(0, 15).map(function (x) {
-      return '<div class="miss-item"><span class="miss-t">' + TOPICS[x.t] + '</span><div class="miss-q">' + R(x.q) + '</div>' +
-        '<div class="miss-a">Correcta: <b>' + R(x.a) + '</b> · Tú elegiste: ' + R(x.picked) + '</div><div class="miss-e">' + R(x.e) + '</div></div>';
-    }).join('');
+    $('e-miss-h').textContent = 'Para repasar (' + miss.length + ' falladas)';
+    $('e-miss').innerHTML = miss.map(function (x) { return item(x, r.log.indexOf(x)); }).join('');
+    $('e-all-h').hidden = n === 0;
+    $('e-all').innerHTML = r.log.map(item).join('');
 
     var fails = keys.filter(function (k) { return by[k].ok < by[k].n; }).map(function (k) { return TOPICS[k] + ' ' + (by[k].n - by[k].ok); });
     r.shareText = (r.duel ? 'Online · ' : '') + 'Gran Premio de Barbaridades · ' + r.total + ' m · ' + fmt2(r.finalT) + ' · ' + ok + '/' + n + ' aciertos (' + pct + '%)' + (fails.length ? ' · Fallos: ' + fails.join(', ') : '');
@@ -12450,6 +12467,8 @@ function drawScene(view, S) {
     r.endShown = true;
     if (r.duel) duelResult();
   }
+
+  $('print').addEventListener('click', function () { try { window.print(); } catch (e) { /* nada */ } });
 
   $('copy').addEventListener('click', function () {
     var text = race && race.shareText;
