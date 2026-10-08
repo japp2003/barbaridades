@@ -268,6 +268,8 @@ sup:has(.frac) { top: -.7em; }
   .miss-e { color: #333; }
   #e-topics { break-inside: avoid; }
 }
+
+.row-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
 </style>
 <div class="wrap">
   <header class="top">
@@ -295,7 +297,7 @@ sup:has(.frac) { top: -.7em; }
         </div>
       </div>
       <div id="picker">
-        <div class="row-h"><h2>Temas</h2><button class="link" id="toggle-all" type="button">Quitar todos</button></div>
+        <div class="row-h"><h2>Temas</h2><span class="row-btns"><button class="link" id="flash" type="button">⚡ Solo modo flash</button><button class="link" id="toggle-all" type="button">Quitar todos</button></span></div>
         <div class="groups" id="groups"></div>
       </div>
       <div class="launch">
@@ -422,10 +424,18 @@ var GROUPS = [
   { b: 'Funciones', n: 'Funciones', t: ['fun1', 'fun2', 'fun3'] },
 
   { b: 'Estadística y probabilidad', n: 'Estadística', t: ['est1', 'est2'] },
-  { b: 'Estadística y probabilidad', n: 'Combinatoria y probabilidad', t: ['com', 'pro'] }
+  { b: 'Estadística y probabilidad', n: 'Combinatoria y probabilidad', t: ['com', 'pro'] },
+
+  { b: 'Modo flash (de cabeza)', n: 'Flash', t: ['fl1', 'fl2', 'fl3', 'fl4', 'fl5'] }
 ];
+var FLASHIDS = ['fl1', 'fl2', 'fl3', 'fl4', 'fl5'];
 var TOPICS = {
   ficha: 'Ficha de diagnóstico completa',
+  fl1: 'Flash: álgebra',
+  fl2: 'Flash: radicales',
+  fl3: 'Flash: potencias',
+  fl4: 'Flash: logaritmos',
+  fl5: 'Flash: cálculo mental',
   sig: 'Signos y paréntesis',
   ope: 'Operar con letras',
   des: 'Despejar la incógnita',
@@ -2081,7 +2091,7 @@ gen('pot1', function () {
 /* ---------- mazo ---------- */
 function finish(q) {
   var opts = shuffle([{ s: q.a, ok: true }].concat(q.w.map(function (s) { return { s: s, ok: false, bar: typeof isBar === 'function' && isBar(q.q, s, q.a) }; })));
-  return { t: q.t, q: q.q, a: q.a, e: q.e, p: q.p, opts: opts };
+  return { t: q.t, q: q.q, a: q.a, e: q.e, p: q.p, fl: q.fl, opts: opts };
 }
 
 function makeDeck(topics) {
@@ -11554,6 +11564,188 @@ g14_genr('pro', function () {
   }
   r.p = 1; return r;
 });
+/* Modo flash: preguntas de cabeza, sin papel (temas fl1–fl5) */
+var G15_START = GENS.length;
+function fl(t, fn) {
+  genr(t, function () {
+    var r = fn(), q = mk(t, r.q, r.a, r.w, r.e || f_exp(r));
+    q.fl = 1;
+    (r.bar || []).forEach(function (b) { b = String(b); if (q.w.indexOf(b) >= 0) barb(q.q, b); });
+    return q;
+  });
+}
+
+var F_RULES = [
+  [/^(\w) · \1 = \?/, 'Multiplicar es sumar exponentes: x · x = x^{1+1} = x^{2}. No es 2x.'],
+  [/^(\w) \+ \1 = \?/, 'Sumar es contar cuántas x hay: x + x = 2x. Solo se multiplica cuando hay un producto.'],
+  [/^(\w) · \1 · \1/, 'Tres factores iguales: x · x · x = x^{3}.'],
+  [/^[a-z]\^\{\d+\} · [a-z]\^\{\d+\}/, 'Misma base: se suman los exponentes.'],
+  [/^⟨\w\^\{/, 'Misma base: se restan los exponentes (arriba − abajo).'],
+  [/^\(\w\^\{\d+\}\)\^/, 'Potencia de una potencia: se multiplican los exponentes.'],
+  [/^\d+\w \+ \d+\w/, 'Sumar términos semejantes: se suman los coeficientes y la parte con letra no cambia.'],
+  [/^\d+\w · \d+\w/, 'Se multiplican los números entre sí y las letras entre sí: x · x = x^{2}.'],
+  [/^\(−\d+\) · /, 'Menos por menos da más.'],
+  [/^\(−\w\)\^\{2\}/, 'Exponente par: el signo menos desaparece.'],
+  [/^\(−\w\)\^\{3\}/, 'Exponente impar: el signo menos se queda.'],
+  [/^\w\^\{0\}/, 'Cualquier número distinto de 0 elevado a 0 vale 1.'],
+  [/^\d+\(\w \+/, 'Se reparte el número en todos los términos del paréntesis.'],
+  [/^−\(/, 'El menos delante del paréntesis cambia el signo de todo lo de dentro.'],
+  [/^√\{(\d+)\} \+ √\{\1\}/, 'Son dos raíces iguales: √k + √k = 2√k. Las raíces no se suman por dentro.'],
+  [/^√\{(\d+)\} · √\{\1\}/, 'Una raíz por sí misma devuelve el número: √k · √k = k.'],
+  [/^√\{\d+\} · √\{\d+\}/, 'Multiplicar raíces: se multiplican los radicandos, √a · √b = √{ab}.'],
+  [/^√\{\d+ \+ \d+\}/, 'Primero se suma dentro de la raíz y después se hace la raíz.'],
+  [/^√\{\d+\} \+ √\{\d+\}/, 'Se calcula cada raíz por separado y luego se suman. √a + √b no es √{a+b}.'],
+  [/^\(√/, 'Elevar al cuadrado una raíz cuadrada las anula.'],
+  [/^√\{\w\^\{2\}\}/, 'La raíz cuadrada nunca es negativa: √{x^{2}} = |x|.'],
+  [/^\d+√\{\d+\} [+−] /, 'Raíces iguales se suman como términos semejantes: se suman los coeficientes y la raíz no cambia.'],
+  [/^√\[3\]/, 'Raíz cúbica: ¿qué número al cubo da el radicando?'],
+  [/^√\{⟨/, 'La raíz de una fracción es la raíz del numerador entre la del denominador.'],
+  [/^Si x/, 'Se sustituye x por su valor y se calcula.'],
+  [/^\(a \+ \d+\) − \(a/, 'Se quita el paréntesis cambiando los signos de dentro: las a se anulan.'],
+  [/^\d+\w − \w/, 'Términos semejantes: la x sola es 1x, así que 7x − x = 6x.'],
+  [/^\w − \w \+/, 'x − x = 0, solo queda el número.'],
+  [/^\w\^\{2\} \+ \w\^\{2\}/, 'Términos semejantes: x^{2} + x^{2} = 2x^{2}. El exponente no cambia al sumar.'],
+  [/^\w · \w \+ \w · \w/, 'x · x = x^{2}, y sumar dos iguales da 2x^{2}.'],
+  [/^\d*√/, 'Se busca el mayor cuadrado perfecto que divide al radicando y se saca fuera (por ejemplo 45 = 9 · 5).'],
+  [/^(\d+)\^\{\d+\} · \1\^\{\d+\}/, 'Misma base: se suman los exponentes.'],
+  [/^\d+\^\{(\d+)\} · \d+\^\{\1\}/, 'Mismo exponente: se multiplican las bases y el exponente se queda.'],
+  [/^\d+\^\{−/, 'Exponente negativo: se invierte la base. a^{−n} = 1/a^{n}. El resultado no es negativo.'],
+  [/^10\^\{\d\}/, 'Potencia de 10: el exponente indica cuántos ceros lleva.'],
+  [/^\d+\^\{0\}/, 'Cualquier número distinto de 0 elevado a 0 vale 1.'],
+  [/\^\{⟨1\|2⟩\}/, 'Exponente ½ es raíz cuadrada.'],
+  [/\^\{⟨1\|3⟩\}/, 'Exponente ⅓ es raíz cúbica.'],
+  [/^−\d+\^/, 'Sin paréntesis, el menos va fuera: primero la potencia y después el signo.'],
+  [/^log_\{\d+\} ⟨1/, 'Logaritmo de 1 partido por una potencia de la base: es el exponente con signo cambiado (log_b ⟨1|b⟩ = −1).'],
+  [/^log_\{\d+\} 1 /, 'log de 1 es 0 en cualquier base.'],
+  [/^log_\{(\d+)\} \1 =/, 'log_b b = 1.'],
+  [/^log_\{\d+\} \d+ \+/, 'Suma de logaritmos = logaritmo del producto. Se suman los exponentes.'],
+  [/^log_\{\d+\} \d+ −/, 'Resta de logaritmos = logaritmo del cociente. Se restan los exponentes.'],
+  [/^log \d+ \+ log/, 'log a + log b = log(ab). Aquí el producto es una potencia de 10.'],
+  [/^log \d+\^/, 'log(a^{n}) = n · log a.'],
+  [/^log_\{\d+\} \d+ =|^log \d+ =/, 'El logaritmo es el exponente: ¿a qué se eleva la base para dar ese número?'],
+  [/^ln e\^/, 'ln y e^ son inversas: ln e^{n} = n.'],
+  [/^ln e =/, 'ln e = 1.'],
+  [/^ln 1/, 'ln 1 = 0.'],
+  [/^e\^\{ln/, 'e^ y ln se anulan: e^{ln k} = k.'],
+  [/^⟨1\|\d+⟩ \+ ⟨1\|\d+⟩/, 'Fracciones: denominador común. Los denominadores no se suman.'],
+  [/^⟨\d+\|\d+⟩ ·/, 'Producto de fracciones: numerador por numerador, denominador por denominador.'],
+  [/% de/, 'Porcentaje: divide entre 100 y multiplica.'],
+  [/^\(x \+ 1\)\(x − 1\)/, 'Suma por diferencia: (x+1)(x−1) = x^{2} − 1.'],
+  [/^\d+\^\{2\} =/, 'El cuadrado es multiplicar el número por sí mismo, no por 2.'],
+  [/→ x = /, 'Se hace la operación contraria en los dos lados.'],
+  [/ − \(−/, 'Restar un negativo es sumar.'],
+  [/^−\d+ − /, 'Dos negativos seguidos se suman y el resultado sigue siendo negativo.']
+];
+function f_exp(r) {
+  if (/^√\{\d+\} = \?$/.test(r.q) && /^\d+$/.test(r.a)) return 'Raíz exacta: ¿qué número al cuadrado da el radicando?';
+  for (var i = 0; i < F_RULES.length; i++) if (F_RULES[i][0].test(r.q)) return F_RULES[i][1];
+  return r.q.replace(/ = \?$/, '').replace(/ → \?$/, '') + ' = ' + r.a + '.';
+}
+function f_sq(c, k) { return (c === 1 ? '' : c) + '√{' + k + '}'; }
+function f_pw(a, n) { return n === 1 ? String(a) : a + '^{' + n + '}'; }
+function f_big(n) { return n >= 10000 ? String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : String(n); }
+function f_num(n) { return String(n).replace('-', '−'); }
+function f_dec(x) { return String(x).replace('.', ','); }
+function f_fr(a, b) { var g = gcd(Math.abs(a), Math.abs(b)) || 1; a /= g; b /= g; if (b < 0) { a = -a; b = -b; } return b === 1 ? f_num(a) : (a < 0 ? '−' : '') + '⟨' + Math.abs(a) + '|' + b + '⟩'; }
+var F_VARS = ['x', 'x', 'x', 'a', 'y', 't', 'b'];
+
+/* ---------- fl1: álgebra relámpago ---------- */
+var FL1 = [
+  function () { var v = pick(F_VARS); return { q: v + ' · ' + v + ' = ?', a: f_pw(v, 2), w: ['2' + v, f_pw(v, 3), v], bar: ['2' + v] }; },
+  function () { var v = pick(F_VARS); return { q: v + ' + ' + v + ' = ?', a: '2' + v, w: [f_pw(v, 2), '2' + f_pw(v, 2), v], bar: [f_pw(v, 2)] }; },
+  function () { var v = pick(F_VARS); return { q: v + ' · ' + v + ' · ' + v + ' = ?', a: f_pw(v, 3), w: ['3' + v, f_pw(v, 2), '3' + f_pw(v, 2)], bar: ['3' + v] }; },
+  function () { var v = pick(F_VARS), m = ri(2, 6), n = ri(2, 6); return { q: f_pw(v, m) + ' · ' + f_pw(v, n) + ' = ?', a: f_pw(v, m + n), w: [f_pw(v, m * n), f_pw(v, Math.abs(m - n) || 1), f_pw(v, m + n + 1)], bar: [f_pw(v, m * n)] }; },
+  function () { var v = pick(F_VARS), n = ri(2, 4), m = n + ri(1, 5); return { q: '⟨' + f_pw(v, m) + '|' + f_pw(v, n) + '⟩ = ?', a: f_pw(v, m - n), w: [f_pw(v, m + n), f_pw(v, m * n), f_pw(v, m + n - 1 > 0 && m + n - 1 !== m - n ? m + n - 1 : m - n + 2)], bar: [f_pw(v, m * n)] }; },
+  function () { var v = pick(F_VARS), m = ri(2, 4), n = ri(2, 4); return { q: '(' + f_pw(v, m) + ')^{' + n + '} = ?', a: f_pw(v, m * n), w: [f_pw(v, m + n), f_pw(v, m * n + m), f_pw(v, n)], bar: [f_pw(v, m + n)] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9), j = ri(2, 9); return { q: k + v + ' + ' + j + v + ' = ?', a: (k + j) + v, w: [(k * j) + v, (k + j) + f_pw(v, 2), (k * j) + f_pw(v, 2)], bar: [(k + j) + f_pw(v, 2)] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9), j = ri(2, 9); return { q: k + v + ' · ' + j + v + ' = ?', a: (k * j) + f_pw(v, 2), w: [(k + j) + f_pw(v, 2), (k * j) + v, (k + j) + v], bar: [(k * j) + v] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9); return { q: k + v + ' − ' + v + ' = ?', a: (k - 1) === 1 ? v : (k - 1) + v, w: [k + v, f_pw(v, 1) === v && (k + 1) + v, '0'].filter(Boolean), bar: [] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 6); return { q: v + ' − ' + v + ' + ' + k + ' = ?', a: String(k), w: [k + v, k + 1 + '', '0'], bar: [] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 6); return { q: f_pw(v, 2) + ' + ' + f_pw(v, 2) + ' = ?', a: '2' + f_pw(v, 2), w: [f_pw(v, 4), '2' + f_pw(v, 4), f_pw(v, 2)], bar: [f_pw(v, 4)] }; },
+  function () { var v = pick(F_VARS); return { q: '(−' + v + ')^{2} = ?', a: f_pw(v, 2), w: ['−' + f_pw(v, 2), v, '−' + v], bar: ['−' + f_pw(v, 2)] }; },
+  function () { var v = pick(F_VARS); return { q: '(−' + v + ')^{3} = ?', a: '−' + f_pw(v, 3), w: [f_pw(v, 3), '−' + f_pw(v, 2), f_pw(v, 2)], bar: [] }; },
+  function () { var v = pick(F_VARS); return { q: f_pw(v, 0) + ' (con ' + v + ' ≠ 0) = ?', a: '1', w: ['0', v, '−1'], bar: ['0'] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9), j = ri(2, 9); return { q: k + '(' + v + ' + ' + j + ') = ?', a: k + v + ' + ' + (k * j), w: [k + v + ' + ' + j, v + ' + ' + (k * j), (k + 1) + v + ' + ' + (k * j)], bar: [k + v + ' + ' + j] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9); return { q: '−(' + v + ' − ' + k + ') = ?', a: '−' + v + ' + ' + k, w: ['−' + v + ' − ' + k, v + ' − ' + k, v + ' + ' + k], bar: ['−' + v + ' − ' + k] }; },
+  function () { var k = ri(2, 9), j = ri(2, 9); return { q: '(a + ' + k + ') − (a − ' + j + ') = ?', a: String(k + j), w: [f_num(k - j), 'a + ' + (k + j), '2a + ' + (k + j)], bar: [] }; },
+  function () { var k = pick([-5, -4, -3, -2, 2, 3, 4, 5]); return { q: 'Si x = ' + f_num(k) + ', ¿cuánto vale x^{2}?', a: String(k * k), w: [f_num(-k * k), f_num(2 * k), f_num(-2 * k)], bar: [f_num(-k * k)] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 6); return { q: v + ' · ' + v + ' + ' + v + ' · ' + v + ' = ?', a: '2' + f_pw(v, 2), w: [f_pw(v, 4), '2' + v, '2' + f_pw(v, 4)], bar: [f_pw(v, 4)] }; }
+];
+FL1.forEach(function (f) { fl('fl1', f); });
+
+/* ---------- fl2: radicales relámpago ---------- */
+var FL2 = [
+  function () { var k = pick([2, 3, 5, 6, 7]); return { q: '√{' + k + '} + √{' + k + '} = ?', a: f_sq(2, k), w: ['√{' + (2 * k) + '}', String(2 * k), '√{' + k + '}'], bar: ['√{' + (2 * k) + '}', String(2 * k)] }; },
+  function () { var k = pick([2, 3, 5, 6, 7]); return { q: '√{' + k + '} · √{' + k + '} = ?', a: String(k), w: [f_sq(2, k), '√{' + (2 * k) + '}', String(k * k)], bar: [f_sq(2, k)] }; },
+  function () { var k = ri(2, 15); return { q: '√{' + (k * k) + '} = ?', a: String(k), w: [String(k + 1), String(k - 1), String(2 * k)], bar: [] }; },
+  function () { var k = pick([2, 3, 5, 6, 7]), m = ri(2, 4), j = k * m * m; return { q: '√{' + k + '} · √{' + j + '} = ?', a: String(k * m), w: ['√{' + (k + j) + '}', String(k * j), String(k * m + m)], bar: ['√{' + (k + j) + '}'] }; },
+  function () { var k = pick([2, 3, 5, 7]), a = ri(2, 6), b = ri(2, 6); return { q: a + '√{' + k + '} + ' + b + '√{' + k + '} = ?', a: f_sq(a + b, k), w: [(a + b) + k, '√{' + ((a + b) * k) + '}', f_sq(a * b, k)], bar: ['√{' + ((a + b) * k) + '}'] }; },
+  function () { var k = pick([2, 3, 5, 7]), a = ri(3, 8); return { q: a + '√{' + k + '} − √{' + k + '} = ?', a: f_sq(a - 1, k), w: [String(a), '√{' + ((a - 1) * k) + '}', f_sq(a, k)], bar: [] }; },
+  function () { var t = pick([[2, 2], [2, 3], [3, 2], [2, 5], [3, 3], [5, 2], [4, 2], [3, 5], [5, 3], [6, 2]]), a = t[0], b = t[1], n = a * a * b; return { q: '√{' + n + '} = ?', a: f_sq(a, b), w: [f_sq(b, a), a + ' + √{' + b + '}', f_sq(a * a, b)], bar: [a + ' + √{' + b + '}'] }; },
+  function () { var v = pick(['x', 'a', 't']); return { q: '√{' + v + '^{2}} = ?', a: '|' + v + '|', w: [v, '±' + v, v + '^{2}'], bar: [v + '^{2}'] }; },
+  function () { var t = pick([[3, 4, 5], [6, 8, 10], [5, 12, 13]]); return { q: '√{' + t[0] * t[0] + ' + ' + t[1] * t[1] + '} = ?', a: String(t[2]), w: [String(t[0] + t[1]), String(t[0] * t[0] + t[1] * t[1]), String(t[0] * t[1])], bar: [String(t[0] + t[1])] }; },
+  function () { var k = pick([2, 3, 4, 5, 10]); return { q: '√[3]{' + k * k * k + '} = ?', a: String(k), w: [String(k + 1), String(k * 3), String(k - 1)], bar: [] }; },
+  function () { var n = pick([2, 3, 4, 5]); return { q: '√{⟨1|' + n * n + '⟩} = ?', a: '⟨1|' + n + '⟩', w: ['⟨1|' + n * n + '⟩', String(n), '⟨1|' + (n + 1) + '⟩'], bar: ['⟨1|' + n * n + '⟩'] }; },
+  function () { var k = pick([2, 3, 5, 7, 11]); return { q: '(√{' + k + '})^{2} = ?', a: String(k), w: ['√{' + k + '}', String(2 * k), String(k * k)], bar: [String(2 * k)] }; },
+  function () { var t = pick([[4, 9], [9, 16], [1, 4], [16, 25], [4, 25], [9, 25], [1, 9]]); return { q: '√{' + t[0] + '} + √{' + t[1] + '} = ?', a: String(Math.sqrt(t[0]) + Math.sqrt(t[1])), w: ['√{' + (t[0] + t[1]) + '}', String(t[0] + t[1]), String(Math.sqrt(t[0]) * Math.sqrt(t[1]))], bar: ['√{' + (t[0] + t[1]) + '}'] }; },
+  function () { var k = pick([2, 3, 5]), j = pick([2, 3, 5, 7]); if (k === j) j = 11; return { q: '√{' + k + '} · √{' + j + '} = ?', a: '√{' + k * j + '}', w: ['√{' + (k + j) + '}', String(k * j), f_sq(k, j)], bar: ['√{' + (k + j) + '}'] }; }
+];
+FL2.forEach(function (f) { fl('fl2', f); });
+
+/* ---------- fl3: potencias relámpago ---------- */
+var FL3 = [
+  function () { var a = pick([2, 3, 5]), n = a === 2 ? ri(3, 8) : ri(2, 4); var v = Math.pow(a, n); return { q: f_pw(a, n) + ' = ?', a: String(v), w: [String(a * n), String(Math.pow(a, n - 1)), String(Math.pow(a, n + 1))], bar: [String(a * n)] }; },
+  function () { var a = pick([2, 3, 5, 7, 10, 100]); return { q: f_pw(a, 0) + ' = ?', a: '1', w: ['0', String(a), '−1'], bar: ['0'] }; },
+  function () { var a = pick([2, 3, 5, 10]), n = ri(1, 3), p = Math.pow(a, n); return { q: f_pw(a, '−' + n) + ' = ?', a: '⟨1|' + p + '⟩', w: ['−' + p, '−⟨1|' + p + '⟩', '⟨1|' + (a * n) + '⟩', String(p)], bar: ['−' + p] }; },
+  function () { var a = pick([2, 3, 5]), m = ri(2, 5), n = ri(2, 5); return { q: f_pw(a, m) + ' · ' + f_pw(a, n) + ' = ?', a: f_pw(a, m + n), w: [f_pw(a, m * n), f_pw(a * a, m + n), f_pw(a, Math.abs(m - n) || 1)], bar: [f_pw(a * a, m + n), f_pw(a, m * n)] }; },
+  function () { var a = pick([2, 3, 5]), n = ri(2, 4), m = n + ri(1, 4); return { q: '⟨' + f_pw(a, m) + '|' + f_pw(a, n) + '⟩ = ?', a: f_pw(a, m - n), w: ['1^{' + (m - n) + '}', f_pw(a, m * n), f_pw(a, m + n)], bar: ['1^{' + (m - n) + '}'] }; },
+  function () { var a = pick([2, 3, 5]), m = ri(2, 4), n = ri(2, 4); return { q: '(' + f_pw(a, m) + ')^{' + n + '} = ?', a: f_pw(a, m * n), w: [f_pw(a, m + n), f_pw(a, n), f_pw(a, m)], bar: [f_pw(a, m + n)] }; },
+  function () { var b = pick([4, 9, 16, 25, 36, 49]); return { q: f_pw(b, '⟨1|2⟩') + ' = ?', a: String(Math.sqrt(b)), w: [f_dec(b / 2) === String(Math.sqrt(b)) ? String(b * 2) : f_dec(b / 2), String(b * b), '⟨1|' + b + '⟩'], bar: [f_dec(b / 2)] }; },
+  function () { var b = pick([8, 27, 64, 125]), r = Math.round(Math.cbrt(b)); return { q: f_pw(b, '⟨1|3⟩') + ' = ?', a: String(r), w: ['⟨' + b + '|3⟩', String(b * 3), String(r * 3)], bar: ['⟨' + b + '|3⟩'] }; },
+  function () { var k = pick([2, 3, 4, 5]); return { q: '(−' + k + ')^{2} = ?', a: String(k * k), w: ['−' + k * k, String(2 * k), '−' + 2 * k], bar: ['−' + k * k] }; },
+  function () { var k = pick([2, 3, 4, 5]); return { q: '−' + k + '^{2} = ?', a: '−' + k * k, w: [String(k * k), String(2 * k), '−' + 2 * k], bar: [String(k * k)] }; },
+  function () { var k = pick([2, 3]); var o = Math.pow(-k, 3); return { q: '(−' + k + ')^{3} = ?', a: f_num(o), w: [String(-o), f_num(-3 * k), String(3 * k)], bar: [] }; },
+  function () { var n = ri(2, 4); return { q: f_pw(10, n) + ' = ?', a: f_big(Math.pow(10, n)), w: [f_big(10 * n), f_big(Math.pow(10, n - 1)), f_big(Math.pow(10, n + 1))], bar: [f_big(10 * n)] }; },
+  function () { var p = pick([[2, 5], [4, 5], [2, 50]]), m = ri(2, 3); return { q: f_pw(p[0], m) + ' · ' + f_pw(p[1], m) + ' = ?', a: f_pw(p[0] * p[1], m), w: [f_pw(p[0] + p[1], m), f_pw(p[0] * p[1], m * 2), f_pw(p[0] + p[1], m * 2)], bar: [f_pw(p[0] + p[1], m)] }; }
+];
+FL3.forEach(function (f) { fl('fl3', f); });
+
+/* ---------- fl4: logaritmos relámpago ---------- */
+var FL4 = [
+  function () { var b = pick([2, 3, 5]), n = ri(2, 4), x = Math.pow(b, n); return { q: 'log_{' + b + '} ' + x + ' = ?', a: String(n), w: [String(x / b), String(n + 1), String(b * n)], bar: [String(x / b)] }; },
+  function () { var n = ri(2, 4); return { q: 'log ' + Math.pow(10, n) + ' = ?', a: String(n), w: ['10', String(n + 1), String(n - 1)], bar: ['10'] }; },
+  function () { var b = pick([2, 3, 5, 10, 7]); return { q: 'log_{' + b + '} 1 = ?', a: '0', w: ['1', String(b), '−1'], bar: ['1'] }; },
+  function () { var b = pick([2, 3, 5, 7]); return { q: 'log_{' + b + '} ' + b + ' = ?', a: '1', w: ['0', String(b), '−1'], bar: [String(b)] }; },
+  function () { var b = pick([2, 3, 5]); return { q: 'log_{' + b + '} ⟨1|' + b + '⟩ = ?', a: '−1', w: ['0', '1', String(b)], bar: [] }; },
+  function () { return { q: 'ln e = ?', a: '1', w: ['0', 'e', '−1'], bar: ['e'] }; },
+  function () { return { q: 'ln 1 = ?', a: '0', w: ['1', 'e', '−1'], bar: ['1'] }; },
+  function () { var n = ri(2, 5); return { q: 'ln e^{' + n + '} = ?', a: String(n), w: ['e^{' + n + '}', 'e · ' + n, '1'], bar: ['e^{' + n + '}'] }; },
+  function () { var t = pick([[2, 5], [4, 25], [20, 5], [50, 2], [25, 4], [5, 20], [2, 50]]), v = Math.round(Math.log10(t[0] * t[1])); return { q: 'log ' + t[0] + ' + log ' + t[1] + ' = ?', a: String(v), w: ['log ' + (t[0] + t[1]), String(t[0] + t[1]), String(v + 1)], bar: ['log ' + (t[0] + t[1])] }; },
+  function () { var b = pick([2, 3]), m = ri(1, 3), n = ri(1, 3); return { q: 'log_{' + b + '} ' + Math.pow(b, m) + ' + log_{' + b + '} ' + Math.pow(b, n) + ' = ?', a: String(m + n), w: ['log_{' + b + '} ' + (Math.pow(b, m) + Math.pow(b, n)), String(m * n + (m * n === m + n ? 1 : 0)), String(m + n + 1)], bar: ['log_{' + b + '} ' + (Math.pow(b, m) + Math.pow(b, n))] }; },
+  function () { var b = pick([2, 3]), m = ri(3, 4), n = ri(1, 2); return { q: 'log_{' + b + '} ' + Math.pow(b, m) + ' − log_{' + b + '} ' + Math.pow(b, n) + ' = ?', a: String(m - n), w: ['log_{' + b + '} ' + (Math.pow(b, m) - Math.pow(b, n)), String(m + n), String(m - n + 1)], bar: ['log_{' + b + '} ' + (Math.pow(b, m) - Math.pow(b, n))] }; },
+  function () { var a = pick([3, 5, 7]), n = ri(2, 4); return { q: 'log ' + a + '^{' + n + '} = ?', a: n + ' log ' + a, w: ['(log ' + a + ')^{' + n + '}', 'log ' + (a * n), a + ' log ' + n], bar: ['(log ' + a + ')^{' + n + '}', 'log ' + (a * n), a + ' log ' + n] }; },
+  function () { var k = pick([3, 5, 7]); return { q: 'e^{ln ' + k + '} = ?', a: String(k), w: ['e · ' + k, 'ln ' + k, '1'], bar: ['e · ' + k] }; },
+  function () { var b = pick([2, 3, 5]), n = ri(2, 3); return { q: 'log_{' + b + '} ' + Math.pow(b, -n).toString().replace(/^.*$/, '⟨1|' + Math.pow(b, n) + '⟩') + ' = ?', a: '−' + n, w: [String(n), '⟨1|' + n + '⟩', '−' + Math.pow(b, n)], bar: [String(n)] }; }
+];
+FL4.forEach(function (f) { fl('fl4', f); });
+
+/* ---------- fl5: cálculo mental ---------- */
+var FL5 = [
+  function () { var n = pick([2, 3, 4, 5, 6, 10]); return { q: '⟨1|' + n + '⟩ + ⟨1|' + n + '⟩ = ?', a: f_fr(2, n), w: ['⟨2|' + 2 * n + '⟩', '⟨1|' + 2 * n + '⟩', '⟨1|' + n + '⟩'], bar: ['⟨2|' + 2 * n + '⟩'] }; },
+  function () { var t = pick([[2, 4], [2, 3], [2, 6], [3, 6], [2, 5], [3, 4], [4, 12]]); var a = t[0], b = t[1], num = b + a, den = a * b; return { q: '⟨1|' + a + '⟩ + ⟨1|' + b + '⟩ = ?', a: f_fr(num, den), w: ['⟨2|' + (a + b) + '⟩', '⟨1|' + (a + b) + '⟩', '⟨1|' + den + '⟩'], bar: ['⟨2|' + (a + b) + '⟩'] }; },
+  function () { var a = ri(3, 9), b = ri(6, 9); return { q: a + ' · ' + b + ' = ?', a: String(a * b), w: [String(a * b + b), String(a * b - a), String(a * b + 10)], bar: [] }; },
+  function () { var p = pick([10, 20, 25, 50, 75]), x = pick([40, 80, 120, 200]); var v = p * x / 100; return { q: p + ' % de ' + x + ' = ?', a: String(v), w: [String(x - v), String(p), String(v * 2)], bar: [String(p)] }; },
+  function () { var x = ri(2, 6); return { q: 'Si x = ' + x + ', ¿cuánto vale x^{2} + x?', a: String(x * x + x), w: [String(x * x), String(x * x - x), String(2 * x)], bar: [String(x * x)] }; },
+  function () { var n = pick([11, 12, 13, 14, 15, 20, 25]); return { q: n + '^{2} = ?', a: String(n * n), w: [String(n * n - n), String(n * n + n), String(2 * n)], bar: [String(2 * n)] }; },
+  function () { var k = ri(2, 9), j = ri(2, 9); return { q: '(−' + k + ') · (−' + j + ') = ?', a: String(k * j), w: ['−' + k * j, '−' + (k + j), String(k + j)], bar: ['−' + k * j] }; },
+  function () { var k = ri(3, 9), j = ri(2, 8); if (j === k) j = 1; return { q: k + ' − (−' + j + ') = ?', a: String(k + j), w: [f_num(k - j), '−' + (k + j), f_num(j - k)], bar: [f_num(k - j)] }; },
+  function () { var k = ri(2, 6), j = ri(3, 9); return { q: '−' + k + ' − ' + j + ' = ?', a: '−' + (k + j), w: [String(j - k), String(k + j), '−' + (j - k)], bar: [String(k + j)] }; },
+  function () { var x = ri(2, 9), b = ri(2, 9); return { q: 'x + ' + b + ' = ' + (x + b) + ' → x = ?', a: String(x), w: [String(x + 2 * b), f_num(-x), String(x + b)], bar: [String(x + 2 * b)] }; },
+  function () { var x = ri(2, 9), k = ri(2, 9); return { q: k + 'x = ' + k * x + ' → x = ?', a: String(x), w: [String(k * k * x), String(x + k), String(k * x + k)], bar: [String(k * k * x)] }; },
+  function () { var t = pick([[1, 2, 1, 3], [2, 3, 3, 4], [1, 2, 2, 3], [3, 4, 2, 3], [1, 3, 3, 5]]); return { q: '⟨' + t[0] + '|' + t[1] + '⟩ · ⟨' + t[2] + '|' + t[3] + '⟩ = ?', a: f_fr(t[0] * t[2], t[1] * t[3]), w: ['⟨' + t[0] * t[2] + '|' + (t[1] + t[3]) + '⟩', '⟨' + (t[0] + t[2]) + '|' + t[1] * t[3] + '⟩', '⟨' + t[0] * t[3] + '|' + t[1] * t[2] + '⟩'], bar: ['⟨' + (t[0] + t[2]) + '|' + t[1] * t[3] + '⟩'] }; },
+  function () { var x = pick([2, 3, 4, 5, 6]); return { q: '(x + 1)(x − 1) con x = ' + x + ' → ?', a: String(x * x - 1), w: [String(x * x + 1), String(x * x), String(2 * x)], bar: [String(x * x)] }; }
+];
+FL5.forEach(function (f) { fl('fl5', f); });
 /* Sala online sin cuentas: misma interfaz que la capacidad "room", sobre PeerJS (WebRTC).
    El primero que entra con un código hace de "centro" (hub); los demás se conectan a él. */
 (function () {
@@ -12032,7 +12224,7 @@ function drawScene(view, S) {
     paint();
   })();
 
-  var st = { topics: Object.keys(TOPICS).filter(function (k) { return k !== 'ficha'; }), len: 1000 };
+  var st = { topics: Object.keys(TOPICS).filter(function (k) { return normal(k); }), len: 1000 };
   var locked = false, hashRoom = null;
   var CNT = {}, HASGEN = {};
   STATIC.forEach(function (q) { CNT[q.t] = (CNT[q.t] || 0) + 1; if (q.f) CNT.ficha = (CNT.ficha || 0) + 1; });
@@ -12072,6 +12264,9 @@ function drawScene(view, S) {
 
   /* ---------- inicio ---------- */
   function allIds() { return Object.keys(TOPICS); }
+  function normal(k) { return k !== 'ficha' && FLASHIDS.indexOf(k) < 0; }
+  function normalIds() { return allIds().filter(normal); }
+  function isFull() { return normalIds().every(function (k) { return st.topics.indexOf(k) >= 0; }); }
   function renderChips() {
     var box = $('groups');
     box.innerHTML = '';
@@ -12122,7 +12317,7 @@ function drawScene(view, S) {
       sec.appendChild(row);
       box.appendChild(sec);
     });
-    $('toggle-all').textContent = st.topics.length >= allIds().length - 1 ? 'Quitar todos' : 'Marcar todos';
+    $('toggle-all').textContent = isFull() ? 'Quitar todos' : 'Marcar todos';
   }
   function codeStr() {
     var ids = allIds().filter(function (k) { return st.topics.indexOf(k) >= 0; });
@@ -12176,8 +12371,11 @@ function drawScene(view, S) {
     renderLock();
   }
   $('toggle-all').addEventListener('click', function () {
-    var full = st.topics.length >= allIds().length - 1;
-    st.topics = full ? [] : allIds().filter(function (k) { return k !== 'ficha'; });
+    st.topics = isFull() ? [] : normalIds();
+    saveSetup(); renderChips(); updateStart();
+  });
+  $('flash').addEventListener('click', function () {
+    st.topics = FLASHIDS.slice();
     saveSetup(); renderChips(); updateStart();
   });
   $('unlock').addEventListener('click', function () { locked = false; renderChips(); updateStart(); });
@@ -12284,7 +12482,7 @@ function drawScene(view, S) {
   function nextQ() {
     if (race.phase !== 'run') return;
     var q = race.cur = race.deck.next();
-    $('q-topic').textContent = TOPICS[q.t] + (q.p ? ' · Problema: usa papel' : '');
+    $('q-topic').textContent = TOPICS[q.t] + (q.p ? ' · Problema: usa papel' : q.fl ? ' · ¡de cabeza!' : '');
     $('q-text').innerHTML = '<span class="qin">' + R(q.q) + '</span>';
     var box = $('opts');
     box.innerHTML = '';
@@ -12302,7 +12500,7 @@ function drawScene(view, S) {
     var plain = function (s) { return R(s).replace(/<[^>]*>/g, ''); };
     var longest = 0;
     q.opts.forEach(function (o) { longest = Math.max(longest, plain(o.s).length); });
-    race.grace = q.p ? 60 : Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
+    race.grace = q.fl ? 3 : q.p ? 60 : Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
   }
 
   function pop(text, bad) {
