@@ -327,4 +327,7 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
 .badge i { font-style: normal; }
 .badge.off { border-color: var(--line); background: transparent; color: var(--muted); font-weight: 400; filter: grayscale(1); opacity: .65; }
 .newbadges { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; justify-content: center; }
+#custom-text { width: 100%; box-sizing: border-box; font: inherit; font-size: .9rem; background: var(--panel); color: var(--ink); border: 1.5px solid var(--line); border-radius: 6px; padding: 8px; }
+.rooms { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0; }
+code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; font-size: .85em; }
 </style>

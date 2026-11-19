@@ -126,6 +126,37 @@
   function bestKey() { return 'gpa-best-' + st.len + '-' + st.topics.slice().sort().join('.'); }
   function getBest() { var v = parseFloat(store.get(bestKey())); return isNaN(v) ? null : v; }
 
+
+  /* ---------- preguntas propias del profe (en este dispositivo) ---------- */
+  function parseCustom(txt) {
+    var out = [], bad = [];
+    String(txt || '').split(/\r?\n/).forEach(function (ln, i) {
+      if (!ln.trim()) return;
+      var f = ln.split('|').map(function (x) { return x.trim(); });
+      if (f.length < 5 || f.slice(0, 5).some(function (x) { return !x; })) { bad.push(i + 1); return; }
+      var w = f.slice(2, 5);
+      if (w.indexOf(f[1]) >= 0 || w[0] === w[1] || w[0] === w[2] || w[1] === w[2]) { bad.push(i + 1); return; }
+      out.push({ q: f[0], a: f[1], w: w, e: f[5] || 'Respuesta correcta: ' + f[1] + '.' });
+    });
+    return { ok: out, bad: bad };
+  }
+  (function () {
+    var c = parseCustom(store.get('gpa-custom'));
+    if (!c.ok.length) return;
+    TOPICS.mis = 'Mis preguntas';
+    GROUPS.push({ b: 'Mis preguntas', n: 'Mis preguntas', t: ['mis'] });
+    CURSOS.forEach(function (cu) { cu.t.push('mis'); });
+    c.ok.forEach(function (x) { add('mis', x.q, x.a, x.w, x.e); });
+  })();
+  $('custom-text').value = store.get('gpa-custom') || '';
+  $('custom-save').addEventListener('click', function () {
+    var v = $('custom-text').value, c = parseCustom(v), m = $('custom-msg');
+    if (c.bad.length) { m.textContent = 'Revisa la(s) línea(s) ' + c.bad.join(', ') + ': necesitan enunciado, correcta y 3 incorrectas distintas.'; return; }
+    store.set('gpa-custom', v);
+    m.textContent = c.ok.length ? 'Guardadas ' + c.ok.length + ' preguntas. Recargando…' : 'Borradas. Recargando…';
+    setTimeout(function () { try { window.location.reload(); } catch (e) { /* nada */ } }, 600);
+  });
+
   /* ---------- fallos guardados (para practicarlos después) ---------- */
   function loadFails() { try { var o = JSON.parse(store.get('gpa-fails') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
   function failKeys() { return Object.keys(loadFails()); }
@@ -805,7 +836,7 @@
   $('mode-solo').addEventListener('click', function () { setMode('solo'); });
   $('mode-duel').addEventListener('click', function () { setMode('duel'); });
 
-  function cfgNow() { return { t: st.topics.slice(), l: st.len, v: st.lvl }; }
+  function cfgNow() { return { t: st.topics.filter(function (k) { return k !== 'mis'; }), l: st.len, v: st.lvl }; }
   function players() {
     if (!D.nr) return [];
     return D.nr.peers().filter(function (p) { return p.kind !== 'agent' && p.presence && p.presence.nick && !p.presence.obs; })
@@ -821,7 +852,9 @@
   function effCfg() { var o = cfgOwner(); return o && !o.isMe && o.presence.cfg ? o.presence.cfg : cfgNow(); }
   function pctS(ok, n) { return n ? Math.round(ok / n * 100) + ' %' : '–'; }
   /* informe de la sala a partir de lo que publica cada jugador */
+  var lastRep = [];
   function reportHTML(list, live) {
+    lastRep = [];
     if (!list.length) return '<p class="hintp">Aún no hay alumnos en la sala.</p>';
     var by = {}, miss = {}, anyRep = false;
     var rows = list.map(function (p) {
@@ -842,6 +875,7 @@
           q = String(q).slice(0, 120); var M = miss[q] || (miss[q] = { c: 0, who: [] }); M.c++; M.who.push(pr.nick);
         });
       }
+      lastRep.push([pr.nick || '?', est, n ? ok : '', n ? n : '', n ? Math.round(ok / n * 100) : '', worst]);
       return '<tr><td>' + safe(pr.nick || '?') + '</td><td>' + est + '</td><td>' + (n ? ok + '/' + n + ' (' + pctS(ok, n) + ')' : '–') + '</td><td>' + (worst ? safe(worst) : '–') + '</td></tr>';
     }).join('');
     var html = '<div class="tscroll"><table class="rep"><thead><tr><th>Alumno</th><th>Estado</th><th>Aciertos</th><th>Tema más flojo</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
@@ -966,6 +1000,7 @@
     $('join').disabled = true;
     try {
       var nr = await roomNS.join('bar-' + code);
+      rememberRoom(code, D.obs); renderRooms();
       D.nr = nr; D.code = code; D.ph = 'lobby'; D.ready = false; D.seen = {}; D.track = {};
       D.unsub = nr.onPeers(onPeersChange, function () { err.textContent = 'Se ha perdido la conexión con la sala.'; duelLeave(); });
       await nr.presence(D.obs ? { nick: nick, obs: true, cfg: cfgNow() } : { nick: nick, rdy: false, ph: 'lobby', cfg: cfgNow(), d: 0, v: 0, fin: null, go: null });
@@ -1092,6 +1127,44 @@
       '<details class="drrep"' + opened + '><summary>Informe de la sala</summary>' + reportHTML(pl, false) + '</details>';
   }
 
+
+  $('d-csv').addEventListener('click', function () {
+    var rows = [['Alumno', 'Estado', 'Aciertos', 'Preguntas', '% acierto', 'Tema más flojo']].concat(lastRep);
+    var txt = '\ufeff' + rows.map(function (r) { return r.map(function (x) { return '"' + String(x).replace(/"/g, '""') + '"'; }).join(';'); }).join('\r\n');
+    var d = new Date(), name = 'informe-' + (D.code || 'sala') + '-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '.csv';
+    try {
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+      a.download = name; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    } catch (e) {
+      try { navigator.clipboard.writeText(txt); $('d-csv').textContent = 'Copiado: pégalo en Excel'; } catch (e2) { /* nada */ }
+    }
+  });
+  /* salas recientes y enlace directo */
+  function loadRooms() { try { var a = JSON.parse(store.get('gpa-rooms') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function rememberRoom(code, obs) {
+    var a = loadRooms().filter(function (r) { return r.c !== code; });
+    a.unshift({ c: code, o: !!obs });
+    store.set('gpa-rooms', JSON.stringify(a.slice(0, 5)));
+  }
+  function renderRooms() {
+    var a = loadRooms(), box = $('rooms');
+    box.hidden = !a.length;
+    box.innerHTML = a.length ? '<span class="hintp">Salas recientes:</span> ' : '';
+    a.forEach(function (r) {
+      var bt = document.createElement('button'); bt.type = 'button'; bt.className = 'chip'; bt.textContent = r.c + (r.o ? ' (profe)' : '');
+      bt.addEventListener('click', function () { $('roomcode').value = r.c; $('obs').checked = !!r.o; });
+      box.appendChild(bt);
+    });
+  }
+  $('copylink').addEventListener('click', function () {
+    var b = $('copylink'), url = '';
+    try { url = window.location.href.split('#')[0] + '#sala-' + D.code; } catch (e) { url = '#sala-' + D.code; }
+    var ok = function () { b.textContent = '¡Enlace copiado!'; setTimeout(function () { b.textContent = 'Copiar enlace de la sala'; }, 1600); };
+    try { navigator.clipboard.writeText(url).then(ok, function () { window.prompt('Copia el enlace:', url); }); } catch (e) { try { window.prompt('Copia el enlace:', url); } catch (e2) { /* nada */ } }
+  });
+
   $('nick').addEventListener('input', function () { D.nick = cleanName($('nick').value); });
   $('newcode').addEventListener('click', function () {
     var abc = 'abcdefghjkmnpqrstuvwxyz23456789', c = '';
@@ -1165,6 +1238,8 @@
     }, 150);
   });
 
+  renderRooms();
+  if (!hashRoom) { var lr = loadRooms()[0]; if (lr) { $('roomcode').value = lr.c; $('obs').checked = !!lr.o; } }
   applyHash(); renderChips(); renderSeg(); updateStart(); renderCourse(); renderCourses();
   if (hashRoom) { $('roomcode').value = hashRoom; setMode('duel'); }
   /* el juego empieza preguntando el curso (salvo enlace de clase con temas fijados o enlace a una sala) */

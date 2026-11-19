@@ -62,6 +62,7 @@
             <label>Tu nombre<input id="nick" type="text" maxlength="14" autocomplete="off" placeholder="Ej.: Lucía"></label>
             <label>Código de sala<input id="roomcode" type="text" maxlength="12" autocomplete="off" placeholder="Ej.: k7x2" autocapitalize="none"></label>
           </div>
+          <div class="rooms" id="rooms" hidden></div>
           <label class="chk"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
           <div class="drow">
             <button class="btn" id="newcode" type="button">Crear código</button>
@@ -70,7 +71,7 @@
           <p class="derr" id="d-err" role="alert"></p>
         </div>
         <div id="d-lobby" hidden>
-          <div class="row-h"><h2>Sala <b id="d-code"></b></h2><button class="link" id="leave" type="button">Salir de la sala</button></div>
+          <div class="row-h"><h2>Sala <b id="d-code"></b></h2><span class="row-btns"><button class="link" id="copylink" type="button">Copiar enlace de la sala</button><button class="link" id="leave" type="button">Salir de la sala</button></span></div>
           <ul class="players" id="players"></ul>
           <p class="hintp" id="d-cfg"></p>
           <p class="hintp" id="d-status" aria-live="polite"></p>
@@ -80,6 +81,7 @@
             <h3>Informe de la clase</h3>
             <div id="d-report-body"></div>
             <button class="btn" id="d-print" type="button">Imprimir / PDF</button>
+            <button class="btn" id="d-csv" type="button">Descargar CSV (Excel)</button>
           </div>
         </div>
       </div>
@@ -95,6 +97,12 @@
         <summary>Tu progreso en este dispositivo</summary>
         <div id="badges"></div>
         <div id="prog"></div>
+      </details>
+      <details class="teacher" id="custom">
+        <summary>Para el profe: mis propias preguntas</summary>
+        <p>Una pregunta por línea, con este formato (separadas por <b>|</b>): <code>Enunciado | Correcta | Mala 1 | Mala 2 | Mala 3 | Explicación (opcional)</code>. Puedes usar <code>x^{2}</code> y <code>√{x}</code>; las fracciones, con «/» (como 3/4). Aparecen como el tema «Mis preguntas» en todos los cursos y solo en este dispositivo.</p>
+        <textarea id="custom-text" rows="6" spellcheck="false" placeholder="¿Cuánto es 3 · 4? | 12 | 7 | 34 | 1 | Multiplicar es sumar 3 cuatro veces."></textarea>
+        <div class="codebox"><button class="btn" id="custom-save" type="button">Guardar mis preguntas</button><span class="hintp" id="custom-msg" aria-live="polite"></span></div>
       </details>
       <details class="teacher" id="teacher">
         <summary>Para el profe: enlace con los temas ya elegidos</summary>
