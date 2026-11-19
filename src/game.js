@@ -9,7 +9,7 @@
   var VMAX = 300, MINV = 20, FRIC = 5;
   /* niveles: margen de lectura, segundos en flash, velocidad perdida al fallar */
   var LV = {
-    f: { n: 'Fácil', d: 'Más tiempo, sin problemas largos', grace: 1.5, flash: 5, loss: 0.4, noProb: true },
+    f: { n: 'Fácil', d: 'Más tiempo, fallar duele menos', grace: 1.5, flash: 5, loss: 0.4 },
     n: { n: 'Normal', d: 'Lo de siempre', grace: 1, flash: 3, loss: 0.55 },
     d: { n: 'Difícil', d: 'Menos tiempo, fallar duele más', grace: 0.7, flash: 2, loss: 0.65 }
   };
@@ -95,7 +95,7 @@
     paint();
   })();
 
-  var st = { topics: Object.keys(TOPICS).filter(function (k) { return normal(k); }), len: 1000, lvl: 'n', curso: null, sel: {} };
+  var st = { paper: false, topics: Object.keys(TOPICS).filter(function (k) { return normal(k); }), len: 1000, lvl: 'n', curso: null, sel: {} };
   var showAll = false;
   var locked = false, hashRoom = null;
   var CNT = {}, HASGEN = {};
@@ -111,6 +111,7 @@
       if ([500, 1000, 2000, 3000].indexOf(sv.len) >= 0) st.len = sv.len;
       if (LV[sv.lvl]) st.lvl = sv.lvl;
       if (cursoById(sv.curso)) st.curso = sv.curso;
+      st.paper = !!sv.paper;
       if (sv.sel && typeof sv.sel === 'object') st.sel = sv.sel;
     }
   } catch (e) { /* ajustes por defecto */ }
@@ -128,6 +129,9 @@
   function getBest() { var v = parseFloat(store.get(bestKey())); return isNaN(v) ? null : v; }
 
 
+
+  $('paper').addEventListener('change', function () { st.paper = $('paper').checked; saveSetup(); });
+  $('paper').checked = !!st.paper;
 
   /* ---------- ajustes: color del coche, tamaño de letra, contraste ---------- */
   var CARS = [['#E8553D', 'Rojo'], ['#2F7DE1', 'Azul'], ['#17A35B', 'Verde'], ['#F0B232', 'Amarillo'], ['#9B5DE5', 'Morado'], ['#F2F4F8', 'Blanco'], ['#FF7AB6', 'Rosa']];
@@ -576,11 +580,11 @@
     var dz = opts.topics ? opts : null, mode = dz ? 'duel' : opts.mode;
     var lvl = dz ? (LV[dz.lvl] ? dz.lvl : 'n') : mode === 'reto' || mode === 'sim' ? 'n' : st.lvl;
     var deck, len = dz ? dz.len : st.len;
-    if (dz) deck = seeded(makeDeck(dz.topics, { noProb: lvOf(lvl).noProb }), dz.seed);
+    if (dz) deck = seeded(makeDeck(dz.topics, { noProb: true }), dz.seed);
     else if (mode === 'practice') { deck = keysDeck(practiceKeys()); if (!deck.n) return; len = 500; }
-    else if (mode === 'sim') { var sid = st.topics.filter(normal); if (!sid.length) sid = normalIds(); deck = makeDeck(sid, {}); len = SIMN * 60; lvl = 'f'; }
+    else if (mode === 'sim') { var sid = st.topics.filter(normal); if (!sid.length) sid = normalIds(); deck = makeDeck(sid, { noProb: !st.paper }); len = SIMN * 60; lvl = 'f'; }
     else if (mode === 'reto') { deck = seeded(makeDeck(retoTopics()), dayKey() * 7919 + retoSalt()); len = 500; }
-    else { if (!st.topics.length) return; deck = makeDeck(st.topics, { noProb: lvOf(lvl).noProb }); }
+    else { if (!st.topics.length) return; deck = makeDeck(st.topics, { noProb: !st.paper }); }
     if (race) { race.dead = true; clearTimers(); }
     race = {
       mode: mode, lvl: lvl,
@@ -627,6 +631,8 @@
     nextQ();
   }
 
+  /* temas que cuestan un poco más de pensar: unos segundos extra antes de que el coche frene */
+  var SLOWT = ['sis1', 'sis2', 'sis3', 'eqr', 'eqf', 'eql', 'seg3', 'pol3', 'rou', 'det', 'int2', 'der2', 'tri4'];
   function nextQ() {
     if (race.phase !== 'run') return;
     var q = race.cur = race.deck.next();
@@ -649,7 +655,7 @@
     var longest = 0;
     q.opts.forEach(function (o) { longest = Math.max(longest, plain(o.s).length); });
     var lv = lvOf(race.lvl);
-    race.grace = race.mode === 'sim' ? 600 : q.fl ? lv.flash : q.p ? (race.lvl === 'd' ? 45 : 60) : lv.grace * Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
+    race.grace = race.mode === 'sim' ? 600 : q.fl ? lv.flash : q.p ? (race.lvl === 'd' ? 45 : 60) : lv.grace * (Math.min(10, 3 + (plain(q.q).length + longest) * 0.09) + (SLOWT.indexOf(q.t) >= 0 ? 4 : 0));
   }
 
   function pop(text, bad) {
