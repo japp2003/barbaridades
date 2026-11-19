@@ -2,6 +2,7 @@
 <title>Gran Premio de Barbaridades</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Saira+Condensed:wght@600;700&display=swap">
 <script src="peerjs.min.js"></script>
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#D42E1B"><link rel="apple-touch-icon" href="icon-192.png">
 <style>
 [hidden] { display: none !important; }
 /* Concepto: una pantalla de boxes. Panel de instrumentos oscuro con cifras grandes sobre un fondo de hormigón frío; todo lo demás queda quieto.
@@ -270,6 +271,36 @@ sup:has(.frac) { top: -.7em; }
 }
 
 .row-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+.seg.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.seg.three small, .extras small { text-align: center; }
+.extras { max-width: 560px; }
+.extras button:disabled { opacity: .55; }
+.h2b { margin-top: 14px; }
+.chk { display: flex; gap: 8px; align-items: flex-start; font-size: .92rem; color: var(--muted); margin: 10px 0; }
+.chk input { margin-top: 3px; width: 18px; height: 18px; }
+.players li.obs { opacity: .75; }
+.report { border-top: 1.5px solid var(--line); padding-top: 12px; display: grid; gap: 8px; }
+.report h3 { margin: 0; }
+.tscroll { overflow-x: auto; }
+table.rep { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.rep th, table.rep td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.ph { font-weight: 600; margin: 10px 0 4px; color: var(--ink); }
+.mq { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.mq li { display: grid; gap: 2px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; }
+.mq .miss-q { font-size: 1rem; }
+.mq small { color: var(--muted); }
+.drrep { margin-top: 10px; background: var(--panel); color: var(--ink); border-radius: 6px; padding: 8px 12px; }
+.drrep summary { cursor: pointer; font-weight: 600; }
+.hist { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.hist li { display: grid; grid-template-columns: 3.5em 1fr auto 3.5em; gap: 8px; font-variant-numeric: tabular-nums; padding: 3px 0; border-bottom: 1px solid var(--line); }
+.hist li span:last-child { text-align: right; }
+.up { color: var(--good); } .down { color: var(--bad); }
+@media print {
+  body.print-report .wrap > *:not(#s-start), body.print-report .intro, body.print-report .modebar, body.print-report #picker,
+  body.print-report .launch, body.print-report .rules, body.print-report details, body.print-report #extras,
+  body.print-report #d-join, body.print-report #ready, body.print-report #d-print, body.print-report .top { display: none !important; }
+}
 </style>
 <div class="wrap">
   <header class="top">
@@ -296,6 +327,10 @@ sup:has(.frac) { top: -.7em; }
           <button type="button" role="radio" id="mode-duel" aria-checked="false"><b>Online</b><small>2 a 8 jugadores, cada uno en su casa</small></button>
         </div>
       </div>
+      <div class="seg two extras" id="extras" role="group" aria-label="Práctica">
+        <button type="button" id="practice"><b>Practicar mis fallos</b><small></small></button>
+        <button type="button" id="reto"><b>⚡ Reto del día</b><small></small></button>
+      </div>
       <div id="picker">
         <div class="row-h"><h2>Temas</h2><span class="row-btns"><button class="link" id="flash" type="button">⚡ Solo modo flash</button><button class="link" id="toggle-all" type="button">Quitar todos</button></span></div>
         <div class="groups" id="groups"></div>
@@ -304,6 +339,8 @@ sup:has(.frac) { top: -.7em; }
         <div>
           <h2>Distancia</h2>
           <div class="seg" id="seg" role="radiogroup" aria-label="Distancia de la carrera"></div>
+          <h2 class="h2b">Nivel</h2>
+          <div class="seg three" id="lvl" role="radiogroup" aria-label="Nivel"></div>
         </div>
         <div class="go-col">
           <p class="best" id="best"></p>
@@ -318,6 +355,7 @@ sup:has(.frac) { top: -.7em; }
             <label>Tu nombre<input id="nick" type="text" maxlength="14" autocomplete="off" placeholder="Ej.: Lucía"></label>
             <label>Código de sala<input id="roomcode" type="text" maxlength="12" autocomplete="off" placeholder="Ej.: k7x2" autocapitalize="none"></label>
           </div>
+          <label class="chk"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
           <div class="drow">
             <button class="btn" id="newcode" type="button">Crear código</button>
             <button class="go small" id="join" type="button">Entrar a la sala</button>
@@ -331,6 +369,11 @@ sup:has(.frac) { top: -.7em; }
           <p class="hintp" id="d-status" aria-live="polite"></p>
           <p class="hintp" id="d-diag"></p>
           <button class="go" id="ready" type="button">Estoy listo</button>
+          <div class="report" id="d-report" hidden>
+            <h3>Informe de la clase</h3>
+            <div id="d-report-body"></div>
+            <button class="btn" id="d-print" type="button">Imprimir / PDF</button>
+          </div>
         </div>
       </div>
       <ul class="rules">
@@ -338,7 +381,13 @@ sup:has(.frac) { top: -.7em; }
         <li>Fallo: pierdes más de la mitad de la velocidad y ves la regla correcta.</li>
         <li>Si tardas demasiado en contestar, el coche frena solo (las preguntas largas dan más margen).</li>
         <li>Teclas 1, 2, 3 y 4 para responder.</li>
+        <li>Cada pregunta que fallas se guarda en «Practicar mis fallos». Se supera acertándola 2 veces (las de números aleatorios vuelven con números nuevos).</li>
+        <li>Para tenerlo como app en el móvil: menú del navegador → «Añadir a pantalla de inicio».</li>
       </ul>
+      <details class="teacher" id="progress" hidden>
+        <summary>Tu progreso en este dispositivo</summary>
+        <div id="prog"></div>
+      </details>
       <details class="teacher" id="teacher">
         <summary>Para el profe: enlace con los temas ya elegidos</summary>
         <p>Elige los temas y la distancia arriba. Añade este código al final del enlace del juego y tus alumnos entrarán con esos temas fijados.</p>
@@ -392,6 +441,7 @@ sup:has(.frac) { top: -.7em; }
     <input class="share" id="share" type="text" readonly hidden aria-label="Resultado para copiar">
   </section>
 </div>
+
 <script>
 window.ROOM_WS_URL='wss://barbaridades-salas.joseantonioparedes2003.workers.dev';
 /* Temas concretos y grupos del selector.
@@ -2095,10 +2145,36 @@ gen('pot1', function () {
 /* ---------- mazo ---------- */
 function finish(q) {
   var opts = shuffle([{ s: q.a, ok: true }].concat(q.w.map(function (s) { return { s: s, ok: false, bar: typeof isBar === 'function' && isBar(q.q, s, q.a) }; })));
-  return { t: q.t, q: q.q, a: q.a, e: q.e, p: q.p, fl: q.fl, opts: opts };
+  return { t: q.t, q: q.q, a: q.a, e: q.e, p: q.p, fl: q.fl, k: q.k, opts: opts };
 }
 
-function makeDeck(topics) {
+function qKey(k) {          /* 'g12' → generador 12 (números nuevos), 's40' → pregunta fija 40 */
+  var m = /^([gs])(\d+)$/.exec(String(k || ''));
+  if (!m) return null;
+  var i = +m[2];
+  if (m[1] === 'g') { var g = GENS[i]; if (!g) return null; var q = g.f(); q.k = k; return q; }
+  var s = STATIC[i]; if (!s) return null;
+  var o = {}, p; for (p in s) o[p] = s[p]; o.k = k; return o;
+}
+function keysDeck(keys) {   /* mazo con solo las preguntas indicadas (practicar fallos) */
+  keys = keys.filter(function (k) { return /^[gs]\d+$/.test(k) && (k[0] === 'g' ? GENS[+k.slice(1)] : STATIC[+k.slice(1)]); });
+  var bag = [], last = '';
+  return {
+    n: keys.length,
+    next: function () {
+      var q = null, tries = 0;
+      while (!q && tries < 20) {
+        if (!bag.length) bag = shuffle(keys.slice());
+        var k = bag.pop();
+        if (keys.length > 1 && k === last) { tries++; continue; }
+        last = k; q = qKey(k); tries++;
+      }
+      return finish(q || qKey(keys[0]));
+    }
+  };
+}
+function makeDeck(topics, opt) {
+  opt = opt || {};
   var wantF = topics.indexOf('ficha') >= 0;
   var pool = STATIC.filter(function (q) { return topics.indexOf(q.t) >= 0 || (wantF && q.f); });
   var gens = GENS.filter(function (g) { return topics.indexOf(g.t) >= 0; });
@@ -2107,13 +2183,14 @@ function makeDeck(topics) {
     next: function () {
       var q, tries = 0;
       do {
-        if (gens.length && (pool.length === 0 || Math.random() < 0.5)) q = pick(gens).f();
+        if (gens.length && (pool.length === 0 || Math.random() < 0.5)) { var g = pick(gens); q = g.f(); q.k = 'g' + GENS.indexOf(g); }
         else {
           if (!deck.length) deck = shuffle(pool.slice());
           q = deck.pop();
+          var o = {}, p; for (p in q) o[p] = q[p]; o.k = 's' + STATIC.indexOf(q); q = o;
         }
         tries++;
-      } while (q.q === lastQ && tries < 6);
+      } while ((q.q === lastQ || (opt.noProb && q.p)) && tries < 12);
       lastQ = q.q;
       return finish(q);
     }
@@ -11839,12 +11916,9 @@ FL9.forEach(function (f) { fl('fl9', f); });
 /* Sala online sin cuentas: misma interfaz que la capacidad "room", sobre PeerJS (WebRTC).
    El primero que entra con un código hace de "centro" (hub); los demás se conectan a él. */
 (function () {
-  var ICE = [
-    { urls: 'stun:stun.relay.metered.ca:80' },
-    { urls: 'turn:global.relay.metered.ca:80', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' },
-    { urls: 'turn:global.relay.metered.ca:80?transport=tcp', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' },
-    { urls: 'turn:global.relay.metered.ca:443', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' },
-    { urls: 'turns:global.relay.metered.ca:443?transport=tcp', username: '7147af39d373b926a333ce4e', credential: 'C2xX8DARoJt0Oo2s' }
+  var ICE = [                 /* solo STUN: la sala va por el servidor propio y PeerJS queda de respaldo */
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' }
   ];
   function mkPeer(id) {
     var cfg = {}, k, extra = window.PEER_CFG || {};
@@ -12234,6 +12308,13 @@ function drawScene(view, S) {
   };
   var LENS = [{ m: 500, n: 'Relámpago' }, { m: 1000, n: 'Sprint' }, { m: 2000, n: 'Carrera' }, { m: 3000, n: 'Resistencia' }];
   var VMAX = 300, MINV = 20, FRIC = 5;
+  /* niveles: margen de lectura, segundos en flash, velocidad perdida al fallar */
+  var LV = {
+    f: { n: 'Fácil', d: 'Más tiempo, sin problemas largos', grace: 1.5, flash: 5, loss: 0.4, noProb: true },
+    n: { n: 'Normal', d: 'Lo de siempre', grace: 1, flash: 3, loss: 0.55 },
+    d: { n: 'Difícil', d: 'Menos tiempo, fallar duele más', grace: 0.7, flash: 2, loss: 0.65 }
+  };
+  function lvOf(k) { return LV[k] || LV.n; }
   var reduce = false;
   try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
 
@@ -12314,7 +12395,7 @@ function drawScene(view, S) {
     paint();
   })();
 
-  var st = { topics: Object.keys(TOPICS).filter(function (k) { return normal(k); }), len: 1000 };
+  var st = { topics: Object.keys(TOPICS).filter(function (k) { return normal(k); }), len: 1000, lvl: 'n' };
   var locked = false, hashRoom = null;
   var CNT = {}, HASGEN = {};
   STATIC.forEach(function (q) { CNT[q.t] = (CNT[q.t] || 0) + 1; if (q.f) CNT.ficha = (CNT.ficha || 0) + 1; });
@@ -12327,6 +12408,7 @@ function drawScene(view, S) {
         if (tt.length) st.topics = tt;
       }
       if ([500, 1000, 2000, 3000].indexOf(sv.len) >= 0) st.len = sv.len;
+      if (LV[sv.lvl]) st.lvl = sv.lvl;
     }
   } catch (e) { /* ajustes por defecto */ }
 
@@ -12342,13 +12424,82 @@ function drawScene(view, S) {
   function bestKey() { return 'gpa-best-' + st.len + '-' + st.topics.slice().sort().join('.'); }
   function getBest() { var v = parseFloat(store.get(bestKey())); return isNaN(v) ? null : v; }
 
+  /* ---------- fallos guardados (para practicarlos después) ---------- */
+  function loadFails() { try { var o = JSON.parse(store.get('gpa-fails') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+  function failKeys() { return Object.keys(loadFails()); }
+  function noteFail(q, ok) {
+    if (!q || !q.k) return;
+    var f = loadFails();
+    if (!ok) f[q.k] = { t: q.t, need: 2, at: Date.now() };
+    else if (f[q.k]) { f[q.k].need--; if (f[q.k].need <= 0) delete f[q.k]; }
+    else return;
+    var ks = Object.keys(f);
+    if (ks.length > 150) { ks.sort(function (a, b) { return f[a].at - f[b].at; }); ks.slice(0, ks.length - 150).forEach(function (k) { delete f[k]; }); }
+    store.set('gpa-fails', JSON.stringify(f));
+  }
+
+  /* ---------- historial de partidas (en este dispositivo) ---------- */
+  function loadHist() { try { var a = JSON.parse(store.get('gpa-hist') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function saveHist(r) {
+    var by = {};
+    r.log.forEach(function (x) { var e = by[x.t] || (by[x.t] = [0, 0]); e[1]++; if (x.ok) e[0]++; });
+    var h = loadHist();
+    h.push({ d: Date.now(), m: r.mode, l: r.total, t: Math.round(r.finalT * 100) / 100, ok: r.log.filter(function (x) { return x.ok; }).length, n: r.log.length, b: by });
+    if (h.length > 300) h = h.slice(h.length - 300);
+    store.set('gpa-hist', JSON.stringify(h));
+  }
+  var MODEN = { solo: 'Individual', duel: 'Online', practice: 'Fallos', reto: 'Reto del día' };
+  function renderProgress() {
+    var h = loadHist(), box = $('prog');
+    $('progress').hidden = h.length === 0;
+    if (!h.length) return;
+    var name = D.nick ? safe(D.nick) + ': ' : '';
+    var tot = h.reduce(function (s, x) { return s + x.n; }, 0), okt = h.reduce(function (s, x) { return s + x.ok; }, 0);
+    var html = '<p>' + name + h.length + ' carrera' + (h.length > 1 ? 's' : '') + ' · ' + okt + ' de ' + tot + ' preguntas acertadas (' + (tot ? Math.round(okt / tot * 100) : 0) + ' %)</p>';
+    /* por tema: aciertos totales y tendencia (mitad reciente frente a la mitad anterior) */
+    var per = {};
+    h.forEach(function (x) { Object.keys(x.b || {}).forEach(function (k) { if (!TOPICS[k]) return; (per[k] = per[k] || []).push(x.b[k]); }); });
+    var rows = Object.keys(per).map(function (k) {
+      var a = per[k], ok = 0, n = 0;
+      a.forEach(function (e) { ok += e[0]; n += e[1]; });
+      var tr = '';
+      if (a.length >= 2) {
+        var mid = Math.floor(a.length / 2), pc = function (l) { var o = 0, m = 0; l.forEach(function (e) { o += e[0]; m += e[1]; }); return m ? o / m : 0; };
+        var dlt = pc(a.slice(mid)) - pc(a.slice(0, mid));
+        tr = dlt > 0.05 ? ' <span class="up">▲</span>' : dlt < -0.05 ? ' <span class="down">▼</span>' : '';
+      }
+      return { k: k, p: n ? Math.round(ok / n * 100) : 0, ok: ok, n: n, tr: tr };
+    }).filter(function (r) { return r.n >= 2; }).sort(function (a, b) { return a.p - b.p; });
+    if (rows.length) {
+      html += '<p class="ph">Por tema (de peor a mejor). ▲ mejora · ▼ empeora en las últimas partidas</p>' + rows.slice(0, 15).map(function (r) {
+        return '<div class="trow"><span>' + TOPICS[r.k] + r.tr + '</span><span class="bar' + (r.p < 70 ? ' low' : '') + '"><i style="width:' + r.p + '%"></i></span><span>' + r.p + ' %</span></div>';
+      }).join('');
+    }
+    html += '<p class="ph">Últimas carreras</p><ul class="hist">' + h.slice(-8).reverse().map(function (x) {
+      var dt = new Date(x.d);
+      return '<li><span>' + dt.getDate() + '/' + (dt.getMonth() + 1) + '</span><span>' + (MODEN[x.m] || '') + ' · ' + x.l + ' m</span><span>' + fmt2(x.t) + '</span><span>' + x.ok + '/' + x.n + '</span></li>';
+    }).join('') + '</ul><button class="link" id="histclear" type="button">Borrar mi historial</button>';
+    box.innerHTML = html;
+    $('histclear').addEventListener('click', function () {
+      if (!window.confirm || window.confirm('¿Borrar tu historial y tus fallos guardados?')) { store.set('gpa-hist', '[]'); store.set('gpa-fails', '{}'); renderProgress(); renderExtras(); }
+    });
+  }
+  function retoBest() { var v = parseFloat(store.get('gpa-reto-' + dayKey())); return isNaN(v) ? null : v; }
+  function renderExtras() {
+    var nf = failKeys().length, pb = $('practice');
+    pb.disabled = nf === 0;
+    pb.innerHTML = '<b>Practicar mis fallos</b><small>' + (nf ? nf + ' tipo' + (nf > 1 ? 's' : '') + ' de pregunta por superar' : 'No tienes fallos pendientes') + '</small>';
+    var rb = retoBest();
+    $('reto').innerHTML = '<b>⚡ Reto del día</b><small>' + (rb === null ? 'Las mismas preguntas flash para todos hoy' : 'Tu tiempo de hoy: ' + fmt2(rb)) + '</small>';
+  }
+
   /* ---------- pantallas ---------- */
   var hero = null, heroRun = false, heroT = 0, heroLast = 0, heroTok = 0, race = null, view = null;
   function show(id) {
     ['s-start', 's-race', 's-end'].forEach(function (i) { $(i).hidden = (i !== id); });
     heroRun = false;
     if (id !== 's-race') Snd.engineStop();
-    if (id === 's-start') startHero();
+    if (id === 's-start') { startHero(); renderExtras(); renderProgress(); }
     try { window.scrollTo(0, 0); } catch (e) { /* sin scroll */ }
   }
 
@@ -12451,6 +12602,16 @@ function drawScene(view, S) {
       b.addEventListener('click', function () { st.len = L.m; saveSetup(); renderSeg(); updateStart(); });
       box.appendChild(b);
     });
+    var lb = $('lvl');
+    lb.innerHTML = '';
+    Object.keys(LV).forEach(function (k) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', st.lvl === k ? 'true' : 'false');
+      b.innerHTML = '<b>' + LV[k].n + '</b><small>' + LV[k].d + '</small>';
+      b.addEventListener('click', function () { st.lvl = k; saveSetup(); renderSeg(); updateStart(); });
+      lb.appendChild(b);
+    });
   }
   function updateStart() {
     var best = getBest(), n = st.topics.length;
@@ -12521,13 +12682,20 @@ function drawScene(view, S) {
     };
   }
 
+  function dayKey() { var d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); }
   function startRace(opts) {
-    var dz = opts && opts.topics ? opts : null;
-    var topics = dz ? dz.topics : st.topics, len = dz ? dz.len : st.len;
-    if (!topics.length) return;
+    opts = opts && (opts.topics || opts.mode) ? opts : { mode: 'solo' };
+    var dz = opts.topics ? opts : null, mode = dz ? 'duel' : opts.mode;
+    var lvl = dz ? (LV[dz.lvl] ? dz.lvl : 'n') : mode === 'reto' ? 'n' : st.lvl;
+    var deck, len = dz ? dz.len : st.len;
+    if (dz) deck = seeded(makeDeck(dz.topics, { noProb: lvOf(lvl).noProb }), dz.seed);
+    else if (mode === 'practice') { deck = keysDeck(failKeys()); if (!deck.n) return; len = 500; }
+    else if (mode === 'reto') { deck = seeded(makeDeck(FLASHIDS), dayKey() * 7919); len = 500; }
+    else { if (!st.topics.length) return; deck = makeDeck(st.topics, { noProb: lvOf(lvl).noProb }); }
     if (race) { race.dead = true; clearTimers(); }
     race = {
-      deck: dz ? seeded(makeDeck(topics), dz.seed) : makeDeck(topics), total: len, duel: !!dz, pids: dz ? dz.pids : [], myPid: dz ? dz.myPid : null, pnames: dz ? dz.pnames : {}, lastPush: 0, endShown: false, draft: 0, v: 0, dist: 0, t: 0, phase: 'count', streak: 0, maxStreak: 0,
+      mode: mode, lvl: lvl,
+      deck: deck, total: len, duel: !!dz, pids: dz ? dz.pids : [], myPid: dz ? dz.myPid : null, pnames: dz ? dz.pnames : {}, lastPush: 0, endShown: false, draft: 0, v: 0, dist: 0, t: 0, phase: 'count', streak: 0, maxStreak: 0,
       log: [], cur: null, lock: false, wrongLock: false, lockAt: 0, qStart: 0, wheel: 0, last: performance.now(),
       boost: 0, timers: [], dead: false, doneAt: 0, finalT: 0
     };
@@ -12590,7 +12758,8 @@ function drawScene(view, S) {
     var plain = function (s) { return R(s).replace(/<[^>]*>/g, ''); };
     var longest = 0;
     q.opts.forEach(function (o) { longest = Math.max(longest, plain(o.s).length); });
-    race.grace = q.fl ? 2.5 : q.p ? 60 : Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
+    var lv = lvOf(race.lvl);
+    race.grace = q.fl ? lv.flash : q.p ? (race.lvl === 'd' ? 45 : 60) : lv.grace * Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
   }
 
   function pop(text, bad) {
@@ -12605,6 +12774,7 @@ function drawScene(view, S) {
     var q = race.cur, o = q.opts[i], btns = $('opts').children;
     race.lock = true;
     race.log.push({ t: q.t, q: q.q, a: q.a, e: q.e, ok: o.ok, picked: o.s, ms: performance.now() - race.qStart });
+    noteFail(q, o.ok);
     for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
     if (o.ok) {
       var gain = 26 + Math.min(race.streak, 8) * 3;
@@ -12617,8 +12787,8 @@ function drawScene(view, S) {
       pop('+' + gain + ' km/h', false);
       later(nextQ, 170);
     } else {
-      var lost = Math.round(race.v * 0.55);
-      race.v *= 0.45;
+      var loss = lvOf(race.lvl).loss, lost = Math.round(race.v * loss);
+      race.v *= 1 - loss;
       race.streak = 0;
       btns[i].classList.add('no');
       for (var j = 0; j < q.opts.length; j++) if (q.opts[j].ok) btns[j].classList.add('reveal');
@@ -12712,12 +12882,18 @@ function drawScene(view, S) {
     var r = race, n = r.log.length, ok = r.log.filter(function (x) { return x.ok; }).length;
     var pct = n ? Math.round(ok / n * 100) : 0;
     var avg = n ? r.log.reduce(function (s, x) { return s + x.ms; }, 0) / n / 1000 : 0;
-    var prev = r.duel ? null : getBest(), record = !r.duel && (prev === null || r.finalT < prev);
-    if (record) store.set(bestKey(), String(r.finalT));
+    var solo = r.mode === 'solo';
+    var prev = solo ? getBest() : r.mode === 'reto' ? retoBest() : null, record = (solo || r.mode === 'reto') && (prev === null || r.finalT < prev);
+    if (record) store.set(solo ? bestKey() : 'gpa-reto-' + dayKey(), String(r.finalT));
+    saveHist(r);
     show('s-end');
-    $('e-kick').textContent = r.duel ? 'Carrera online terminada' : record ? (prev === null ? 'Primer tiempo en esta selección' : 'Nuevo récord personal') : 'Bandera a cuadros';
+    var kick = { duel: 'Carrera online terminada', practice: 'Práctica de fallos', reto: 'Reto del día' }[r.mode];
+    $('e-kick').textContent = kick ? kick + (r.mode === 'reto' && record ? ' · tu mejor tiempo de hoy' : '') : record ? (prev === null ? 'Primer tiempo en esta selección' : 'Nuevo récord personal') : 'Bandera a cuadros';
     $('e-time').innerHTML = fmt2(r.finalT) + ' <small>min</small>';
-    $('e-sub').textContent = r.total + ' m' + (record || prev === null ? '' : ' · tu mejor tiempo es ' + fmt2(prev) + ' (' + (r.finalT - prev >= 0 ? '+' : '−') + Math.abs(r.finalT - prev).toFixed(1).replace('.', ',') + ' s)');
+    var left = failKeys().length;
+    $('e-sub').textContent = r.total + ' m · nivel ' + lvOf(r.lvl).n.toLowerCase() +
+      (r.mode === 'practice' ? ' · ' + (left ? 'te quedan ' + left + ' tipos de pregunta por superar (cada una se supera acertándola 2 veces)' : '¡has superado todos tus fallos!') :
+       record || prev === null ? '' : ' · tu mejor tiempo ' + (r.mode === 'reto' ? 'de hoy ' : '') + 'es ' + fmt2(prev) + ' (' + (r.finalT - prev >= 0 ? '+' : '−') + Math.abs(r.finalT - prev).toFixed(1).replace('.', ',') + ' s)');
     var avgKmh = Math.round(r.total / r.finalT * 3.6);
     $('e-stats').innerHTML = [
       ['Aciertos', ok + ' / ' + n + ' (' + pct + '%)'],
@@ -12746,16 +12922,18 @@ function drawScene(view, S) {
     $('e-all').innerHTML = r.log.map(item).join('');
 
     var fails = keys.filter(function (k) { return by[k].ok < by[k].n; }).map(function (k) { return TOPICS[k] + ' ' + (by[k].n - by[k].ok); });
-    r.shareText = (r.duel ? 'Online · ' : '') + 'Gran Premio de Barbaridades · ' + r.total + ' m · ' + fmt2(r.finalT) + ' · ' + ok + '/' + n + ' aciertos (' + pct + '%)' + (fails.length ? ' · Fallos: ' + fails.join(', ') : '');
+    var td = new Date();
+    r.shareText = (r.duel ? 'Online · ' : r.mode === 'reto' ? 'Reto del día ' + td.getDate() + '/' + (td.getMonth() + 1) + ' · ' : r.mode === 'practice' ? 'Práctica de fallos · ' : '') + 'Gran Premio de Barbaridades · ' + r.total + ' m · ' + fmt2(r.finalT) + ' · ' + ok + '/' + n + ' aciertos (' + pct + '%)' + (fails.length ? ' · Fallos: ' + fails.join(', ') : '');
     $('share').hidden = true;
     $('copy').textContent = 'Copiar resultado';
-    $('again').textContent = r.duel ? 'Revancha' : 'Otra carrera';
+    $('again').textContent = r.duel ? 'Revancha' : r.mode === 'practice' ? (left ? 'Seguir practicando' : 'Otra carrera') : r.mode === 'reto' ? 'Repetir el reto' : 'Otra carrera';
     $('menu').textContent = r.duel ? 'Salir de la sala' : 'Cambiar temas';
     $('duelres').hidden = !r.duel;
     r.endShown = true;
     if (r.duel) duelResult();
   }
 
+  $('d-print').addEventListener('click', function () { document.body.classList.add('print-report'); try { window.print(); } catch (e) { /* nada */ } setTimeout(function () { document.body.classList.remove('print-report'); }, 500); });
   $('print').addEventListener('click', function () { try { window.print(); } catch (e) { /* nada */ } });
 
   $('copy').addEventListener('click', function () {
@@ -12785,16 +12963,66 @@ function drawScene(view, S) {
     $('go').hidden = m === 'duel';
     $('best').hidden = m === 'duel';
     $('teacher').hidden = locked || m === 'duel';
+    $('extras').hidden = m === 'duel';
+    $('progress').hidden = m === 'duel' || loadHist().length === 0;
     if (m === 'duel') renderLobby();
   }
   $('mode-solo').addEventListener('click', function () { setMode('solo'); });
   $('mode-duel').addEventListener('click', function () { setMode('duel'); });
 
-  function cfgNow() { return { t: st.topics.slice(), l: st.len }; }
+  function cfgNow() { return { t: st.topics.slice(), l: st.len, v: st.lvl }; }
   function players() {
     if (!D.nr) return [];
-    return D.nr.peers().filter(function (p) { return p.kind !== 'agent' && p.presence && p.presence.nick; })
+    return D.nr.peers().filter(function (p) { return p.kind !== 'agent' && p.presence && p.presence.nick && !p.presence.obs; })
       .sort(function (a, b) { return a.peer < b.peer ? -1 : a.peer > b.peer ? 1 : 0; });
+  }
+  function watchers() {
+    if (!D.nr) return [];
+    return D.nr.peers().filter(function (p) { return p.presence && p.presence.nick && p.presence.obs; })
+      .sort(function (a, b) { return a.peer < b.peer ? -1 : a.peer > b.peer ? 1 : 0; });
+  }
+  /* quien elige temas: el profe si hay uno en la sala; si no, el primer jugador */
+  function cfgOwner() { return watchers()[0] || players()[0] || null; }
+  function effCfg() { var o = cfgOwner(); return o && !o.isMe && o.presence.cfg ? o.presence.cfg : cfgNow(); }
+  function pctS(ok, n) { return n ? Math.round(ok / n * 100) + ' %' : '–'; }
+  /* informe de la sala a partir de lo que publica cada jugador */
+  function reportHTML(list, live) {
+    if (!list.length) return '<p class="hintp">Aún no hay alumnos en la sala.</p>';
+    var by = {}, miss = {}, anyRep = false;
+    var rows = list.map(function (p) {
+      var pr = p.presence || {}, rp = pr.rep && typeof pr.rep === 'object' ? pr.rep : null;
+      var est = pr.fin > 0 ? 'meta ' + fmt2(pr.fin) : pr.fin === -1 ? 'abandonó' : pr.ph === 'race' ? 'en carrera · ' + Math.round(pr.d || 0) + ' m' : pr.rdy ? 'listo' : 'esperando';
+      var ok = rp ? null : pr.ok, n = rp ? null : pr.n, worst = '';
+      if (rp && rp.b) {
+        anyRep = true; ok = 0; n = 0;
+        var wk = null, wp = 2;
+        Object.keys(rp.b).forEach(function (k) {
+          var e = rp.b[k]; if (!TOPICS[k] || !Array.isArray(e)) return;
+          var a = +e[0] || 0, m = +e[1] || 0; ok += a; n += m;
+          var B = by[k] || (by[k] = [0, 0]); B[0] += a; B[1] += m;
+          if (m && a / m < wp) { wp = a / m; wk = k; }
+        });
+        if (wk && wp < 1) worst = TOPICS[wk] + ' (' + Math.round(wp * 100) + ' %)';
+        (Array.isArray(rp.m) ? rp.m : []).forEach(function (q) {
+          q = String(q).slice(0, 120); var M = miss[q] || (miss[q] = { c: 0, who: [] }); M.c++; M.who.push(pr.nick);
+        });
+      }
+      return '<tr><td>' + safe(pr.nick || '?') + '</td><td>' + est + '</td><td>' + (n ? ok + '/' + n + ' (' + pctS(ok, n) + ')' : '–') + '</td><td>' + (worst ? safe(worst) : '–') + '</td></tr>';
+    }).join('');
+    var html = '<div class="tscroll"><table class="rep"><thead><tr><th>Alumno</th><th>Estado</th><th>Aciertos</th><th>Tema más flojo</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+    if (anyRep) {
+      var ks = Object.keys(by).sort(function (a, b) { return by[a][0] / by[a][1] - by[b][0] / by[b][1]; });
+      html += '<p class="ph">Toda la sala, por tema (de peor a mejor)</p>' + ks.map(function (k) {
+        var p = Math.round(by[k][0] / by[k][1] * 100);
+        return '<div class="trow"><span>' + TOPICS[k] + '</span><span class="bar' + (p < 70 ? ' low' : '') + '"><i style="width:' + p + '%"></i></span><span>' + by[k][0] + '/' + by[k][1] + '</span></div>';
+      }).join('');
+      var mq = Object.keys(miss).sort(function (a, b) { return miss[b].c - miss[a].c; }).slice(0, 12);
+      if (mq.length) html += '<p class="ph">Preguntas falladas en la sala</p><ul class="mq">' + mq.map(function (q) {
+        var txt = /…$/.test(q) ? safe(q) : R(safe(q));
+        return '<li><span class="miss-q">' + txt + '</span><small>' + miss[q].c + ' · ' + miss[q].who.map(safe).join(', ') + '</small></li>';
+      }).join('') + '</ul>';
+    } else if (!live) html += '<p class="hintp">El detalle por tema aparece cuando cada alumno cruza la meta.</p>';
+    return html;
   }
   function peerById(id) { var l = players(); for (var i = 0; i < l.length; i++) if (l[i].peer === id) return l[i]; return null; }
   function cleanName(s) { return String(s || '').replace(/[^\wÀ-ÿ .-]/g, '').trim().slice(0, 14); }
@@ -12810,15 +13038,27 @@ function drawScene(view, S) {
     $('d-code').textContent = D.code;
     var list = players(), me = null, i;
     for (i = 0; i < list.length; i++) if (list[i].isMe) me = list[i];
-    var inGame = !!me && list.indexOf(me) < MAXP, host = list[0];
+    var inGame = !!me && list.indexOf(me) < MAXP, host = list[0], owner = cfgOwner();
     var shown = list.slice(0, MAXP);
     $('players').innerHTML = shown.map(function (p) {
       var pr = p.presence;
-      return '<li class="' + (pr.rdy ? 'rdy' : '') + '"><span>' + safe(pr.nick) + (p.isMe ? ' <small>(tú)</small>' : '') + (p === host ? ' <small>· elige los temas</small>' : '') + '</span><small>' + (pr.ph && pr.ph !== 'lobby' ? 'en carrera' : pr.rdy ? 'listo' : 'esperando…') + '</small></li>';
-    }).join('') || '<li><span>Conectando…</span></li>';
-    var hostCfg = host && host.presence.cfg ? host.presence.cfg : cfgNow();
-    $('d-cfg').innerHTML = 'Temas: ' + hostCfg.t.map(function (k) { return TOPICS[k] || k; }).join(', ') + ' · ' + hostCfg.l + ' m' +
-      (host && !host.isMe ? ' (los elige ' + safe(host.presence.nick) + ')' : '');
+      return '<li class="' + (pr.rdy ? 'rdy' : '') + '"><span>' + safe(pr.nick) + (p.isMe ? ' <small>(tú)</small>' : '') + (owner && p.peer === owner.peer ? ' <small>· elige los temas</small>' : '') + '</span><small>' + (pr.ph && pr.ph !== 'lobby' ? 'en carrera' : pr.rdy ? 'listo' : 'esperando…') + '</small></li>';
+    }).join('') || '<li><span>' + (D.obs ? 'Aún no ha entrado ningún alumno' : 'Conectando…') + '</span></li>';
+    var ws = watchers();
+    if (ws.length) $('players').innerHTML += ws.map(function (p) { return '<li class="obs"><span>' + safe(p.presence.nick) + (p.isMe ? ' <small>(tú)</small>' : '') + (owner && p.peer === owner.peer ? ' <small>· elige los temas</small>' : '') + '</span><small>profe, mirando</small></li>'; }).join('');
+    var hostCfg = owner && !owner.isMe && owner.presence.cfg ? owner.presence.cfg : cfgNow();
+    $('d-cfg').innerHTML = 'Temas: ' + (hostCfg.t || []).map(function (k) { return TOPICS[k] || k; }).join(', ') + ' · ' + hostCfg.l + ' m · nivel ' + lvOf(hostCfg.v).n.toLowerCase() +
+      (owner && !owner.isMe ? ' (los elige ' + safe(owner.presence.nick) + ')' : '');
+    $('d-report').hidden = !D.obs;
+    $('ready').hidden = !!D.obs;
+    if (D.obs) {
+      $('d-report-body').innerHTML = reportHTML(list.slice(0, MAXP), true);
+      $('d-status').innerHTML = list.length < 2 ? 'Pásales el código ' + D.code + ' a tus alumnos. Salen cuando todos pulsen «Estoy listo».' : 'Alumnos listos: ' + list.filter(function (p) { return p.presence.rdy; }).length + ' de ' + Math.min(list.length, MAXP) + '.';
+      var np0 = D.nr.peers().length;
+      $('d-diag').textContent = 'Conectados en la sala: ' + np0 + (D.nr.via ? ' · ' + D.nr.via : '');
+      $('picker').style.opacity = owner && !owner.isMe ? .5 : '';
+      return;
+    }
     var waiting = shown.filter(function (p) { return !p.presence.rdy; });
     var msg;
     if (list.length && !inGame) msg = 'La sala está llena (máximo ' + MAXP + ' jugadores).';
@@ -12831,7 +13071,7 @@ function drawScene(view, S) {
     var np = D.nr.peers().length, cn = (typeof D.nr.connected === 'function') ? D.nr.connected() : true;
     $('d-diag').textContent = 'Conectados en la sala: ' + np + (D.nr.via ? ' · ' + D.nr.via : '') + (cn ? '' : ' · sin conexión con el servidor');
     $('ready').textContent = D.ready ? 'Cancelar' : 'Estoy listo';
-    $('picker').style.opacity = host && !host.isMe ? .5 : '';
+    $('picker').style.opacity = owner && !owner.isMe ? .5 : '';
   }
 
   function onPeersChange() {
@@ -12852,20 +13092,21 @@ function drawScene(view, S) {
         shown.every(function (p) { return p.presence.rdy && p.presence.ph === 'lobby'; })) {
       var gid = String(Date.now()) + Math.floor(Math.random() * 1e6);
       var seed = Math.floor(Math.random() * 4294967295);
-      var cfg = cfgNow();
+      var cfg = effCfg();
       var plist = shown.map(function (p) { return p.peer; });
       D.ph = 'race'; D.seen[host.peer] = gid;
-      D.nr.presence({ go: gid, seed: seed, cfg: cfg, plist: plist, ph: 'race', d: 0, v: 0, fin: null, okc: null, n: null });
+      D.nr.presence({ go: gid, seed: seed, gcfg: cfg, plist: plist, ph: 'race', d: 0, v: 0, fin: null, okc: null, n: null, ok: 0, rep: null });
       launchDuel(cfg, seed, plist, me.peer);
     } else if (!host.isMe) {
       var go = host.presence.go || null;
       if (go && go !== D.seen[host.peer]) {
         D.seen[host.peer] = go;
         var pl = host.presence.plist || [];
-        if (D.ph === 'lobby' && D.ready && host.presence.cfg && pl.indexOf(me.peer) >= 0) {
+        var gc = host.presence.gcfg || host.presence.cfg;
+        if (D.ph === 'lobby' && D.ready && gc && pl.indexOf(me.peer) >= 0) {
           D.ph = 'race';
-          D.nr.presence({ ph: 'race', d: 0, v: 0, fin: null, okc: null, n: null });
-          launchDuel(host.presence.cfg, host.presence.seed, pl, me.peer);
+          D.nr.presence({ ph: 'race', d: 0, v: 0, fin: null, okc: null, n: null, ok: 0, rep: null });
+          launchDuel(gc, host.presence.seed, pl, me.peer);
         }
       }
     }
@@ -12875,7 +13116,7 @@ function drawScene(view, S) {
   function launchDuel(cfg, seed, plist, myPid) {
     var names = {};
     plist.forEach(function (id) { var p = peerById(id); names[id] = p ? p.presence.nick : 'Jugador'; });
-    startRace({ topics: cfg.t.filter(function (k) { return TOPICS[k]; }), len: cfg.l, seed: seed, pids: plist, myPid: myPid, pnames: names });
+    startRace({ topics: (cfg.t || []).filter(function (k) { return TOPICS[k]; }), len: cfg.l, lvl: cfg.v, seed: seed, pids: plist, myPid: myPid, pnames: names });
   }
 
   async function joinDuel() {
@@ -12886,12 +13127,13 @@ function drawScene(view, S) {
     if (code.length < 3) { err.textContent = 'El código debe tener al menos 3 letras o números.'; return; }
     if (!roomNS) { err.textContent = 'El modo online no está disponible en este navegador.'; return; }
     D.nick = nick; store.set('gpa-nick', nick);
+    D.obs = !!$('obs').checked;
     $('join').disabled = true;
     try {
       var nr = await roomNS.join('bar-' + code);
       D.nr = nr; D.code = code; D.ph = 'lobby'; D.ready = false; D.seen = {}; D.track = {};
       D.unsub = nr.onPeers(onPeersChange, function () { err.textContent = 'Se ha perdido la conexión con la sala.'; duelLeave(); });
-      await nr.presence({ nick: nick, rdy: false, ph: 'lobby', cfg: cfgNow(), d: 0, v: 0, fin: null, go: null });
+      await nr.presence(D.obs ? { nick: nick, obs: true, cfg: cfgNow() } : { nick: nick, rdy: false, ph: 'lobby', cfg: cfgNow(), d: 0, v: 0, fin: null, go: null });
       renderLobby(); onPeersChange();
     } catch (e) {
       D.nr = null;
@@ -12931,12 +13173,19 @@ function drawScene(view, S) {
   function duelTick(now) {
     if (!D.nr || now - race.lastPush < 330) return;
     race.lastPush = now;
-    D.nr.presence({ d: Math.round(race.dist), v: Math.round(race.v) });
+    D.nr.presence({ d: Math.round(race.dist), v: Math.round(race.v), ok: race.log.filter(function (x) { return x.ok; }).length, n: race.log.length });
   }
   function duelFinished() {
     if (!D.nr) return;
     var ok = race.log.filter(function (x) { return x.ok; }).length;
-    D.nr.presence({ d: race.total, v: 0, fin: race.finalT, ph: 'end', okc: ok, n: race.log.length });
+    var b = {}, m = [];
+    race.log.forEach(function (x) {
+      var e = b[x.t] || (b[x.t] = [0, 0]); e[1]++; if (x.ok) e[0]++;
+      if (!x.ok && m.indexOf(x.q) < 0) m.push(x.q.length > 90 ? x.q.slice(0, 80) + '…' : x.q);
+    });
+    var rp = { b: b, m: m.slice(0, 6) };
+    while (JSON.stringify(rp).length > 700 && rp.m.length) rp.m.pop();
+    D.nr.presence({ d: race.total, v: 0, fin: race.finalT, ph: 'end', okc: ok, n: race.log.length, rep: rp });
   }
 
   /* estado de cada rival: { pid, name, d, fin, gone } */
@@ -13002,7 +13251,10 @@ function drawScene(view, S) {
       return '<li' + (x.me ? ' class="me"' : '') + '><span>' + (x.fin ? (i + 1) + '.' : '–') + '</span><span>' + safe(x.name) + (x.me ? ' (tú)' : '') + '</span><span>' + t + '</span></li>';
     }).join('');
     box.className = 'duelres ' + cls;
-    box.innerHTML = '<div class="dr-h">' + h + '</div>' + (pending ? '<div class="dr-s">Esperando a ' + pending + ' jugador' + (pending > 1 ? 'es' : '') + '…</div>' : '') + '<ol class="rank">' + list + '</ol>';
+    var opened = box.querySelector('details[open]') ? ' open' : '';
+    var pl = r.pids.map(peerById).filter(Boolean);
+    box.innerHTML = '<div class="dr-h">' + h + '</div>' + (pending ? '<div class="dr-s">Esperando a ' + pending + ' jugador' + (pending > 1 ? 'es' : '') + '…</div>' : '') + '<ol class="rank">' + list + '</ol>' +
+      '<details class="drrep"' + opened + '><summary>Informe de la sala</summary>' + reportHTML(pl, false) + '</details>';
   }
 
   $('nick').addEventListener('input', function () { D.nick = cleanName($('nick').value); });
@@ -13040,9 +13292,14 @@ function drawScene(view, S) {
   })();
 
   /* ---------- eventos ---------- */
-  $('go').addEventListener('click', startRace);
+  $('go').addEventListener('click', function () { startRace({ mode: 'solo' }); });
+  $('practice').addEventListener('click', function () { startRace({ mode: 'practice' }); });
+  $('reto').addEventListener('click', function () { startRace({ mode: 'reto' }); });
   $('again').addEventListener('click', function () {
-    if (race && race.duel) { duelBackToLobby(); show('s-start'); } else startRace();
+    if (race && race.duel) { duelBackToLobby(); show('s-start'); }
+    else if (race && race.mode === 'practice' && failKeys().length) startRace({ mode: 'practice' });
+    else if (race && race.mode === 'reto') startRace({ mode: 'reto' });
+    else startRace();
   });
   $('menu').addEventListener('click', function () {
     if (race && race.duel) duelLeave();
@@ -13076,4 +13333,6 @@ function drawScene(view, S) {
   if (hashRoom) { $('roomcode').value = hashRoom; setMode('duel'); }
   show('s-start');
 })();
+
 </script>
+<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>

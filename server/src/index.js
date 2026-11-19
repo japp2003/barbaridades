@@ -72,7 +72,7 @@ export class Room {
     if (!a) return;
     const p = a.p || {};
     for (const k of Object.keys(m.patch).slice(0, 30)) p[k] = m.patch[k];
-    ws.serializeAttachment({ id: a.id, p });
+    try { ws.serializeAttachment({ id: a.id, p }); } catch (e) { /* estado demasiado grande: se reenvía igualmente */ }
     this.difundir({ t: 'd', d: { [a.id]: m.patch } }, ws);
   }
 
