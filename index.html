@@ -314,6 +314,17 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
 .cbtn:hover { border-color: var(--ink); }
 .curbar { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 6px; background: var(--asphalt); color: var(--hud-ink); }
 .curbar .link { color: var(--hud-ink); }
+/* lo seleccionado se ve claro en modo claro y oscuro */
+.chip[aria-pressed="true"] { background: var(--good); border-color: var(--good); color: #fff; font-weight: 600; }
+.chip[aria-pressed="true"]::before { content: '✓ '; font-weight: 700; }
+.chip[aria-pressed="false"] { color: var(--muted); }
+.seg button[aria-checked="true"] { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 2px var(--accent); }
+.seg button[aria-checked="true"] small { color: var(--accent-ink); opacity: .85; }
+.grp-h[aria-pressed="true"] { color: var(--good); border-bottom-color: var(--good); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #06140B; }
+}
+:root[data-theme="dark"] .chip[aria-pressed="true"] { color: #06140B; }
 </style>
 <div class="wrap">
   <header class="top">
