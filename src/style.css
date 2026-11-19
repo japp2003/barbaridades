@@ -321,4 +321,5 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
 }
 :root[data-theme="dark"] .chip[aria-pressed="true"] { color: #06140B; }
 </style>
-.pr { font-weight: 700; font-size: 1.35em; line-height: 0; margin: 0 .04em 0 .06em; position: relative; top: .02em; color: var(--accent); }
+.pr { display: inline-block; width: .11em; height: .46em; background: currentColor; border-radius: .03em; transform: skewX(-14deg); vertical-align: .5em; margin: 0 .08em 0 .1em; }
+.pr2 { width: .26em; background: linear-gradient(90deg, currentColor 0 38%, transparent 38% 62%, currentColor 62%); }

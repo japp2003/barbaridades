@@ -1501,7 +1501,7 @@ BARF.push(function (q, w) { return /^Las ventas de helados/.test(q) && /^Los hel
 var RS = '<svg class="rs" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M.6 11.4 3 9.8 6.2 18.6 11.6.8H12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>';
 function R(s) {
   s = String(s);
-  s = s.replace(/([A-Za-zFfGguvyφψ\)])(['′]{1,2})/g, function (m, a, p) { return a + '<span class="pr">' + (p.length > 1 ? '″' : '′') + '</span>'; });
+  s = s.replace(/([A-Za-zFfGguvyφψ\)])(['′]{1,2})/g, function (m, a, p) { return a + '<span class="pr' + (p.length > 1 ? ' pr2' : '') + '"></span>'; });
   s = s.replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>').replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>');
   var p0;
   do {
