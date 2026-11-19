@@ -16765,7 +16765,7 @@ function drawScene(view, S) {
     body.innerHTML = '<p class="hintp">Cargando…</p>';
     fetch(statsBase() + '/clase/' + code).then(function (r) { return r.json(); }).then(function (a) {
       if (!a || !a.r) { body.innerHTML = '<p class="hintp">Aún no hay resultados con el código <b>' + safe(code) + '</b>. Comparte el enlace de clase con tus alumnos y vuelve a pulsar «Ver resultados».</p>'; return; }
-      var rows = Object.keys(a.t || {}).filter(function (k) { return TOPICS[k] && a.t[k][1] >= 3; }).sort(function (x, y) { return a.t[x][0] / a.t[x][1] - a.t[y][0] / a.t[y][1]; });
+      var rows = Object.keys(a.t || {}).filter(function (k) { return TOPICS[k] && a.t[k][1] >= 1; }).sort(function (x, y) { return a.t[x][0] / a.t[x][1] - a.t[y][0] / a.t[y][1]; });
       var ok = 0, n = 0; Object.keys(a.t || {}).forEach(function (k) { ok += a.t[k][0]; n += a.t[k][1]; });
       var cursos = Object.keys(a.c || {}).map(function (k) { var c = cursoById(k); return (c ? c.n + (c.d && /^Matem/.test(c.d) ? '' : '') : k) + ': ' + a.c[k]; }).join(' · ');
       var h = '<p><b>' + a.r + '</b> carreras enviadas · ' + n + ' preguntas · ' + pctS(ok, n) + ' de aciertos' + (cursos ? '<br><small>' + safe(cursos) + '</small>' : '') + '</p>';
