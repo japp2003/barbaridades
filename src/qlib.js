@@ -1,0 +1,11476 @@
+/* Temas concretos y grupos del selector.
+   Marcado: ^{..} sup · _{..} sub · √{..} raíz · √[n]{..} raíz de índice n · ⟨a|b⟩ fracción */
+var GROUPS = [
+  { b: 'Números y proporcionalidad', n: 'Enteros y fracciones', t: ['num1', 'num2'] },
+  { b: 'Números y proporcionalidad', n: 'Decimales y notación científica', t: ['num3'] },
+  { b: 'Números y proporcionalidad', n: 'Proporcionalidad y porcentajes', t: ['num4'] },
+  { b: 'Números y proporcionalidad', n: 'Sucesiones y progresiones', t: ['num5'] },
+  { b: 'Números y proporcionalidad', n: 'Potencias', t: ['pot1', 'pot2'] },
+  { b: 'Números y proporcionalidad', n: 'Radicales', t: ['rad1', 'rad2', 'rad3'] },
+  { b: 'Números y proporcionalidad', n: 'Números reales', t: ['num6'] },
+
+  { b: 'Álgebra', n: 'Álgebra básica', t: ['sig', 'ope', 'des'] },
+  { b: 'Álgebra', n: 'Identidades y factor común', t: ['idn1', 'idn2', 'fac'] },
+  { b: 'Álgebra', n: 'Polinomios', t: ['pol1', 'pol2', 'pol3'] },
+  { b: 'Álgebra', n: 'Fracciones algebraicas', t: ['fra1', 'fra2'] },
+  { b: 'Álgebra', n: 'Ecuaciones de 2.º grado', t: ['seg1', 'seg2', 'seg3'] },
+  { b: 'Álgebra', n: 'Otras ecuaciones', t: ['eqr', 'eqf', 'eql'] },
+  { b: 'Álgebra', n: 'Sistemas de ecuaciones', t: ['sis1', 'sis2', 'sis3'] },
+  { b: 'Álgebra', n: 'Inecuaciones y dominios', t: ['ine', 'dom'] },
+  { b: 'Álgebra', n: 'Logaritmos', t: ['log1', 'log2'] },
+
+  { b: 'Geometría y medida', n: 'Medida y ángulos', t: ['med1', 'geo1'] },
+  { b: 'Geometría y medida', n: 'Áreas y volúmenes', t: ['geo2', 'geo4'] },
+  { b: 'Geometría y medida', n: 'Pitágoras y semejanza', t: ['geo3'] },
+  { b: 'Geometría y medida', n: 'Transformaciones', t: ['geo5'] },
+  { b: 'Geometría y medida', n: 'Trigonometría', t: ['tri1', 'tri2', 'tri3', 'tri4'] },
+
+  { b: 'Funciones', n: 'Funciones', t: ['fun1', 'fun2', 'fun3'] },
+
+  { b: 'Estadística y probabilidad', n: 'Estadística', t: ['est1', 'est2'] },
+  { b: 'Estadística y probabilidad', n: 'Combinatoria y probabilidad', t: ['com', 'pro'] },
+
+  { b: 'Modo flash (de cabeza)', n: 'Flash', t: ['fl1', 'fl2', 'fl3', 'fl4', 'fl5', 'fl6', 'fl7', 'fl8', 'fl9'] }
+];
+var FLASHIDS = ['fl1', 'fl2', 'fl3', 'fl4', 'fl5', 'fl6', 'fl7', 'fl8', 'fl9'];
+var TOPICS = {
+  ficha: 'Ficha de diagnóstico completa',
+  fl1: 'Flash: álgebra',
+  fl2: 'Flash: radicales',
+  fl3: 'Flash: potencias',
+  fl4: 'Flash: logaritmos',
+  fl5: 'Flash: cálculo mental',
+  fl6: 'Flash: exponenciales',
+  fl7: 'Flash: propiedades de logaritmos',
+  fl8: 'Flash: ecuaciones rápidas',
+  fl9: 'Flash: sistemas (métodos)',
+  sig: 'Signos y paréntesis',
+  ope: 'Operar con letras',
+  des: 'Despejar la incógnita',
+  pot1: 'Propiedades de las potencias',
+  pot2: 'Exponentes negativos y fraccionarios',
+  rad1: 'Simplificar radicales',
+  rad2: 'Operaciones y racionalización',
+  rad3: 'Índice común y mcm de radicales',
+  idn1: 'Desarrollar identidades',
+  idn2: 'Factorizar con identidades',
+  fac: 'Factor común y trinomios',
+  pol1: 'División y teorema del resto',
+  pol2: 'Regla de Ruffini',
+  pol3: 'Factorización de polinomios',
+  fra1: 'Simplificar fracciones',
+  fra2: 'Operar fracciones y mcm',
+  seg1: 'Fórmula y discriminante',
+  seg2: 'Resolver ecuaciones de 2.º grado',
+  seg3: 'Bicuadradas y ecuaciones con Ruffini',
+  eqr: 'Ecuaciones con radicales',
+  eqf: 'Ecuaciones con fracciones',
+  eql: 'Ecuaciones con logaritmos y exponenciales',
+  sis1: 'Sistemas lineales',
+  sis2: 'Sistemas no lineales',
+  sis3: 'Sistemas con radicales y logaritmos',
+  ine: 'Inecuaciones y valor absoluto',
+  dom: 'Dominios de funciones',
+  log1: 'Definición y valores',
+  log2: 'Propiedades de los logaritmos',
+  tri1: 'Valores notables',
+  tri2: 'Radianes y cuadrantes',
+  tri3: 'Identidades y fórmulas',
+  tri4: 'Resolución de triángulos',
+  num1: 'Enteros, jerarquía y divisibilidad',
+  num2: 'Fracciones',
+  num3: 'Decimales y notación científica',
+  num4: 'Proporcionalidad y porcentajes',
+  num5: 'Sucesiones y progresiones',
+  num6: 'Intervalos y números reales',
+  med1: 'Unidades y sistema métrico',
+  geo1: 'Ángulos, rectas y polígonos',
+  geo2: 'Áreas y perímetros',
+  geo3: 'Pitágoras, Tales y semejanza',
+  geo4: 'Cuerpos geométricos y volúmenes',
+  geo5: 'Transformaciones en el plano',
+  fun1: 'Funciones y gráficas',
+  fun2: 'Función lineal y cuadrática',
+  fun3: 'Exponencial, logarítmica e inversa',
+  est1: 'Estadística unidimensional',
+  est2: 'Estadística bidimensional',
+  com: 'Combinatoria',
+  pro: 'Probabilidad'
+};
+var STATIC = [];
+function add(t, q, a, w, e) { STATIC.push({ t: t, q: q, a: a, w: w, e: e }); }
+/* añade una pregunta de la ficha (marca f) */
+function addF(t, q, a, w, e) { add(t, q, a, w, e); STATIC[STATIC.length - 1].f = 1; }
+/* marca como parte de la ficha preguntas que ya existen */
+function markF(list) {
+  list.forEach(function (txt) {
+    var hit = STATIC.filter(function (s) { return s.q === txt; });
+    if (!hit.length && typeof console !== 'undefined') console.log('FICHA: no encontrada', txt);
+    hit.forEach(function (s) { s.f = 1; });
+  });
+}
+/* ---------- Álgebra básica ---------- */
+add('ope', 'x + x =', '2x', ['x^{2}', '2x^{2}', 'x'], 'Sumar es contar: dos equis son 2x. No cambia el exponente.');
+add('ope', 'x · x =', 'x^{2}', ['2x', 'x^{3}', '2x^{2}'], 'Al multiplicar se suman los exponentes: x^{1+1} = x^{2}.');
+add('ope', 'x + x^{2} =', 'No se puede simplificar', ['x^{3}', '2x^{2}', '2x^{3}'], 'Solo se suman términos semejantes (misma parte literal). x y x^{2} no lo son.');
+add('ope', '2x · 3x =', '6x^{2}', ['5x^{2}', '6x', '5x'], 'Se multiplican los coeficientes (2·3) y las letras (x·x = x^{2}).');
+add('ope', '2x + 3x =', '5x', ['6x', '5x^{2}', '6x^{2}'], 'Se suman los coeficientes y la parte literal no cambia.');
+add('sig', '(−x)^{2} =', 'x^{2}', ['−x^{2}', '2x', '−2x'], 'Un número negativo elevado a un exponente par es positivo.');
+add('sig', '−x^{2} con x = 3 vale', '−9', ['9', '−6', '6'], 'El exponente solo afecta a la x: primero 3^{2} = 9 y después el signo menos.');
+add('sig', '(−3)^{2} =', '9', ['−9', '−6', '6'], 'Con paréntesis, el signo también se eleva: (−3)(−3) = 9.');
+add('sig', '−2^{2} =', '−4', ['4', '−2', '2'], 'Sin paréntesis, el exponente solo afecta al 2: −(2^{2}) = −4.');
+add('sig', '−(a − b) =', 'b − a', ['−a − b', 'a − b', 'a + b'], 'El signo menos cambia el signo de todos los términos del paréntesis.');
+add('ope', '3(x + 2) =', '3x + 6', ['3x + 2', 'x + 6', '3x + 5'], 'La propiedad distributiva multiplica el 3 por cada término.');
+add('sig', '−2(x − 3) =', '−2x + 6', ['−2x − 6', '−2x + 3', '2x − 6'], 'Cuidado con el signo: (−2)·(−3) = +6.');
+add('ope', 'x − x =', '0', ['x', '1', 'x^{2}'], 'Lo que se resta se cancela: queda 0.');
+add('sig', '−3 − (−5) =', '2', ['−8', '8', '−2'], 'Restar un negativo es sumar: −3 + 5 = 2.');
+add('sig', '−3 − 5 =', '−8', ['−2', '2', '8'], 'Dos negativos se suman en valor absoluto y el signo se mantiene.');
+add('des', 'Si 2x = 10, entonces x =', '5', ['20', '8', '12'], 'El 2 multiplica, así que pasa dividiendo: 10 : 2 = 5.');
+add('des', 'Si ⟨x|2⟩ = 6, entonces x =', '12', ['3', '4', '8'], 'El 2 divide, así que pasa multiplicando: 6 · 2 = 12.');
+add('des', 'Si x − 4 = 7, entonces x =', '11', ['3', '−3', '28'], 'El 4 resta, así que pasa sumando: 7 + 4 = 11.');
+add('ope', 'x · 0 =', '0', ['x', '1', 'No se puede'], 'Cualquier cosa multiplicada por 0 es 0.');
+add('ope', '3x − x =', '2x', ['3', '3x^{2}', '2'], 'x es 1x, así que 3x − 1x = 2x.');
+
+/* ---------- Potencias ---------- */
+add('pot1', 'x^{2} · x^{3} =', 'x^{5}', ['x^{6}', '2x^{5}', 'x^{8}'], 'Misma base: se suman los exponentes.');
+add('pot1', '⟨x^{5}|x^{2}⟩ =', 'x^{3}', ['x^{7}', 'x^{10}', 'x^{⟨5|2⟩}'], 'Misma base: se restan los exponentes.');
+add('pot1', '(x^{2})^{3} =', 'x^{6}', ['x^{5}', 'x^{8}', '3x^{2}'], 'Potencia de potencia: se multiplican los exponentes.');
+add('pot2', 'x^{0} =', '1', ['0', 'x', 'No existe'], 'Cualquier número distinto de 0 elevado a 0 vale 1.');
+add('pot2', 'x^{−1} =', '⟨1|x⟩', ['−x', '−⟨1|x⟩', '0'], 'El exponente negativo invierte: no cambia el signo del número.');
+add('pot2', 'x^{−2} =', '⟨1|x^{2}⟩', ['−x^{2}', '−2x', '⟨1|2x⟩'], 'x^{−n} = 1 / x^{n}.');
+add('pot1', '(2x)^{2} =', '4x^{2}', ['2x^{2}', '4x', '2x'], 'El exponente afecta al 2 y a la x: 2^{2} · x^{2}.');
+add('pot1', '(xy)^{3} =', 'x^{3}y^{3}', ['xy^{3}', '3xy', 'x^{3}y'], 'El exponente reparte sobre cada factor del producto.');
+add('pot1', '2^{3} =', '8', ['6', '9', '16'], '2^{3} = 2·2·2. No es 2·3.');
+add('pot2', '2^{−1} =', '⟨1|2⟩', ['−2', '−⟨1|2⟩', '0'], '2^{−1} = 1/2.');
+add('pot1', 'x^{3} · x^{−3} =', '1', ['0', 'x^{−9}', 'x^{6}'], 'Exponentes: 3 + (−3) = 0 y x^{0} = 1.');
+add('pot1', 'x^{3} + x^{3} =', '2x^{3}', ['x^{6}', '2x^{6}', 'x^{9}'], 'Sumar no cambia el exponente: son dos x^{3}.');
+add('pot1', 'x^{3} · x^{3} =', 'x^{6}', ['2x^{3}', 'x^{9}', '2x^{6}'], 'Multiplicar misma base suma exponentes: 3 + 3 = 6.');
+add('pot1', '3^{2} · 3^{3} =', '3^{5}', ['9^{5}', '3^{6}', '9^{6}'], 'La base se mantiene y los exponentes se suman.');
+add('pot2', '⟨1|x^{−3}⟩ =', 'x^{3}', ['−x^{3}', 'x^{−3}', '⟨1|x^{3}⟩'], 'Un exponente negativo en el denominador pasa al numerador con signo positivo.');
+add('pot2', 'x^{⟨1|2⟩} =', '√{x}', ['⟨x|2⟩', 'x^{2}', '2x'], 'El exponente 1/2 es una raíz cuadrada.');
+add('pot2', 'x^{⟨3|2⟩} =', '√{x^{3}}', ['⟨3x|2⟩', '√{3x}', 'x^{2}√{x}'], 'a^{m/n} = raíz n-ésima de a^{m}.');
+add('pot1', '(−2)^{3} =', '−8', ['8', '−6', '6'], 'Exponente impar: el resultado conserva el signo negativo.');
+add('pot2', '10^{−2} =', '0,01', ['−100', '−20', '0,1'], '10^{−2} = 1/100.');
+add('pot1', '(x + y)^{2} es igual a', 'x^{2} + 2xy + y^{2}', ['x^{2} + y^{2}', '2x + 2y', 'x^{2} + xy + y^{2}'], 'El exponente no reparte sobre una suma. Falta el doble producto 2xy.');
+
+/* ---------- Identidades notables ---------- */
+add('idn1', '(a + b)^{2} =', 'a^{2} + 2ab + b^{2}', ['a^{2} + b^{2}', 'a^{2} + ab + b^{2}', 'a^{2} + 2ab − b^{2}'], 'Falta el doble producto 2ab si solo pones a^{2} + b^{2}.');
+add('idn1', '(a − b)^{2} =', 'a^{2} − 2ab + b^{2}', ['a^{2} − b^{2}', 'a^{2} − 2ab − b^{2}', 'a^{2} + 2ab + b^{2}'], 'El cuadrado del segundo término siempre es positivo: +b^{2}.');
+add('idn1', '(a + b)(a − b) =', 'a^{2} − b^{2}', ['a^{2} + b^{2}', 'a^{2} − 2ab + b^{2}', 'a^{2} − 2ab − b^{2}'], 'Suma por diferencia: los términos cruzados se cancelan.');
+add('idn2', 'a^{2} − b^{2} =', '(a + b)(a − b)', ['(a − b)^{2}', '(a + b)^{2}', '(a − b)(a − b)'], 'Diferencia de cuadrados: suma por diferencia.');
+add('idn2', 'a^{2} + b^{2} =', 'No se factoriza en los reales', ['(a + b)^{2}', '(a + b)(a − b)', '(a − b)^{2}'], 'La suma de cuadrados no se factoriza. (a + b)^{2} tendría además 2ab.');
+add('idn2', 'x^{2} + 6x + 9 =', '(x + 3)^{2}', ['(x + 9)^{2}', '(x + 3)(x − 3)', '(x + 6)^{2}'], '9 = 3^{2} y 6x = 2·x·3, así que es el cuadrado de (x + 3).');
+add('idn2', 'x^{2} − 16 =', '(x + 4)(x − 4)', ['(x − 4)^{2}', '(x − 8)^{2}', '(x + 8)(x − 8)'], '16 = 4^{2}: diferencia de cuadrados.');
+add('idn1', '(x + 3)^{2} =', 'x^{2} + 6x + 9', ['x^{2} + 9', 'x^{2} + 3x + 9', 'x^{2} + 6x + 6'], '2·x·3 = 6x y 3^{2} = 9.');
+add('idn1', '(2x − 1)^{2} =', '4x^{2} − 4x + 1', ['4x^{2} − 1', '2x^{2} − 2x + 1', '4x^{2} − 2x + 1'], '(2x)^{2} = 4x^{2}; el doble producto es 2·2x·1 = 4x; y 1^{2} = 1.');
+add('idn1', '(a + b)^{3} =', 'a^{3} + 3a^{2}b + 3ab^{2} + b^{3}', ['a^{3} + b^{3}', 'a^{3} + 3ab + b^{3}', 'a^{3} + 2a^{2}b + 2ab^{2} + b^{3}'], 'Los coeficientes del cubo son 1, 3, 3, 1.');
+add('idn1', '(a − b)^{3} =', 'a^{3} − 3a^{2}b + 3ab^{2} − b^{3}', ['a^{3} − b^{3}', 'a^{3} − 3a^{2}b − 3ab^{2} − b^{3}', 'a^{3} + 3a^{2}b − 3ab^{2} − b^{3}'], 'Los signos se alternan: + − + −.');
+add('idn2', 'a^{3} − b^{3} =', '(a − b)(a^{2} + ab + b^{2})', ['(a − b)^{3}', '(a − b)(a^{2} − ab + b^{2})', '(a − b)(a^{2} + b^{2})'], 'En la resta de cubos, el segundo factor lleva +ab.');
+add('idn2', 'a^{3} + b^{3} =', '(a + b)(a^{2} − ab + b^{2})', ['(a + b)^{3}', '(a + b)(a^{2} + ab + b^{2})', '(a + b)(a^{2} + b^{2})'], 'En la suma de cubos, el segundo factor lleva −ab.');
+add('idn2', '49x^{2} − 25 =', '(7x + 5)(7x − 5)', ['(7x − 5)^{2}', '(49x + 25)(49x − 25)', '(7x + 25)(7x − 25)'], 'Hay que sacar la raíz de cada término: 7x y 5.');
+add('idn1', '(x − 5)^{2} =', 'x^{2} − 10x + 25', ['x^{2} − 25', 'x^{2} − 5x + 25', 'x^{2} − 10x − 25'], '2·x·5 = 10x y (−5)^{2} = +25.');
+add('idn1', '(3 + √{2})(3 − √{2}) =', '7', ['11', '1', '9'], 'Suma por diferencia: 3^{2} − (√{2})^{2} = 9 − 2.');
+add('idn1', '(√{3} + 1)^{2} =', '4 + 2√{3}', ['4', '3 + 2√{3}', '4 + √{3}'], '(√{3})^{2} = 3, el doble producto es 2√{3} y 1^{2} = 1.');
+
+/* ---------- Ecuación de 2.º grado ---------- */
+add('seg1', 'La solución de ax^{2} + bx + c = 0 es', 'x = ⟨−b ± √{b^{2} − 4ac}|2a⟩', ['x = ⟨b ± √{b^{2} − 4ac}|2a⟩', 'x = ⟨−b ± √{b^{2} + 4ac}|2a⟩', 'x = ⟨−b ± √{b^{2} − 4ac}|a⟩'], 'Empieza por −b, la raíz lleva b^{2} − 4ac y el denominador es 2a entero.');
+add('seg1', 'El discriminante es', 'Δ = b^{2} − 4ac', ['Δ = b^{2} + 4ac', 'Δ = 4ac − b^{2}', 'Δ = b − 4ac'], 'Es lo que hay dentro de la raíz: b^{2} − 4ac.');
+add('seg1', 'Si Δ < 0, la ecuación de 2.º grado tiene', 'Ninguna solución real', ['Una solución', 'Dos soluciones reales', 'Infinitas soluciones'], 'No existe la raíz de un número negativo en los reales.');
+add('seg1', 'Si Δ = 0, la ecuación de 2.º grado tiene', 'Una solución doble', ['Ninguna solución', 'Dos soluciones distintas', 'Infinitas soluciones'], 'La raíz de 0 es 0, así que ± no cambia nada: x = −b / 2a.');
+add('seg1', 'Si Δ > 0, la ecuación de 2.º grado tiene', 'Dos soluciones reales distintas', ['Una solución doble', 'Ninguna solución', 'Una solución'], 'La raíz existe y el ± da dos valores distintos.');
+add('seg2', 'La suma de las raíces de ax^{2} + bx + c = 0 es', '−⟨b|a⟩', ['⟨b|a⟩', '⟨c|a⟩', '−⟨c|a⟩'], 'Relaciones de Cardano-Vieta: suma = −b/a.');
+add('seg2', 'El producto de las raíces de ax^{2} + bx + c = 0 es', '⟨c|a⟩', ['−⟨c|a⟩', '⟨b|a⟩', '−⟨b|a⟩'], 'Relaciones de Cardano-Vieta: producto = c/a.');
+add('seg2', 'x^{2} = 9 tiene soluciones', 'x = 3 y x = −3', ['Solo x = 3', 'x = 9 y x = −9', 'x = ⟨9|2⟩'], 'Al hacer la raíz hay dos signos: ±3. Perder el −3 es el fallo típico.');
+add('seg2', 'x^{2} − 5x = 0 tiene soluciones', 'x = 0 y x = 5', ['Solo x = 5', 'x = 0 y x = −5', 'x = 5 y x = −5'], 'x(x − 5) = 0. No se divide entre x: se perdería la solución x = 0.');
+add('seg2', 'x^{2} + 4 = 0 en los reales', 'No tiene solución', ['x = 2', 'x = ±2', 'x = −4'], 'x^{2} = −4 es imposible: un cuadrado nunca es negativo.');
+add('seg2', 'La coordenada x del vértice de y = ax^{2} + bx + c es', '−⟨b|2a⟩', ['⟨b|2a⟩', '−⟨b|a⟩', '−⟨2b|a⟩'], 'Es la mitad de la suma de las raíces: −b/(2a).');
+add('seg2', 'La ecuación con raíces 2 y 3 es', 'x^{2} − 5x + 6 = 0', ['x^{2} + 5x + 6 = 0', 'x^{2} − 6x + 5 = 0', 'x^{2} − x + 6 = 0'], 'x^{2} − (suma)x + (producto): suma 5 y producto 6.');
+add('seg1', 'x^{2} − 4x + 4 = 0 tiene', 'Una solución: x = 2', ['Dos soluciones: x = 2 y x = −2', 'Ninguna solución', 'Una solución: x = 4'], 'Es (x − 2)^{2} = 0, con raíz doble x = 2.');
+add('seg2', '(x − 2)(x + 3) = 0 tiene soluciones', 'x = 2 y x = −3', ['x = −2 y x = 3', 'x = 2 y x = 3', 'x = −2 y x = −3'], 'Cada factor se iguala a 0: x − 2 = 0 y x + 3 = 0. Los signos cambian al pasar.');
+add('seg2', 'Para resolver (x − 1)(x − 2) = 6, el primer paso correcto es', 'Desarrollar y pasar todo a un lado', ['Igualar x − 1 = 6 y x − 2 = 6', 'Decir x = 1 y x = 2', 'Dividir entre (x − 1)'], 'Solo un producto igual a CERO permite igualar cada factor a 0.');
+/* Banco estático, parte 2: radicales, logaritmos, polinomios, fracciones algebraicas, trigonometría, sistemas */
+
+/* ---------- Radicales ---------- */
+add('rad1', '√{4} =', '2', ['±2', '4', '16'], 'El símbolo √ da solo la raíz positiva. Las soluciones de x^{2} = 4 son ±√{4}.');
+add('rad1', '√{a^{2}} =', '|a|', ['a', '−a', 'a^{2}'], 'Si a es negativo, √{a^{2}} sigue siendo positivo: es el valor absoluto.');
+add('rad1', '√{9 + 16} =', '5', ['7', '25', '√{9} · √{16}'], '√{9 + 16} = √{25} = 5. La raíz de una suma no es la suma de raíces.');
+add('rad1', '√{a + b} =', 'No se puede separar', ['√{a} + √{b}', '√{a} · √{b}', '⟨√{a}|√{b}⟩'], 'La raíz solo se reparte en productos y cocientes, nunca en sumas.');
+add('rad2', '√{a · b} =', '√{a} · √{b}', ['√{a} + √{b}', 'a√{b}', '√{a} · b'], 'Con a, b ≥ 0, la raíz de un producto es el producto de raíces.');
+add('rad2', '√{x} · √{x} =', 'x', ['2x', 'x^{2}', '√{x}'], 'Con x ≥ 0, (√{x})^{2} = x.');
+add('rad2', '√{2} · √{3} =', '√{6}', ['√{5}', '6', '2√{3}'], 'Se multiplican los radicandos: √{2·3}.');
+add('rad1', '√{50} =', '5√{2}', ['25√{2}', '10√{5}', '2√{5}'], '50 = 25 · 2 y √{25} = 5.');
+add('rad1', '√{12} =', '2√{3}', ['3√{2}', '4√{3}', '6'], '12 = 4 · 3 y √{4} = 2.');
+add('rad1', '√{18} =', '3√{2}', ['2√{3}', '9√{2}', '6√{3}'], '18 = 9 · 2 y √{9} = 3.');
+add('rad1', '√[3]{8} =', '2', ['4', '2√{2}', '3'], '2 · 2 · 2 = 8.');
+add('rad1', '√[3]{−8} =', '−2', ['No existe', '2', '−4'], 'Las raíces de índice impar sí existen para números negativos.');
+add('rad1', '√{−4} en los reales', 'No existe', ['−2', '2', '±2'], 'No hay ningún número real cuyo cuadrado sea negativo.');
+add('rad2', 'Racionalizar ⟨1|√{2}⟩ da', '⟨√{2}|2⟩', ['√{2}', '⟨1|2⟩', '2√{2}'], 'Se multiplica arriba y abajo por √{2}.');
+add('rad2', '⟨3|√{3}⟩ =', '√{3}', ['3√{3}', '3', '⟨√{3}|3⟩'], 'Racionalizando: 3√{3} / 3 = √{3}.');
+add('rad2', '(√{x})^{2} =', 'x', ['√{x}', '2√{x}', 'x^{2}'], 'Elevar al cuadrado deshace la raíz cuadrada (con x ≥ 0).');
+add('rad2', '3√{2} + 5√{2} =', '8√{2}', ['8√{4}', '15√{2}', '8'], 'Radicales semejantes: se suman los coeficientes y el radical no cambia.');
+add('rad2', '√{2} + √{3} =', 'No se puede reducir a un solo radical', ['√{5}', '√{6}', '5'], 'Los radicandos distintos no se suman.');
+add('rad1', 'La raíz n-ésima de a^{m} es', 'a^{⟨m|n⟩}', ['a^{⟨n|m⟩}', 'a^{m·n}', 'a^{m − n}'], 'El índice va en el denominador del exponente.');
+add('rad2', '(2√{3})^{2} =', '12', ['6', '4√{3}', '18'], 'El cuadrado afecta a los dos factores: 2^{2} · 3 = 12.');
+add('rad1', '√{⟨9|4⟩} =', '⟨3|2⟩', ['⟨9|2⟩', '⟨3|4⟩', '⟨3|√{2}⟩'], 'La raíz se hace en el numerador y en el denominador.');
+
+/* ---------- Logaritmos ---------- */
+add('log1', 'log 1 =', '0', ['1', '10', 'No existe'], '10^{0} = 1, así que log 1 = 0 (en cualquier base).');
+add('log1', 'log_{a} a =', '1', ['0', 'a', '−1'], 'a^{1} = a.');
+add('log1', 'log 10 =', '1', ['10', '0', '100'], '10^{1} = 10.');
+add('log1', 'log 100 =', '2', ['10', '20', '1'], '10^{2} = 100.');
+add('log1', 'log 0,1 =', '−1', ['1', '0', '−10'], '10^{−1} = 0,1.');
+add('log1', 'log 0 =', 'No existe', ['0', '1', '−1'], 'Ninguna potencia de 10 da 0.');
+add('log1', 'log(−5) =', 'No existe', ['−5', '−log 5', 'log 5'], 'El argumento de un logaritmo tiene que ser positivo.');
+add('log2', 'log(a · b) =', 'log a + log b', ['log a · log b', 'log a − log b', 'log(a + b)'], 'El logaritmo convierte productos en sumas.');
+add('log2', 'log ⟨a|b⟩ =', 'log a − log b', ['⟨log a|log b⟩', 'log a + log b', 'log(a − b)'], 'El logaritmo convierte cocientes en restas.');
+add('log2', 'log a^{n} =', 'n · log a', ['(log a)^{n}', 'log a + n', 'a · log n'], 'El exponente baja multiplicando.');
+add('log2', 'log(a + b) =', 'No se puede separar', ['log a + log b', 'log a · log b', 'log a − log b'], 'No hay propiedad para el logaritmo de una suma.');
+add('log1', 'log_{2} 8 =', '3', ['4', '16', '2'], '2^{3} = 8.');
+add('log1', 'log_{3} 9 =', '2', ['3', '27', '6'], '3^{2} = 9.');
+add('log1', 'log_{3} 81 =', '4', ['27', '9', '3'], '3^{4} = 81.');
+add('log1', 'ln e =', '1', ['0', 'e', '2,7'], 'e^{1} = e.');
+add('log1', 'ln 1 =', '0', ['1', 'e', 'No existe'], 'e^{0} = 1.');
+add('log1', 'e^{ln x} =', 'x', ['ln x', '1', 'e · x'], 'La exponencial y el logaritmo natural se deshacen.');
+add('log1', '10^{log x} =', 'x', ['log x', '10x', '1'], 'La potencia de 10 y el logaritmo decimal se deshacen.');
+add('log1', 'log_{a} x = y significa', 'a^{y} = x', ['y^{a} = x', 'x^{a} = y', 'a^{x} = y'], 'La base se queda como base y el resultado del log es el exponente.');
+add('log1', 'log_{2} ⟨1|2⟩ =', '−1', ['1', '⟨1|2⟩', '0'], '2^{−1} = 1/2.');
+add('log2', 'log_{b} x =', '⟨log x|log b⟩', ['⟨log b|log x⟩', 'log x − log b', 'log x · log b'], 'Cambio de base: arriba el argumento, abajo la base.');
+add('log1', 'Si log x = 3, entonces x =', '1000', ['30', '3^{10}', '⟨3|10⟩'], 'log x = 3 significa 10^{3} = x.');
+add('log2', 'log 2 + log 5 =', '1', ['log 7', '7', '10'], 'log 2 + log 5 = log(2·5) = log 10 = 1.');
+add('log2', 'log √{10} =', '⟨1|2⟩', ['√{10}', '2', '5'], '√{10} = 10^{1/2}, así que el logaritmo es 1/2.');
+add('log2', '(log a)^{2} =', 'log a · log a', ['2 · log a', 'log a^{2}', 'log 2a'], 'El cuadrado del logaritmo no es el logaritmo del cuadrado: log a^{2} = 2 log a.');
+
+/* ---------- Polinomios y Ruffini ---------- */
+add('pol2', 'La regla de Ruffini sirve para dividir un polinomio entre', '(x − a)', ['x^{2} − a', 'Cualquier polinomio', '(a − x)^{2}'], 'Solo funciona con divisores de la forma x − a.');
+add('pol1', 'Al dividir P(x) entre (x − a), el resto es', 'P(a)', ['P(−a)', 'a', '0 siempre'], 'Teorema del resto.');
+add('pol1', 'Si P(a) = 0, entonces', '(x − a) es factor de P(x)', ['(x + a) es factor de P(x)', 'P(x) = a', 'a = 0'], 'Teorema del factor: el resto es 0 y la división es exacta.');
+add('pol2', 'Para dividir entre (x + 3) con Ruffini usamos el número', '−3', ['3', '⟨1|3⟩', '0'], 'x + 3 = x − (−3), así que a = −3.');
+add('pol3', 'Las raíces enteras de un polinomio dividen al', 'Término independiente', ['Término de mayor grado', 'Coeficiente de x', 'Grado del polinomio'], 'Se prueban los divisores del término independiente.');
+add('pol1', 'El grado de P(x) · Q(x), con grado 3 y grado 2, es', '5', ['6', '3', '2'], 'En un producto los grados se suman.');
+add('pol1', 'El grado de P(x) + Q(x), con grado 3 y grado 2, es', '3', ['5', '6', '2'], 'En una suma manda el grado mayor.');
+add('pol1', 'Dividir un polinomio de grado 4 entre uno de grado 1 da un cociente de grado', '3', ['4', '5', '1'], 'En una división los grados se restan: 4 − 1.');
+add('pol2', 'Con Ruffini sobre x^{3} − 2x^{2} − 5x + 6 usando a = 1, el resto es', '0', ['1', '6', '−1'], 'P(1) = 1 − 2 − 5 + 6 = 0, así que 1 es raíz.');
+add('pol2', 'En Ruffini, si falta el término x^{2}, ponemos', '0 en su lugar', ['Lo saltamos', '1', '−1'], 'x^{3} + 1 = x^{3} + 0x^{2} + 0x + 1.');
+add('pol1', 'Un polinomio de grado n tiene como máximo', 'n raíces reales', ['n − 1 raíces', '2n raíces', 'n^{2} raíces'], 'Teorema fundamental del álgebra, versión real.');
+add('pol1', 'En D = d · c + r, el grado del resto r es', 'Menor que el de d', ['Igual al de d', 'Mayor que el de d', 'Igual al de c'], 'Si no, se podría seguir dividiendo.');
+add('pol3', 'x^{3} − x =', 'x(x + 1)(x − 1)', ['(x − 1)^{3}', 'x(x − 1)^{2}', 'x^{2}(x − 1)'], 'Primero factor común x y después diferencia de cuadrados.');
+add('pol3', '2x^{2} + 4x =', '2x(x + 2)', ['x(2x + 2)', '2(x + 4)', '2x(x + 4)'], 'Se saca el mayor factor común: 2x.');
+
+/* ---------- Fracciones algebraicas ---------- */
+add('fra1', '⟨x^{2} − 1|x − 1⟩ =', 'x + 1', ['x − 1', 'x', 'x^{2} + 1'], 'x^{2} − 1 = (x + 1)(x − 1) y se cancela (x − 1).');
+add('fra1', '⟨x + 3|3⟩ =', 'No se puede cancelar el 3', ['x + 1', 'x', '⟨x|1⟩'], 'Solo se cancelan factores, nunca términos sumados.');
+add('fra1', '⟨x^{2}|x⟩ =', 'x', ['x^{2}', '1', '2x'], 'Con x ≠ 0, se cancela una x.');
+add('fra2', '⟨a|b⟩ + ⟨c|d⟩ =', '⟨ad + bc|bd⟩', ['⟨a + c|b + d⟩', '⟨ac|bd⟩', '⟨ad + c|bd⟩'], 'Denominador común bd y cada numerador se multiplica en cruz.');
+add('fra2', '⟨a|b⟩ · ⟨c|d⟩ =', '⟨ac|bd⟩', ['⟨ad|bc⟩', '⟨a + c|b + d⟩', '⟨ac|b + d⟩'], 'Numerador por numerador y denominador por denominador.');
+add('fra2', '⟨a|b⟩ ÷ ⟨c|d⟩ =', '⟨ad|bc⟩', ['⟨ac|bd⟩', '⟨bc|ad⟩', '⟨ab|cd⟩'], 'Se multiplica por la inversa de la segunda fracción.');
+add('fra2', '⟨1|x⟩ + ⟨1|y⟩ =', '⟨x + y|xy⟩', ['⟨2|x + y⟩', '⟨1|x + y⟩', '⟨2|xy⟩'], 'Denominador común xy: y/xy + x/xy.');
+add('fra2', 'El mcm de x^{2} − 1 y x + 1 es', 'x^{2} − 1', ['x + 1', '(x^{2} − 1)(x + 1)', 'x − 1'], 'x^{2} − 1 = (x + 1)(x − 1), ya contiene a x + 1.');
+add('fra2', 'El mcm de x y x^{2} es', 'x^{2}', ['x', 'x^{3}', '2x'], 'Se toma cada factor con su mayor exponente.');
+add('fra1', '⟨x^{2} − 4|x + 2⟩ =', 'x − 2', ['x + 2', 'x − 4', 'x'], 'x^{2} − 4 = (x + 2)(x − 2).');
+add('fra1', '⟨x + 1|x⟩ =', '1 + ⟨1|x⟩', ['2', '1', '⟨1|x⟩'], 'Se divide cada término del numerador entre x.');
+add('fra1', '⟨x^{2} + x|x⟩ =', 'x + 1', ['x^{2} + 1', 'x + x', 'x'], 'Se saca factor común: x(x + 1)/x.');
+add('fra2', '⟨1|x⟩ + 1 =', '⟨1 + x|x⟩', ['⟨2|x⟩', '⟨1|x + 1⟩', '⟨x|1 + x⟩'], 'El 1 se escribe como x/x.');
+add('fra2', 'Si ⟨2|x − 1⟩ = ⟨4|x + 1⟩, multiplicando en cruz', '2(x + 1) = 4(x − 1)', ['2(x − 1) = 4(x + 1)', '2x + 1 = 4x − 1', '2(x + 1) = 4 + (x − 1)'], 'El numerador de cada lado multiplica al denominador del otro.');
+
+/* ---------- Trigonometría ---------- */
+add('tri3', 'sen^{2}x + cos^{2}x =', '1', ['0', '2', 'sen 2x'], 'Identidad fundamental de la trigonometría.');
+add('tri2', 'tg x =', '⟨sen x|cos x⟩', ['⟨cos x|sen x⟩', '⟨1|sen x⟩', 'sen x · cos x'], 'La tangente es seno entre coseno.');
+add('tri1', 'sen 30° =', '⟨1|2⟩', ['⟨√{3}|2⟩', '⟨√{2}|2⟩', '1'], 'Valor notable.');
+add('tri1', 'cos 60° =', '⟨1|2⟩', ['⟨√{3}|2⟩', '⟨√{2}|2⟩', '0'], 'Valor notable.');
+add('tri1', 'sen 45° =', '⟨√{2}|2⟩', ['⟨1|2⟩', '⟨√{3}|2⟩', '1'], 'Valor notable.');
+add('tri1', 'cos 30° =', '⟨√{3}|2⟩', ['⟨1|2⟩', '⟨√{2}|2⟩', '√{3}'], 'Valor notable.');
+add('tri1', 'sen 90° =', '1', ['0', '−1', '⟨1|2⟩'], 'Valor notable.');
+add('tri1', 'cos 90° =', '0', ['1', '−1', '⟨1|2⟩'], 'Valor notable.');
+add('tri1', 'sen 0° =', '0', ['1', '−1', '⟨1|2⟩'], 'Valor notable.');
+add('tri1', 'cos 0° =', '1', ['0', '−1', '⟨1|2⟩'], 'Valor notable.');
+add('tri1', 'tg 45° =', '1', ['0', '√{2}', '⟨√{3}|3⟩'], 'sen 45° = cos 45°, así que el cociente es 1.');
+add('tri1', 'tg 60° =', '√{3}', ['⟨√{3}|3⟩', '1', '⟨1|2⟩'], '(√{3}/2) / (1/2) = √{3}.');
+add('tri1', 'tg 30° =', '⟨√{3}|3⟩', ['√{3}', '1', '⟨1|2⟩'], '(1/2) / (√{3}/2) = 1/√{3} = √{3}/3.');
+add('tri1', 'tg 90° =', 'No existe', ['0', '1', '−1'], 'cos 90° = 0 y no se puede dividir entre 0.');
+add('tri2', '180° en radianes son', 'π rad', ['2π rad', '⟨π|2⟩ rad', '⟨π|4⟩ rad'], 'Media vuelta = π radianes.');
+add('tri2', '90° en radianes son', '⟨π|2⟩ rad', ['π rad', '⟨π|4⟩ rad', '2π rad'], 'Un cuarto de vuelta.');
+add('tri2', '360° en radianes son', '2π rad', ['π rad', '4π rad', '⟨π|2⟩ rad'], 'Una vuelta completa.');
+add('tri2', '60° en radianes son', '⟨π|3⟩ rad', ['⟨π|6⟩ rad', '⟨π|2⟩ rad', '⟨2π|3⟩ rad'], '60/180 = 1/3 de π.');
+add('tri2', '⟨π|4⟩ rad en grados son', '45°', ['90°', '30°', '60°'], '180° / 4 = 45°.');
+add('tri2', 'sen(−x) =', '−sen x', ['sen x', 'cos x', '−cos x'], 'El seno es una función impar.');
+add('tri2', 'cos(−x) =', 'cos x', ['−cos x', 'sen x', '−sen x'], 'El coseno es una función par.');
+add('tri2', 'sen(180° − x) =', 'sen x', ['−sen x', 'cos x', '−cos x'], 'Ángulos suplementarios tienen el mismo seno.');
+add('tri3', 'sen 2x =', '2 sen x cos x', ['2 sen x', 'sen^{2}x', '2 sen x + 2 cos x'], 'Fórmula del ángulo doble.');
+add('tri3', 'cos 2x =', 'cos^{2}x − sen^{2}x', ['2 cos x', 'cos^{2}x + sen^{2}x', '2 cos^{2}x + 1'], 'Fórmula del ángulo doble; también vale 2cos^{2}x − 1.');
+add('tri3', 'sen^{2}x =', '1 − cos^{2}x', ['1 + cos^{2}x', 'cos^{2}x − 1', '⟨1|cos^{2}x⟩'], 'Se despeja de sen^{2}x + cos^{2}x = 1.');
+add('tri3', 'sen(a + b) =', 'sen a cos b + cos a sen b', ['sen a + sen b', 'sen a cos b − cos a sen b', 'cos a cos b − sen a sen b'], 'El seno de una suma NO se reparte.');
+add('tri1', 'sen 150° =', '⟨1|2⟩', ['−⟨1|2⟩', '⟨√{3}|2⟩', '−⟨√{3}|2⟩'], 'sen 150° = sen(180° − 30°) = sen 30°.');
+add('tri2', 'En el 2.º cuadrante el coseno es', 'Negativo', ['Positivo', 'Cero', 'Siempre 1'], 'Entre 90° y 180° el coseno es negativo y el seno positivo.');
+
+/* ---------- Sistemas y ecuaciones ---------- */
+add('sis1', 'Dos rectas paralelas distintas forman un sistema', 'Incompatible (sin solución)', ['Compatible determinado', 'Compatible indeterminado', 'Con dos soluciones'], 'Nunca se cortan.');
+add('sis1', 'Dos rectas que coinciden forman un sistema', 'Compatible indeterminado', ['Incompatible', 'Compatible determinado', 'Sin solución'], 'Tienen infinitos puntos en común.');
+add('sis1', 'Dos rectas que se cortan en un punto forman un sistema', 'Compatible determinado', ['Incompatible', 'Compatible indeterminado', 'Con infinitas soluciones'], 'Una única solución.');
+add('sis1', 'Si al reducir llegas a 0 = 5, el sistema es', 'Incompatible', ['Compatible determinado', 'Compatible indeterminado', 'x = 5'], 'Es una contradicción: no hay solución.');
+add('sis1', 'Si al reducir llegas a 0 = 0, el sistema es', 'Compatible indeterminado', ['Incompatible', 'Compatible determinado', 'Solución x = 0'], 'Es una ecuación redundante: hay infinitas soluciones.');
+add('eqr', 'La solución de √{x + 1} = 3 es', 'x = 8', ['x = 2', 'x = 4', 'x = 10'], 'Elevando al cuadrado: x + 1 = 9.');
+add('eqr', 'Tras elevar al cuadrado una ecuación con raíces hay que', 'Comprobar las soluciones', ['Dividir entre 2', 'Quitar los signos', 'No hacer nada más'], 'Pueden aparecer soluciones falsas.');
+add('eql', 'En una ecuación con logaritmos, al terminar hay que comprobar que', 'Los argumentos son positivos', ['x es entero', 'x es positivo siempre', 'El resultado es 0'], 'Un logaritmo solo existe si su argumento es mayor que 0.');
+add('eqr', 'Al elevar al cuadrado √{x} = 3 − x se obtiene', 'x = (3 − x)^{2}', ['x = 9 − x^{2}', 'x = 3^{2} − x', 'x^{2} = 3 − x'], 'Se eleva al cuadrado todo el lado derecho, no cada término.');
+add('sis3', 'log x + log y = 1 equivale a', 'xy = 10', ['x + y = 10', 'x + y = 1', 'xy = 1'], 'La suma de logaritmos es el logaritmo del producto: log(xy) = 1.');
+add('eql', 'log_{2} x = 3 implica', 'x = 8', ['x = 6', 'x = 9', 'x = 1,5'], '2^{3} = 8.');
+add('sis2', 'Si x + y = 5 y xy = 6, x e y son raíces de', 't^{2} − 5t + 6 = 0', ['t^{2} + 5t + 6 = 0', 't^{2} − 6t + 5 = 0', 't^{2} − 5t − 6 = 0'], 't^{2} − (suma)t + (producto) = 0.');
+add('sis1', 'Al sustituir y = 2x − 1 en 3x + y = 9 se obtiene', '3x + 2x − 1 = 9', ['3x + 2x + 1 = 9', '3x + 2x − 1 = 0', '3x + 2(x − 1) = 9'], 'Se sustituye y entera, con su signo.');
+/* Preguntas nuevas: álgebra básica, potencias, radicales */
+
+/* ---------- Signos y paréntesis ---------- */
+add('sig', '−(x + 3) =', '−x − 3', ['−x + 3', 'x − 3', '−x'], 'El signo menos cambia el signo de cada término del paréntesis.');
+add('sig', '5 − (2 − 3x) =', '3 + 3x', ['3 − 3x', '7 + 3x', '7 − 3x'], '−(2 − 3x) = −2 + 3x, así que 5 − 2 + 3x.');
+add('sig', '(−2)·(−3)·(−1) =', '−6', ['6', '−5', '5'], 'Tres signos negativos: el resultado es negativo.');
+add('sig', '−x − (−x) =', '0', ['−2x', '2x', '−x^{2}'], 'Restar un negativo es sumar: −x + x = 0.');
+add('sig', '(−1)^{101} =', '−1', ['1', '−101', '101'], 'Exponente impar: el signo se mantiene.');
+add('sig', '−3x − 2x =', '−5x', ['−x', '5x', '−6x^{2}'], 'Dos negativos se suman: −3 − 2 = −5.');
+add('sig', '2 − 3(x − 1) =', '5 − 3x', ['−x − 1', '−x + 1', '−1 − 3x'], '−3 por −1 da +3, y 2 + 3 = 5.');
+
+/* ---------- Operar con letras ---------- */
+add('ope', '3x · 4 =', '12x', ['7x', '12x^{2}', '34x'], 'Los números se multiplican y la x se queda como está.');
+add('ope', 'x · 2x^{2} =', '2x^{3}', ['2x^{2}', '3x^{3}', '2x'], 'x · x^{2} = x^{3}.');
+add('ope', '4x^{2} − x^{2} =', '3x^{2}', ['4', '3x^{4}', '3x'], 'Términos semejantes: se restan los coeficientes y no cambia el exponente.');
+add('ope', '(2x)(3x)(x) =', '6x^{3}', ['6x^{2}', '5x^{3}', '6x'], 'Coeficientes: 2·3 = 6. Letras: x·x·x = x^{3}.');
+add('ope', 'x(x + 1) =', 'x^{2} + x', ['x^{2} + 1', '2x + 1', '2x^{2}'], 'La x multiplica a cada término del paréntesis.');
+add('ope', '(x + 1)(x + 2) =', 'x^{2} + 3x + 2', ['x^{2} + 2', 'x^{2} + 2x + 2', 'x^{2} + 3x + 3'], 'x·x + x·2 + 1·x + 1·2.');
+add('ope', '(x − 1)(x + 4) =', 'x^{2} + 3x − 4', ['x^{2} − 4', 'x^{2} + 5x − 4', 'x^{2} + 4x − 1'], 'x^{2} + 4x − x − 4 = x^{2} + 3x − 4.');
+add('ope', '2x(x − 3) =', '2x^{2} − 6x', ['2x^{2} − 3', '2x − 6x', 'x^{2} − 6x'], '2x·x = 2x^{2} y 2x·(−3) = −6x.');
+
+/* ---------- Despejar la incógnita ---------- */
+add('des', 'Si 2x + 6 = 14, entonces x =', '4', ['10', '20', '2'], 'Restamos 6: 2x = 8, y dividimos entre 2.');
+add('des', 'Si 3x − 5 = 10, entonces x =', '5', ['15', '⟨5|3⟩', '−5'], '3x = 15, así que x = 5.');
+add('des', 'Si ⟨x|3⟩ + 2 = 5, entonces x =', '9', ['3', '1', '21'], 'x/3 = 3, así que x = 9.');
+add('des', 'Si 5 − x = 2, entonces x =', '3', ['−3', '7', '−7'], '−x = −3, así que x = 3.');
+add('des', 'Si −2x = 8, entonces x =', '−4', ['4', '−16', '16'], 'El −2 pasa dividiendo con su signo: 8 : (−2) = −4.');
+add('des', 'Si 4x = 3x + 7, entonces x =', '7', ['−7', '1', '21'], 'Restando 3x a los dos lados queda x = 7.');
+add('des', 'Si 2(x − 1) = 6, entonces x =', '4', ['3', '2', '7'], 'x − 1 = 3, así que x = 4.');
+add('des', 'Al despejar x en y = mx + n queda', 'x = ⟨y − n|m⟩', ['x = y − ⟨n|m⟩', 'x = ⟨y + n|m⟩', 'x = ⟨y|m⟩ − n'], 'Primero se resta n a los dos lados y después se divide TODO entre m.');
+add('des', 'Si ⟨3|x⟩ = 6, entonces x =', '⟨1|2⟩', ['2', '18', '⟨1|18⟩'], '3 = 6x, así que x = 3/6 = 1/2.');
+add('des', 'Si ax = b con a ≠ 0, entonces x =', '⟨b|a⟩', ['⟨a|b⟩', 'b − a', 'ab'], 'El coeficiente a, que multiplica, pasa dividiendo.');
+
+/* ---------- Propiedades de las potencias ---------- */
+add('pot1', 'x · x^{2} · x^{3} =', 'x^{6}', ['x^{5}', 'x^{7}', '3x^{6}'], 'Exponentes: 1 + 2 + 3 = 6.');
+add('pot1', '(x^{2}y)^{3} =', 'x^{6}y^{3}', ['x^{5}y^{3}', 'x^{6}y', 'x^{5}y^{4}'], 'El exponente 3 multiplica el exponente de cada letra.');
+add('pot1', '(⟨x|y⟩)^{2} =', '⟨x^{2}|y^{2}⟩', ['⟨x^{2}|y⟩', '⟨x|y^{2}⟩', '⟨2x|2y⟩'], 'El exponente afecta al numerador y al denominador.');
+add('pot1', '⟨x^{6}|x^{6}⟩ =', '1', ['0', 'x', 'x^{12}'], 'Misma base: 6 − 6 = 0, y x^{0} = 1.');
+
+/* ---------- Exponentes negativos y fraccionarios ---------- */
+add('pot2', '5^{0} =', '1', ['0', '5', 'No existe'], 'Cualquier número distinto de 0 elevado a 0 vale 1.');
+add('pot2', '(−3)^{0} =', '1', ['−1', '0', '−3'], 'El exponente 0 da 1 aunque la base sea negativa.');
+add('pot2', '⟨1|2^{−3}⟩ =', '8', ['−8', '⟨1|8⟩', '−6'], '2^{−3} = 1/8, y el inverso de 1/8 es 8.');
+add('pot2', '4^{⟨1|2⟩} =', '2', ['⟨1|2⟩', '8', '16'], 'El exponente 1/2 es la raíz cuadrada.');
+add('pot2', '8^{⟨1|3⟩} =', '2', ['⟨8|3⟩', '3', '24'], 'El exponente 1/3 es la raíz cúbica.');
+add('pot2', '27^{⟨2|3⟩} =', '9', ['18', '3', '⟨27|2⟩'], 'Raíz cúbica de 27 es 3, y 3^{2} = 9.');
+add('pot2', '(⟨1|2⟩)^{−2} =', '4', ['−4', '⟨1|4⟩', '−⟨1|4⟩'], 'El exponente negativo invierte la fracción: 2^{2} = 4.');
+add('pot2', 'x^{−1} + x^{−1} =', '⟨2|x⟩', ['x^{−2}', '⟨1|x^{2}⟩', '2x'], 'Son dos veces 1/x.');
+add('pot2', '9^{−⟨1|2⟩} =', '⟨1|3⟩', ['−3', '3', '−⟨1|3⟩'], '9^{1/2} = 3 y el exponente negativo invierte.');
+
+/* ---------- Operaciones con radicales y racionalización ---------- */
+add('rad2', '√{8} + √{2} =', '3√{2}', ['√{10}', '2√{2}', '4√{2}'], 'Primero se simplifica √{8} = 2√{2}, y 2√{2} + √{2} = 3√{2}.');
+add('rad2', '√{12} − √{3} =', '√{3}', ['3', '3√{3}', '4'], '√{12} = 2√{3}, y 2√{3} − √{3} = √{3}.');
+add('rad2', '√{2} · √{8} =', '4', ['√{10}', '16', '8'], '√{16} = 4.');
+add('rad2', '⟨2|√{5}⟩ =', '⟨2√{5}|5⟩', ['2√{5}', '⟨2|5⟩', '⟨√{5}|5⟩'], 'Se multiplica arriba y abajo por √{5}.');
+add('rad2', 'Racionalizar ⟨1|√{3} − 1⟩ da', '⟨√{3} + 1|2⟩', ['⟨√{3} − 1|2⟩', '√{3} + 1', '⟨√{3} + 1|4⟩'], 'Se multiplica por el conjugado: el denominador es 3 − 1 = 2.');
+add('rad2', '(√{2} + √{3})(√{2} − √{3}) =', '−1', ['1', '5', '−5'], 'Suma por diferencia: 2 − 3 = −1.');
+add('rad2', '3√{2} · 2√{3} =', '6√{6}', ['5√{6}', '6√{5}', '5√{5}'], 'Se multiplican por separado los números (3·2) y los radicales (√{2}·√{3}).');
+add('rad2', '2√{3} · √{3} =', '6', ['2√{3}', '5', '12'], '√{3}·√{3} = 3, y 2·3 = 6.');
+add('rad2', '(√{5})^{3} =', '5√{5}', ['3√{5}', '25', '15'], '(√{5})^{3} = √{5}·√{5}·√{5} = 5√{5}.');
+
+/* ---------- Índice común y mcm de radicales ---------- */
+add('rad3', 'Para operar √{2} y √[3]{2} hay que reducir a índice', '6', ['5', '2', '3'], 'El índice común es el mcm de 2 y 3.');
+add('rad3', 'El mcm de los índices 4 y 6 es', '12', ['24', '2', '10'], 'mcm(4, 6) = 12.');
+add('rad3', 'El mcm de 2, 3 y 4 es', '12', ['24', '9', '6'], '12 es el menor múltiplo común de 2, 3 y 4.');
+add('rad3', '√{a} es igual a √[4]{…}', 'a^{2}', ['a', '2a', 'a^{4}'], 'Se multiplican por 2 el índice y el exponente: √[4]{a^{2}}.');
+add('rad3', '√[3]{x} es igual a √[6]{…}', 'x^{2}', ['x^{3}', '2x', 'x^{6}'], 'Se multiplican por 2 el índice y el exponente: √[6]{x^{2}}.');
+add('rad3', '√[3]{2} · √{2} =', '√[6]{2^{5}}', ['√[6]{2^{2}}', '√[5]{2^{2}}', '√[6]{2^{6}}'], 'A índice 6: √[6]{2^{2}} · √[6]{2^{3}} = √[6]{2^{5}}.');
+add('rad3', '√{√{x}} =', '√[4]{x}', ['√{x}', '√[3]{x}', 'x^{2}'], 'Los índices se multiplican: 2 · 2 = 4.');
+add('rad3', '√[3]{√{2}} =', '√[6]{2}', ['√[5]{2}', '√{2}', '√[3]{2}'], 'Los índices se multiplican: 3 · 2 = 6.');
+add('rad3', 'Entre √{3} y √[3]{5}, el mayor es', '√{3}', ['√[3]{5}', 'Son iguales', 'No se pueden comparar'], 'A índice 6: √[6]{27} frente a √[6]{25}, y 27 > 25.');
+add('rad3', '√[4]{x^{2}} =', '√{x}', ['x^{2}', '√[4]{x}', 'x'], 'Se simplifica el índice y el exponente entre 2 (con x ≥ 0).');
+add('rad3', '√[6]{x^{3}} =', '√{x}', ['x^{2}', '√[3]{x}', 'x^{3}'], 'x^{3/6} = x^{1/2}.');
+add('rad3', '√{x} · √[3]{x} =', '√[6]{x^{5}}', ['√[5]{x^{2}}', '√[6]{x^{2}}', '√[6]{x}'], 'x^{1/2 + 1/3} = x^{5/6}.');
+add('rad3', '⟨√[3]{x^{2}}|√{x}⟩ =', '√[6]{x}', ['√[6]{x^{5}}', '√[3]{x}', 'x'], 'x^{2/3 − 1/2} = x^{1/6}.');
+add('rad3', '¿Se puede sumar √[3]{2} + √{2} en un solo radical?', 'No: no son radicales semejantes', ['Sí: √[5]{2}', 'Sí: √[6]{4}', 'Sí: 2√[3]{2}'], 'Para sumar radicales hacen falta el mismo índice y el mismo radicando.');
+/* Preguntas nuevas: factorización, polinomios, Ruffini, fracciones algebraicas */
+
+/* ---------- Factor común y trinomios ---------- */
+add('fac', 'Factor común de 4x + 8:', '4', ['8', 'x', '4x'], '4x + 8 = 4(x + 2).');
+add('fac', 'Factor común de x^{2} − 3x:', 'x', ['x^{2}', '3x', '3'], 'x^{2} − 3x = x(x − 3).');
+add('fac', 'Factor común de 6x^{3} + 9x^{2}:', '3x^{2}', ['3x^{3}', '6x^{2}', '3x'], 'El mayor número que divide a 6 y 9 es 3, y la menor potencia es x^{2}.');
+add('fac', 'Factor común de 5x^{2}y + 10xy^{2}:', '5xy', ['5x^{2}y^{2}', '10xy', '5x'], 'Número: 5. Letras: la menor potencia de cada una, x e y.');
+add('fac', 'Factoriza 3x + 6:', '3(x + 2)', ['3(x + 6)', 'x(3 + 6)', '3x(1 + 2)'], 'Se saca el 3 de los dos términos.');
+add('fac', 'Factoriza x^{2} + 5x:', 'x(x + 5)', ['x(x + 1)', '5x(x + 1)', 'x^{2}(1 + 5x)'], 'Se saca factor común x.');
+add('fac', 'Factoriza 2x^{2} − 8x:', '2x(x − 4)', ['2x(x − 8)', 'x(2x − 4)', '2(x^{2} − 8x)'], '2x es factor común: 2x^{2} − 8x = 2x(x − 4).');
+add('fac', 'Factoriza x^{3} − x^{2}:', 'x^{2}(x − 1)', ['x(x − 1)', 'x^{3}(1 − x)', 'x(x^{2} − 1)'], 'La menor potencia de x es x^{2}.');
+add('fac', 'Factoriza 3x^{2} − 12:', '3(x + 2)(x − 2)', ['3(x − 2)^{2}', '(3x + 2)(3x − 2)', '3(x + 4)(x − 4)'], 'Factor común 3 y después diferencia de cuadrados.');
+add('fac', 'Factoriza x^{2} + x − 6:', '(x + 3)(x − 2)', ['(x − 3)(x + 2)', '(x + 3)(x + 2)', '(x − 3)(x − 2)'], 'Dos números que suman 1 y multiplican −6: 3 y −2.');
+add('fac', 'Factoriza x^{2} − 7x + 12:', '(x − 3)(x − 4)', ['(x + 3)(x + 4)', '(x − 2)(x − 6)', '(x − 1)(x − 12)'], 'Dos números que suman −7 y multiplican 12: −3 y −4.');
+add('fac', 'Factoriza x^{2} + 2x − 15:', '(x + 5)(x − 3)', ['(x − 5)(x + 3)', '(x + 5)(x + 3)', '(x − 5)(x − 3)'], 'Suman 2 y multiplican −15: 5 y −3.');
+
+/* ---------- Factorizar con identidades ---------- */
+add('idn2', 'Factoriza 9x^{2} − 16:', '(3x + 4)(3x − 4)', ['(3x − 4)^{2}', '(9x + 16)(9x − 16)', '(3x + 16)(3x − 16)'], 'Se saca la raíz de cada término: 3x y 4.');
+add('idn2', 'Factoriza x^{2} + 8x + 16:', '(x + 4)^{2}', ['(x + 8)^{2}', '(x + 4)(x − 4)', '(x + 16)^{2}'], '16 = 4^{2} y 8x = 2·x·4.');
+add('idn2', 'Factoriza 4x^{2} + 12x + 9:', '(2x + 3)^{2}', ['(2x + 9)^{2}', '(4x + 3)^{2}', '(2x + 3)(2x − 3)'], '(2x)^{2} = 4x^{2}, 3^{2} = 9 y 2·2x·3 = 12x.');
+add('idn2', 'Factoriza x^{2} − 6x + 9:', '(x − 3)^{2}', ['(x + 3)^{2}', '(x − 9)^{2}', '(x − 3)(x + 3)'], '9 = 3^{2} y el término central es −2·x·3.');
+add('idn2', 'Factoriza 25x^{2} − 1:', '(5x + 1)(5x − 1)', ['(5x − 1)^{2}', '(25x + 1)(25x − 1)', '(5x + 1)^{2}'], '25x^{2} = (5x)^{2} y 1 = 1^{2}.');
+add('idn2', 'Factoriza x^{4} − 1:', '(x^{2} + 1)(x + 1)(x − 1)', ['(x^{2} − 1)^{2}', '(x + 1)^{2}(x − 1)^{2}', '(x^{2} + 1)^{2}'], 'x^{4} − 1 = (x^{2} + 1)(x^{2} − 1), y x^{2} − 1 vuelve a factorizar.');
+add('idn2', 'Factoriza x^{3} − 8:', '(x − 2)(x^{2} + 2x + 4)', ['(x − 2)^{3}', '(x − 2)(x^{2} − 2x + 4)', '(x − 2)(x^{2} + 4)'], 'Diferencia de cubos: (a − b)(a^{2} + ab + b^{2}).');
+add('idn2', 'Factoriza x^{3} + 27:', '(x + 3)(x^{2} − 3x + 9)', ['(x + 3)^{3}', '(x + 3)(x^{2} + 3x + 9)', '(x + 3)(x^{2} + 9)'], 'Suma de cubos: (a + b)(a^{2} − ab + b^{2}).');
+
+/* ---------- División y teorema del resto ---------- */
+add('pol1', 'El resto de dividir P(x) = x^{2} − 4 entre (x − 2) es', '0', ['4', '−4', '2'], 'P(2) = 4 − 4 = 0.');
+add('pol1', 'El resto de dividir P(x) = x^{2} + 1 entre (x − 1) es', '2', ['0', '1', '−2'], 'P(1) = 1 + 1 = 2.');
+add('pol1', 'El resto de dividir P(x) entre (x + 2) es', 'P(−2)', ['P(2)', '−P(2)', '2'], 'x + 2 = x − (−2), así que se evalúa en −2.');
+add('pol1', 'En una división exacta, el resto es', '0', ['1', 'El divisor', 'El cociente'], 'Exacta significa que el divisor está contenido por completo en el dividendo.');
+add('pol1', 'Si P(3) = 0, entonces P(x) es divisible entre', '(x − 3)', ['(x + 3)', '(3 − x^{2})', 'x^{3}'], 'Si P(a) = 0, entonces (x − a) divide a P(x).');
+add('pol1', 'Si P(x) = x^{3} + 1, el resto de dividir entre (x + 1) es', '0', ['2', '1', '−2'], 'P(−1) = −1 + 1 = 0.');
+add('pol1', 'Dividendo = divisor · cociente + resto: si D(x) = d(x)·c(x) + r(x) y r(x) = 0, entonces', 'd(x) divide a D(x)', ['c(x) = 0', 'd(x) = 0', 'D(x) = 0'], 'Resto 0 significa división exacta.');
+add('pol1', 'El grado de P(x) = x^{3} − 2x^{2} + 5 es', '3', ['2', '5', '1'], 'El grado es el mayor exponente.');
+
+/* ---------- Regla de Ruffini ---------- */
+add('pol2', 'En Ruffini, ¿qué se hace con el primer coeficiente?', 'Se baja tal cual', ['Se multiplica por a', 'Se resta', 'Se divide entre a'], 'El primer coeficiente se baja y después se empieza a multiplicar por a.');
+add('pol2', 'En Ruffini, después de bajar un número se', 'Multiplica por a y se suma al siguiente coeficiente', ['Divide entre a y se resta', 'Suma a y se multiplica', 'Multiplica por a y se resta'], 'El ciclo es: multiplicar por a, sumar al coeficiente siguiente.');
+add('pol2', 'Para dividir x^{3} − 6x^{2} + 11x − 6 entre (x − 1) usamos el número', '1', ['−1', '6', '−6'], 'x − 1 = x − (1).');
+add('pol2', 'Al dividir por Ruffini un polinomio de grado 3 entre (x − a), el cociente tiene grado', '2', ['3', '1', '4'], 'Los grados se restan: 3 − 1 = 2.');
+add('pol2', 'El último número de la fila de Ruffini es', 'El resto', ['El cociente', 'El dividendo', 'El divisor'], 'Los demás números son los coeficientes del cociente.');
+add('pol2', 'Si el resto de Ruffini con a = 2 es 0, entonces', '2 es una raíz del polinomio', ['−2 es una raíz', 'El polinomio vale 2', 'El cociente es 2'], 'Resto = P(2) = 0.');
+add('pol2', 'En Ruffini con x^{4} + 3x − 2, los coeficientes de la fila son', '1, 0, 0, 3, −2', ['1, 3, −2', '1, 4, 3, −2', '1, 0, 3, −2'], 'Faltan x^{3} y x^{2}: hay que poner ceros.');
+add('pol2', 'Para dividir entre (x − 3) por Ruffini se usa', '3', ['−3', '⟨1|3⟩', '0'], 'Se usa el valor que anula el divisor, x = 3.');
+add('pol2', 'Con Ruffini, dividir x^{2} − 5x + 6 entre (x − 2) da cociente', 'x − 3', ['x + 3', 'x − 2', 'x + 2'], 'Se baja 1; 1·2 = 2 y −5 + 2 = −3; −3·2 = −6 y 6 − 6 = 0 (resto).');
+add('pol2', 'Con Ruffini, dividir x^{2} + 2x − 3 entre (x − 1) da cociente', 'x + 3', ['x − 3', 'x + 1', 'x − 1'], 'Se baja 1; 1 + 2 = 3; 3 − 3 = 0 (resto).');
+add('pol2', 'Con Ruffini, dividir x^{3} − 7x + 6 entre (x − 1) da cociente', 'x^{2} + x − 6', ['x^{2} − x − 6', 'x^{2} + x + 6', 'x^{2} − 6'], 'Coeficientes 1, 0, −7, 6: 1; 1; −6; resto 0.');
+add('pol2', 'Con Ruffini, dividir x^{3} − 2x^{2} − 5x + 6 entre (x + 2) da resto', '0', ['12', '−12', '4'], 'P(−2) = −8 − 8 + 10 + 6 = 0.');
+
+/* ---------- Factorización de polinomios ---------- */
+add('pol3', 'Para factorizar un polinomio de grado 3, primero buscamos', 'Una raíz entera con Ruffini', ['El discriminante', 'El logaritmo', 'La raíz cuadrada'], 'Se prueban los divisores del término independiente.');
+add('pol3', 'x^{3} − 6x^{2} + 11x − 6 se factoriza como', '(x − 1)(x − 2)(x − 3)', ['(x + 1)(x + 2)(x + 3)', '(x − 1)(x − 2)(x + 3)', '(x − 6)(x − 1)^{2}'], 'Raíces 1, 2 y 3: suman 6 y multiplican 6.');
+add('pol3', 'Si x = 2 es raíz de P(x), entonces un factor es', '(x − 2)', ['(x + 2)', '(2 − x^{2})', 'x^{2}'], 'Raíz a ↔ factor (x − a).');
+add('pol3', 'Si (x + 5) es factor de P(x), una raíz es', '−5', ['5', '⟨1|5⟩', '0'], 'x + 5 = 0 cuando x = −5.');
+add('pol3', 'El polinomio x^{2} + 1 se factoriza en los reales como', 'No se puede factorizar', ['(x + 1)(x − 1)', '(x + 1)^{2}', '(x − 1)^{2}'], 'x^{2} + 1 = 0 no tiene soluciones reales.');
+add('pol3', 'Un polinomio de grado 3 con coeficientes reales tiene', 'Al menos una raíz real', ['Exactamente tres raíces reales', 'Ninguna raíz real', 'Exactamente dos raíces reales'], 'Los de grado impar siempre cortan al eje x.');
+add('pol3', 'x^{3} − 4x se factoriza como', 'x(x + 2)(x − 2)', ['(x − 2)^{3}', 'x(x − 2)^{2}', 'x^{2}(x − 4)'], 'Factor común x y después diferencia de cuadrados.');
+add('pol3', 'Un factor de x^{3} − 3x^{2} + 2x es', 'x', ['(x − 3)', '(x + 1)', '(x − 6)'], 'Todos los términos tienen x: x(x^{2} − 3x + 2) = x(x − 1)(x − 2).');
+add('pol3', 'x^{3} + 8 tiene como factor', '(x + 2)', ['(x − 2)', '(x + 8)', 'x'], 'P(−2) = −8 + 8 = 0.');
+add('pol3', 'Las raíces de x(x − 1)(x + 4) son', '0, 1 y −4', ['0, −1 y 4', '1 y −4', '0, 1 y 4'], 'Cada factor se iguala a 0.');
+
+/* ---------- Simplificar fracciones algebraicas ---------- */
+add('fra1', 'Simplifica ⟨x^{2} − 9|x + 3⟩ =', 'x − 3', ['x + 3', 'x', '−3'], 'x^{2} − 9 = (x + 3)(x − 3).');
+add('fra1', 'Simplifica ⟨x^{2} − 5x + 6|x − 2⟩ =', 'x − 3', ['x + 3', 'x − 2', 'x + 2'], 'x^{2} − 5x + 6 = (x − 2)(x − 3).');
+add('fra1', 'Simplifica ⟨3x + 3|x + 1⟩ =', '3', ['3x', 'x', '3 + 3'], '3x + 3 = 3(x + 1).');
+add('fra1', 'Simplifica ⟨x^{2} − 2x|x − 2⟩ =', 'x', ['x − 2', '2x', '1'], 'x^{2} − 2x = x(x − 2).');
+add('fra1', 'Simplifica ⟨(x + 1)^{2}|x + 1⟩ =', 'x + 1', ['1', 'x + 1^{2}', '(x + 1)^{2}'], 'Se cancela un factor (x + 1).');
+add('fra1', 'Simplifica ⟨2x^{2}|4x⟩ =', '⟨x|2⟩', ['⟨x^{2}|2⟩', '2x', '⟨1|2⟩'], 'Se cancelan 2 y una x.');
+add('fra1', 'Simplifica ⟨x + 2|x^{2} − 4⟩ =', '⟨1|x − 2⟩', ['x − 2', '⟨1|x + 2⟩', '1'], 'x^{2} − 4 = (x + 2)(x − 2) y se cancela x + 2.');
+add('fra1', '¿Qué se puede cancelar en ⟨(x + 1)(x − 2)|(x + 1)(x + 3)⟩?', 'El factor (x + 1)', ['El factor 1', 'Las x', 'Los números −2 y 3'], 'Solo se cancelan factores comunes completos.');
+add('fra1', '¿Cuál de estas simplificaciones es correcta?', '⟨2x|2⟩ = x', ['⟨x + 2|2⟩ = x + 1', '⟨x + 3|3⟩ = x', '⟨x^{2} + 1|x^{2}⟩ = 1'], 'Solo se puede cancelar cuando el 2 multiplica a todo el numerador.');
+
+/* ---------- Operar fracciones y mcm ---------- */
+add('fra2', 'El mcm de x y x + 1 es', 'x(x + 1)', ['x + 1', 'x', '2x + 1'], 'No tienen factores comunes: el mcm es el producto.');
+add('fra2', 'El mcm de x − 1 y x^{2} − 1 es', 'x^{2} − 1', ['(x − 1)^{2}', 'x − 1', '(x − 1)(x^{2} − 1)'], 'x^{2} − 1 = (x + 1)(x − 1) ya contiene a x − 1.');
+add('fra2', 'El mcm de (x + 2)^{2} y x + 2 es', '(x + 2)^{2}', ['x + 2', '(x + 2)^{3}', '2(x + 2)'], 'Se toma cada factor con su mayor exponente.');
+add('fra2', '⟨1|x⟩ + ⟨2|x⟩ =', '⟨3|x⟩', ['⟨3|2x⟩', '⟨3|x^{2}⟩', '⟨2|x^{2}⟩'], 'Mismo denominador: se suman los numeradores.');
+add('fra2', '⟨1|x⟩ − ⟨1|x + 1⟩ =', '⟨1|x(x + 1)⟩', ['⟨1|x^{2} + 1⟩', '0', '⟨1|1⟩'], 'Denominador común x(x + 1): (x + 1 − x) = 1.');
+add('fra2', '⟨x|2⟩ · ⟨4|x^{2}⟩ =', '⟨2|x⟩', ['⟨4|x⟩', '⟨1|x⟩', '2x'], 'Multiplicamos y simplificamos: 4x/(2x^{2}) = 2/x.');
+add('fra2', '⟨x + 1|x⟩ ÷ ⟨x + 1|2⟩ =', '⟨2|x⟩', ['⟨x|2⟩', '⟨(x + 1)^{2}|2x⟩', '⟨x|2(x + 1)⟩'], 'Se multiplica por la inversa y se cancela x + 1.');
+add('fra2', '⟨2|x⟩ + ⟨3|x^{2}⟩ =', '⟨2x + 3|x^{2}⟩', ['⟨5|x^{3}⟩', '⟨5|x^{2}⟩', '⟨2x + 3|x⟩'], 'Denominador común x^{2}.');
+add('fra2', 'Para sumar fracciones algebraicas primero hay que', 'Reducir a común denominador', ['Sumar los denominadores', 'Multiplicar en cruz siempre', 'Cancelar las x'], 'Después se suman los numeradores.');
+add('fra2', '⟨1|x − 1⟩ + ⟨1|x + 1⟩ =', '⟨2x|x^{2} − 1⟩', ['⟨2|x^{2} − 1⟩', '⟨2|2x⟩', '⟨1|x^{2} − 1⟩'], 'Común denominador (x − 1)(x + 1): (x + 1) + (x − 1) = 2x.');
+/* Preguntas nuevas: ecuaciones de 2.º grado, bicuadradas, ecuaciones con Ruffini, radicales, fracciones y logaritmos */
+
+/* ---------- Fórmula y discriminante ---------- */
+add('seg1', 'En x^{2} − 5x + 6 = 0, los coeficientes son', 'a = 1, b = −5, c = 6', ['a = 1, b = 5, c = 6', 'a = 0, b = −5, c = 6', 'a = −5, b = 1, c = 6'], 'a acompaña a x^{2}, b a x y c es el término independiente. El signo va con el número.');
+add('seg1', 'En 2x^{2} − 3x = 7, al pasar todo a un lado queda c =', '−7', ['7', '0', '3'], '2x^{2} − 3x − 7 = 0.');
+add('seg1', 'El discriminante de x^{2} − 4x + 4 es', '0', ['8', '16', '−16'], '(−4)^{2} − 4·1·4 = 16 − 16 = 0.');
+add('seg1', 'El discriminante de x^{2} + x + 1 es', '−3', ['3', '1', '5'], '1^{2} − 4·1·1 = −3, así que no hay soluciones reales.');
+add('seg1', 'El discriminante de 2x^{2} − 4x − 6 es', '64', ['−32', '16', '−16'], '(−4)^{2} − 4·2·(−6) = 16 + 48 = 64.');
+add('seg1', 'Si Δ es un cuadrado perfecto, las soluciones son', 'Racionales', ['Irracionales', 'No reales', 'Siempre enteras'], 'La raíz de Δ es exacta, así que las soluciones son fracciones o enteros.');
+add('seg1', 'En x = ⟨−b ± √{Δ}|2a⟩, el símbolo ± indica que', 'Salen dos soluciones: una con + y otra con −', ['Solo hay una solución', 'b es negativo', 'Δ puede ser negativo'], 'Se calcula una vez sumando y otra restando.');
+add('seg1', '¿Cuántas soluciones reales tiene x^{2} + 2x + 1 = 0?', 'Una (doble)', ['Dos distintas', 'Ninguna', 'Infinitas'], 'Δ = 4 − 4 = 0.');
+add('seg1', '¿Cuántas soluciones reales tiene x^{2} − 2x − 3 = 0?', 'Dos distintas', ['Una (doble)', 'Ninguna', 'Infinitas'], 'Δ = 4 + 12 = 16 > 0.');
+add('seg1', 'Si a = 0 en ax^{2} + bx + c = 0, la ecuación', 'Deja de ser de 2.º grado', ['Tiene Δ = 0', 'No tiene solución', 'Tiene dos soluciones'], 'Sin término en x^{2} es una ecuación de 1.er grado.');
+add('seg1', 'La fórmula aplicada a x^{2} − 5x + 6 = 0 da', 'x = 2 y x = 3', ['x = −2 y x = −3', 'x = 1 y x = 6', 'x = 5 y x = 6'], 'Δ = 25 − 24 = 1 y x = (5 ± 1)/2.');
+
+/* ---------- Resolver ecuaciones de 2.º grado ---------- */
+add('seg2', 'x^{2} − 3x = 0 tiene soluciones', 'x = 0 y x = 3', ['Solo x = 3', 'x = 0 y x = −3', 'x = 3 y x = −3'], 'x(x − 3) = 0.');
+add('seg2', 'x^{2} − 16 = 0 tiene soluciones', 'x = 4 y x = −4', ['Solo x = 4', 'x = 8 y x = −8', 'x = 16'], 'x^{2} = 16, con las dos raíces ±4.');
+add('seg2', '2x^{2} = 8 tiene soluciones', 'x = 2 y x = −2', ['Solo x = 2', 'x = 4 y x = −4', 'x = 16'], 'x^{2} = 4.');
+add('seg2', '(x − 3)^{2} = 0 tiene solución', 'x = 3 (doble)', ['x = −3', 'x = 3 y x = −3', 'x = 9'], 'x − 3 = 0.');
+add('seg2', 'x^{2} + x − 6 = 0 tiene soluciones', 'x = 2 y x = −3', ['x = −2 y x = 3', 'x = 2 y x = 3', 'x = 1 y x = −6'], '(x + 3)(x − 2) = 0.');
+add('seg2', 'x^{2} − 6x + 8 = 0 tiene soluciones', 'x = 2 y x = 4', ['x = −2 y x = −4', 'x = 1 y x = 8', 'x = 6 y x = 8'], 'Suman 6 y multiplican 8.');
+add('seg2', 'x^{2} − 2x = 15 tiene soluciones', 'x = 5 y x = −3', ['x = −5 y x = 3', 'x = 2 y x = 15', 'x = 5 y x = 3'], 'Pasamos todo a un lado: x^{2} − 2x − 15 = (x − 5)(x + 3).');
+add('seg2', 'Si x^{2} = 5, entonces', 'x = √{5} y x = −√{5}', ['Solo x = √{5}', 'x = 25', 'x = ⟨5|2⟩'], 'La raíz tiene siempre dos signos.');
+add('seg2', 'x^{2} + 2x + 5 = 0 en los reales', 'No tiene solución', ['x = −1', 'x = 1 y x = −5', 'x = ±5'], 'Δ = 4 − 20 < 0.');
+add('seg2', 'Un número y su cuadrado suman 12 (x^{2} + x = 12). Las soluciones son', 'x = 3 y x = −4', ['x = −3 y x = 4', 'x = 3 y x = 4', 'x = 6 y x = −2'], 'x^{2} + x − 12 = (x + 4)(x − 3).');
+
+/* ---------- Bicuadradas y ecuaciones con Ruffini ---------- */
+add('seg3', 'x^{4} − 5x^{2} + 4 = 0 tiene', '4 soluciones: ±1 y ±2', ['2 soluciones: 1 y 4', '4 soluciones: ±1 y ±4', '2 soluciones: ±2'], 'Con t = x^{2}: t^{2} − 5t + 4 = 0, t = 1 o t = 4, y x = ±√{t}.');
+add('seg3', 'x^{4} − 10x^{2} + 9 = 0 tiene soluciones', 'x = ±1 y x = ±3', ['x = 1 y x = 9', 'x = ±1 y x = ±9', 'x = ±3'], 't = 1 y t = 9, y después x = ±√{t}.');
+add('seg3', 'x^{4} − 13x^{2} + 36 = 0 tiene soluciones', '±2 y ±3', ['4 y 9', '±4 y ±9', '2 y 3'], 't = 4 y t = 9.');
+add('seg3', 'x^{4} = 16 tiene soluciones reales', 'x = 2 y x = −2', ['Solo x = 2', 'x = 4 y x = −4', 'x = 8 y x = −8'], 'x^{2} = 4 (x^{2} = −4 no da soluciones reales).');
+add('seg3', 'Si en una bicuadrada sale t = −4, entonces', 'Esa t no da soluciones reales', ['x = 2', 'x = ±2', 'x = −16'], 'x^{2} = −4 es imposible.');
+add('seg3', 'Si en una bicuadrada sale t = 9, entonces', 'x = 3 y x = −3', ['Solo x = 3', 'x = 81', 'x = 9'], 'x^{2} = 9 tiene dos soluciones.');
+add('seg3', 'x^{4} − x^{2} = 0 tiene soluciones', 'x = 0, x = 1 y x = −1', ['x = 1 y x = −1', 'x = 0 y x = 1', 'Solo x = 0'], 'x^{2}(x^{2} − 1) = 0.');
+add('seg3', 'x^{4} + 3x^{2} + 2 = 0 en los reales', 'No tiene solución', ['x = ±1 y x = ±2', 'x = −1 y x = −2', 'Cuatro soluciones'], 't = −1 y t = −2 son negativas, y x^{2} no puede serlo.');
+add('seg3', 'x^{3} − 6x^{2} + 11x − 6 = 0 tiene soluciones', 'x = 1, x = 2 y x = 3', ['x = −1, x = −2 y x = −3', 'x = 1, x = 2 y x = 6', 'x = 6'], 'Se prueba x = 1 con Ruffini y queda x^{2} − 5x + 6 = 0.');
+add('seg3', 'x^{3} − x = 0 tiene soluciones', 'x = 0, x = 1 y x = −1', ['Solo x = 1', 'x = 1 y x = −1', 'x = 0 y x = 1'], 'x(x + 1)(x − 1) = 0.');
+add('seg3', 'x^{3} − 7x + 6 = 0 tiene soluciones', 'x = 1, x = 2 y x = −3', ['x = −1, x = −2 y x = 3', 'x = 1, x = −2 y x = 3', 'x = 1, x = 2 y x = 3'], 'Ruffini con 1 da x^{2} + x − 6 = (x − 2)(x + 3).');
+add('seg3', 'x^{3} + x^{2} − 4x − 4 = 0 tiene soluciones', 'x = −1, x = 2 y x = −2', ['x = 1, x = 2 y x = −2', 'x = −1, x = 2 y x = 4', 'x = 1, x = −2 y x = −4'], 'Factor común por grupos: x^{2}(x + 1) − 4(x + 1) = (x + 1)(x − 2)(x + 2).');
+add('seg3', 'x^{3} − 2x^{2} − 5x + 6 = 0 tiene soluciones', 'x = 1, x = 3 y x = −2', ['x = −1, x = −3 y x = 2', 'x = 1, x = −3 y x = 2', 'x = 1, x = 2 y x = 3'], 'Ruffini con 1 da x^{2} − x − 6 = (x − 3)(x + 2).');
+add('seg3', 'Para resolver x^{3} + 2x^{2} − x − 2 = 0 por Ruffini probamos', 'Los divisores de −2', ['Los divisores de 3', 'Los múltiplos de 2', 'Solo x = 0'], 'Las raíces enteras dividen al término independiente.');
+
+/* ---------- Ecuaciones con radicales ---------- */
+add('eqr', 'La solución de √{x} = 4 es', 'x = 16', ['x = 2', 'x = 8', 'x = ±16'], 'Elevamos al cuadrado los dos lados.');
+add('eqr', 'La solución de √{x + 3} = 5 es', 'x = 22', ['x = 2', 'x = 28', 'x = 8'], 'x + 3 = 25.');
+add('eqr', 'La solución de √{2x − 1} = 3 es', 'x = 5', ['x = 4', 'x = 2', 'x = 10'], '2x − 1 = 9.');
+add('eqr', '√{x} = −2 tiene', 'Ninguna solución', ['x = 4', 'x = −4', 'x = 2'], 'Una raíz cuadrada no puede ser negativa. Elevar al cuadrado daría x = 4, pero no cumple la ecuación.');
+add('eqr', 'Para resolver √{x + 1} + 2 = 5, el primer paso es', 'Aislar la raíz: √{x + 1} = 3', ['Elevar al cuadrado cada término', 'Restar 1 a los dos lados', 'Dividir entre 2'], 'Primero se deja la raíz sola y después se eleva al cuadrado.');
+add('eqr', 'Al elevar al cuadrado el lado x − 2 queda', 'x^{2} − 4x + 4', ['x^{2} + 4', 'x^{2} − 4', 'x^{2} − 2x + 4'], '(x − 2)^{2} es una identidad notable, no se eleva término a término.');
+add('eqr', '√{x + 6} = x tiene como solución válida', 'x = 3', ['x = −2', 'x = 3 y x = −2', 'x = 6'], 'x + 6 = x^{2} da x = 3 y x = −2, pero √{4} = 2 ≠ −2, así que x = −2 es falsa.');
+add('eqr', '√{2x + 3} = x tiene como solución válida', 'x = 3', ['x = −1', 'x = 3 y x = −1', 'x = 1'], '2x + 3 = x^{2} da x = 3 y x = −1, pero √{1} = 1 ≠ −1.');
+add('eqr', 'x − 2 = √{x} tiene como solución válida', 'x = 4', ['x = 1', 'x = 1 y x = 4', 'x = 2'], 'Da x = 1 y x = 4, pero con x = 1: −1 ≠ 1, así que solo vale x = 4.');
+add('eqr', 'La solución de √[3]{x} = 2 es', 'x = 8', ['x = 6', 'x = 4', 'x = 2'], 'Se eleva al cubo: 2^{3} = 8.');
+add('eqr', 'Las soluciones falsas aparecen en las ecuaciones con radicales porque', 'Al elevar al cuadrado se pierde el signo', ['Hay que dividir entre x', 'La raíz siempre es negativa', 'El discriminante es 0'], '(−2)^{2} y 2^{2} dan lo mismo, así que al elevar se mezclan soluciones.');
+add('eqr', 'La solución de √{x − 1} = 0 es', 'x = 1', ['x = 0', 'x = −1', 'x = 2'], 'x − 1 = 0.');
+
+/* ---------- Ecuaciones con fracciones ---------- */
+add('eqf', 'Antes de resolver una ecuación con fracciones algebraicas hay que', 'Excluir los valores que anulan un denominador', ['Elevar al cuadrado', 'Cancelar las x', 'Sumar los denominadores'], 'Esos valores no pueden ser solución.');
+add('eqf', 'La solución de ⟨x|2⟩ = ⟨3|4⟩ es', 'x = ⟨3|2⟩', ['x = ⟨3|8⟩', 'x = 2', 'x = ⟨2|3⟩'], 'Producto cruzado: 4x = 6.');
+add('eqf', 'La solución de ⟨2|x⟩ = 4 es', 'x = ⟨1|2⟩', ['x = 2', 'x = 8', 'x = ⟨1|8⟩'], '2 = 4x, así que x = 1/2.');
+add('eqf', 'La solución de ⟨1|x⟩ = ⟨1|3⟩ es', 'x = 3', ['x = ⟨1|3⟩', 'x = 1', 'x = −3'], 'Los inversos son iguales cuando los números lo son.');
+add('eqf', 'La solución de ⟨x + 1|2⟩ = 3 es', 'x = 5', ['x = 2', 'x = 7', 'x = 8'], 'x + 1 = 6.');
+add('eqf', 'La solución de ⟨x|x − 1⟩ = 2 es', 'x = 2', ['x = 1', 'x = −2', 'x = 0'], 'x = 2(x − 1) → x = 2.');
+add('eqf', 'La solución de ⟨3|x − 2⟩ = 1 es', 'x = 5', ['x = 1', 'x = 3', 'x = −1'], '3 = x − 2.');
+add('eqf', 'La solución de ⟨1|x⟩ + ⟨1|x⟩ = 4 es', 'x = ⟨1|2⟩', ['x = 2', 'x = ⟨1|4⟩', 'x = 8'], '2/x = 4, así que x = 1/2.');
+add('eqf', '⟨x|x − 2⟩ = ⟨2|x − 2⟩ tiene', 'Ninguna solución válida', ['x = 2', 'x = 0', 'x = −2'], 'Sale x = 2, pero anula el denominador.');
+add('eqf', 'La solución de ⟨x^{2}|x⟩ = 5 (con x ≠ 0) es', 'x = 5', ['x = 0 y x = 5', 'x = ⟨5|2⟩', 'x = 25'], 'x^{2}/x = x.');
+add('eqf', 'En ⟨x^{2} − 4|x − 2⟩ = 0 salen x = 2 y x = −2. La solución válida es', 'x = −2', ['x = 2', 'Las dos', 'Ninguna'], 'x = 2 anula el denominador.');
+add('eqf', 'La solución de ⟨2|x − 1⟩ = ⟨3|x + 1⟩ es', 'x = 5', ['x = −5', 'x = 1', 'x = 3'], '2(x + 1) = 3(x − 1) → x = 5.');
+add('eqf', 'La solución de ⟨1|x⟩ + ⟨1|2⟩ = 1 es', 'x = 2', ['x = ⟨1|2⟩', 'x = 1', 'x = 3'], '1/x = 1/2.');
+
+/* ---------- Ecuaciones con logaritmos y exponenciales ---------- */
+add('eql', 'La solución de log_{2} x = 4 es', 'x = 16', ['x = 8', 'x = 6', 'x = ⟨1|16⟩'], '2^{4} = x.');
+add('eql', 'La solución de log(x + 1) = 1 es', 'x = 9', ['x = 0', 'x = 10', 'x = 11'], 'x + 1 = 10.');
+add('eql', 'La solución de log_{3}(x − 1) = 2 es', 'x = 10', ['x = 7', 'x = 9', 'x = 5'], 'x − 1 = 3^{2} = 9.');
+add('eql', 'La solución de ln x = 1 es', 'x = e', ['x = 1', 'x = 0', 'x = 10'], 'e^{1} = x.');
+add('eql', 'La solución de 2^{x} = 8 es', 'x = 3', ['x = 4', 'x = 6', 'x = 16'], '2^{3} = 8.');
+add('eql', 'La solución de 3^{x} = 81 es', 'x = 4', ['x = 27', 'x = 3', 'x = 9'], '3^{4} = 81.');
+add('eql', 'La solución de 2^{x + 1} = 16 es', 'x = 3', ['x = 4', 'x = 2', 'x = 7'], 'x + 1 = 4.');
+add('eql', 'La solución de 5^{x} = 1 es', 'x = 0', ['x = 1', 'x = 5', 'x = −1'], '5^{0} = 1.');
+add('eql', 'La solución de log x + log 5 = 2 es', 'x = 20', ['x = 95', 'x = 25', 'x = 10'], 'log(5x) = 2, 5x = 100.');
+add('eql', 'log_{2} x + log_{2}(x − 2) = 3 tiene como solución válida', 'x = 4', ['x = −2', 'x = 4 y x = −2', 'x = 8'], 'x(x − 2) = 8 da x = 4 y x = −2, pero con x = −2 los argumentos serían negativos.');
+add('eql', 'log(x + 2) + log x = log 3 tiene como solución válida', 'x = 1', ['x = −3', 'x = 1 y x = −3', 'x = 3'], 'x(x + 2) = 3 da x = 1 y x = −3, pero x = −3 hace negativos los argumentos.');
+add('eql', 'En log(x − 3) = 1, la solución x = 13 es válida porque', 'x − 3 = 10 es positivo', ['x es entero', 'x = 10', 'x es positivo siempre'], 'Se comprueba que el argumento queda mayor que 0.');
+/* Preguntas nuevas: sistemas, propiedades de logaritmos, identidades trigonométricas, inecuaciones y dominios */
+
+/* ---------- Sistemas lineales ---------- */
+add('sis1', 'El sistema x + y = 5, x − y = 1 tiene solución', 'x = 3, y = 2', ['x = 2, y = 3', 'x = 4, y = 1', 'x = 3, y = −2'], 'Sumando: 2x = 6, así que x = 3 y y = 2.');
+add('sis1', 'El sistema 2x + y = 7, x − y = 2 tiene solución', 'x = 3, y = 1', ['x = 1, y = 3', 'x = 2, y = 3', 'x = 9, y = −11'], 'Sumando: 3x = 9, así que x = 3 y y = 1.');
+add('sis1', 'Para eliminar y en 2x + 3y = 8 y 5x − 3y = 6 hacemos', 'Sumar las dos ecuaciones', ['Restar las dos ecuaciones', 'Multiplicar la 1.ª por 3', 'Dividir entre y'], 'Los términos 3y y −3y se cancelan al sumar.');
+add('sis1', 'El sistema x + y = 2, 2x + 2y = 4 es', 'Compatible indeterminado', ['Compatible determinado', 'Incompatible', 'Sin solución'], 'La segunda ecuación es el doble de la primera: infinitas soluciones.');
+add('sis1', 'El sistema x + y = 2, x + y = 5 es', 'Incompatible', ['Compatible determinado', 'Compatible indeterminado', 'Con una solución'], 'x + y no puede valer 2 y 5 a la vez.');
+add('sis1', 'El sistema x − y = 0, x + y = 4 tiene solución', 'x = 2, y = 2', ['x = 4, y = 0', 'x = 0, y = 4', 'x = 1, y = 3'], 'x = y, y 2x = 4.');
+add('sis1', 'Al sustituir x = 2y + 1 en 3x − y = 8 se obtiene', '5y + 3 = 8', ['5y − 3 = 8', '5y + 1 = 8', '7y + 3 = 8'], '3(2y + 1) − y = 6y + 3 − y = 5y + 3.');
+add('sis1', 'Un sistema compatible determinado tiene', 'Una única solución', ['Ninguna solución', 'Infinitas soluciones', 'Dos soluciones'], 'Las rectas se cortan en un único punto.');
+add('sis1', 'Dos ecuaciones lineales con dos incógnitas representan', 'Dos rectas', ['Dos parábolas', 'Dos puntos', 'Una circunferencia'], 'Cada ecuación lineal es una recta.');
+
+/* ---------- Sistemas no lineales ---------- */
+add('sis2', 'x + y = 5 y xy = 6 tienen como soluciones', '(2, 3) y (3, 2)', ['(5, 6) y (6, 5)', '(−2, −3) y (−3, −2)', '(2, 3)'], 'x e y son las raíces de t^{2} − 5t + 6 = 0, y se pueden intercambiar.');
+add('sis2', 'x + y = 7 y xy = 12 tienen como soluciones', '(3, 4) y (4, 3)', ['(2, 6) y (6, 2)', '(3, 4)', '(7, 12) y (12, 7)'], 't^{2} − 7t + 12 = 0 da t = 3 y t = 4.');
+add('sis2', 'x − y = 1 y xy = 6 tienen como soluciones', '(3, 2) y (−2, −3)', ['(3, 2) y (2, 3)', '(2, 3) y (−3, −2)', '(3, 2)'], 'x = y + 1 y y(y + 1) = 6 da y = 2 o y = −3.');
+add('sis2', 'y = x^{2} e y = 4 tienen como soluciones', '(2, 4) y (−2, 4)', ['(2, 4)', '(4, 2) y (−4, 2)', '(2, 4) y (2, −4)'], 'x^{2} = 4 da x = ±2, y y = 4 en los dos casos.');
+add('sis2', 'y = x + 2 e y = x^{2} tienen como soluciones', '(2, 4) y (−1, 1)', ['(2, 4) y (1, 1)', '(−2, 0) y (1, 3)', '(2, 4) y (−2, 0)'], 'x^{2} = x + 2 da x = 2 o x = −1.');
+add('sis2', 'x^{2} + y^{2} = 25 e y = 0 tienen como soluciones', '(5, 0) y (−5, 0)', ['(5, 0)', '(0, 5) y (0, −5)', '(25, 0) y (−25, 0)'], 'x^{2} = 25 da x = ±5.');
+add('sis2', 'x^{2} + y^{2} = 5 e y = 2x tienen como soluciones', '(1, 2) y (−1, −2)', ['(1, 2)', '(1, −2) y (−1, 2)', '(2, 1) y (−2, −1)'], '5x^{2} = 5 da x = ±1 y después y = 2x.');
+add('sis2', 'x^{2} − y^{2} = 5 y x + y = 5 tienen como solución', 'x = 3, y = 2', ['x = 2, y = 3', 'x = 5, y = 0', 'x = 1, y = 4'], 'x^{2} − y^{2} = (x − y)(x + y), así que x − y = 1.');
+add('sis2', 'xy = 8 y x = 2y tienen como soluciones', '(4, 2) y (−4, −2)', ['(4, 2)', '(2, 4) y (−2, −4)', '(4, −2) y (−4, 2)'], '2y^{2} = 8 da y = ±2.');
+add('sis2', 'x + y = 4 y xy = 4 tienen como solución', '(2, 2)', ['(1, 3)', '(4, 0)', '(−2, −2)'], 't^{2} − 4t + 4 = 0 tiene la raíz doble t = 2.');
+add('sis2', 'Las soluciones de un sistema no lineal se dan como', 'Pares (x, y)', ['Solo valores de x', 'Solo valores de y', 'Un intervalo'], 'Cada solución es un punto donde se cortan las dos gráficas.');
+add('sis2', 'Si al sustituir sale x^{2} = 4 en un sistema, para cada x hay que', 'Calcular su y correspondiente', ['Dejar solo x = 2', 'Elevar al cuadrado otra vez', 'Ignorar y'], 'Cada valor de x forma un par con su y.');
+
+/* ---------- Sistemas con radicales y logaritmos ---------- */
+add('sis3', 'log x + log y = 1 y x + y = 7 tienen como soluciones', '(2, 5) y (5, 2)', ['(1, 6) y (6, 1)', '(3, 4) y (4, 3)', '(7, 10) y (10, 7)'], 'log(xy) = 1 significa xy = 10, y suman 7.');
+add('sis3', 'log x − log y = 1 equivale a', 'x = 10y', ['x = y + 10', 'x = y + 1', 'x = ⟨y|10⟩'], 'log(x/y) = 1 significa x/y = 10.');
+add('sis3', 'log_{2} x + log_{2} y = 3 equivale a', 'xy = 8', ['xy = 6', 'x + y = 8', 'xy = 9'], 'log_{2}(xy) = 3 y 2^{3} = 8.');
+add('sis3', '√{x} + √{y} = 5 y √{x} − √{y} = 1 tienen como solución', 'x = 9, y = 4', ['x = 3, y = 2', 'x = 4, y = 9', 'x = 6, y = 4'], 'Sumando: 2√{x} = 6, √{x} = 3 y √{y} = 2. Después se eleva al cuadrado.');
+add('sis3', '√{x} = 2 y x + y = 10 tienen como solución', 'x = 4, y = 6', ['x = 2, y = 8', 'x = 4, y = −6', 'x = 16, y = −6'], 'x = 4 y y = 10 − 4.');
+add('sis3', 'log_{2} x = 2 y x + y = 5 tienen como solución', 'x = 4, y = 1', ['x = 2, y = 3', 'x = 1, y = 4', 'x = 4, y = −1'], 'x = 2^{2} = 4 y y = 5 − 4 = 1.');
+add('sis3', 'log x = 1 y x − y = 6 tienen como solución', 'x = 10, y = 4', ['x = 1, y = −5', 'x = 6, y = 0', 'x = 10, y = 16'], 'x = 10 y y = 10 − 6.');
+add('sis3', '2^{x} = 8 y x + y = 5 tienen como solución', 'x = 3, y = 2', ['x = 2, y = 3', 'x = 4, y = 1', 'x = 3, y = 5'], '2^{x} = 8 da x = 3.');
+add('sis3', 'Tras resolver un sistema con logaritmos hay que comprobar que', 'Todos los argumentos son positivos', ['x e y son enteros', 'x = y', 'Δ > 0'], 'Un logaritmo solo existe con argumento mayor que 0.');
+add('sis3', 'Tras resolver un sistema con radicales hay que comprobar', 'Las soluciones en las ecuaciones originales', ['Solo la primera ecuación', 'Que x = y', 'El signo de b'], 'Al elevar al cuadrado pueden aparecer soluciones falsas.');
+add('sis3', 'Si √{x} = 4, entonces x =', '16', ['2', '8', '±16'], 'Se eleva al cuadrado: 4^{2} = 16.');
+
+/* ---------- Propiedades de los logaritmos ---------- */
+add('log2', 'log 2 + log 3 =', 'log 6', ['log 5', 'log 23', '5'], 'Suma de logaritmos: log(2·3).');
+add('log2', 'log 8 − log 2 =', 'log 4', ['log 6', 'log 10', 'log 16'], 'Resta de logaritmos: log(8/2).');
+add('log2', '2 log 3 =', 'log 9', ['log 6', 'log 5', 'log 8'], 'El 2 sube como exponente: log 3^{2}.');
+add('log2', 'log_{3} 5 + log_{3} 2 =', 'log_{3} 10', ['log_{3} 7', 'log_{3} 3', 'log_{3} 5 · log_{3} 2'], 'Suma de logaritmos de la misma base: log_{3}(5·2).');
+add('log2', 'log 5 + log 20 =', '2', ['log 25', '1', '3'], 'log(5·20) = log 100 = 2.');
+add('log2', 'log_{2} 6 − log_{2} 3 =', '1', ['log_{2} 3', '2', 'log_{2} 9'], 'log_{2}(6/3) = log_{2} 2 = 1.');
+add('log2', 'ln e^{3} + ln 1 =', '3', ['4', '1', 'e^{3}'], 'ln e^{3} = 3 y ln 1 = 0.');
+add('log2', 'log a^{2}b =', '2 log a + log b', ['2(log a + log b)', 'log 2a + log b', '2 log a · log b'], 'El exponente 2 solo afecta a la a.');
+add('log2', 'log ⟨a^{3}|b⟩ =', '3 log a − log b', ['⟨3 log a|log b⟩', 'log 3a − log b', '3 log(a − b)'], 'Cociente = resta, y el exponente baja.');
+add('log2', 'log √{a} =', '⟨1|2⟩ log a', ['2 log a', '√{log a}', 'log a − 2'], '√{a} = a^{1/2} y el exponente baja multiplicando.');
+add('log2', 'Para calcular log_{2} 5 con la calculadora usamos', '⟨log 5|log 2⟩', ['⟨log 2|log 5⟩', 'log 5 − log 2', 'log 5 · log 2'], 'Cambio de base: argumento arriba, base abajo.');
+add('log2', 'log 5 + log 2 =', '1', ['log 7', '7', 'log 3'], 'log(5·2) = log 10 = 1.');
+
+/* ---------- Identidades y fórmulas trigonométricas ---------- */
+add('tri3', 'tg^{2}x + 1 =', '⟨1|cos^{2}x⟩', ['sen^{2}x', '⟨1|sen^{2}x⟩', 'cos^{2}x'], 'Se divide sen^{2}x + cos^{2}x = 1 entre cos^{2}x.');
+add('tri3', 'cos^{2}x =', '1 − sen^{2}x', ['1 + sen^{2}x', 'sen^{2}x − 1', '⟨1|sen^{2}x⟩'], 'Se despeja de sen^{2}x + cos^{2}x = 1.');
+add('tri3', 'Si sen x = ⟨3|5⟩ y x está en el 1.er cuadrante, cos x =', '⟨4|5⟩', ['⟨5|4⟩', '⟨3|5⟩', '−⟨4|5⟩'], 'cos^{2}x = 1 − 9/25 = 16/25, y en el 1.er cuadrante es positivo.');
+add('tri3', 'Si cos x = ⟨5|13⟩ y x está en el 1.er cuadrante, sen x =', '⟨12|13⟩', ['⟨13|12⟩', '⟨5|13⟩', '⟨8|13⟩'], 'sen^{2}x = 1 − 25/169 = 144/169.');
+add('tri3', 'Si sen x = ⟨3|5⟩ y x está en el 2.º cuadrante, cos x =', '−⟨4|5⟩', ['⟨4|5⟩', '−⟨3|5⟩', '⟨5|4⟩'], 'El valor absoluto es 4/5, pero en el 2.º cuadrante el coseno es negativo.');
+add('tri3', 'Si sen x = ⟨3|5⟩ y cos x = ⟨4|5⟩, tg x =', '⟨3|4⟩', ['⟨4|3⟩', '⟨3|5⟩', '⟨12|25⟩'], 'tg x = sen x / cos x.');
+add('tri3', 'cos(a + b) =', 'cos a cos b − sen a sen b', ['cos a + cos b', 'cos a cos b + sen a sen b', 'sen a cos b − cos a sen b'], 'En la suma el signo del segundo término cambia.');
+add('tri3', 'cos(a − b) =', 'cos a cos b + sen a sen b', ['cos a cos b − sen a sen b', 'cos a − cos b', 'sen a sen b − cos a cos b'], 'En la resta el signo del segundo término cambia a +.');
+add('tri3', 'sen(a − b) =', 'sen a cos b − cos a sen b', ['sen a − sen b', 'sen a cos b + cos a sen b', 'cos a cos b − sen a sen b'], 'El signo central es el mismo que el del ángulo.');
+add('tri3', 'tg 2x =', '⟨2 tg x|1 − tg^{2}x⟩', ['2 tg x', '⟨2 tg x|1 + tg^{2}x⟩', 'tg^{2}x'], 'Fórmula del ángulo doble de la tangente.');
+add('tri3', 'cos 2x en función solo del coseno es', '2cos^{2}x − 1', ['2cos^{2}x + 1', '2cos x − 1', 'cos^{2}x + 1'], 'cos^{2}x − sen^{2}x con sen^{2}x = 1 − cos^{2}x.');
+add('tri3', 'Si sen x = ⟨3|5⟩ y cos x = ⟨4|5⟩, sen 2x =', '⟨24|25⟩', ['⟨12|25⟩', '⟨6|5⟩', '⟨7|25⟩'], 'sen 2x = 2 · 3/5 · 4/5 = 24/25.');
+
+/* ---------- Inecuaciones y valor absoluto ---------- */
+add('ine', 'Si x + 3 > 5, entonces', 'x > 2', ['x < 2', 'x > 8', 'x < 8'], 'Restamos 3 a los dos lados.');
+add('ine', 'Si −x > 4, entonces', 'x < −4', ['x > −4', 'x > 4', 'x < 4'], 'Al multiplicar por −1, la desigualdad se invierte.');
+add('ine', 'Si 3x ≤ 12, entonces', 'x ≤ 4', ['x ≥ 4', 'x ≤ 36', 'x ≥ 36'], 'Se divide entre 3, que es positivo.');
+add('ine', 'Si |x| < 2, el intervalo solución es', '(−2, 2)', ['(−∞, 2)', '(−∞, −2) ∪ (2, +∞)', '[−2, 2]'], 'x está a menos de 2 unidades del 0.');
+add('ine', 'Si |x| > 2, la solución es', '(−∞, −2) ∪ (2, +∞)', ['(−2, 2)', '(2, +∞)', '(−∞, 2)'], 'x está a más de 2 unidades del 0, a un lado o al otro.');
+add('ine', 'Si |x − 1| ≤ 2, la solución es', '[−1, 3]', ['[−2, 2]', '[1, 3]', '[−3, 1]'], '−2 ≤ x − 1 ≤ 2, y se suma 1.');
+add('ine', 'Si x^{2} > 9, la solución es', '(−∞, −3) ∪ (3, +∞)', ['(−3, 3)', '(3, +∞)', '(−∞, 3)'], 'x^{2} > 9 significa |x| > 3.');
+add('ine', 'Si (x − 1)(x + 2) < 0, la solución es', '(−2, 1)', ['(−∞, −2) ∪ (1, +∞)', '(−1, 2)', '(1, +∞)'], 'El producto es negativo entre las dos raíces.');
+add('ine', 'Si x^{2} − 4x ≥ 0, la solución es', '(−∞, 0] ∪ [4, +∞)', ['[0, 4]', '(−∞, 4]', '[4, +∞)'], 'x(x − 4) ≥ 0 se cumple fuera de las raíces, incluyéndolas.');
+add('ine', 'La desigualdad |x| ≥ 0 se cumple', 'Para todo x real', ['Solo si x > 0', 'Para ningún x', 'Solo si x = 0'], 'Un valor absoluto nunca es negativo.');
+add('ine', '|−5| =', '5', ['−5', '0', '±5'], 'El valor absoluto es la distancia al 0.');
+add('ine', '|x| = 3 tiene soluciones', 'x = 3 y x = −3', ['Solo x = 3', 'Solo x = −3', 'x = 9 y x = −9'], 'Dos números distintos están a distancia 3 del 0.');
+add('ine', 'Si −3x ≥ 9, entonces', 'x ≤ −3', ['x ≥ −3', 'x ≥ 3', 'x ≤ 3'], 'Al dividir entre −3 la desigualdad se invierte.');
+add('ine', 'Al multiplicar o dividir una desigualdad por un número negativo, el signo', 'Se invierte', ['Se mantiene', 'Se elimina', 'Se convierte en ='], 'Por ejemplo, 2 < 3 pero −2 > −3.');
+add('ine', 'El intervalo [2, 5) incluye', 'El 2 pero no el 5', ['El 5 pero no el 2', 'Los dos extremos', 'Ninguno de los extremos'], 'El corchete incluye el extremo y el paréntesis lo excluye.');
+add('ine', 'Las condiciones x > 1 y x < 4 a la vez dan el intervalo', '(1, 4)', ['[1, 4]', '(−∞, 1) ∪ (4, +∞)', '(4, 1)'], 'Los extremos no se incluyen porque las desigualdades son estrictas.');
+
+/* ---------- Dominios de funciones ---------- */
+add('dom', 'Dominio de f(x) = √{x − 2}', '[2, +∞)', ['(2, +∞)', '[0, +∞)', '(−∞, 2]'], 'x − 2 ≥ 0.');
+add('dom', 'Dominio de f(x) = ⟨1|x − 3⟩', 'ℝ − {3}', ['ℝ − {−3}', 'ℝ', '(3, +∞)'], 'El denominador no puede ser 0: x ≠ 3.');
+add('dom', 'Dominio de f(x) = ln(x − 1)', '(1, +∞)', ['[1, +∞)', '(−1, +∞)', 'ℝ − {1}'], 'x − 1 > 0.');
+add('dom', 'Dominio de f(x) = x^{2}', 'ℝ', ['[0, +∞)', 'ℝ − {0}', '(0, +∞)'], 'Se puede elevar al cuadrado cualquier número.');
+add('dom', 'Dominio de f(x) = √{4 − x}', '(−∞, 4]', ['[4, +∞)', '(−∞, 4)', '[0, 4]'], '4 − x ≥ 0 da x ≤ 4.');
+add('dom', 'Dominio de f(x) = ⟨1|x^{2} − 4⟩', 'ℝ − {−2, 2}', ['ℝ − {2}', 'ℝ − {4}', 'ℝ − {−4, 4}'], 'x^{2} − 4 = 0 cuando x = 2 o x = −2.');
+add('dom', 'Dominio de f(x) = ⟨√{x}|x − 1⟩', '[0, +∞) − {1}', ['(0, +∞)', 'ℝ − {1}', '[0, +∞)'], 'Hace falta x ≥ 0 por la raíz y x ≠ 1 por el denominador.');
+add('dom', 'Dominio de f(x) = ln(−x)', '(−∞, 0)', ['(0, +∞)', '(−∞, 0]', 'ℝ − {0}'], '−x > 0 da x < 0.');
+add('dom', 'Dominio de f(x) = ⟨x|x^{2} + 1⟩', 'ℝ', ['ℝ − {1}', 'ℝ − {−1, 1}', 'ℝ − {0}'], 'x^{2} + 1 nunca vale 0, así que no hay restricciones.');
+add('dom', 'Dominio de f(x) = ln(x^{2})', 'ℝ − {0}', ['(0, +∞)', 'ℝ', '[0, +∞)'], 'x^{2} > 0 para todo x salvo x = 0.');
+add('dom', 'Dominio de f(x) = √[3]{x}', 'ℝ', ['[0, +∞)', '(0, +∞)', 'ℝ − {0}'], 'Las raíces de índice impar existen para cualquier número.');
+add('dom', 'Dominio de f(x) = √{x^{2} − 1}', '(−∞, −1] ∪ [1, +∞)', ['[−1, 1]', '[1, +∞)', 'ℝ − {−1, 1}'], 'x^{2} − 1 ≥ 0 se cumple fuera de (−1, 1).');
+/* Preguntas estáticas (ESO) de los temas num1–num6: errores típicos de enteros, fracciones, decimales, porcentajes, sucesiones y reales */
+
+/* ---------- num1: Enteros, jerarquía y divisibilidad ---------- */
+add('num1', '−3 − 5 =', '−8', ['−2', '8', '2'], 'Restar 5 es sumar −5: −3 − 5 = −8 (se parte de −3 y se baja 5 más).');
+add('num1', '2 + 3 · 4 =', '14', ['20', '24', '9'], 'Primero se multiplica: 3 · 4 = 12, y luego 2 + 12 = 14.');
+add('num1', '−3^{2} =', '−9', ['9', '−6', '6'], 'El exponente solo afecta al 3: −3^{2} = −(3 · 3) = −9. Sería 9 con paréntesis: (−3)^{2}.');
+add('num1', '(−2)^{3} =', '−8', ['8', '−6', '6'], 'Un exponente impar conserva el signo negativo: (−2)·(−2)·(−2) = −8.');
+add('num1', '−4 − (−6) =', '2', ['−10', '−2', '10'], 'Restar un negativo es sumar: −4 + 6 = 2.');
+add('num1', '12 − 3 · (4 − 2) =', '6', ['18', '−2', '2'], 'Primero el paréntesis (2), luego el producto (6) y al final la resta: 12 − 6 = 6.');
+add('num1', '¿Cuál de estos números es divisible entre 9?', '738', ['748', '739', '845'], 'Un número es divisible entre 9 si la suma de sus cifras lo es: 7 + 3 + 8 = 18.');
+add('num1', '¿Cuál de estos números es primo?', '31', ['51', '57', '91'], '51 = 3 · 17, 57 = 3 · 19 y 91 = 7 · 13. El 31 solo es divisible entre 1 y 31.');
+add('num1', '¿Cuál es el único número primo que es par?', '2', ['0', '1', '4'], 'Todo par mayor que 2 es divisible entre 2, así que no es primo. El 1 no es primo.');
+add('num1', 'Descomposición en factores primos de 60:', '2^{2} · 3 · 5', ['2 · 3 · 10', '2^{2} · 3^{2} · 5', '2^{3} · 3 · 5'], '60 = 4 · 15 = 2^{2} · 3 · 5. Todos los factores deben ser primos (10 no lo es).');
+add('num1', 'mcd(12, 18) =', '6', ['36', '3', '72'], 'El mcd es el mayor divisor común: los divisores comunes son 1, 2, 3 y 6. El 36 es el mcm.');
+add('num1', 'mcm(4, 6) =', '12', ['24', '2', '10'], 'El mcm es el menor múltiplo común: 12 es múltiplo de 4 y de 6. El 24 también lo es, pero no es el menor.');
+add('num1', 'mcd(20, 30) =', '10', ['60', '5', '2'], '20 = 2^{2}·5 y 30 = 2·3·5. Se toman los factores comunes con menor exponente: 2 · 5 = 10.');
+add('num1', 'mcm(6, 9) =', '18', ['54', '3', '15'], '6 = 2·3 y 9 = 3^{2}. Se toman todos los factores con mayor exponente: 2 · 3^{2} = 18.');
+add('num1', '7 − (−3) · 2 =', '13', ['20', '1', '8'], 'Primero se multiplica: (−3) · 2 = −6, y 7 − (−6) = 7 + 6 = 13.');
+add('num1', '(−5) · (−4) − 3 =', '17', ['−23', '23', '−17'], 'Menos por menos da más: 20. Después 20 − 3 = 17.');
+add('num1', 'Un número es divisible entre 6 si…', 'es divisible entre 2 y entre 3', ['es divisible entre 2 o entre 3', 'su última cifra es 6', 'sus cifras suman 6'], '6 = 2 · 3, así que hay que cumplir los dos criterios a la vez (par y suma de cifras múltiplo de 3).');
+add('num1', 'El mcd de dos números primos distintos es', '1', ['su producto', '0', 'el mayor de los dos'], 'Dos primos distintos solo comparten el divisor 1. Su producto es el mcm.');
+
+/* ---------- num2: Fracciones ---------- */
+add('num2', '⟨2|3⟩ + ⟨1|4⟩ =', '⟨11|12⟩', ['⟨3|7⟩', '⟨2|7⟩', '⟨5|12⟩'], 'No se suman numeradores y denominadores. Con denominador común 12: 8/12 + 3/12 = 11/12.');
+add('num2', '⟨2|3⟩ · ⟨3|4⟩ =', '⟨1|2⟩', ['⟨5|7⟩', '⟨8|9⟩', '⟨1|4⟩'], 'Se multiplica arriba y abajo: 6/12, que se simplifica a 1/2.');
+add('num2', '⟨2|3⟩ : ⟨4|9⟩ =', '⟨3|2⟩', ['⟨8|27⟩', '⟨2|3⟩', '⟨4|3⟩'], 'Dividir es multiplicar por la inversa: 2/3 · 9/4 = 18/12 = 3/2.');
+add('num2', 'La forma irreducible de ⟨18|24⟩ es', '⟨3|4⟩', ['⟨1|8⟩', '⟨3|8⟩', '⟨2|3⟩'], 'Se divide arriba y abajo entre el mcd (6): 18/24 = 3/4. Hay que dividir los dos términos.');
+add('num2', '¿Cuál es mayor, ⟨3|5⟩ o ⟨2|3⟩?', '⟨2|3⟩', ['⟨3|5⟩', 'son iguales', 'no se puede saber'], 'Con denominador 15: 2/3 = 10/15 y 3/5 = 9/15. Un denominador mayor no implica una fracción mayor.');
+add('num2', '⟨3|5⟩ de 40 =', '24', ['8', '120', '16'], 'Se divide entre el denominador (40 : 5 = 8) y se multiplica por el numerador (8 · 3 = 24).');
+add('num2', '⟨3|7⟩ + ⟨2|7⟩ =', '⟨5|7⟩', ['⟨5|14⟩', '⟨5|49⟩', '⟨1|7⟩'], 'Con el mismo denominador, se suman los numeradores y el denominador se queda igual.');
+add('num2', '⟨1|4⟩ en forma decimal es', '0,25', ['0,14', '0,4', '1,4'], '1 : 4 = 0,25. No es 0,14 ni 0,4: hay que dividir numerador entre denominador.');
+add('num2', '0,75 como fracción irreducible es', '⟨3|4⟩', ['⟨75|10⟩', '⟨7|5⟩', '⟨3|5⟩'], '0,75 = 75/100 y, dividiendo entre 25, queda 3/4.');
+add('num2', '3 · ⟨2|5⟩ =', '⟨6|5⟩', ['⟨6|15⟩', '⟨2|15⟩', '1'], 'El número entero solo multiplica al numerador: 3 · 2 = 6 sobre 5. El denominador no se toca.');
+add('num2', '⟨1|2⟩ − ⟨1|3⟩ =', '⟨1|6⟩', ['0', '⟨1|5⟩', '⟨1|3⟩'], 'Denominador común 6: 3/6 − 2/6 = 1/6. No se restan los denominadores.');
+add('num2', 'El número mixto 2 ⟨1|3⟩ equivale a', '⟨7|3⟩', ['⟨3|3⟩', '⟨5|3⟩', '⟨2|3⟩'], '2 · 3 + 1 = 7, y el denominador se queda: 7/3. También 2 + 1/3 = 7/3.');
+add('num2', '⟨1|2⟩ de ⟨1|3⟩ =', '⟨1|6⟩', ['⟨5|6⟩', '⟨2|3⟩', '⟨3|2⟩'], '«De» significa multiplicar: 1/2 · 1/3 = 1/6.');
+add('num2', '¿Cuál es equivalente a ⟨2|5⟩?', '⟨6|15⟩', ['⟨4|7⟩', '⟨6|10⟩', '⟨2|10⟩'], 'Equivalentes se obtienen multiplicando arriba y abajo por lo mismo (×3). Sumar lo mismo a los dos términos no sirve.');
+add('num2', '¿Cuál es igual a −⟨2|3⟩?', '⟨2|−3⟩', ['⟨−2|−3⟩', '⟨3|−2⟩', '⟨3|2⟩'], 'El signo negativo puede ir delante, arriba o abajo. Con dos negativos (−2/−3) sale positivo.');
+add('num2', 'El inverso de ⟨3|5⟩ es', '⟨5|3⟩', ['−⟨3|5⟩', '⟨3|5⟩', '−⟨5|3⟩'], 'El inverso se obtiene intercambiando numerador y denominador. El opuesto es el que cambia de signo.');
+add('num2', 'Dividir entre ⟨1|2⟩ equivale a', 'multiplicar por 2', ['dividir entre 2', 'multiplicar por ⟨1|2⟩', 'restar la mitad'], 'Dividir entre una fracción es multiplicar por su inversa: 2. Por ejemplo, 3 : 1/2 = 6.');
+
+/* ---------- num3: Decimales y notación científica ---------- */
+add('num3', '0,333… (periódico) =', '⟨1|3⟩', ['⟨3|10⟩', '⟨33|100⟩', '⟨1|30⟩'], 'Un decimal periódico es racional. 0,333… = 1/3, mientras que 3/10 = 0,3 es exacto.');
+add('num3', '¿Qué fracción tiene un decimal exacto?', '⟨3|8⟩', ['⟨1|3⟩', '⟨2|7⟩', '⟨5|6⟩'], 'Es exacto si el denominador solo tiene los factores 2 y 5: 8 = 2^{3}, y 3/8 = 0,375.');
+add('num3', 'Redondea 3,476 a las centésimas:', '3,48', ['3,47', '3,5', '3,4'], 'La tercera cifra decimal es 6 (≥ 5), así que se sube la anterior: 3,47 → 3,48.');
+add('num3', 'Redondea 2,95 a las décimas:', '3,0', ['2,9', '3,5', '2,0'], 'La cifra siguiente es 5, así que se sube: 2,9 → 3,0. El cero se conserva.');
+add('num3', '45 000 en notación científica es', '4,5 · 10^{4}', ['4,5 · 10^{3}', '4,5 · 10^{5}', '4,5 · 10^{−4}'], 'La coma se mueve 4 lugares para dejar una sola cifra entera, así que el exponente es 4.');
+add('num3', '0,00032 en notación científica es', '3,2 · 10^{−4}', ['3,2 · 10^{−3}', '3,2 · 10^{4}', '3,2 · 10^{−5}'], 'La coma se mueve 4 lugares a la derecha; en números menores que 1 el exponente es negativo.');
+add('num3', '10^{3} · 10^{4} =', '10^{7}', ['10^{12}', '10^{34}', '10^{−1}'], 'Al multiplicar potencias de la misma base se suman los exponentes: 3 + 4 = 7.');
+add('num3', '10^{5} : 10^{2} =', '10^{3}', ['10^{7}', '10^{10}', '10^{2,5}'], 'Al dividir potencias de la misma base se restan los exponentes: 5 − 2 = 3.');
+add('num3', '10^{−2} =', '0,01', ['−100', '0,001', '−0,01'], '10^{−2} = 1/10^{2} = 1/100 = 0,01. El exponente negativo no cambia el signo.');
+add('num3', '(3 · 10^{2}) · (2 · 10^{3}) =', '6 · 10^{5}', ['6 · 10^{6}', '5 · 10^{5}', '5 · 10^{6}'], 'Se multiplican los números (3 · 2 = 6) y se suman los exponentes (2 + 3 = 5).');
+add('num3', '0,666… (periódico) =', '⟨2|3⟩', ['⟨3|5⟩', '⟨6|100⟩', '⟨1|6⟩'], 'Un periodo 6 equivale a 6/9 = 2/3. No es 0,6 = 3/5, que es exacto.');
+add('num3', '¿Qué número es mayor, 0,2 o 0,15?', '0,2', ['0,15', 'son iguales', 'no se puede saber'], 'Comparamos cifra a cifra: 0,20 > 0,15. Tener más cifras decimales no hace mayor un número.');
+add('num3', 'Aproximación por defecto de 3,78 a las décimas:', '3,7', ['3,8', '3,9', '3,0'], 'Por defecto significa quedarse con el valor menor o igual, cortando: 3,7 ≤ 3,78.');
+add('num3', '⟨7|4⟩ en decimal =', '1,75', ['1,25', '0,74', '4,7'], '7 : 4 = 1,75. Son 1 entero y 3/4 (0,75).');
+add('num3', '(2 · 10^{3})^{2} =', '4 · 10^{6}', ['2 · 10^{6}', '4 · 10^{5}', '4 · 10^{9}'], 'Se eleva al cuadrado el 2 (4) y se multiplican los exponentes: 3 · 2 = 6.');
+add('num3', '3 · 10^{4} + 2 · 10^{4} =', '5 · 10^{4}', ['5 · 10^{8}', '6 · 10^{4}', '6 · 10^{8}'], 'Con el mismo exponente se suman los números y se conserva la potencia: (3 + 2) · 10^{4}.');
+add('num3', '6,2 · 10^{−3} =', '0,0062', ['0,062', '0,00062', '6200'], 'Exponente −3: la coma se mueve 3 lugares a la izquierda: 6,2 → 0,0062.');
+
+/* ---------- num4: Proporcionalidad y porcentajes ---------- */
+add('num4', 'El 20 % de 80 es', '16', ['4', '20', '64'], '20 % = 20/100 = 0,2 y 0,2 · 80 = 16.');
+add('num4', 'Un precio sube un 20 % y luego baja un 20 %. Queda…', 'un 4 % menos', ['igual que al principio', 'un 4 % más', 'un 40 % menos'], 'Los porcentajes se aplican sobre cantidades distintas: 1,2 · 0,8 = 0,96, es decir, un 4 % menos.');
+add('num4', 'Un 25 % de descuento sobre 60 €: se paga', '45 €', ['15 €', '35 €', '75 €'], 'El descuento son 15 € (25 % de 60). Se paga 60 − 15 = 45 €.');
+add('num4', 'El índice de variación de un aumento del 15 % es', '1,15', ['0,15', '1,015', '0,85'], 'Se aumenta el 100 % más el 15 %: 115/100 = 1,15.');
+add('num4', 'El índice de variación de un descuento del 30 % es', '0,7', ['0,3', '1,3', '0,07'], 'Se queda el 100 % − 30 % = 70 %, es decir, 0,7.');
+add('num4', '3 kg de manzanas cuestan 12 €. ¿Cuánto cuestan 5 kg?', '20 €', ['7,20 €', '15 €', '60 €'], 'A más kilos, más precio: es proporcionalidad directa. 12 : 3 = 4 € el kilo, y 4 · 5 = 20 €.');
+add('num4', '4 obreros tardan 6 días. ¿Cuánto tardan 8 obreros?', '3 días', ['12 días', '24 días', '10 días'], 'Más obreros, menos días: proporcionalidad inversa. 4 · 6 = 24 obreros·día, y 24 : 8 = 3 días.');
+add('num4', 'Interés simple: 1000 € al 5 % anual durante 2 años producen unos intereses de', '100 €', ['50 €', '1100 €', '102,50 €'], 'Cada año se cobra el 5 % de 1000 = 50 €. En 2 años: 100 € de intereses.');
+add('num4', 'Interés compuesto: 100 € al 10 % anual durante 2 años acaban en', '121 €', ['120 €', '110 €', '220 €'], 'El segundo año se calcula sobre 110 €: 100 · 1,1^{2} = 121 €.');
+add('num4', 'Dos subidas seguidas del 10 % equivalen a una subida del', '21 %', ['20 %', '11 %', '100 %'], 'Se multiplican los índices: 1,1 · 1,1 = 1,21, es decir, +21 %.');
+add('num4', 'Repartir 60 € de forma proporcional a 1 y 2 da', '20 € y 40 €', ['30 € y 30 €', '10 € y 50 €', '15 € y 45 €'], 'Hay 1 + 2 = 3 partes; cada parte vale 20 €. Tocan 1 · 20 = 20 y 2 · 20 = 40.');
+add('num4', 'Se rebaja un 50 % y después otro 50 %. En total se rebaja un', '75 %', ['100 %', '50 %', '25 %'], '0,5 · 0,5 = 0,25: queda el 25 % del precio, es decir, se rebaja un 75 %.');
+add('num4', '15 es el … % de 60', '25 %', ['4 %', '15 %', '400 %'], '15/60 = 1/4 = 0,25, es decir, el 25 %.');
+add('num4', 'Un artículo de 100 € con un IVA del 21 % cuesta', '121 €', ['21 €', '79 €', '120 €'], 'Se multiplica por 1,21: 100 · 1,21 = 121 €.');
+add('num4', 'La velocidad y el tiempo para recorrer una distancia fija son', 'inversamente proporcionales', ['directamente proporcionales', 'no tienen relación', 'iguales'], 'Si se duplica la velocidad, el tiempo se reduce a la mitad: el producto es constante.');
+add('num4', 'Un precio baja un 20 %. ¿Cuánto debe subir después para volver al original?', 'un 25 %', ['un 20 %', 'un 30 %', 'un 80 %'], 'Pasa de 100 a 80, y para volver a 100 hay que sumar 20 sobre 80: 20/80 = 25 %.');
+add('num4', 'Si el 25 % de un número es 10, el número es', '40', ['2,5', '35', '250'], '25 % es la cuarta parte, así que el número es 4 · 10 = 40.');
+
+/* ---------- num5: Sucesiones y progresiones ---------- */
+add('num5', 'Siguiente término de 3, 7, 11, 15, …', '19', ['18', '20', '30'], 'La diferencia es 4: 15 + 4 = 19. No se multiplica por 2.');
+add('num5', 'La razón de la progresión 2, 6, 18, 54, … es', '3', ['4', '2', '⟨1|3⟩'], 'En una geométrica la razón es el cociente entre términos consecutivos: 6 : 2 = 3.');
+add('num5', 'Si a_{n} = 2n + 1, entonces a_{5} =', '11', ['12', '10', '25'], 'Se sustituye n = 5: 2 · 5 + 1 = 11.');
+add('num5', 'Si a_{n} = n^{2} − 1, entonces a_{4} =', '15', ['7', '16', '17'], 'Se sustituye n = 4: 4^{2} − 1 = 16 − 1 = 15.');
+add('num5', 'Progresión aritmética con a_{1} = 5 y d = 3. El término a_{10} es', '32', ['35', '30', '33'], 'a_{n} = a_{1} + (n − 1)·d = 5 + 9 · 3 = 32. Son n − 1 saltos, no n.');
+add('num5', 'Progresión geométrica con a_{1} = 2 y r = 3. El término a_{4} es', '54', ['162', '18', '24'], 'a_{n} = a_{1} · r^{n−1} = 2 · 3^{3} = 54. El exponente es n − 1.');
+add('num5', '1 + 2 + 3 + … + 10 =', '55', ['50', '45', '110'], 'Suma de una aritmética: 10 · (1 + 10) / 2 = 55.');
+add('num5', 'Término general de 5, 8, 11, 14, …', 'a_{n} = 3n + 2', ['a_{n} = 3n + 5', 'a_{n} = 5n + 3', 'a_{n} = n + 3'], 'La diferencia es 3, y a_{1} = 5 = 3 · 1 + 2. Se comprueba: 3 · 2 + 2 = 8.');
+add('num5', 'Término general de 2, 4, 8, 16, …', 'a_{n} = 2^{n}', ['a_{n} = 2n', 'a_{n} = n^{2}', 'a_{n} = 2^{n+1}'], 'Cada término es el doble del anterior: 2^{1}, 2^{2}, 2^{3}… Es una geométrica de razón 2.');
+add('num5', 'Una progresión aritmética tiene a_{1} = 1 y a_{10} = 19. Su suma S_{10} es', '100', ['200', '190', '20'], 'S_{n} = n · (a_{1} + a_{n}) / 2 = 10 · 20 / 2 = 100. No hay que olvidar dividir entre 2.');
+add('num5', 'La sucesión 3, 6, 12, 24, … es', 'geométrica de razón 2', ['aritmética de diferencia 3', 'geométrica de razón 3', 'ni aritmética ni geométrica'], 'Las diferencias no son constantes (3, 6, 12), pero los cocientes sí: 6/3 = 12/6 = 2.');
+add('num5', 'En a_{n} = 4n − 3, el número 17 ocupa el lugar', '5', ['4', '6', '20'], 'Se resuelve 4n − 3 = 17: 4n = 20, luego n = 5.');
+add('num5', 'La razón de 80, 40, 20, 10, … es', '⟨1|2⟩', ['2', '−40', '−2'], '40 : 80 = 1/2. La sucesión decrece, pero la razón no es negativa.');
+add('num5', '1 + 3 + 5 + 7 =', '16', ['15', '14', '8'], 'La suma de los n primeros impares es n^{2}: 4^{2} = 16.');
+add('num5', 'En una progresión aritmética a_{3} = 7 y a_{5} = 13. La diferencia es', '3', ['6', '2', '10'], 'Entre a_{3} y a_{5} hay 2 saltos que suman 6, así que cada salto es 3.');
+add('num5', 'Siguiente término de 1, 1, 2, 3, 5, …', '8', ['7', '6', '10'], 'En la sucesión de Fibonacci cada término es la suma de los dos anteriores: 3 + 5 = 8.');
+add('num5', 'La diferencia de la progresión 20, 17, 14, … es', '−3', ['3', '−2', '−6'], 'Cada término es 3 unidades menor que el anterior: 17 − 20 = −3.');
+
+/* ---------- num6: Intervalos y números reales ---------- */
+add('num6', '¿Cuál de estos números es irracional?', '√{2}', ['√{9}', '⟨22|7⟩', '0,1212…'], '√9 = 3 y 22/7 es una fracción; 0,1212… es periódico. √2 tiene infinitas cifras sin periodo.');
+add('num6', '−3 es un número', 'entero, pero no natural', ['natural', 'irracional', 'no real'], 'Los naturales no incluyen negativos; −3 está en ℤ (y también en ℚ y ℝ).');
+add('num6', '¿Qué número pertenece a [2, 5)?', '2', ['5', '6', '1'], 'El corchete incluye el extremo (2) y el paréntesis lo excluye (5).');
+add('num6', 'x > 3 se escribe como intervalo:', '(3, +∞)', ['[3, +∞)', '(−∞, 3)', '(3, +∞]'], '> no incluye el 3, así que va paréntesis; el infinito siempre lleva paréntesis.');
+add('num6', '(1, 3) ∪ (2, 5) =', '(1, 5)', ['(2, 3)', '[1, 5]', '(1, 2)'], 'La unión junta los dos: desde el menor extremo (1) hasta el mayor (5). (2, 3) sería la intersección.');
+add('num6', '[1, 4] ∩ [3, 6] =', '[3, 4]', ['[1, 6]', '[1, 3]', '[4, 6]'], 'La intersección es lo común a los dos: desde el mayor inicio (3) hasta el menor final (4).');
+add('num6', '|−7| =', '7', ['−7', '0', '14'], 'El valor absoluto es la distancia al cero y nunca es negativo.');
+add('num6', '|3 − 8| =', '5', ['−5', '11', '3'], 'Primero se resta: 3 − 8 = −5, y su valor absoluto es 5.');
+add('num6', '|x| ≤ 3 equivale a x ∈', '[−3, 3]', ['(−∞, 3]', '[0, 3]', '(−3, 3)'], 'Los números a distancia 3 o menos del cero son los comprendidos entre −3 y 3, ambos incluidos.');
+add('num6', 'El menor conjunto numérico que contiene a 0,25 es', 'ℚ', ['ℕ', 'ℤ', 'I'], '0,25 = 1/4 es una fracción, pero no es entero. Por eso pertenece a ℚ.');
+add('num6', 'Valor real 50 y aproximación 48. El error absoluto es', '2', ['4', '98', '0,04'], 'Error absoluto = |valor real − aproximación| = |50 − 48| = 2.');
+add('num6', 'Valor real 50 y aproximación 48. El error relativo es', '0,04', ['2', '4', '0,4'], 'Error relativo = error absoluto / valor real = 2/50 = 0,04 (un 4 %).');
+add('num6', 'ℚ ∪ I =', 'ℝ', ['ℚ', 'ℤ', '∅'], 'Los números reales son los racionales más los irracionales.');
+add('num6', '¿Qué afirmación es cierta?', 'todo entero es racional', ['todo racional es entero', 'todo irracional es racional', 'ningún decimal es racional'], 'ℤ ⊂ ℚ, porque 5 = 5/1. No al revés: 1/2 es racional y no es entero.');
+add('num6', 'x ≤ −1 se escribe como intervalo:', '(−∞, −1]', ['[−1, +∞)', '(−∞, −1)', '(−1, +∞)'], 'Los valores van hacia la izquierda desde −1, y ≤ incluye el −1: corchete en −1.');
+add('num6', 'En los números reales, √{−4}', 'no existe', ['vale −2', 'vale 2', 'es irracional'], 'Ningún número real elevado al cuadrado da negativo, así que no hay raíz cuadrada real de −4.');
+add('num6', '[0, 2] ∪ (2, 5] =', '[0, 5]', ['(0, 5)', '(0, 5]', '[0, 5)'], 'El 2 está en el primer intervalo, así que no queda hueco: la unión es todo [0, 5].');
+add('num6', '|x − 2| < 1 equivale a x ∈', '(1, 3)', ['(−∞, 1) ∪ (3, +∞)', '(2, 3)', '(−1, 1)'], 'Son los números a distancia menor que 1 de 2: desde 2 − 1 = 1 hasta 2 + 1 = 3, sin los extremos.');
+/* q8: preguntas estáticas de medida y geometría (med1, geo1, geo2, geo3, geo4, geo5) */
+
+/* ---------- med1: unidades y sistema métrico ---------- */
+add('med1', '¿Cuántos cm^{2} tiene 1 m^{2}?', '10 000 cm^{2}', ['100 cm^{2}', '1 000 cm^{2}', '1 000 000 cm^{2}'],
+  'En superficies cada paso de unidad multiplica por 100: 1 m^{2} = 100 dm^{2} = 10 000 cm^{2}.');
+add('med1', 'Un depósito tiene un volumen de 5 dm^{3}. ¿Cuántos litros caben?', '5 L', ['50 L', '500 L', '5 000 L'],
+  'Equivalencia clave: 1 L = 1 dm^{3}, así que 5 dm^{3} son 5 L.');
+add('med1', '3 km expresados en metros son', '3 000 m', ['300 m', '30 000 m', '30 m'],
+  'Un kilómetro son 1 000 m, así que multiplicamos por 1 000.');
+add('med1', '2,5 kg expresados en gramos son', '2 500 g', ['250 g', '25 g', '25 000 g'],
+  '1 kg = 1 000 g; 2,5 · 1 000 = 2 500 g.');
+add('med1', '¿Cuántos litros tiene 1 m^{3}?', '1 000 L', ['100 L', '10 L', '10 000 L'],
+  '1 m^{3} = 1 000 dm^{3} y 1 dm^{3} = 1 L, luego 1 m^{3} = 1 000 L.');
+add('med1', 'Un coche va a 72 km/h. En m/s va a', '20 m/s', ['259,2 m/s', '7,2 m/s', '200 m/s'],
+  'Para pasar de km/h a m/s se divide entre 3,6: 72 : 3,6 = 20.');
+add('med1', '3 600 cm^{2} expresados en m^{2} son', '0,36 m^{2}', ['36 m^{2}', '3,6 m^{2}', '0,036 m^{2}'],
+  'De cm^{2} a m^{2} hay dos pasos y cada uno divide entre 100: dividimos entre 10 000.');
+add('med1', '2 h 15 min equivalen a', '135 min', ['215 min', '145 min', '130 min'],
+  'Una hora son 60 min: 2 · 60 + 15 = 135 min. El tiempo no es decimal.');
+add('med1', '250 mL expresados en litros son', '0,25 L', ['2,5 L', '0,025 L', '25 L'],
+  '1 L = 1 000 mL, así que dividimos entre 1 000.');
+add('med1', '5 dam expresados en metros son', '50 m', ['5 m', '500 m', '0,5 m'],
+  'El decámetro (dam) es 10 m; 5 · 10 = 50 m.');
+add('med1', '4 m^{3} expresados en cm^{3} son', '4 000 000 cm^{3}', ['4 000 cm^{3}', '400 000 cm^{3}', '40 000 000 cm^{3}'],
+  'En volúmenes cada paso multiplica por 1 000; de m^{3} a cm^{3} hay dos pasos: 1 000 · 1 000 = 1 000 000.');
+add('med1', '3 horas son', '10 800 s', ['180 s', '3 600 s', '1 080 s'],
+  '1 h = 3 600 s; 3 · 3 600 = 10 800 s.');
+add('med1', 'Una moto va a 15 m/s. En km/h va a', '54 km/h', ['150 km/h', '4,17 km/h', '45 km/h'],
+  'De m/s a km/h se multiplica por 3,6: 15 · 3,6 = 54.');
+add('med1', '¿Cuántos mm^{2} tiene 1 cm^{2}?', '100 mm^{2}', ['10 mm^{2}', '1 000 mm^{2}', '10 000 mm^{2}'],
+  'Un cm son 10 mm, pero un cm^{2} es 10 · 10 = 100 mm^{2}.');
+add('med1', '¿Cuál de estas longitudes es la mayor?', '2 m', ['150 cm', '1 800 mm', '0,15 dam'],
+  'Pasando todo a metros: 2 m, 1,5 m, 1,8 m y 1,5 m. El número más grande no siempre es la medida mayor.');
+add('med1', 'Una hectárea (1 hm^{2}) equivale a', '10 000 m^{2}', ['100 m^{2}', '1 000 m^{2}', '1 000 000 m^{2}'],
+  'En superficies cada paso multiplica por 100; de hm^{2} a m^{2} hay dos pasos: 100 · 100 = 10 000.');
+add('med1', 'Una botella de 0,75 L tiene un volumen, en cm^{3}, de', '750 cm^{3}', ['75 cm^{3}', '7 500 cm^{3}', '0,75 cm^{3}'],
+  '1 L = 1 dm^{3} = 1 000 cm^{3}; 0,75 · 1 000 = 750 cm^{3}.');
+add('med1', '90 minutos expresados en horas decimales son', '1,5 h', ['1,3 h', '0,9 h', '9 h'],
+  'Dividimos entre 60: 90 : 60 = 1,5 h. Ojo: 1 h 30 min no es 1,30 h.');
+
+/* ---------- geo1: ángulos, rectas y polígonos ---------- */
+add('geo1', 'El complementario de un ángulo de 35° mide', '55°', ['145°', '65°', '325°'],
+  'Complementarios suman 90°: 90° − 35° = 55°.');
+add('geo1', 'El suplementario de un ángulo de 35° mide', '145°', ['55°', '325°', '135°'],
+  'Suplementarios suman 180°: 180° − 35° = 145°.');
+add('geo1', 'Un triángulo tiene dos ángulos de 50° y 60°. El tercero mide', '70°', ['110°', '80°', '120°'],
+  'Los ángulos de un triángulo suman 180°: 180° − 110° = 70°.');
+add('geo1', 'La suma de los ángulos interiores de un hexágono es', '720°', ['360°', '540°', '1 080°'],
+  'Se usa (n − 2) · 180°: (6 − 2) · 180° = 720°.');
+add('geo1', 'Cada ángulo interior de un pentágono regular mide', '108°', ['72°', '120°', '100°'],
+  'Suma = 3 · 180° = 540°, y 540° : 5 = 108°. (72° es el ángulo exterior.)');
+add('geo1', 'Cada ángulo exterior de un octógono regular mide', '45°', ['135°', '60°', '40°'],
+  'Los ángulos exteriores de cualquier polígono convexo suman 360°: 360° : 8 = 45°.');
+add('geo1', 'Dos paralelas cortadas por una secante. Un ángulo correspondiente a uno de 70° mide', '70°', ['110°', '20°', '90°'],
+  'Los ángulos correspondientes entre paralelas son iguales.');
+add('geo1', 'Dos paralelas cortadas por una secante. Dos ángulos internos del mismo lado de la secante: uno mide 70°, el otro mide', '110°', ['70°', '20°', '290°'],
+  'Los ángulos internos del mismo lado son suplementarios: 180° − 70° = 110°.');
+add('geo1', 'Dos rectas se cortan formando un ángulo de 40°. Su ángulo opuesto por el vértice mide', '40°', ['140°', '50°', '320°'],
+  'Los ángulos opuestos por el vértice son iguales.');
+add('geo1', 'Un punto de la mediatriz del segmento AB cumple que', 'está a igual distancia de A que de B', ['está sobre el segmento AB', 'forma un ángulo de 45° con AB', 'está a distancia 0 de A'],
+  'La mediatriz es la recta perpendicular a AB por su punto medio: todos sus puntos equidistan de A y de B.');
+add('geo1', 'La bisectriz de un ángulo de 80° lo divide en dos ángulos de', '40° cada uno', ['80° cada uno', '30° y 50°', '20° y 60°'],
+  'La bisectriz divide el ángulo en dos partes iguales: 80° : 2 = 40°.');
+add('geo1', 'Un triángulo de lados 5 cm, 5 cm y 8 cm es', 'isósceles', ['equilátero', 'escaleno', 'rectángulo'],
+  'Tiene exactamente dos lados iguales, luego es isósceles.');
+add('geo1', 'Un cuadrilátero tiene los cuatro lados iguales, ángulos no rectos y diagonales perpendiculares. Es un', 'rombo', ['cuadrado', 'rectángulo', 'trapecio'],
+  'Cuatro lados iguales y sin ángulos rectos es un rombo; el cuadrado sí tendría ángulos de 90°.');
+add('geo1', 'En una circunferencia, un ángulo central mide 80°. Un ángulo inscrito que abarca el mismo arco mide', '40°', ['80°', '160°', '20°'],
+  'El ángulo inscrito mide la mitad del central que abarca el mismo arco.');
+add('geo1', 'Un ángulo inscrito en una circunferencia que abarca un diámetro mide', '90°', ['180°', '45°', '60°'],
+  'El diámetro abarca un central de 180°, y el inscrito es la mitad: 90°.');
+add('geo1', 'Un triángulo con ángulos de 90°, 45° y 45° es', 'rectángulo e isósceles', ['equilátero', 'acutángulo y escaleno', 'obtusángulo'],
+  'Tiene un ángulo recto y dos ángulos iguales, luego dos lados iguales.');
+add('geo1', 'En un paralelogramo, un ángulo mide 65°. Su ángulo consecutivo mide', '115°', ['65°', '25°', '295°'],
+  'Los ángulos consecutivos de un paralelogramo son suplementarios: 180° − 65° = 115°.');
+add('geo1', 'Un triángulo tiene dos ángulos interiores de 40° y 80°. El ángulo exterior en el tercer vértice mide', '120°', ['60°', '140°', '100°'],
+  'El exterior es la suma de los dos interiores no adyacentes: 40° + 80° = 120°.');
+
+/* ---------- geo2: áreas y perímetros ---------- */
+add('geo2', 'Un círculo tiene diámetro 10 cm. Su área es', '25π cm^{2}', ['100π cm^{2}', '10π cm^{2}', '50π cm^{2}'],
+  'Radio = 5 cm, y A = πr^{2} = 25π cm^{2}. No uses el diámetro en lugar del radio.');
+add('geo2', 'La longitud de una circunferencia de radio 6 cm es', '12π cm', ['36π cm', '6π cm', '24π cm'],
+  'L = 2πr = 2 · π · 6 = 12π cm.');
+add('geo2', 'Un triángulo tiene base 8 cm y altura 5 cm. Su área es', '20 cm^{2}', ['40 cm^{2}', '13 cm^{2}', '10 cm^{2}'],
+  'A = base · altura : 2 = 8 · 5 : 2 = 20 cm^{2}. No olvides el ½.');
+add('geo2', 'El perímetro de un rectángulo de 7 cm por 4 cm es', '22 cm', ['28 cm', '11 cm', '18 cm'],
+  'P = 2 · (7 + 4) = 22 cm. El producto 7 · 4 = 28 sería el área.');
+add('geo2', 'Un paralelogramo tiene base 9 cm, lado oblicuo 5 cm y altura 4 cm. Su área es', '36 cm^{2}', ['45 cm^{2}', '18 cm^{2}', '28 cm^{2}'],
+  'A = base · altura = 9 · 4 = 36 cm^{2}. El lado oblicuo no se usa en el área.');
+add('geo2', 'Un trapecio tiene bases de 10 cm y 6 cm y altura 4 cm. Su área es', '32 cm^{2}', ['64 cm^{2}', '24 cm^{2}', '16 cm^{2}'],
+  'A = (B + b) · h : 2 = 16 · 4 : 2 = 32 cm^{2}.');
+add('geo2', 'Un rombo tiene diagonales de 12 cm y 8 cm. Su área es', '48 cm^{2}', ['96 cm^{2}', '20 cm^{2}', '40 cm^{2}'],
+  'A = D · d : 2 = 12 · 8 : 2 = 48 cm^{2}.');
+add('geo2', 'Un cuadrado tiene perímetro 20 cm. Su área es', '25 cm^{2}', ['400 cm^{2}', '100 cm^{2}', '20 cm^{2}'],
+  'Lado = 20 : 4 = 5 cm, y área = 5 · 5 = 25 cm^{2}.');
+add('geo2', 'Si el lado de un cuadrado se duplica, su perímetro', 'se duplica', ['se cuadruplica', 'se multiplica por 8', 'no cambia'],
+  'El perímetro es 4 · lado, así que es proporcional al lado (el área sí se cuadruplica).');
+add('geo2', 'El área de un sector circular de radio 6 cm y ángulo 90° es', '9π cm^{2}', ['36π cm^{2}', '18π cm^{2}', '3π cm^{2}'],
+  'Es la cuarta parte del círculo: 36π : 4 = 9π cm^{2}.');
+add('geo2', 'Un polígono regular tiene perímetro 24 cm y apotema 3 cm. Su área es', '36 cm^{2}', ['72 cm^{2}', '27 cm^{2}', '18 cm^{2}'],
+  'A = perímetro · apotema : 2 = 24 · 3 : 2 = 36 cm^{2}.');
+add('geo2', 'Se quiere vallar una finca rectangular de 20 m por 10 m. Lo que hay que calcular es', 'el perímetro: 60 m', ['el área: 200 m^{2}', 'el perímetro: 30 m', 'el área: 60 m^{2}'],
+  'La valla rodea la finca, así que es el perímetro: 2 · (20 + 10) = 60 m.');
+add('geo2', 'En una circunferencia de radio 3 cm, un arco de 120° mide', '2π cm', ['6π cm', '3π cm', 'π cm'],
+  'Es un tercio de la circunferencia: 2π · 3 : 3 = 2π cm.');
+add('geo2', 'Un triángulo rectángulo tiene catetos de 6 cm y 8 cm. Su área es', '24 cm^{2}', ['48 cm^{2}', '14 cm^{2}', '40 cm^{2}'],
+  'Los catetos son base y altura: 6 · 8 : 2 = 24 cm^{2}.');
+add('geo2', 'Un círculo tiene área 49π cm^{2}. Su radio es', '7 cm', ['49 cm', '24,5 cm', '14 cm'],
+  'πr^{2} = 49π, luego r^{2} = 49 y r = 7 cm.');
+add('geo2', 'Una corona circular está entre dos circunferencias concéntricas de radios 5 cm y 3 cm. Su área es', '16π cm^{2}', ['4π cm^{2}', '34π cm^{2}', '8π cm^{2}'],
+  'A = π · 5^{2} − π · 3^{2} = 25π − 9π = 16π cm^{2}. No se restan los radios antes de elevar.');
+
+/* ---------- geo4: cuerpos geométricos y volúmenes ---------- */
+add('geo4', 'Un cubo de arista 3 cm tiene un volumen de', '27 cm^{3}', ['9 cm^{3}', '18 cm^{3}', '54 cm^{3}'],
+  'V = arista^{3} = 3 · 3 · 3 = 27 cm^{3}.');
+add('geo4', 'Un prisma tiene por base un rectángulo de 4 cm por 3 cm y altura 5 cm. Su volumen es', '60 cm^{3}', ['20 cm^{3}', '12 cm^{3}', '35 cm^{3}'],
+  'V = área de la base · altura = 12 · 5 = 60 cm^{3}.');
+add('geo4', 'Una pirámide de base cuadrada de lado 6 cm y altura 5 cm tiene un volumen de', '60 cm^{3}', ['180 cm^{3}', '30 cm^{3}', '36 cm^{3}'],
+  'V = ⟨1|3⟩ · área de la base · altura = 36 · 5 : 3 = 60 cm^{3}.');
+add('geo4', 'Un cilindro de radio 3 cm y altura 4 cm tiene un volumen de', '36π cm^{3}', ['12π cm^{3}', '24π cm^{3}', '144π cm^{3}'],
+  'V = πr^{2}h = π · 9 · 4 = 36π cm^{3}.');
+add('geo4', 'Un cono de radio 3 cm y altura 4 cm tiene un volumen de', '12π cm^{3}', ['36π cm^{3}', '4π cm^{3}', '18π cm^{3}'],
+  'V = ⟨1|3⟩ · πr^{2}h = 36π : 3 = 12π cm^{3}. Sin el ⅓ saldría el del cilindro.');
+add('geo4', 'El volumen de una esfera de radio 6 cm es', '288π cm^{3}', ['144π cm^{3}', '864π cm^{3}', '48π cm^{3}'],
+  'V = ⟨4|3⟩πr^{3} = ⟨4|3⟩ · π · 216 = 288π cm^{3}. (144π es su área.)');
+add('geo4', 'El área de una esfera de radio 3 cm es', '36π cm^{2}', ['12π cm^{2}', '108π cm^{2}', '9π cm^{2}'],
+  'A = 4πr^{2} = 4 · π · 9 = 36π cm^{2}.');
+add('geo4', 'Un poliedro convexo tiene 6 caras y 8 vértices. Su número de aristas es', '12', ['14', '10', '16'],
+  'Euler: caras + vértices = aristas + 2, así que 14 = aristas + 2 y aristas = 12.');
+add('geo4', 'El poliedro regular de 4 caras, todas triángulos equiláteros, es el', 'tetraedro', ['cubo', 'octaedro', 'prisma triangular'],
+  'Tetra significa cuatro: el tetraedro tiene 4 caras triangulares.');
+add('geo4', 'Un cubo tiene este número de aristas:', '12', ['6', '8', '24'],
+  'Tiene 6 caras, 8 vértices y 12 aristas (6 + 8 = 12 + 2).');
+add('geo4', 'Un prisma de base pentagonal tiene este número de caras:', '7', ['5', '6', '10'],
+  'Tiene 5 caras laterales rectangulares y 2 bases pentagonales: 7 caras.');
+add('geo4', 'El área total de un cubo de arista 5 cm es', '150 cm^{2}', ['25 cm^{2}', '100 cm^{2}', '125 cm^{2}'],
+  'Son 6 caras cuadradas de 25 cm^{2}: 6 · 25 = 150 cm^{2}. (125 es el volumen.)');
+add('geo4', 'El desarrollo de la superficie lateral de un cilindro de radio r y altura h es un rectángulo cuya base mide', '2πr', ['πr^{2}', 'πr', '2r'],
+  'Al desenrollar la superficie lateral, la base del rectángulo es la longitud de la circunferencia de la base: 2πr.');
+add('geo4', 'Un cubo con capacidad de 1 L tiene una arista de', '10 cm', ['100 cm', '1 cm', '1 000 cm'],
+  '1 L = 1 dm^{3} = 10 cm · 10 cm · 10 cm, luego la arista es 10 cm.');
+add('geo4', 'Si el radio de un cilindro se duplica y su altura no cambia, su volumen', 'se multiplica por 4', ['se multiplica por 2', 'se multiplica por 8', 'se multiplica por 6'],
+  'V = πr^{2}h: el radio está al cuadrado, así que 2^{2} = 4.');
+add('geo4', 'Un cono tiene radio 3 cm y altura 4 cm. Su generatriz mide', '5 cm', ['7 cm', '25 cm', '3,5 cm'],
+  'Por Pitágoras: g^{2} = 3^{2} + 4^{2} = 25, luego g = 5 cm.');
+add('geo4', 'El área lateral de un cilindro de radio 3 cm y altura 5 cm es', '30π cm^{2}', ['15π cm^{2}', '45π cm^{2}', '90π cm^{2}'],
+  'A lateral = 2πrh = 2 · π · 3 · 5 = 30π cm^{2}. (45π sería el volumen.)');
+
+/* ---------- geo3: Pitágoras, Tales y semejanza ---------- */
+add('geo3', 'Un triángulo rectángulo tiene catetos de 6 cm y 8 cm. Su hipotenusa mide', '10 cm', ['14 cm', '100 cm', '48 cm'],
+  'h^{2} = 6^{2} + 8^{2} = 100, luego h = 10 cm. No basta sumar los catetos.');
+add('geo3', 'La hipotenusa de un triángulo rectángulo mide 13 cm y un cateto 5 cm. El otro cateto mide', '12 cm', ['8 cm', '18 cm', '144 cm'],
+  'c^{2} = 13^{2} − 5^{2} = 169 − 25 = 144, así que c = 12 cm. Al cateto se llega restando.');
+add('geo3', '¿Cuál de estas es una terna pitagórica?', '5, 12, 13', ['4, 5, 6', '6, 7, 8', '7, 8, 9'],
+  '5^{2} + 12^{2} = 25 + 144 = 169 = 13^{2}. En las otras, la suma de cuadrados no coincide.');
+add('geo3', 'La diagonal de un cuadrado de lado 4 cm mide', '4√{2} cm', ['8 cm', '2√{2} cm', '16 cm'],
+  'd^{2} = 4^{2} + 4^{2} = 32, y d = √{32} = 4√{2} cm.');
+add('geo3', 'Un triángulo de lados 9 cm, 12 cm y 15 cm es', 'rectángulo', ['acutángulo', 'obtusángulo', 'equilátero'],
+  '9^{2} + 12^{2} = 81 + 144 = 225 = 15^{2}, así que cumple Pitágoras.');
+add('geo3', 'En un plano de escala 1:200, una pared mide 3 cm. En la realidad mide', '6 m', ['60 m', '0,6 m', '600 m'],
+  '3 · 200 = 600 cm, que son 6 m.');
+add('geo3', 'Dos figuras semejantes tienen razón de semejanza 3. Su razón de áreas es', '9', ['3', '6', '27'],
+  'Las áreas se multiplican por k^{2}: 3^{2} = 9.');
+add('geo3', 'Dos cuerpos semejantes tienen razón de semejanza 2. Su razón de volúmenes es', '8', ['2', '4', '6'],
+  'Los volúmenes se multiplican por k^{3}: 2^{3} = 8.');
+add('geo3', 'Dos triángulos son semejantes con razón 3. El pequeño tiene perímetro 12 cm. El grande tiene perímetro', '36 cm', ['108 cm', '144 cm', '15 cm'],
+  'Los perímetros son longitudes y se multiplican por k: 12 · 3 = 36 cm.');
+add('geo3', 'Un poste de 2 m proyecta una sombra de 3 m. A la misma hora, un árbol proyecta una sombra de 12 m. El árbol mide', '8 m', ['18 m', '6 m', '10 m'],
+  'Triángulos semejantes: ⟨2|3⟩ = ⟨h|12⟩, y h = 2 · 12 : 3 = 8 m.');
+add('geo3', 'En un triángulo ABC, una paralela a BC corta AB en D y AC en E. Si AD = 3, DB = 6 y AE = 2, entonces EC mide', '4', ['1', '3', '9'],
+  'Tales: ⟨AD|DB⟩ = ⟨AE|EC⟩, o sea ⟨3|6⟩ = ⟨2|EC⟩, y EC = 4.');
+add('geo3', 'El volumen de un cuerpo es 27 veces el de otro semejante. La razón de semejanza es', '3', ['9', '27', '81'],
+  'k^{3} = 27, y k = 3. No confundas la razón de volúmenes con la de longitudes.');
+add('geo3', 'Un triángulo rectángulo tiene los dos catetos iguales a 1. Su hipotenusa mide', '√{2}', ['2', '1', '√{3}'],
+  'h^{2} = 1^{2} + 1^{2} = 2, luego h = √{2}. No es 1 + 1 = 2.');
+add('geo3', 'En un mapa de escala 1:50 000, dos pueblos están a 4 cm. La distancia real es', '2 km', ['20 km', '0,2 km', '200 km'],
+  '4 · 50 000 = 200 000 cm = 2 000 m = 2 km.');
+add('geo3', 'Una figura a escala 1:10 es un cuadrado de 2 cm de lado. El cuadrado real tiene área', '400 cm^{2}', ['40 cm^{2}', '200 cm^{2}', '4 000 cm^{2}'],
+  'El lado real mide 20 cm, y el área es 20 · 20 = 400 cm^{2}.');
+add('geo3', 'Un triángulo isósceles tiene lados iguales de 5 cm y base de 6 cm. Su altura mide', '4 cm', ['3 cm', '8 cm', '√{34} cm'],
+  'La altura parte la base en 3 + 3: h^{2} = 5^{2} − 3^{2} = 16, así que h = 4 cm.');
+add('geo3', 'Una escalera de 5 m apoyada en una pared tiene el pie a 3 m de ella. Alcanza una altura de', '4 m', ['2 m', '8 m', '6 m'],
+  'La escalera es la hipotenusa: h^{2} = 5^{2} − 3^{2} = 16, luego h = 4 m.');
+add('geo3', 'Un triángulo tiene ángulos de 40° y 70°; otro tiene ángulos de 70° y 70°. Son semejantes', 'sí, porque sus tres ángulos coinciden', ['no, porque tienen distinto tamaño', 'no, porque sus lados son distintos', 'solo si tienen la misma área'],
+  'El primero tiene ángulos 40°, 70°, 70° y el segundo 40°, 70°, 70°: iguales, luego semejantes aunque su tamaño difiera.');
+
+/* ---------- geo5: transformaciones en el plano ---------- */
+add('geo5', 'Al trasladar el punto P(2, 3) con el vector (4, −1), se obtiene', '(6, 2)', ['(−2, 4)', '(6, 4)', '(8, −3)'],
+  'Se suman las componentes: (2 + 4, 3 − 1) = (6, 2).');
+add('geo5', 'El simétrico de (3, 5) respecto al eje X es', '(3, −5)', ['(−3, 5)', '(−3, −5)', '(5, 3)'],
+  'La simetría respecto al eje X cambia el signo de la y.');
+add('geo5', 'El simétrico de (−2, 4) respecto al eje Y es', '(2, 4)', ['(−2, −4)', '(2, −4)', '(4, −2)'],
+  'La simetría respecto al eje Y cambia el signo de la x.');
+add('geo5', 'El simétrico de (3, −2) respecto al origen es', '(−3, 2)', ['(3, 2)', '(−3, −2)', '(2, −3)'],
+  'La simetría central respecto al origen cambia el signo de ambas coordenadas.');
+add('geo5', 'Un rectángulo que no es cuadrado tiene este número de ejes de simetría:', '2', ['4', '1', '0'],
+  'Solo tiene los dos ejes que pasan por los puntos medios de lados opuestos; las diagonales no son ejes.');
+add('geo5', 'Un cuadrado tiene este número de ejes de simetría:', '4', ['2', '8', '1'],
+  'Dos por los puntos medios de lados opuestos y dos por las diagonales.');
+add('geo5', 'Un triángulo equilátero tiene este número de ejes de simetría:', '3', ['1', '2', '6'],
+  'Cada eje pasa por un vértice y el punto medio del lado opuesto.');
+add('geo5', 'El orden de simetría de giro de un hexágono regular es', '6', ['3', '12', '2'],
+  'Coincide consigo mismo cada 360° : 6 = 60°, es decir, 6 veces en una vuelta completa.');
+add('geo5', 'Al girar 90° en sentido antihorario alrededor del origen el punto (2, 1), se obtiene', '(−1, 2)', ['(1, −2)', '(−2, −1)', '(1, 2)'],
+  'Un giro de 90° antihorario lleva (x, y) a (−y, x): (−1, 2).');
+add('geo5', 'Al girar 180° alrededor del origen el punto (4, −3), se obtiene', '(−4, 3)', ['(4, 3)', '(−4, −3)', '(3, −4)'],
+  'Un giro de 180° equivale a la simetría central: se cambian ambos signos.');
+add('geo5', 'En una simetría axial, A(1, 1) se transforma en A′(5, 1). El eje de simetría es la recta', 'x = 3', ['x = 2', 'x = 6', 'y = 1'],
+  'El eje es la mediatriz de AA′: pasa por el punto medio (3, 1) y es vertical, así que x = 3.');
+add('geo5', 'Una traslación lleva P(1, 2) a P′(5, −1). Su vector es', '(4, −3)', ['(−4, 3)', '(6, 1)', '(4, 3)'],
+  'Vector = P′ − P = (5 − 1, −1 − 2) = (4, −3).');
+add('geo5', 'Una de estas figuras tiene simetría central:', 'un paralelogramo', ['un triángulo isósceles', 'un trapecio isósceles', 'un pentágono regular'],
+  'En el paralelogramo, el punto de corte de las diagonales es su centro de simetría.');
+add('geo5', 'Un giro alrededor del origen lleva A(2, 0) a A′(0, 2). Es un giro de', '90° antihorario', ['90° horario', '180°', '45° antihorario'],
+  'A está sobre el eje X positivo y A′ sobre el eje Y positivo: se ha girado 90° en sentido contrario a las agujas del reloj.');
+add('geo5', 'Una traslación conserva de la figura', 'forma, tamaño y orientación', ['solo la forma, no el tamaño', 'el tamaño, pero invierte la orientación', 'solo el tamaño'],
+  'La traslación desplaza la figura sin girarla ni deformarla ni darle la vuelta.');
+add('geo5', 'El simétrico de (2, 5) respecto a la recta y = x es', '(5, 2)', ['(−2, −5)', '(2, −5)', '(−5, −2)'],
+  'La simetría respecto a y = x intercambia las coordenadas.');
+add('geo5', 'El simétrico de P(5, 2) respecto a la recta x = 3 es', '(1, 2)', ['(−5, 2)', '(−1, 2)', '(5, −2)'],
+  'P está 2 unidades a la derecha del eje, así que P′ está 2 a la izquierda: x = 3 − 2 = 1.');
+add('geo5', 'Componer dos simetrías axiales de ejes paralelos da', 'una traslación', ['un giro', 'una simetría axial', 'la identidad'],
+  'Dos simetrías de ejes paralelos equivalen a una traslación perpendicular a los ejes, de doble distancia entre ellos.');
+/* Preguntas nuevas: funciones (fun1-fun3), resolución de triángulos (tri4) e inecuaciones y valor absoluto (ine) */
+
+/* ---------- Funciones y gráficas ---------- */
+add('fun1', '¿Cuál de estas relaciones NO es una función de x?', 'y^{2} = x (con x > 0)', ['y = x^{2}', 'y = 2x + 1', 'y = |x|'], 'Con y^{2} = x, cada x > 0 tiene dos valores de y (raíz positiva y negativa); en una función cada x tiene una sola imagen.');
+add('fun1', 'La relación con los pares (1, 3), (2, 5), (1, 7), (4, 5) de x a y', 'No es función: x = 1 tiene dos imágenes', ['No es función: y = 5 se repite', 'Sí es función', 'Sí es función: todos los pares son distintos'], 'Una función no puede asignar dos valores distintos a la misma x. Repetir valores de y sí está permitido.');
+add('fun1', 'Una recta vertical corta a una gráfica en dos puntos. Entonces esa gráfica', 'No es la de una función', ['Es la de una función decreciente', 'Es la de una función discontinua', 'Es la de una función con dos máximos'], 'Dos puntos sobre la misma vertical son dos imágenes distintas para una misma x.');
+add('fun1', 'En y = 5x + 1, la variable independiente es', 'x', ['y', '5', '1'], 'La independiente es la que se elige libremente (x); y depende de ella.');
+add('fun1', 'En A = π·r^{2}, la variable dependiente es', 'A', ['r', 'π', '2'], 'El área A depende del radio r; π y 2 son constantes.');
+add('fun1', 'El precio a pagar por unas manzanas depende de los kg comprados. La variable independiente es', 'Los kg comprados', ['El precio a pagar', 'El precio de cada kg', 'La tienda'], 'Los kg se eligen libremente y el precio se calcula a partir de ellos.');
+add('fun1', 'Si f(x) = 3x − 2, entonces f(−1) =', '−5', ['−1', '−3', '5'], 'f(−1) = 3·(−1) − 2 = −3 − 2 = −5.');
+add('fun1', 'Si f(x) = x^{2} − 3x, entonces f(−2) =', '10', ['−10', '−2', '2'], 'f(−2) = (−2)^{2} − 3·(−2) = 4 + 6 = 10.');
+add('fun1', 'Una pelota se observa entre t = 0 y t = 4 s y su altura varía entre 0 y 20 m. El dominio y el recorrido son', 'Dominio [0, 4] y recorrido [0, 20]', ['Dominio [0, 20] y recorrido [0, 4]', 'Los dos son [0, 20]', 'Los dos son [0, 4]'], 'El dominio recoge los valores de la variable independiente (tiempo); el recorrido, los de la dependiente (altura).');
+add('fun1', 'El recorrido de f(x) = x^{2} es', '[0, +∞)', ['ℝ', '(0, +∞)', '(−∞, 0]'], 'Un cuadrado nunca es negativo y se alcanza el 0 en x = 0, por eso el 0 está incluido.');
+add('fun1', 'La gráfica de f(x) = x^{2} − 3x + 5 corta al eje Y en', '(0, 5)', ['(5, 0)', '(0, −3)', '(0, 0)'], 'Se hace x = 0: f(0) = 5.');
+add('fun1', 'La recta y = 2x − 6 corta al eje X en', '(3, 0)', ['(0, 3)', '(0, −6)', '(−3, 0)'], 'Se hace y = 0: 2x − 6 = 0, luego x = 3.');
+add('fun1', 'Tabla: x = −2, −1, 0, 1, 2 e y = 1, 4, 5, 4, 1. La función alcanza su máximo en', 'x = 0 (con valor 5)', ['x = 5 (con valor 0)', 'x = 1 (con valor 4)', 'x = −2 (con valor 1)'], 'El mayor valor de y es 5 y se da cuando x = 0.');
+add('fun1', 'Tabla: x = −3, −2, −1, 0, 1 e y = 2, −1, −2, −1, 2. La función alcanza su mínimo en', 'x = −1 (con valor −2)', ['x = −2 (con valor −1)', 'x = −1 (con valor 2)', 'x = −3 (con valor 2)'], 'El menor valor de y es −2 y se da cuando x = −1.');
+add('fun1', 'Tabla: x = 1, 2, 3, 4, 5 e y = 8, 5, 2, 4, 7. La función decrece', 'Desde x = 1 hasta x = 3', ['Desde x = 3 hasta x = 5', 'Desde x = 1 hasta x = 5', 'Desde x = 2 hasta x = 4'], 'Entre x = 1 y x = 3 los valores bajan (8, 5, 2); después suben (2, 4, 7).');
+add('fun1', 'Una función que se puede dibujar sin levantar el lápiz del papel es', 'Continua', ['Discontinua', 'Creciente', 'Periódica'], 'Eso es justo lo que significa que sea continua: sin saltos ni cortes.');
+add('fun1', 'Un aparcamiento cobra 2 € por cada hora o fracción. La gráfica del precio según el tiempo es', 'Escalonada, con saltos (discontinua)', ['Una recta que pasa por el origen', 'Una recta con ordenada en el origen 2', 'Una parábola'], 'El precio salta de 2 a 4 € en cuanto se pasa de la primera hora, así que hay saltos.');
+add('fun1', 'Si f(−x) = f(x) para todo x, la gráfica es simétrica respecto', 'Del eje Y', ['Del eje X', 'Del origen', 'De la recta y = x'], 'f(−x) = f(x) significa que los puntos de x y de −x tienen la misma altura: simetría respecto del eje Y (función par).');
+
+/* ---------- Función lineal y cuadrática ---------- */
+add('fun2', 'La pendiente de la recta que pasa por (1, 2) y (3, 8) es', '3', ['⟨1|3⟩', '6', '−3'], 'm = Δy/Δx = (8 − 2)/(3 − 1) = 6/2 = 3. No se invierte: arriba va la variación de y.');
+add('fun2', 'La pendiente de la recta 2x + 4y = 8 es', '−⟨1|2⟩', ['2', '⟨1|2⟩', '−2'], 'Despejando: 4y = −2x + 8, así que y = −⟨1|2⟩x + 2.');
+add('fun2', 'La ordenada en el origen de y = 4 − 2x es', '4', ['−2', '2', '0'], 'Es el valor de y cuando x = 0: y = 4 (el término independiente, aunque esté escrito primero).');
+add('fun2', 'La recta que pasa por (0, 1) con pendiente 3 es', 'y = 3x + 1', ['y = x + 3', 'y = 3x − 1', 'y = ⟨1|3⟩x + 1'], 'La ordenada en el origen es 1 (punto con x = 0) y la pendiente 3.');
+add('fun2', 'La recta que pasa por (2, 5) con pendiente −1 es', 'y = −x + 7', ['y = −x + 5', 'y = −x + 3', 'y = x + 3'], 'y − 5 = −(x − 2) → y = −x + 2 + 5 = −x + 7.');
+add('fun2', 'La recta que pasa por (1, 1) y (3, 5) es', 'y = 2x − 1', ['y = 2x + 1', 'y = ⟨1|2⟩x + ⟨1|2⟩', 'y = −2x + 3'], 'm = 4/2 = 2 y y − 1 = 2(x − 1) → y = 2x − 1.');
+add('fun2', 'La recta paralela a y = 3x − 1 que pasa por el origen es', 'y = 3x', ['y = −3x', 'y = −⟨1|3⟩x', 'y = 3x − 1'], 'Paralela: misma pendiente (3). Pasa por el origen, así que la ordenada es 0.');
+add('fun2', 'Las rectas y = 3x + 1 e y = −⟨1|3⟩x + 4 son', 'Perpendiculares', ['Paralelas', 'Coincidentes', 'Ni paralelas ni perpendiculares'], 'Sus pendientes son opuestas e inversas: 3 · (−⟨1|3⟩) = −1.');
+add('fun2', 'Una recta perpendicular a otra de pendiente 2 tiene pendiente', '−⟨1|2⟩', ['2', '−2', '⟨1|2⟩'], 'La perpendicular tiene la pendiente opuesta e inversa: −1/2.');
+add('fun2', '¿Cuál es una función de proporcionalidad directa?', 'y = 5x', ['y = 5x + 2', 'y = ⟨5|x⟩', 'y = x^{2}'], 'Es la que pasa por el origen y tiene forma y = mx, sin término independiente.');
+add('fun2', 'Una función afín cumple f(0) = 3 y f(2) = 7. Entonces f(x) =', '2x + 3', ['3x + 2', '4x + 3', '⟨1|2⟩x + 3'], 'La ordenada es f(0) = 3 y la pendiente (7 − 3)/(2 − 0) = 2.');
+add('fun2', 'Un taxi cobra 3 € de bajada de bandera y 2 € por km. Un trayecto de 5 km cuesta', '13 €', ['10 €', '17 €', '25 €'], 'C = 3 + 2·5 = 13 €. La bajada de bandera se paga una sola vez.');
+add('fun2', 'El eje de simetría de la parábola y = x^{2} + 6x + 1 es', 'x = −3', ['x = 3', 'x = 6', 'x = −6'], 'x = −b/(2a) = −6/2 = −3. Ojo con el signo menos de la fórmula.');
+add('fun2', 'El vértice de y = (x − 1)^{2} + 2 es', '(1, 2)', ['(−1, 2)', '(1, −2)', '(2, 1)'], 'En y = a(x − h)^{2} + k el vértice es (h, k) = (1, 2).');
+add('fun2', 'La parábola y = −2x^{2} + 3x es', 'Cóncava hacia abajo y con máximo', ['Cóncava hacia arriba y con mínimo', 'Cóncava hacia arriba y con máximo', 'Cóncava hacia abajo y con mínimo'], 'Como a = −2 < 0, las ramas van hacia abajo y el vértice es el punto más alto.');
+add('fun2', 'La parábola y = x^{2} − 9 corta al eje X en', '(−3, 0) y (3, 0)', ['(−9, 0) y (9, 0)', '(0, −9)', '(3, 0) solamente'], 'x^{2} − 9 = 0 → x^{2} = 9 → x = ±3.');
+add('fun2', 'La parábola y = x^{2} + 2x + 5 corta al eje X en', 'Ningún punto', ['Un punto', 'Dos puntos', 'El punto (0, 5)'], 'Δ = 4 − 20 = −16 < 0, luego no hay raíces reales. (0, 5) es el corte con el eje Y.');
+add('fun2', 'La parábola y = x^{2} − 6x + 9 toca al eje X en', 'Un solo punto, (3, 0)', ['Dos puntos, (3, 0) y (−3, 0)', 'Ningún punto', 'Solo en (0, 9)'], 'Δ = 36 − 36 = 0: raíz doble x = 3, el vértice está sobre el eje X.');
+
+/* ---------- Exponencial, logarítmica e inversa ---------- */
+add('fun3', 'Todas las gráficas y = a^{x} (con a > 0) pasan por el punto', '(0, 1)', ['(1, 0)', '(0, 0)', '(1, 1)'], 'a^{0} = 1 para cualquier base a.');
+add('fun3', 'La función y = (⟨1|2⟩)^{x} es', 'Decreciente', ['Creciente', 'Constante', 'Creciente solo para x > 0'], 'Con base 0 < a < 1 la exponencial decrece: cada paso multiplica por ⟨1|2⟩.');
+add('fun3', '¿Puede 2^{x} ser negativo para algún x?', 'No: 2^{x} > 0 para todo x', ['Sí, si x es negativo', 'Sí, para x muy negativo', 'Sí, si x < −1'], 'Una potencia de base positiva siempre es positiva; con x negativo da una fracción positiva, p. ej. 2^{−3} = ⟨1|8⟩.');
+add('fun3', 'La asíntota horizontal de y = 2^{x} es', 'y = 0', ['x = 0', 'y = 1', 'y = 2'], 'Cuando x → −∞, 2^{x} se acerca a 0 sin tocarlo.');
+add('fun3', 'La asíntota horizontal de y = 2^{x} + 3 es', 'y = 3', ['y = 0', 'x = 3', 'y = 2'], 'Sumar 3 sube la gráfica 3 unidades, y con ella su asíntota.');
+add('fun3', 'El recorrido de y = 2^{x} es', '(0, +∞)', ['ℝ', '[0, +∞)', '(1, +∞)'], 'Toma todos los valores positivos, pero nunca el 0 ni los negativos.');
+add('fun3', '(⟨1|2⟩)^{−2} =', '4', ['⟨1|4⟩', '−4', '1'], 'El exponente negativo invierte la base: (⟨1|2⟩)^{−2} = 2^{2} = 4.');
+add('fun3', 'log_{5} 5 =', '1', ['5', '0', '⟨1|5⟩'], 'El logaritmo de la base es 1, porque 5^{1} = 5.');
+add('fun3', 'La función inversa de y = 2^{x} es', 'y = log_{2} x', ['y = (⟨1|2⟩)^{x}', 'y = x^{2}', 'y = log_{x} 2'], 'El logaritmo en base 2 deshace la exponencial de base 2.');
+add('fun3', 'El dominio de y = log_{2} x es', '(0, +∞)', ['ℝ', '[0, +∞)', '(1, +∞)'], 'Solo existen logaritmos de números positivos (es el recorrido de la exponencial 2^{x}).');
+add('fun3', 'La asíntota vertical de y = log_{3} x es', 'x = 0', ['y = 0', 'x = 1', 'x = 3'], 'Cuando x → 0^{+}, log_{3} x → −∞: la gráfica se pega al eje Y.');
+add('fun3', 'Todas las gráficas y = log_{a} x pasan por el punto', '(1, 0)', ['(0, 1)', '(0, 0)', '(1, 1)'], 'log_{a} 1 = 0 para cualquier base.');
+add('fun3', 'La gráfica de y = a^{x} pasa por (3, 8). Entonces a =', '2', ['3', '4', '⟨8|3⟩'], 'a^{3} = 8 y 2^{3} = 8.');
+add('fun3', 'Si y = ⟨12|x⟩ y x = 3, entonces y =', '4', ['36', '9', '15'], 'y = 12 : 3 = 4. En y = k/x se divide, no se multiplica.');
+add('fun3', 'La hipérbola y = ⟨1|x⟩ tiene como asíntotas', 'x = 0 e y = 0', ['Solo x = 0', 'x = 1 e y = 1', 'No tiene asíntotas'], 'No puede valer 0 la x (no se divide entre 0) y la y nunca llega a 0.');
+add('fun3', 'En y = ⟨k|x⟩ (k > 0), si x se duplica, y', 'Se reduce a la mitad', ['Se duplica', 'Disminuye en 2 unidades', 'Se reduce a la cuarta parte'], 'y = k/(2x) = ⟨1|2⟩·(k/x): la mitad de la y anterior.');
+add('fun3', 'Una sustancia pierde la mitad de su masa cada hora. Si empieza con 80 g, tras 3 horas quedan', '10 g', ['40 g', '20 g', '0 g'], '80 → 40 → 20 → 10.');
+add('fun3', 'Un capital crece un 5 % cada año: C(t) = C_{0}·a^{t}. El valor de a es', '1,05', ['0,05', '5', '0,95'], 'Crecer un 5 % es multiplicar por 1 + 0,05 = 1,05 cada año.');
+
+/* ---------- Resolución de triángulos ---------- */
+add('tri4', 'En un triángulo rectángulo, la hipotenusa mide 10 y un ángulo agudo 30°. El cateto opuesto a ese ángulo mide', '5', ['5√{3}', '20', '10√{3}'], 'sen 30° = ⟨1|2⟩, luego el cateto opuesto es 10 · ⟨1|2⟩ = 5.');
+add('tri4', 'En un triángulo rectángulo, la hipotenusa mide 8 y un ángulo agudo 60°. El cateto adyacente a ese ángulo mide', '4', ['4√{3}', '16', '8√{3}'], 'cos 60° = ⟨1|2⟩, luego el cateto adyacente es 8 · ⟨1|2⟩ = 4.');
+add('tri4', 'En un triángulo rectángulo de catetos 3 y 4, el seno del ángulo opuesto al cateto 3 es', '⟨3|5⟩', ['⟨4|5⟩', '⟨3|4⟩', '⟨5|3⟩'], 'La hipotenusa es 5 y sen α = opuesto/hipotenusa = 3/5.');
+add('tri4', 'Si tg α = ⟨√{3}|3⟩ y α es agudo, entonces α =', '30°', ['60°', '45°', '15°'], 'tg 30° = ⟨1|√{3}⟩ = ⟨√{3}|3⟩. Es tg 60° la que vale √{3}.');
+add('tri4', 'Un triángulo rectángulo tiene ángulos de 45° y 45° y catetos de 6. La hipotenusa mide', '6√{2}', ['12', '6', '6√{3}'], 'Por Pitágoras: √{36 + 36} = √{72} = 6√{2}.');
+add('tri4', 'En un triángulo 30°-60°-90° el cateto opuesto a 30° mide 5. La hipotenusa mide', '10', ['5√{3}', '5√{2}', '⟨5|2⟩'], 'El cateto opuesto a 30° es la mitad de la hipotenusa.');
+add('tri4', 'En un triángulo, A = 50° y B = 75°. El ángulo C mide', '55°', ['65°', '125°', '45°'], 'Los ángulos suman 180°: C = 180° − 125° = 55°.');
+add('tri4', 'Un triángulo no rectángulo tiene los tres lados conocidos y se quiere un ángulo. Se usa', 'El teorema del coseno', ['El teorema del seno', 'El teorema de Pitágoras', 'sen α = ⟨opuesto|hipotenusa⟩'], 'Con tres lados no hay ningún ángulo conocido, y el teorema del seno necesita una pareja lado-ángulo opuesto.');
+add('tri4', 'En un triángulo, A = 30°, B = 45° y a = 4. Por el teorema del seno, b =', '4√{2}', ['2√{2}', '4', '4√{3}'], '⟨b|sen B⟩ = ⟨a|sen A⟩ → b = 4·(√{2}/2)/(1/2) = 4√{2}.');
+add('tri4', 'En un triángulo, b = 3, c = 8 y A = 60°. Por el teorema del coseno, a =', '7', ['√{97}', '√{73}', '11'], 'a^{2} = 9 + 64 − 2·3·8·⟨1|2⟩ = 73 − 24 = 49, así que a = 7.');
+add('tri4', 'Un triángulo tiene lados de 6 y 8 que forman un ángulo de 30°. Su área es', '12', ['24', '48', '12√{3}'], 'Área = ½·6·8·sen 30° = 24 · ⟨1|2⟩ = 12.');
+add('tri4', 'Un triángulo tiene lados de 4 y 5 que forman un ángulo de 60°. Su área es', '5√{3}', ['10√{3}', '10', '5√{2}'], 'Área = ½·4·5·sen 60° = 10 · ⟨√{3}|2⟩ = 5√{3}.');
+add('tri4', 'Desde un punto del suelo a 20 m de la base de una torre se ve su punta con ángulo de elevación de 45°. La torre mide', '20 m', ['20√{2} m', '10 m', '40 m'], 'tg 45° = 1, así que altura = distancia = 20 m.');
+add('tri4', 'Una escalera de 6 m forma 60° con el suelo. La altura que alcanza en la pared es', '3√{3} m', ['3 m', '6√{3} m', '6 m'], 'La altura es el cateto opuesto: 6 · sen 60° = 6 · ⟨√{3}|2⟩ = 3√{3} m.');
+add('tri4', 'Desde un faro de 30 m se ve un barco con ángulo de depresión de 30°. Su distancia horizontal al faro es', '30√{3} m', ['10√{3} m', '30 m', '60 m'], 'tg 30° = ⟨30|d⟩ → d = 30 : ⟨√{3}|3⟩ = 30√{3} m.');
+add('tri4', 'Si se conocen dos lados y un ángulo que NO está entre ellos, el problema puede tener', 'Dos, una o ninguna solución', ['Siempre una única solución', 'Siempre dos soluciones', 'Infinitas soluciones'], 'Es el caso ambiguo del teorema del seno.');
+add('tri4', 'Solo se conocen los tres ángulos de un triángulo: 40°, 60° y 80°. Los lados', 'No quedan determinados: hay infinitos triángulos semejantes', ['Quedan determinados por el teorema del seno', 'Quedan determinados por el teorema del coseno', 'Miden todos lo mismo'], 'Con solo ángulos se conoce la forma, no el tamaño: falta al menos un lado.');
+add('tri4', 'Un cateto mide 5 y la hipotenusa 13. El otro cateto mide', '12', ['8', '√{194}', '18'], '√{13^{2} − 5^{2}} = √{144} = 12.');
+
+/* ---------- Inecuaciones y valor absoluto ---------- */
+add('ine', 'Si 2x − 5 > 3, entonces', 'x > 4', ['x > 1', 'x < 4', 'x > 8'], '2x > 8 y se divide entre 2: x > 4.');
+add('ine', 'Si 3 − 2x ≥ 7, entonces', 'x ≤ −2', ['x ≥ −2', 'x ≤ 2', 'x ≥ 2'], '−2x ≥ 4; al dividir entre −2 el signo se invierte: x ≤ −2.');
+add('ine', 'Si ⟨x|3⟩ < −2, entonces', 'x < −6', ['x > −6', 'x < −⟨2|3⟩', 'x < 6'], 'Se multiplica por 3 (positivo): x < −6.');
+add('ine', 'El sistema x − 1 > 2 y 2x < 12 tiene como solución', '(3, 6)', ['[3, 6]', '(3, 12)', '(−∞, 3) ∪ (6, +∞)'], 'La primera da x > 3 y la segunda x < 6; deben cumplirse las dos.');
+add('ine', 'El sistema x > 4 y x < 1', 'No tiene solución', ['Tiene como solución (1, 4)', 'Tiene como solución (4, 1)', 'Se cumple para todo x'], 'Ningún número es a la vez mayor que 4 y menor que 1.');
+add('ine', 'Si x^{2} − 5x + 6 ≤ 0, la solución es', '[2, 3]', ['(−∞, 2] ∪ [3, +∞)', '(2, 3)', '[−3, −2]'], 'Las raíces son 2 y 3; la parábola es ≤ 0 entre ellas, y con ≤ se incluyen los extremos.');
+add('ine', 'Si x^{2} + 1 > 0, la solución es', 'Todos los números reales', ['Ningún número real', 'x > −1', 'x ≠ 0'], 'x^{2} ≥ 0 siempre, así que x^{2} + 1 ≥ 1 > 0.');
+add('ine', 'La desigualdad x^{2} ≤ 0 se cumple', 'Solo para x = 0', ['Para ningún x', 'Para todo x', 'Para todo x ≤ 0'], 'Un cuadrado no es negativo: solo puede ser ≤ 0 si vale exactamente 0.');
+add('ine', 'Las soluciones de |x + 3| = 5 son', 'x = 2 y x = −8', ['x = 8 y x = −2', 'x = 2', 'x = −2 y x = −8'], 'x + 3 = 5 → x = 2 y x + 3 = −5 → x = −8.');
+add('ine', 'La desigualdad |x| < −1', 'No tiene solución', ['Tiene como solución (−1, 1)', 'Tiene como solución (−∞, −1)', 'Se cumple para todo x'], 'Un valor absoluto nunca es negativo.');
+add('ine', 'Si |2x| ≥ 6, la solución es', '(−∞, −3] ∪ [3, +∞)', ['[−3, 3]', '(−∞, −6] ∪ [6, +∞)', '[3, +∞)'], '|2x| ≥ 6 equivale a |x| ≥ 3, es decir, x ≤ −3 o x ≥ 3.');
+add('ine', 'Si |x − 2| > 3, la solución es', '(−∞, −1) ∪ (5, +∞)', ['(−1, 5)', '(−∞, −3) ∪ (3, +∞)', '(−∞, 1) ∪ (5, +∞)'], 'x está a más de 3 unidades de 2: x < −1 o x > 5.');
+add('ine', 'El conjunto de x tales que x < 5 o x ≥ 8 se escribe', '(−∞, 5) ∪ [8, +∞)', ['(−∞, 5] ∪ (8, +∞)', '(5, 8)', '(−∞, 5) ∩ [8, +∞)'], 'El 5 no se incluye (<) y el 8 sí (≥). La unión representa el «o».');
+add('ine', 'Un taxi cobra 2,5 € fijos más 1 € por km. Para pagar como máximo 10 €, los km x cumplen', 'x ≤ 7,5', ['x ≥ 7,5', 'x ≤ 12,5', 'x < 7,5'], '2,5 + x ≤ 10 → x ≤ 7,5. «Como máximo» incluye el 7,5.');
+/* Estadística, combinatoria y probabilidad: preguntas estáticas */
+
+/* ---------- Estadística unidimensional ---------- */
+add('est1', 'La mediana de 7, 2, 9, 4, 5 es', '5', ['9', '5,4', '4'], 'Primero se ordenan: 2, 4, 5, 7, 9. El dato central es 5.');
+add('est1', 'La mediana de 3, 4, 8, 10 es', '6', ['4', '8', '6,25'], 'Con n par se promedian los dos centrales: (4 + 8) : 2 = 6.');
+add('est1', 'La moda de 2, 3, 3, 5, 5, 5, 8 es', '5', ['3', '8', '7'], 'La moda es el dato que más se repite: el 5 aparece tres veces.');
+add('est1', 'El rango de 12, 5, 9, 20, 7 es', '15', ['20', '25', '9'], 'Rango = máximo − mínimo = 20 − 5 = 15.');
+add('est1', 'La media de 4, 6, 8, 10, 12 es', '8', ['10', '6', '40'], 'Suma = 40 y 40 : 5 = 8.');
+add('est1', 'La media de 2, 4, 6 y x es 5. Entonces x =', '8', ['5', '6', '10'], 'La suma total debe ser 4 · 5 = 20, y 2 + 4 + 6 = 12, así que x = 8.');
+add('est1', 'Un dato muy extremo (atípico) afecta menos a', 'La mediana', ['La media', 'El rango', 'La desviación típica'], 'La mediana solo depende de los datos centrales; la media y el rango sí cambian mucho.');
+add('est1', 'Si sumamos 3 a todos los datos, la media', 'Aumenta en 3', ['Se multiplica por 3', 'No cambia', 'Aumenta en 9'], 'Al sumar una constante a todos los datos, la media aumenta esa constante.');
+add('est1', 'Si sumamos 5 a todos los datos, la desviación típica', 'No cambia', ['Aumenta en 5', 'Se multiplica por 5', 'Disminuye en 5'], 'Los datos se desplazan todos igual: la dispersión es la misma.');
+add('est1', 'Si multiplicamos por 2 todos los datos y la media era 7, la nueva media es', '14', ['9', '7', '28'], 'La media también se multiplica por 2: 7 · 2 = 14.');
+add('est1', 'En una clase de 30 alumnos, 6 eligen tenis. La frecuencia relativa de tenis es', '⟨1|5⟩', ['6', '⟨1|6⟩', '⟨1|30⟩'], 'f_{r} = f : N = 6 : 30 = ⟨1|5⟩.');
+add('est1', '¿Cuál es una variable cuantitativa discreta?', 'Número de hermanos', ['Color de ojos', 'Estatura', 'Deporte favorito'], 'Número de hermanos toma valores sueltos (0, 1, 2…); el color y el deporte son cualitativas y la estatura es continua.');
+add('est1', 'La estatura de los alumnos es una variable', 'Cuantitativa continua', ['Cuantitativa discreta', 'Cualitativa nominal', 'Cualitativa ordinal'], 'Se mide y puede tomar cualquier valor de un intervalo.');
+add('est1', 'Valores 1, 2, 3 con frecuencias absolutas 4, 6, 5. La frecuencia acumulada del valor 2 es', '10', ['6', '15', '24'], 'Se suma lo anterior: 4 + 6 = 10.');
+add('est1', 'Una nota 6 con peso 1 y una nota 10 con peso 3. La media ponderada es', '9', ['8', '36', '7'], '(6 · 1 + 10 · 3) : (1 + 3) = 36 : 4 = 9.');
+add('est1', 'La desviación típica de 5, 5, 5, 5 es', '0', ['5', '1', '20'], 'Todos los datos son iguales a la media: no hay dispersión.');
+add('est1', 'La varianza (poblacional, dividiendo entre el número de datos) de 2, 4, 4, 6 es', '2', ['8', '4', '√{2}'], 'Media 4; desviaciones al cuadrado: 4, 0, 0, 4. Suma 8 y 8 : 4 = 2.');
+add('est1', 'La suma de todas las frecuencias relativas es', '1', ['0', '100', 'El número total de datos'], 'Las f_{r} son partes del total: siempre suman 1.');
+
+/* ---------- Estadística bidimensional ---------- */
+add('est2', 'Si r = 0,95, la correlación es', 'Positiva y fuerte', ['Positiva y débil', 'Negativa y fuerte', 'Nula'], 'r positivo y muy cerca de 1: relación creciente y fuerte.');
+add('est2', 'Si r = −0,1, la correlación es', 'Negativa y muy débil', ['Negativa y fuerte', 'Positiva y débil', 'Positiva y fuerte'], 'r es negativo pero casi 0: relación decreciente muy débil.');
+add('est2', '¿Cuál no puede ser un coeficiente de correlación?', '1,3', ['−0,8', '0', '1'], 'r siempre está entre −1 y 1.');
+add('est2', 'Si la nube de puntos sube de izquierda a derecha, la correlación es', 'Positiva', ['Negativa', 'Nula', 'Imposible de calcular'], 'Al crecer x, y también crece.');
+add('est2', 'Estatura de los alumnos de una clase y su nota de Matemáticas: lo más probable es que r sea', 'Casi 0', ['Casi 1', 'Casi −1', 'Exactamente 1'], 'No hay relación entre ambas variables: correlación nula.');
+add('est2', 'A más velocidad, menos tiempo en recorrer 100 km. La correlación es', 'Negativa', ['Positiva', 'Nula', 'Causal pero sin signo'], 'Cuando una variable sube, la otra baja.');
+add('est2', 'La recta de regresión es y = 2x + 1. Para x = 3 se predice y =', '7', ['6', '5', '9'], '2 · 3 + 1 = 7.');
+add('est2', 'En y = −3x + 8, la pendiente es', '−3', ['3', '8', '−8'], 'La pendiente es el número que multiplica a x.');
+add('est2', 'Una pendiente negativa en la recta de regresión significa que, al aumentar x,', 'y tiende a disminuir', ['y tiende a aumentar', 'y no cambia', 'r vale 0'], 'Pendiente negativa: recta decreciente.');
+add('est2', 'Si x̄ = 4 e ȳ = 10, la recta de regresión pasa por el punto', '(4, 10)', ['(10, 4)', '(0, 0)', '(4, 4)'], 'La recta de regresión siempre pasa por (x̄, ȳ).');
+add('est2', 'Datos con x entre 10 y 50. Predecir y para x = 30 es', 'Interpolar', ['Extrapolar', 'Calcular r', 'Hacer una media'], 'Está dentro del rango de datos: interpolación.');
+add('est2', 'Datos con x entre 10 y 50. Predecir y para x = 200 es', 'Extrapolar, poco fiable', ['Interpolar, muy fiable', 'Interpolar, poco fiable', 'Extrapolar, muy fiable'], 'Fuera del rango de datos no sabemos si la tendencia se mantiene.');
+add('est2', 'Las ventas de helados y los ahogamientos en playas tienen r alto. Esto significa que', 'Ambos dependen de un tercer factor (el calor)', ['Los helados causan ahogamientos', 'Los ahogamientos causan ventas de helados', 'Los datos tienen un error'], 'Correlación no implica causalidad.');
+add('est2', 'Si r = 1, todos los puntos están', 'Sobre una recta creciente', ['Sobre una recta decreciente', 'Dispersos sin orden', 'Sobre una recta horizontal'], 'r = 1 es correlación positiva perfecta.');
+add('est2', '¿Qué valor de r indica la relación lineal más fuerte?', 'r = −0,9', ['r = 0,5', 'r = 0,2', 'r = −0,4'], 'Lo que cuenta es el valor absoluto: 0,9 es el más cercano a 1.');
+add('est2', 'En y = 5x + 20, si x aumenta 2 unidades, y aumenta', '10', ['5', '2', '20'], 'La pendiente es 5: 5 · 2 = 10.');
+
+/* ---------- Combinatoria ---------- */
+add('com', '5! =', '120', ['25', '24', '60'], '5! = 5 · 4 · 3 · 2 · 1 = 120.');
+add('com', '0! =', '1', ['0', 'No existe', '−1'], 'Por convenio 0! = 1.');
+add('com', '⟨6!|4!⟩ =', '30', ['2', '24', '⟨3|2⟩'], '6!/4! = 6 · 5 = 30.');
+add('com', 'Con 3 camisetas y 4 pantalones, ¿cuántos conjuntos distintos hay?', '12', ['7', '24', '81'], 'Regla del producto: 3 · 4 = 12.');
+add('com', '¿De cuántas formas se pueden ordenar 4 libros distintos en una estantería?', '24', ['16', '12', '10'], 'P_{4} = 4! = 24.');
+add('com', 'En una carrera de 8 corredores, ¿de cuántas formas se reparten oro, plata y bronce?', '336', ['56', '24', '512'], 'Importa el orden y no se repite: 8 · 7 · 6 = 336.');
+add('com', '¿De cuántas formas se eligen 3 alumnos de 8 para un comité sin cargos?', '56', ['336', '24', '512'], 'No importa el orden: C(8, 3) = 56.');
+add('com', 'C(7, 0) =', '1', ['0', '7', '⟨1|7⟩'], 'Hay una sola forma de no elegir nada: C(n, 0) = 1.');
+add('com', 'Si C(9, 2) = C(9, k) con k ≠ 2, entonces k =', '7', ['4', '6', '11'], 'C(n, k) = C(n, n − k): 9 − 2 = 7.');
+add('com', 'C(6, 3) =', '20', ['120', '18', '216'], '6 · 5 · 4 / (3 · 2 · 1) = 20.');
+add('com', '¿Cuántos códigos de 2 cifras (de 00 a 99) hay?', '100', ['90', '20', '45'], 'Variaciones con repetición: 10 · 10 = 100.');
+add('com', '¿Cuántos números de 3 cifras distintas se forman con 1, 2, 3 y 4?', '24', ['64', '4', '12'], 'Importa el orden y no se repite: 4 · 3 · 2 = 24.');
+add('com', 'Al lanzar una moneda 3 veces, ¿cuántos resultados posibles hay?', '8', ['6', '9', '4'], '2 · 2 · 2 = 2^{3} = 8.');
+add('com', '(x + 1)^{3} =', 'x^{3} + 3x^{2} + 3x + 1', ['x^{3} + 1', 'x^{3} + x^{2} + x + 1', 'x^{3} + 3x^{2} + 1'], 'Los coeficientes son C(3, k): 1, 3, 3, 1.');
+add('com', 'Un menú tiene 2 primeros, 3 segundos y 2 postres. ¿Cuántos menús distintos hay?', '12', ['7', '6', '36'], 'Diagrama de árbol: 2 · 3 · 2 = 12.');
+add('com', '¿En cuál de estos casos importa el orden?', 'Elegir presidente y secretario', ['Elegir 2 delegados', 'Elegir 5 cartas de una baraja', 'Formar un equipo de 4 personas'], 'Presidente y secretario son cargos distintos: variaciones.');
+add('com', '⟨8!|6!⟩ =', '56', ['2', '48', '⟨4|3⟩'], '8!/6! = 8 · 7 = 56.');
+
+/* ---------- Probabilidad ---------- */
+add('pro', 'Al lanzar un dado, P(par) =', '⟨1|2⟩', ['⟨1|3⟩', '⟨1|6⟩', '⟨2|3⟩'], 'Casos favorables 2, 4, 6: 3 de 6.');
+add('pro', 'Al lanzar un dado, P(múltiplo de 3) =', '⟨1|3⟩', ['⟨1|6⟩', '⟨1|2⟩', '⟨2|3⟩'], 'Favorables: 3 y 6, es decir 2 de 6.');
+add('pro', 'En una baraja española de 40 cartas, P(as) =', '⟨1|10⟩', ['⟨1|4⟩', '⟨1|40⟩', '⟨1|13⟩'], 'Hay 4 ases: 4/40 = 1/10.');
+add('pro', 'Una bolsa tiene 3 bolas rojas y 2 azules. P(azul) =', '⟨2|5⟩', ['⟨2|3⟩', '⟨3|5⟩', '⟨1|2⟩'], 'Favorables entre totales: 2/5.');
+add('pro', 'Con un dado normal, P(sacar 7) =', '0', ['⟨1|6⟩', '⟨1|7⟩', '1'], 'Es un suceso imposible.');
+add('pro', 'Si P(A) = 0,3, entonces P(no A) =', '0,7', ['0,3', '0,6', '1,3'], 'P(no A) = 1 − P(A) = 0,7.');
+add('pro', 'Si P(A) = ⟨3|8⟩, la probabilidad del suceso contrario es', '⟨5|8⟩', ['⟨3|5⟩', '⟨8|3⟩', '⟨1|8⟩'], '1 − ⟨3|8⟩ = ⟨5|8⟩.');
+add('pro', 'P(A) = 0,5, P(B) = 0,4 y P(A∩B) = 0,2. Entonces P(A∪B) =', '0,7', ['0,9', '1,1', '0,2'], '0,5 + 0,4 − 0,2 = 0,7.');
+add('pro', 'A y B son incompatibles, P(A) = ⟨1|4⟩ y P(B) = ⟨1|2⟩. Entonces P(A∪B) =', '⟨3|4⟩', ['⟨1|8⟩', '⟨1|3⟩', '⟨2|3⟩'], 'Incompatibles: se suman, ⟨1|4⟩ + ⟨2|4⟩ = ⟨3|4⟩.');
+add('pro', 'A y B son independientes, P(A) = ⟨1|2⟩ y P(B) = ⟨1|3⟩. Entonces P(A∩B) =', '⟨1|6⟩', ['⟨5|6⟩', '⟨1|5⟩', '⟨1|3⟩'], 'Independientes: se multiplican, ⟨1|2⟩ · ⟨1|3⟩ = ⟨1|6⟩.');
+add('pro', 'Al lanzar dos monedas, P(dos caras) =', '⟨1|4⟩', ['⟨1|2⟩', '⟨1|3⟩', '⟨3|4⟩'], '⟨1|2⟩ · ⟨1|2⟩ = ⟨1|4⟩.');
+add('pro', 'Una moneda ha salido cara 5 veces seguidas. P(cruz en la siguiente) =', '⟨1|2⟩', ['1', '⟨1|32⟩', '⟨31|32⟩'], 'Los lanzamientos son independientes: no hay memoria.');
+add('pro', 'Con dos dados, P(suma 7) =', '⟨1|6⟩', ['⟨1|12⟩', '⟨7|36⟩', '⟨1|7⟩'], 'Hay 6 casos favorables de 36: ⟨6|36⟩ = ⟨1|6⟩.');
+add('pro', 'Con dos dados, P(salga 6 en ambos) =', '⟨1|36⟩', ['⟨1|12⟩', '⟨1|6⟩', '⟨1|18⟩'], '⟨1|6⟩ · ⟨1|6⟩ = ⟨1|36⟩.');
+add('pro', 'Bolsa con 3 bolas rojas y 2 azules. Se sacan 2 sin devolverlas. P(las dos rojas) =', '⟨3|10⟩', ['⟨9|25⟩', '⟨6|25⟩', '⟨3|5⟩'], '⟨3|5⟩ · ⟨2|4⟩ = ⟨6|20⟩ = ⟨3|10⟩.');
+add('pro', 'Se sabe que en un dado ha salido más de 3. P(sea par) =', '⟨2|3⟩', ['⟨1|2⟩', '⟨1|3⟩', '⟨1|6⟩'], 'Casos posibles: 4, 5, 6. Pares: 4 y 6.');
+add('pro', '¿Cuál no puede ser una probabilidad?', '1,2', ['0,01', '1', '0'], 'Una probabilidad está siempre entre 0 y 1.');
+add('pro', 'En una baraja española, P(copas o as) =', '⟨13|40⟩', ['⟨7|20⟩', '⟨1|10⟩', '⟨1|4⟩'], '10 copas + 4 ases − 1 (el as de copas) = 13 cartas.');
+/* Ficha de diagnóstico del profesor (102 ejercicios). Las que ya existían en el banco se marcan con markF; el resto se añaden con addF. */
+
+/* 1. Identidades notables */
+addF('idn1', '¿Es correcto afirmar (a + b)^{2} = a^{2} + b^{2}?', 'No en general: falta el término 2ab', ['Sí, siempre', 'Sí, si a y b son positivos', 'Sí, si a = b'], '(a + b)^{2} = a^{2} + 2ab + b^{2}. Solo coinciden cuando ab = 0.');
+addF('idn1', '(2x + 1)^{2} =', '4x^{2} + 4x + 1', ['4x^{2} + 1', '2x^{2} + 2x + 1', '4x^{2} + 2x + 1'], '(2x)^{2} = 4x^{2}, doble producto 2·2x·1 = 4x y 1^{2} = 1.');
+addF('idn1', '(3x − 2)^{2} =', '9x^{2} − 12x + 4', ['9x^{2} − 4', '3x^{2} − 6x + 4', '9x^{2} − 6x + 4'], '(3x)^{2} = 9x^{2}, doble producto 2·3x·2 = 12x y 2^{2} = 4.');
+addF('idn1', '(x + 4)(x − 4) =', 'x^{2} − 16', ['x^{2} + 16', 'x^{2} − 8x + 16', 'x^{2} − 4'], 'Suma por diferencia: x^{2} − 4^{2}.');
+addF('idn1', '(2x − 3)(2x + 3) =', '4x^{2} − 9', ['4x^{2} + 9', '2x^{2} − 9', '4x^{2} − 12x − 9'], 'Suma por diferencia: (2x)^{2} − 3^{2}.');
+addF('idn1', '(−x − 2)^{2} =', 'x^{2} + 4x + 4', ['x^{2} − 4x + 4', '−x^{2} − 4x − 4', 'x^{2} + 4'], '(−x − 2)^{2} = (x + 2)^{2}, porque el cuadrado elimina el signo.');
+addF('idn1', '−(x − 3)^{2} =', '−x^{2} + 6x − 9', ['x^{2} − 6x + 9', '−x^{2} − 6x − 9', '−x^{2} + 9'], 'Primero se desarrolla (x − 3)^{2} = x^{2} − 6x + 9 y después se cambia el signo de todo.');
+
+/* 2. Factorización y factor común */
+addF('fac', 'Factor común de 3x^{2} + 6x:', '3x', ['3', 'x', '6x'], '3x^{2} + 6x = 3x(x + 2).');
+addF('fac', 'Factor común de x^{3} − x:', 'x', ['x^{3}', '1', 'x^{2}'], 'x^{3} − x = x(x^{2} − 1), y se puede seguir factorizando.');
+addF('fac', 'Factor común de 2x^{4} − 8x^{2}:', '2x^{2}', ['2x^{4}', 'x^{2}', '8x^{2}'], 'Se toma el mayor número que divide a ambos (2) y la menor potencia de x (x^{2}).');
+addF('idn2', 'Factoriza x^{2} − 9:', '(x + 3)(x − 3)', ['(x − 3)^{2}', '(x + 9)(x − 1)', '(x + 3)^{2}'], 'Diferencia de cuadrados: 9 = 3^{2}.');
+addF('idn2', 'Factoriza x^{2} − 25:', '(x + 5)(x − 5)', ['(x − 5)^{2}', '(x + 25)(x − 1)', '(x − 25)(x + 1)'], 'Diferencia de cuadrados: 25 = 5^{2}.');
+addF('idn2', 'Factoriza 4x^{2} − 1:', '(2x + 1)(2x − 1)', ['(4x + 1)(4x − 1)', '(2x − 1)^{2}', '(4x − 1)(x + 1)'], '4x^{2} = (2x)^{2} y 1 = 1^{2}.');
+addF('idn2', 'Factoriza x^{2} − 10x + 25:', '(x − 5)^{2}', ['(x + 5)^{2}', '(x − 5)(x + 5)', '(x − 25)^{2}'], '25 = 5^{2} y 10x = 2·x·5, con signo menos.');
+addF('pol1', 'Si P(a) = 0, el binomio que divide a P(x) es', '(x − a)', ['(x + a)', '(x − a^{2})', 'x^{a}'], 'Teorema del factor.');
+addF('pol3', 'Las posibles raíces enteras de x^{3} − 2x + 6 son', '±1, ±2, ±3, ±6', ['±1, ±2, ±3', '±1, ±2, ±3, ±6, ±12', '±1, ±3, ±6'], 'Son los divisores del término independiente, 6, con los dos signos.');
+
+/* 3. Potencias y exponentes */
+addF('pot1', 'x^{1} =', 'x', ['1', '0', 'x^{2}'], 'Cualquier número elevado a 1 es él mismo.');
+addF('pot1', 'x^{a} · x^{b} =', 'x^{a+b}', ['x^{ab}', 'x^{a−b}', '2x^{a+b}'], 'Misma base: se suman los exponentes.');
+addF('pot1', '⟨x^{a}|x^{b}⟩ =', 'x^{a−b}', ['x^{a+b}', 'x^{⟨a|b⟩}', 'x^{ab}'], 'Misma base: se restan los exponentes.');
+addF('pot1', '(x^{a})^{b} =', 'x^{ab}', ['x^{a+b}', 'ax^{b}', 'x^{a−b}'], 'Potencia de potencia: se multiplican los exponentes.');
+addF('pot2', 'x^{−n} =', '⟨1|x^{n}⟩', ['−x^{n}', '−⟨1|x^{n}⟩', '⟨1|nx⟩'], 'Un exponente negativo invierte la base.');
+addF('pot2', '(⟨a|b⟩)^{−1} =', '⟨b|a⟩', ['⟨a|b⟩', '−⟨a|b⟩', '−⟨b|a⟩'], 'La potencia −1 es el inverso: se da la vuelta a la fracción.');
+addF('pot2', '(⟨a|b⟩)^{−n} =', '(⟨b|a⟩)^{n}', ['(⟨a|b⟩)^{n}', '−(⟨a|b⟩)^{n}', '⟨b|a^{n}⟩'], 'Se invierte la fracción y el exponente pasa a positivo.');
+addF('sig', '(−1)^{par} =', '1', ['−1', '0', 'par'], 'Un exponente par elimina el signo negativo.');
+addF('sig', '(−1)^{impar} =', '−1', ['1', '0', 'impar'], 'Un exponente impar mantiene el signo negativo.');
+addF('sig', '¿Es −3^{2} igual a (−3)^{2}?', 'No: −3^{2} = −9 y (−3)^{2} = 9', ['Sí: los dos valen 9', 'Sí: los dos valen −9', 'No: −3^{2} = 9 y (−3)^{2} = −9'], 'Sin paréntesis el exponente solo afecta al 3 y el signo menos queda fuera.');
+
+/* 4. Radicales y racionalización */
+addF('pot2', 'La raíz n-ésima de x^{m} escrita como potencia es', 'x^{⟨m|n⟩}', ['x^{⟨n|m⟩}', 'x^{mn}', 'x^{m−n}'], 'El índice va en el denominador y el exponente en el numerador.');
+addF('pot2', '√{x} =', 'x^{⟨1|2⟩}', ['x^{2}', '2x', 'x^{−2}'], 'La raíz cuadrada es el exponente 1/2.');
+addF('pot2', '√[3]{x} =', 'x^{⟨1|3⟩}', ['x^{3}', '3x', 'x^{−3}'], 'La raíz cúbica es el exponente 1/3.');
+addF('pot2', '⟨1|√{x}⟩ =', 'x^{−⟨1|2⟩}', ['x^{⟨1|2⟩}', 'x^{−2}', '−x^{⟨1|2⟩}'], '1/x^{1/2} = x^{−1/2}.');
+addF('rad2', '√{a} · √{b} =', '√{ab}', ['√{a + b}', 'a√{b}', 'ab'], 'El producto de raíces es la raíz del producto (con a, b ≥ 0).');
+addF('rad2', '√{⟨a|b⟩} =', '⟨√{a}|√{b}⟩', ['⟨√{a}|b⟩', '√{a} − √{b}', '⟨a|√{b}⟩'], 'La raíz se reparte en numerador y denominador.');
+addF('rad2', '¿Es cierto que √{a + b} = √{a} + √{b}?', 'No en general', ['Sí, siempre', 'Sí, si a y b son positivos', 'Sí, si a = b'], 'Por ejemplo, √{9 + 16} = 5, pero 3 + 4 = 7.');
+addF('rad1', '√{x^{2}} =', '|x|', ['x', '−x', 'x^{2}'], 'La raíz cuadrada nunca es negativa, así que sale el valor absoluto.');
+addF('rad1', 'Extrae factores de √{x^{3}}:', 'x√{x}', ['x^{3}', '√{x}', 'x^{2}√{x}'], '√{x^{3}} = √{x^{2}·x} = x√{x}.');
+addF('rad2', 'El conjugado de √{3} − 1 es', '√{3} + 1', ['1 − √{3}', '√{3} − 1', '2√{3} − 2'], 'El conjugado cambia el signo entre los dos términos.');
+addF('rad2', '(√{5} − √{2})(√{5} + √{2}) =', '3', ['7', '√{3}', '10'], 'Suma por diferencia: 5 − 2 = 3.');
+
+/* 5. Logaritmos */
+addF('log1', 'log_{a} 1 =', '0', ['1', 'a', 'No existe'], 'a^{0} = 1.');
+addF('log1', 'log_{a} a^{k} =', 'k', ['a', 'ak', 'a^{k}'], 'El exponente al que hay que elevar a para obtener a^{k} es k.');
+addF('log1', 'ln e^{x} =', 'x', ['e', '1', 'e^{x}'], 'ln y e^{x} se deshacen.');
+addF('log1', '¿Existe en los reales el logaritmo de un número menor o igual que 0?', 'No existe', ['Sí, siempre', 'Sí, si es 0', 'Sí, si es negativo'], 'Ninguna potencia de una base positiva da 0 ni un número negativo.');
+addF('log2', 'log_{a}(x · y) =', 'log_{a} x + log_{a} y', ['log_{a} x · log_{a} y', 'log_{a} x − log_{a} y', 'log_{a}(x + y)'], 'El logaritmo convierte un producto en una suma.');
+addF('log2', 'log_{a} ⟨x|y⟩ =', 'log_{a} x − log_{a} y', ['⟨log_{a} x|log_{a} y⟩', 'log_{a} x + log_{a} y', 'log_{a}(x − y)'], 'El logaritmo convierte un cociente en una resta.');
+addF('log2', 'log_{a}(x^{n}) =', 'n · log_{a} x', ['(log_{a} x)^{n}', 'log_{a} x + n', 'x · log_{a} n'], 'El exponente baja multiplicando.');
+addF('log2', '¿Es cierto que log(x + y) = log x + log y?', 'No en general', ['Sí, siempre', 'Sí, si x e y son positivos', 'Sí, si x = y'], 'La suma de logaritmos es el logaritmo del PRODUCTO.');
+addF('log2', 'log_{a} b =', '⟨log b|log a⟩', ['⟨log a|log b⟩', 'log b − log a', 'log a · log b'], 'Cambio de base: arriba el argumento y abajo la base.');
+addF('log1', 'Si ln x = 0, entonces x =', '1', ['0', 'e', 'No existe'], 'e^{0} = 1.');
+
+/* 6. Fracciones algebraicas */
+addF('fra1', '¿Es cierto que ⟨x + 2|2⟩ = x + 1?', 'No: solo se cancelan factores', ['Sí, se cancelan los 2', 'Sí, porque x + 2 = x + 1 + 1', 'Sí, si x es positivo'], 'Solo se puede cancelar un factor común, no un término de una suma.');
+addF('fra1', 'Simplifica ⟨x^{2} − 4|x − 2⟩ =', 'x + 2', ['x − 2', 'x', 'x + 4'], 'x^{2} − 4 = (x + 2)(x − 2).');
+addF('fra1', 'Simplifica ⟨x^{2} + 2x|x⟩ =', 'x + 2', ['x^{2} + 2', '2x', 'x^{2} + 2x'], 'x(x + 2) / x = x + 2.');
+addF('fra1', 'Simplifica ⟨x − 3|3 − x⟩ =', '−1', ['1', 'x', '0'], '3 − x = −(x − 3), así que el cociente es −1 (con x ≠ 3).');
+addF('fra2', '⟨a|b⟩ + ⟨c|b⟩ =', '⟨a + c|b⟩', ['⟨a + c|2b⟩', '⟨ac|b⟩', '⟨a + c|b^{2}⟩'], 'Con el mismo denominador solo se suman los numeradores.');
+addF('fra1', 'La fracción ⟨P(x)|Q(x)⟩ vale 0 cuando', 'P(x) = 0 y Q(x) ≠ 0', ['Q(x) = 0', 'P(x) = Q(x)', 'P(x) = 0, aunque Q(x) = 0'], 'El numerador se anula y el denominador nunca puede ser 0.');
+addF('fra1', 'En ⟨1|x^{2} − 1⟩, x no puede valer', '1 ni −1', ['Solo 1', '0', 'Solo −1'], 'x^{2} − 1 = 0 cuando x = 1 o x = −1.');
+
+/* 7. Ecuaciones e inecuaciones */
+addF('seg2', 'Si a · b = 0, entonces', 'a = 0 o b = 0', ['a = 0 y b = 0', 'a = b', 'a + b = 0'], 'Un producto es 0 cuando alguno de sus factores es 0.');
+addF('seg2', 'x(x − 5) = 0 tiene soluciones', 'x = 0 y x = 5', ['Solo x = 5', 'x = 0 y x = −5', 'x = 5 y x = −5'], 'Cada factor se iguala a 0.');
+addF('seg2', 'x^{2} − 9 = 0 tiene soluciones', 'x = 3 y x = −3', ['Solo x = 3', 'x = 9 y x = −9', 'x = ⟨9|2⟩'], 'x^{2} = 9 tiene dos soluciones: ±3.');
+addF('seg3', 'En una ecuación bicuadrada ax^{4} + bx^{2} + c = 0 se hace el cambio', 't = x^{2}', ['t = x^{4}', 't = x', 't = ⟨1|x⟩'], 'Queda at^{2} + bt + c = 0, una ecuación de 2.º grado.');
+addF('ine', 'Si −2x < 6, entonces', 'x > −3', ['x < −3', 'x < 3', 'x > 3'], 'Al dividir entre un número negativo, la desigualdad se invierte.');
+addF('ine', 'Si x^{2} < 4, el intervalo solución es', '(−2, 2)', ['(−∞, 2)', '(−∞, −2) ∪ (2, +∞)', '(2, +∞)'], 'x^{2} < 4 significa que x está entre −2 y 2.');
+addF('ine', 'Si |x| ≤ 3, el intervalo solución es', '[−3, 3]', ['(−∞, 3]', '[0, 3]', '(−∞, −3] ∪ [3, +∞)'], 'El valor absoluto mide la distancia a 0: x está a distancia 3 o menos.');
+
+/* 8. Trigonometría y funciones */
+addF('tri1', 'sen 0° y cos 0° valen', '0 y 1', ['1 y 0', '0 y 0', '1 y 1'], 'En el ángulo 0° el punto de la circunferencia es (1, 0).');
+addF('tri1', 'sen 90° y cos 90° valen', '1 y 0', ['0 y 1', '1 y 1', '0 y 0'], 'En 90° el punto de la circunferencia es (0, 1).');
+addF('dom', 'Dominio de f(x) = √{x}', '[0, +∞)', ['(0, +∞)', '(−∞, +∞)', '(−∞, 0]'], 'La raíz cuadrada existe cuando el radicando es mayor o igual que 0.');
+addF('dom', 'Dominio de f(x) = ⟨1|x⟩', 'ℝ − {0}', ['ℝ', '(0, +∞)', '[0, +∞)'], 'No se puede dividir entre 0.');
+addF('dom', 'Dominio de f(x) = ln x', '(0, +∞)', ['[0, +∞)', 'ℝ', 'ℝ − {0}'], 'El argumento del logaritmo tiene que ser estrictamente positivo.');
+
+/* Ya existían en el banco: se marcan como parte de la ficha */
+markF([
+  '(a + b)^{2} =', '(a − b)^{2} =', '(a + b)(a − b) =', '(x + 3)^{2} =', '(x − 5)^{2} =',
+  'x · x =', 'x + x =', 'x^{2} + 6x + 9 =', 'x^{0} =', 'x^{−1} =',
+  '√{18} =', '√{50} =', '(√{x})^{2} =', '√{√{x}} =',
+  'Racionalizar ⟨1|√{2}⟩ da', '⟨3|√{3}⟩ =',
+  'log_{a} x = y significa', 'log_{a} a =', 'ln 1 =', 'ln e =', 'e^{ln x} =', 'log 10 =', 'log 100 =', 'log 0,1 =', 'Si log x = 3, entonces x =',
+  '⟨a|b⟩ + ⟨c|d⟩ =', '⟨a|b⟩ · ⟨c|d⟩ =', '⟨a|b⟩ ÷ ⟨c|d⟩ =',
+  'x^{2} + 4 = 0 en los reales', 'El discriminante es', 'Si Δ > 0, la ecuación de 2.º grado tiene', 'Si Δ = 0, la ecuación de 2.º grado tiene', 'Si Δ < 0, la ecuación de 2.º grado tiene',
+  'Tras elevar al cuadrado una ecuación con raíces hay que', 'sen^{2}x + cos^{2}x =', 'tg x ='
+]);
+/* Barbaridades: errores clásicos que suenan a sirena de policía.
+   BARP: texto exacto de la pregunta → respuestas incorrectas que son una barbaridad.
+   BARF: reglas para preguntas generadas (q, respuesta incorrecta). */
+var BARP = {
+  '−2^{2} =': ['4'],
+  '¿Es −3^{2} igual a (−3)^{2}?': ['Sí: los dos valen 9'],
+  '−x^{2} con x = 3 vale': ['9'],
+  'x + x^{2} =': ['2x^{2}'],
+  'x + x =': ['x^{2}'],
+  '2x + 3x =': ['5x^{2}'],
+  'x · 0 =': ['x'],
+  'x^{2} · x^{3} =': ['x^{6}'],
+  '(2x)^{2} =': ['2x^{2}'],
+  'x^{3} + x^{3} =': ['x^{6}'],
+  '(x + y)^{2} es igual a': ['x^{2} + y^{2}'],
+  'x^{a} · x^{b} =': ['x^{ab}'],
+  '3^{2} · 3^{3} =': ['9^{5}'],
+  'x^{0} =': ['0'],
+  '5^{0} =': ['0'],
+  '2^{−1} =': ['−2'],
+  '10^{−2} =': ['−100'],
+  '(a + b)^{2} =': ['a^{2} + b^{2}'],
+  '(a − b)^{2} =': ['a^{2} − b^{2}'],
+  '(a + b)^{3} =': ['a^{3} + b^{3}'],
+  '(x + 3)^{2} =': ['x^{2} + 9'],
+  '(x − 5)^{2} =': ['x^{2} − 25'],
+  '(2x − 1)^{2} =': ['4x^{2} − 1'],
+  '(2x + 1)^{2} =': ['4x^{2} + 1'],
+  '(3x − 2)^{2} =': ['9x^{2} − 4'],
+  '¿Es correcto afirmar (a + b)^{2} = a^{2} + b^{2}?': ['Sí, siempre'],
+  'a^{2} + b^{2} =': ['(a + b)^{2}'],
+  'a^{3} − b^{3} =': ['(a − b)^{3}'],
+  '√{9 + 16} =': ['7'],
+  '√{a + b} =': ['√{a} + √{b}'],
+  '√{a · b} =': ['√{a} + √{b}'],
+  '√{x} · √{x} =': ['2x'],
+  '√{2} + √{3} =': ['√{5}'],
+  '¿Es cierto que √{a + b} = √{a} + √{b}?': ['Sí, siempre'],
+  '⟨x + 3|3⟩ =': ['x + 1'],
+  '⟨x + 1|x⟩ =': ['2'],
+  '¿Es cierto que ⟨x + 2|2⟩ = x + 1?': ['Sí, se cancelan los 2'],
+  '⟨a|b⟩ + ⟨c|d⟩ =': ['⟨a + c|b + d⟩'],
+  '⟨1|x⟩ + ⟨1|y⟩ =': ['⟨2|x + y⟩'],
+  '⟨1|x⟩ + 1 =': ['⟨2|x⟩'],
+  'Para sumar fracciones algebraicas primero hay que': ['Sumar los denominadores'],
+  'log 0 =': ['0'],
+  'log_{2} 8 =': ['16'],
+  'log_{3} 81 =': ['27'],
+  'log(a · b) =': ['log a · log b'],
+  'log ⟨a|b⟩ =': ['⟨log a|log b⟩'],
+  'log a^{n} =': ['(log a)^{n}'],
+  'log(a + b) =': ['log a + log b'],
+  'log 2 + log 3 =': ['log 5'],
+  '2 log 3 =': ['log 6'],
+  'log 5 + log 2 =': ['7'],
+  'log 2 + log 5 =': ['7'],
+  '¿Es cierto que log(x + y) = log x + log y?': ['Sí, siempre'],
+  'log_{a}(x · y) =': ['log_{a} x · log_{a} y'],
+  'log_{a}(x^{n}) =': ['(log_{a} x)^{n}'],
+  'log_{a} ⟨x|y⟩ =': ['⟨log_{a} x|log_{a} y⟩'],
+  'sen(a + b) =': ['sen a + sen b'],
+  'x^{2} + 4 = 0 en los reales': ['x = ±2'],
+  'x^{2} − 5x = 0 tiene soluciones': ['Solo x = 5'],
+  'x^{2} − 3x = 0 tiene soluciones': ['Solo x = 3'],
+  '√{x} = −2 tiene': ['x = 4'],
+  'Al elevar al cuadrado el lado x − 2 queda': ['x^{2} + 4'],
+  'El polinomio x^{2} + 1 se factoriza en los reales como': ['(x + 1)(x − 1)'],
+  'Si x − 4 = 7, entonces x =': ['3'],
+  'Si 2x = 10, entonces x =': ['20']
+};
+var BARF = [
+  function (q, w) { var m = /^\(x [+−] (\d+)\)\^\{2\} =$/.exec(q); return !!m && w.replace(/^x\^\{2\} [+−] /, '') === String(m[1] * m[1]) && /^x\^\{2\} [+−] \d+$/.test(w); },
+  function (q, w) { return /^−\d+\^\{2\} =$/.test(q) && /^\d+$/.test(w); },
+  function (q, w) { var m = /^x\^\{(\d+)\} · x\^\{(\d+)\} =$/.exec(q); return !!m && w === 'x^{' + (m[1] * m[2]) + '}'; },
+  function (q, w) { var m = /^log (\d+) ([−+]) log (\d+) =$/.exec(q); if (!m) return false; var t = m[2] === '−' ? m[1] - m[3] : +m[1] + +m[3]; return w === 'log ' + t || w === String(t); },
+  function (q, w) { var m = /^(\d+)√\{(\d+)\} \+ (\d+)√\{(\d+)\} =$/.exec(q); return !!m && m[2] === m[4] && w === (+m[1] + +m[3]) + '√{' + (2 * m[2]) + '}'; },
+  function (q, w) { var m = /^Simplifica ⟨x\^\{2\} \+ (\d+)x\|x⟩ =$/.exec(q); return !!m && w === 'x^{2} + ' + m[1]; },
+  function (q, w) { var m = /^⟨(\d+)\|x⟩ \+ ⟨(\d+)\|x⟩ =$/.exec(q); return !!m && w === '⟨' + (+m[1] + +m[2]) + '|2x⟩'; },
+  function (q, w) { var m = /^\d+x\^\{(\d+)\}( [+−] \d+x\^\{\1\})+ =$/.exec(q); var m2 = /^\d+x\^\{(\d+)\}$/.exec(w); return !!m && !!m2 && m2[1] !== m[1]; },
+  function (q, w) { return /^\(x [+−] \d+\)\(x [+−] \d+\) =$/.test(q) && /^x\^\{2\} [+−] \d+$/.test(w); }
+];
+function isBar(q, w, a) {
+  var l = BARP[q];
+  if (l && l.indexOf(w) >= 0) return true;
+  for (var i = 0; i < BARF.length; i++) if (BARF[i](q, w, a)) return true;
+  return false;
+}
+/* Más barbaridades (segunda tanda). Se carga después de barb.js. */
+function barb(q) { var w = Array.prototype.slice.call(arguments, 1); BARP[q] = (BARP[q] || []).concat(w); }
+
+/* Potencias de base negativa: par / impar */
+barb('(−3)^{2} =', '−9'); barb('(−2)^{3} =', '8'); barb('(−1)^{101} =', '1'); barb('(−x)^{2} =', '−x^{2}');
+barb('(−1)^{par} =', '−1'); barb('(−1)^{impar} =', '1'); barb('(−3)^{0} =', '−1'); barb('−3^{2} =', '9');
+barb('¿Es −3^{2} igual a (−3)^{2}?', 'Sí: los dos valen −9');
+/* Logaritmos */
+barb('log 1 =', '1'); barb('log 10 =', '10'); barb('log_{a} a =', '0'); barb('log_{a} 1 =', '1'); barb('ln 1 =', '1');
+barb('ln e =', '0'); barb('log 8 − log 2 =', 'log 6'); barb('log 5 + log 20 =', 'log 25'); barb('log_{3} 5 + log_{3} 2 =', 'log_{3} 7');
+barb('log_{2} 6 − log_{2} 3 =', 'log_{2} 3'); barb('log_{a} b =', '⟨log a|log b⟩');
+barb('log_{b} x =', '⟨log b|log x⟩'); barb('Para calcular log_{2} 5 con la calculadora usamos', 'log 5 − log 2');
+barb('(log a)^{2} =', 'log a^{2}');
+/* Identidades notables */
+barb('(x + 4)(x − 4) =', 'x^{2} + 16'); barb('(2x − 3)(2x + 3) =', '4x^{2} + 9');
+barb('x^{2} − 16 =', '(x − 4)^{2}'); barb('x^{2} + 6x + 9 =', '(x + 3)(x − 3)'); barb('Factoriza x^{2} − 9:', '(x − 3)^{2}');
+barb('Factoriza x^{2} − 25:', '(x − 5)^{2}'); barb('a^{2} − b^{2} =', '(a − b)^{2}'); barb('Factoriza 9x^{2} − 16:', '(3x − 4)^{2}');
+barb('Factoriza 25x^{2} − 1:', '(5x − 1)^{2}'); barb('Factoriza 4x^{2} − 1:', '(2x − 1)^{2}');
+barb('a^{3} + b^{3} =', '(a + b)^{3}'); barb('(−x − 2)^{2} =', '−x^{2} − 4x − 4');
+barb('(√{3} + 1)^{2} =', '4'); barb('(3 + √{2})(3 − √{2}) =', '9');
+/* Números */
+barb('2 + 3 · 4 =', '20'); barb('12 − 3 · (4 − 2) =', '18'); barb('−4 − (−6) =', '−10'); barb('−3 − 5 =', '−2');
+barb('El mcd de dos números primos distintos es', 'su producto');
+barb('⟨2|3⟩ + ⟨1|4⟩ =', '⟨3|7⟩'); barb('⟨3|7⟩ + ⟨2|7⟩ =', '⟨5|14⟩'); barb('⟨2|3⟩ · ⟨3|4⟩ =', '⟨5|7⟩'); barb('Dividir entre ⟨1|2⟩ equivale a', 'dividir entre 2');
+barb('10^{3} · 10^{4} =', '10^{12}', '10^{34}'); barb('10^{5} : 10^{2} =', '10^{7}'); barb('10^{−2} =', '−100');
+barb('(2 · 10^{3})^{2} =', '2 · 10^{6}'); barb('3 · 10^{4} + 2 · 10^{4} =', '5 · 10^{8}');
+barb('Un precio sube un 20 % y luego baja un 20 %. Queda…', 'igual que al principio');
+barb('Se rebaja un 50 % y después otro 50 %. En total se rebaja un', '100 %');
+barb('Dos subidas seguidas del 10 % equivalen a una subida del', '20 %');
+barb('Un precio baja un 20 %. ¿Cuánto debe subir después para volver al original?', 'un 20 %');
+barb('4 obreros tardan 6 días. ¿Cuánto tardan 8 obreros?', '12 días');
+barb('La velocidad y el tiempo para recorrer una distancia fija son', 'directamente proporcionales');
+barb('La razón de 80, 40, 20, 10, … es', '−40');
+barb('−3 es un número', 'natural'); barb('x > 3 se escribe como intervalo:', '[3, +∞)');
+barb('|−7| =', '−7'); barb('|3 − 8| =', '−5'); barb('|x| ≤ 3 equivale a x ∈', '(−∞, 3]');
+barb('¿Qué número pertenece a [2, 5)?', '5'); barb('¿Cuál de estos números es irracional?', '√{9}');
+barb('¿Qué afirmación es cierta?', 'todo racional es entero');
+/* Medida y geometría */
+barb('¿Cuántos cm^{2} tiene 1 m^{2}?', '100 cm^{2}'); barb('¿Cuántos litros tiene 1 m^{3}?', '100 L');
+barb('4 m^{3} expresados en cm^{3} son', '4 000 cm^{3}'); barb('3 600 cm^{2} expresados en m^{2} son', '36 m^{2}');
+barb('¿Cuántos mm^{2} tiene 1 cm^{2}?', '10 mm^{2}'); barb('Una hectárea (1 hm^{2}) equivale a', '100 m^{2}');
+barb('Un coche va a 72 km/h. En m/s va a', '259,2 m/s'); barb('2 h 15 min equivalen a', '215 min'); barb('90 minutos expresados en horas decimales son', '1,3 h');
+barb('3 horas son', '180 s');
+barb('Un triángulo tiene dos ángulos de 50° y 60°. El tercero mide', '110°');
+barb('Dos paralelas cortadas por una secante. Dos ángulos internos del mismo lado de la secante: uno mide 70°, el otro mide', '70°');
+barb('En una circunferencia, un ángulo central mide 80°. Un ángulo inscrito que abarca el mismo arco mide', '80°');
+barb('Un ángulo inscrito en una circunferencia que abarca un diámetro mide', '180°');
+barb('Un círculo tiene diámetro 10 cm. Su área es', '100π cm^{2}');
+barb('La longitud de una circunferencia de radio 6 cm es', '36π cm');
+barb('Un triángulo tiene base 8 cm y altura 5 cm. Su área es', '40 cm^{2}');
+barb('El perímetro de un rectángulo de 7 cm por 4 cm es', '28 cm');
+barb('Un rombo tiene diagonales de 12 cm y 8 cm. Su área es', '96 cm^{2}');
+barb('Un cuadrado tiene perímetro 20 cm. Su área es', '400 cm^{2}');
+barb('Un triángulo rectángulo tiene catetos de 6 cm y 8 cm. Su área es', '48 cm^{2}');
+barb('Un círculo tiene área 49π cm^{2}. Su radio es', '49 cm');
+barb('Una corona circular está entre dos circunferencias concéntricas de radios 5 cm y 3 cm. Su área es', '4π cm^{2}');
+barb('Un paralelogramo tiene base 9 cm, lado oblicuo 5 cm y altura 4 cm. Su área es', '45 cm^{2}');
+barb('Un cono de radio 3 cm y altura 4 cm tiene un volumen de', '36π cm^{3}');
+barb('Una pirámide de base cuadrada de lado 6 cm y altura 5 cm tiene un volumen de', '180 cm^{3}');
+barb('Un cubo de arista 3 cm tiene un volumen de', '9 cm^{3}');
+barb('El área total de un cubo de arista 5 cm es', '25 cm^{2}');
+barb('Si el radio de un cilindro se duplica y su altura no cambia, su volumen', 'se multiplica por 2');
+barb('Un triángulo rectángulo tiene catetos de 6 cm y 8 cm. Su hipotenusa mide', '14 cm');
+barb('La hipotenusa de un triángulo rectángulo mide 13 cm y un cateto 5 cm. El otro cateto mide', '8 cm');
+barb('La diagonal de un cuadrado de lado 4 cm mide', '8 cm');
+barb('Dos figuras semejantes tienen razón de semejanza 3. Su razón de áreas es', '3');
+barb('Dos cuerpos semejantes tienen razón de semejanza 2. Su razón de volúmenes es', '2');
+barb('Dos triángulos son semejantes con razón 3. El pequeño tiene perímetro 12 cm. El grande tiene perímetro', '108 cm');
+barb('El simétrico de (3, 5) respecto al eje X es', '(−3, 5)');
+barb('sen 0° =', '1'); barb('cos 0° =', '0'); barb('tg 45° =', '0'); barb('sen 90° =', '0');
+/* Funciones, trigonometría, estadística y probabilidad */
+barb('El recorrido de f(x) = x^{2} es', 'ℝ'); barb('La parábola y = x^{2} − 9 corta al eje X en', '(−9, 0) y (9, 0)');
+barb('¿Puede 2^{x} ser negativo para algún x?', 'Sí, si x es negativo'); barb('log_{5} 5 =', '5');
+barb('En y = ⟨k|x⟩ (k > 0), si x se duplica, y', 'Se duplica'); barb('Un capital crece un 5 % cada año: C(t) = C_{0}·a^{t}. El valor de a es', '0,05');
+barb('En un triángulo, b = 3, c = 8 y A = 60°. Por el teorema del coseno, a =', '11');
+barb('Un triángulo tiene lados de 6 y 8 que forman un ángulo de 30°. Su área es', '48');
+barb('Un cateto mide 5 y la hipotenusa 13. El otro cateto mide', '18');
+barb('La mediana de 7, 2, 9, 4, 5 es', '9'); barb('El rango de 12, 5, 9, 20, 7 es', '20', '25');
+barb('La media de 4, 6, 8, 10, 12 es', '40'); barb('Si sumamos 5 a todos los datos, la desviación típica', 'Aumenta en 5');
+barb('Una nota 6 con peso 1 y una nota 10 con peso 3. La media ponderada es', '8');
+barb('La desviación típica de 5, 5, 5, 5 es', '5'); barb('La suma de todas las frecuencias relativas es', '100');
+barb('Si r = 1, todos los puntos están', 'Sobre una recta horizontal');
+barb('Datos con x entre 10 y 50. Predecir y para x = 200 es', 'Interpolar, muy fiable');
+barb('Una pendiente negativa en la recta de regresión significa que, al aumentar x,', 'y tiende a aumentar');
+barb('5! =', '25'); barb('0! =', '0'); barb('⟨6!|4!⟩ =', '2'); barb('⟨8!|6!⟩ =', '2');
+barb('Con 3 camisetas y 4 pantalones, ¿cuántos conjuntos distintos hay?', '7');
+barb('En una carrera de 8 corredores, ¿de cuántas formas se reparten oro, plata y bronce?', '56');
+barb('¿De cuántas formas se eligen 3 alumnos de 8 para un comité sin cargos?', '336');
+barb('C(7, 0) =', '0'); barb('(x + 1)^{3} =', 'x^{3} + 1');
+barb('Un menú tiene 2 primeros, 3 segundos y 2 postres. ¿Cuántos menús distintos hay?', '7');
+barb('Si P(A) = 0,3, entonces P(no A) =', '1,3'); barb('Si P(A) = ⟨3|8⟩, la probabilidad del suceso contrario es', '⟨3|5⟩');
+barb('P(A) = 0,5, P(B) = 0,4 y P(A∩B) = 0,2. Entonces P(A∪B) =', '0,9', '1,1');
+barb('A y B son incompatibles, P(A) = ⟨1|4⟩ y P(B) = ⟨1|2⟩. Entonces P(A∪B) =', '⟨1|8⟩');
+barb('A y B son independientes, P(A) = ⟨1|2⟩ y P(B) = ⟨1|3⟩. Entonces P(A∩B) =', '⟨5|6⟩');
+barb('Una moneda ha salido cara 5 veces seguidas. P(cruz en la siguiente) =', '1', '⟨1|32⟩', '⟨31|32⟩');
+barb('Con dos dados, P(salga 6 en ambos) =', '⟨1|12⟩', '⟨1|18⟩');
+barb('Bolsa con 3 bolas rojas y 2 azules. Se sacan 2 sin devolverlas. P(las dos rojas) =', '⟨9|25⟩');
+/* Álgebra: más */
+barb('x^{2} = 9 tiene soluciones', 'Solo x = 3'); barb('Si −2x = 8, entonces x =', '4'); barb('Si ax = b con a ≠ 0, entonces x =', 'b − a');
+barb('El grado de P(x) · Q(x), con grado 3 y grado 2, es', '6'); barb('El grado de P(x) + Q(x), con grado 3 y grado 2, es', '5');
+barb('⟨a|b⟩ ÷ ⟨c|d⟩ =', '⟨ac|bd⟩'); barb('⟨a|b⟩ · ⟨c|d⟩ =', '⟨ac|b + d⟩'); barb('√{2} · √{3} =', '6'); barb('(2√{3})^{2} =', '6');
+barb('3√{2} + 5√{2} =', '8√{4}');
+
+/* Reglas generales (reciben pregunta, opción incorrecta y respuesta correcta) */
+function g_terms(s) {
+  s = String(s || '');
+  var d = 0, n = 1, i, c;
+  for (i = 0; i < s.length; i++) {
+    c = s.charAt(i);
+    if (c === '(' || c === '{') d++; else if (c === ')' || c === '}') d--;
+    else if (d === 0 && (c === '+' || c === '−') && i > 0 && s.charAt(i - 1) === ' ') n++;
+  }
+  return n;
+}
+BARF.push(function (q, w, a) {            /* (binomio)^n: se pierde algún término */
+  return /^\(.+\)\^\{[23]\} =$/.test(q) && g_terms(a) >= 3 && g_terms(w) < g_terms(a);
+});
+BARF.push(function (q, w, a) {            /* suma de cuadrados ↔ diferencia al cuadrado */
+  return /^Factoriza |^[a-z0-9^{} +−]+ =$/.test(q) && /^\(.+\)\^\{2\}$/.test(w) && /\)\(/.test(a);
+});
+BARF.push(function (q, w, a) {
+  return /^Factoriza /.test(q) && /^\(.+\)\(.+\)$/.test(w) && /^\(.+\)\^\{2\}$/.test(a) && /[+−] .+\)\(/.test(w) && w.indexOf(' + ') > 0 && w.indexOf(' − ') > 0;
+});
+BARF.push(function (q, w) {               /* base negativa elevada a n: signo equivocado */
+  var m = /^\(−(\d+)\)\^\{(\d+)\} =$/.exec(q);
+  if (!m) return false;
+  var v = Math.pow(-m[1], m[2]);
+  return w.replace('−', '-') === String(-v);
+});
+BARF.push(function (q, w) {               /* −a^n: el alumno lo toma como (−a)^n */
+  var m = /^−(\d+)\^\{(\d+)\} =$/.exec(q);
+  return !!m && w.replace('−', '-') === String(Math.pow(+m[1], +m[2]));
+});
+BARF.push(function (q, w) {               /* log: restar/sumar argumentos en vez de dividir/multiplicar */
+  var m = /^log(_\{\d+\})? (\d+) ([−+]) log\1 (\d+) =$/.exec(q);
+  if (!m) return false;
+  var t = m[3] === '−' ? m[2] - m[4] : +m[2] + +m[4];
+  return w === 'log' + (m[1] || '') + ' ' + t;
+});
+BARF.push(function (q, w) { return /^Las ventas de helados/.test(q) && /^Los helados causan/.test(w); });
+/* Renderizador de marcado matemático, generadores con números aleatorios y mazo de preguntas */
+var RS = '<svg class="rs" viewBox="0 0 12 20" preserveAspectRatio="none" aria-hidden="true"><path d="M.6 11.4 3 9.8 6.2 18.6 11.6.8H12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter" vector-effect="non-scaling-stroke"/></svg>';
+function R(s) {
+  s = String(s);
+  s = s.replace(/\^\{([^{}]*)\}/g, '<sup>$1</sup>').replace(/_\{([^{}]*)\}/g, '<sub>$1</sub>');
+  var p0;
+  do {
+    p0 = s;
+    s = s.replace(/√\[(\d+)\]\{([^{}]*)\}/g, '<span class="rad"><span class="idx">$1</span>' + RS + '<span class="rad-in">$2</span></span>');
+    s = s.replace(/√\{([^{}]*)\}/g, '<span class="rad">' + RS + '<span class="rad-in">$1</span></span>');
+  } while (s !== p0);
+  var prev;
+  do {
+    prev = s;
+    s = s.replace(/⟨([^⟨⟩|]*)\|([^⟨⟩]*)⟩/g, '<span class="frac"><span>$1</span><span>$2</span></span>');
+  } while (s !== prev);
+  /* matrices ⟦1, 2; 3, 4⟧ y determinantes ⟦|1, 2; 3, 4|⟧ (filas con ';', elementos con ',') */
+  s = s.replace(/⟦(\|?)([^⟦⟧]*?)\|?⟧/g, function (m, d, body) {
+    var rows = body.split(';'), nc = 0;
+    var cells = rows.map(function (r) { var c = r.split(','); nc = Math.max(nc, c.length); return c; });
+    var inner = cells.map(function (c) { return c.map(function (x) { return '<span>' + x.trim() + '</span>'; }).join(''); }).join('');
+    return '<span class="mtx' + (d ? ' det' : '') + '" style="grid-template-columns:repeat(' + nc + ',auto)">' + inner + '</span>';
+  });
+  return s;
+}
+
+function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function shuffle(a) {
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+function gcd(a, b) { return b ? gcd(b, a % b) : Math.abs(a); }
+function mn(n) { return String(n).replace('-', '−'); }
+function sgn(n) { return n < 0 ? '−' : '+'; }
+function bin(r) { return r < 0 ? '(x + ' + (-r) + ')' : '(x − ' + r + ')'; }
+function nz(a, b) { var n = 0; while (n === 0) n = ri(a, b); return n; }
+
+/* polinomio con coeficientes de mayor a menor grado, p. ej. poly([1,-5,6]) → x^{2} − 5x + 6 */
+function poly(c) {
+  var out = '', deg = c.length - 1;
+  c.forEach(function (k, i) {
+    var p = deg - i;
+    if (k === 0) return;
+    var ab = Math.abs(k);
+    var body = (ab === 1 && p > 0 ? '' : String(ab)) + (p === 0 ? '' : p === 1 ? 'x' : 'x^{' + p + '}');
+    if (out === '') out = (k < 0 ? '−' : '') + body;
+    else out += ' ' + (k < 0 ? '−' : '+') + ' ' + body;
+  });
+  return out;
+}
+
+/* completa hasta 3 incorrectas distintas de la correcta */
+function mk(t, q, a, wrongs, e) {
+  var seen = {}; seen[a] = 1;
+  var w = [];
+  wrongs.forEach(function (x) { x = String(x); if (!seen[x]) { seen[x] = 1; w.push(x); } });
+  var base = parseFloat(String(a).replace('−', '-'));
+  for (var k = 1; w.length < 3 && !isNaN(base) && k < 30; k++) {
+    var x = mn(base + (k % 2 ? k : -k));
+    if (!seen[x]) { seen[x] = 1; w.push(x); }
+  }
+  return { t: t, q: q, a: String(a), w: w.slice(0, 3), e: e };
+}
+
+var GENS = [];
+function gen(t, f) { GENS.push({ t: t, f: function () { var q = f(); q.t = t; return q; } }); }
+
+/* factorizar x² + bx + c */
+gen('pol3', function () {
+  var r1, r2;
+  do { r1 = nz(-9, 9); r2 = nz(-9, 9); } while (Math.abs(r1) === Math.abs(r2));
+  var b = -(r1 + r2), c = r1 * r2;
+  return mk('pol', 'Factoriza ' + poly([1, b, c]), bin(r1) + bin(r2),
+    [bin(-r1) + bin(-r2), bin(r1) + bin(-r2), bin(-r1) + bin(r2)],
+    'Busca dos números que sumen ' + mn(-b) + ' y multipliquen ' + mn(c) + ': son ' + mn(r1) + ' y ' + mn(r2) + '.');
+});
+
+/* desarrollar (x ± a)² */
+gen('idn1', function () {
+  var a = ri(2, 9), s = Math.random() < 0.5 ? 1 : -1, g = s > 0 ? '+' : '−';
+  return mk('idn', '(x ' + g + ' ' + a + ')^{2} =', 'x^{2} ' + g + ' ' + 2 * a + 'x + ' + a * a,
+    ['x^{2} ' + g + ' ' + a * a, 'x^{2} ' + g + ' ' + a + 'x + ' + a * a, 'x^{2} ' + g + ' ' + 2 * a + 'x − ' + a * a],
+    'Cuadrado del primero, doble producto (2·x·' + a + ' = ' + 2 * a + 'x) y cuadrado del segundo (+' + a * a + ').');
+});
+
+/* logaritmos en base b */
+gen('log1', function () {
+  var b = pick([2, 3, 5]), n = ri(2, b === 5 ? 3 : 4), N = Math.pow(b, n);
+  if (Math.random() < 0.6) {
+    return mk('log', 'log_{' + b + '} ' + N + ' =', String(n), [n + 1, n - 1, b * n, N / b],
+      b + '^{' + n + '} = ' + N + ', así que el logaritmo es ' + n + '.');
+  }
+  return mk('log', 'Si log_{' + b + '} x = ' + n + ', entonces x =', String(N), [b * n, n * n, Math.pow(n, b), N + b],
+    'log_{' + b + '} x = ' + n + ' significa ' + b + '^{' + n + '} = x.');
+});
+
+/* sumar y restar logaritmos decimales */
+gen('log2', function () {
+  if (Math.random() < 0.55) {
+    var p = pick([[2, 5, 1], [4, 25, 2], [2, 50, 2], [20, 50, 3], [5, 20, 2], [25, 40, 3], [4, 250, 3], [8, 125, 3]]);
+    return mk('log', 'log ' + p[0] + ' + log ' + p[1] + ' =', String(p[2]), ['log ' + (p[0] + p[1]), p[2] + 1, p[2] - 1],
+      'log(' + p[0] + '·' + p[1] + ') = log ' + p[0] * p[1] + ' = ' + p[2] + '.');
+  }
+  var d = pick([[1000, 10, 2], [500, 5, 2], [200, 2, 2], [300, 3, 2], [50, 5, 1], [400, 4, 2], [3000, 3, 3], [20, 2, 1]]);
+  return mk('log', 'log ' + d[0] + ' − log ' + d[1] + ' =', String(d[2]), ['log ' + (d[0] - d[1]), d[2] + 1, d[2] - 1],
+    'log(' + d[0] + ' : ' + d[1] + ') = log ' + d[0] / d[1] + ' = ' + d[2] + '.');
+});
+
+/* sacar factores de una raíz */
+gen('rad1', function () {
+  var k, m = pick([2, 3, 5, 6, 7]);
+  do { k = ri(2, 7); } while (k === m);
+  return mk('rad', '√{' + k * k * m + '} =', k + '√{' + m + '}',
+    [k * k + '√{' + m + '}', m + '√{' + k + '}', String(k * m)],
+    k * k * m + ' = ' + k * k + ' · ' + m + ' y √{' + k * k + '} = ' + k + '.');
+});
+
+/* sumar radicales semejantes */
+gen('rad2', function () {
+  var a = ri(2, 9), b = ri(2, 9), m = pick([2, 3, 5, 7]);
+  return mk('rad', a + '√{' + m + '} + ' + b + '√{' + m + '} =', (a + b) + '√{' + m + '}',
+    [a * b + '√{' + m + '}', (a + b) + '√{' + 2 * m + '}', String(a + b)],
+    'Radicales semejantes: ' + a + ' + ' + b + ' = ' + (a + b) + ' y el radical no cambia.');
+});
+
+/* signos y potencias */
+gen('sig', function () {
+  var a = ri(3, 9), v = ri(0, 2);
+  if (v === 0) return mk('alg', '−' + a + '^{2} =', mn(-a * a), [a * a, mn(-2 * a), 2 * a], 'El exponente solo afecta al ' + a + ': −(' + a + '·' + a + ').');
+  if (v === 1) return mk('alg', '(−' + a + ')^{2} =', String(a * a), [mn(-a * a), mn(-2 * a), 2 * a], 'Con paréntesis, (−' + a + ')(−' + a + ') = +' + a * a + '.');
+  return mk('alg', '(−' + a + ')^{3} =', mn(-a * a * a), [a * a * a, mn(-3 * a), 3 * a], 'Exponente impar: el resultado conserva el signo negativo.');
+});
+
+/* discriminante y número de soluciones */
+gen('seg1', function () {
+  var a = pick([1, 1, 2, 3]), b = nz(-7, 7), c = nz(-6, 6), D = b * b - 4 * a * c, eq = poly([a, b, c]) + ' = 0';
+  var ex = 'Δ = b^{2} − 4ac = (' + mn(b) + ')^{2} − 4·' + a + '·(' + mn(c) + ') = ' + mn(D) + '.';
+  if (Math.random() < 0.5) {
+    return mk('seg', 'Discriminante de ' + eq, mn(D), [mn(b * b + 4 * a * c), mn(4 * a * c - b * b), mn(b * b - 2 * a * c)], ex);
+  }
+  var opts = ['Ninguna solución real', 'Una solución doble', 'Dos soluciones reales distintas', 'Infinitas soluciones'];
+  var ok = D < 0 ? 0 : D === 0 ? 1 : 2;
+  return mk('seg', '¿Cuántas soluciones reales tiene ' + eq + '?', opts[ok], opts.filter(function (_, i) { return i !== ok; }), ex);
+});
+
+/* ecuación ya factorizada igual a cero */
+gen('seg2', function () {
+  var p, q;
+  do { p = nz(-9, 9); q = nz(-9, 9); } while (p === q || p === -q);
+  var f = function (u, v) { return 'x = ' + mn(u) + ' y x = ' + mn(v); };
+  return mk('seg', bin(p) + bin(q) + ' = 0 tiene soluciones', f(p, q), [f(-p, -q), f(p, -q), f(-p, q)],
+    'Cada factor vale 0: ' + bin(p) + ' = 0 da x = ' + mn(p) + ' y ' + bin(q) + ' = 0 da x = ' + mn(q) + '.');
+});
+
+/* sistema lineal fácil */
+gen('sis1', function () {
+  var x, y;
+  do { x = ri(1, 9); y = ri(1, 9); } while (x === y);
+  var S = x + y, D = x - y, askX = Math.random() < 0.5, v = askX ? x : y, o = askX ? y : x;
+  return mk('sis', 'x + y = ' + S + ' y x − y = ' + mn(D) + ', entonces ' + (askX ? 'x' : 'y') + ' =', String(v),
+    [o, 2 * v, v + 1],
+    'Sumando: 2x = ' + (S + D) + ' → x = ' + x + '. Restando: 2y = ' + (S - D) + ' → y = ' + y + '.');
+});
+
+/* resto con Ruffini = P(a) */
+gen('pol1', function () {
+  var a = pick([-3, -2, -1, 1, 2, 3]), p = nz(-4, 4), q = nz(-5, 5), r = nz(-6, 6);
+  var P = function (v) { return v * v * v + p * v * v + q * v + r; };
+  var co = poly([1, p, q, r]);
+  return mk('pol', 'Resto de dividir ' + co + ' entre ' + bin(a), mn(P(a)), [mn(P(-a)), mn(r), mn(P(a) + a)],
+    'Teorema del resto: P(' + mn(a) + ') = ' + mn(P(a)) + '.');
+});
+
+/* grados y radianes */
+gen('tri2', function () {
+  var degs = [30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360];
+  var d = pick(degs), g = gcd(d, 180), p = d / g, q = 180 / g;
+  var fmt = function (p, q) {
+    var top = p === 1 ? 'π' : p + 'π';
+    return q === 1 ? top : '⟨' + top + '|' + q + '⟩';
+  };
+  if (Math.random() < 0.5) {
+    var L = [[1, 6], [1, 4], [1, 3], [1, 2], [2, 3], [3, 4], [5, 6], [1, 1], [3, 2], [2, 1], [5, 4], [4, 3]].filter(function (f) { return !(f[0] === p && f[1] === q); });
+    var w = shuffle(L).slice(0, 3).map(function (f) { return fmt(f[0], f[1]) + ' rad'; });
+    return mk('tri', d + '° en radianes son', fmt(p, q) + ' rad', w, 'Se multiplica por π/180: ' + d + '/180 = ' + p + '/' + q + '.');
+  }
+  var o = shuffle(degs.filter(function (x) { return x !== d; })).slice(0, 3).map(function (x) { return x + '°'; });
+  return mk('tri', fmt(p, q) + ' rad en grados son', d + '°', o, 'π rad = 180°, así que ' + fmt(p, q) + ' rad = ' + d + '°.');
+});
+
+/* potencias de la misma base */
+gen('pot1', function () {
+  var m = ri(2, 5), n, v = ri(0, 2);
+  do { n = ri(2, 5); } while (n === m);
+  if (v === 0) return mk('pot', 'x^{' + m + '} · x^{' + n + '} =', 'x^{' + (m + n) + '}', ['x^{' + m * n + '}', 'x^{' + Math.abs(m - n) + '}', (m + n) + 'x'], 'Misma base: se suman los exponentes, ' + m + ' + ' + n + ' = ' + (m + n) + '.');
+  if (v === 1) {
+    var hi = Math.max(m, n), lo = Math.min(m, n);
+    return mk('pot', '⟨x^{' + hi + '}|x^{' + lo + '}⟩ =', 'x^{' + (hi - lo) + '}', ['x^{' + (hi + lo) + '}', 'x^{⟨' + hi + '|' + lo + '⟩}', 'x^{' + hi * lo + '}'], 'Misma base: se restan los exponentes, ' + hi + ' − ' + lo + ' = ' + (hi - lo) + '.');
+  }
+  return mk('pot', '(x^{' + m + '})^{' + n + '} =', 'x^{' + m * n + '}', ['x^{' + (m + n) + '}', 'x^{' + Math.pow(m, n) + '}', n + 'x^{' + m + '}'], 'Potencia de potencia: se multiplican los exponentes, ' + m + ' · ' + n + ' = ' + m * n + '.');
+});
+
+/* ---------- mazo ---------- */
+function finish(q) {
+  var opts = shuffle([{ s: q.a, ok: true }].concat(q.w.map(function (s) { return { s: s, ok: false, bar: typeof isBar === 'function' && isBar(q.q, s, q.a) }; })));
+  return { t: q.t, q: q.q, a: q.a, e: q.e, p: q.p, fl: q.fl, k: q.k, opts: opts };
+}
+
+function qKey(k) {          /* 'g12' → generador 12 (números nuevos), 's40' → pregunta fija 40 */
+  var m = /^([gs])(\d+)$/.exec(String(k || ''));
+  if (!m) return null;
+  var i = +m[2];
+  if (m[1] === 'g') { var g = GENS[i]; if (!g) return null; var q = g.f(); q.k = k; return q; }
+  var s = STATIC[i]; if (!s) return null;
+  var o = {}, p; for (p in s) o[p] = s[p]; o.k = k; return o;
+}
+function keysDeck(keys) {   /* mazo con solo las preguntas indicadas (practicar fallos) */
+  keys = keys.filter(function (k) { return /^[gs]\d+$/.test(k) && (k[0] === 'g' ? GENS[+k.slice(1)] : STATIC[+k.slice(1)]); });
+  var bag = [], last = '';
+  return {
+    n: keys.length,
+    next: function () {
+      var q = null, tries = 0;
+      while (!q && tries < 20) {
+        if (!bag.length) bag = shuffle(keys.slice());
+        var k = bag.pop();
+        if (keys.length > 1 && k === last) { tries++; continue; }
+        last = k; q = qKey(k); tries++;
+      }
+      return finish(q || qKey(keys[0]));
+    }
+  };
+}
+function makeDeck(topics, opt) {
+  opt = opt || {};
+  var wantF = topics.indexOf('ficha') >= 0;
+  var pool = STATIC.filter(function (q) { return topics.indexOf(q.t) >= 0 || (wantF && q.f); });
+  var gens = GENS.filter(function (g) { return topics.indexOf(g.t) >= 0; });
+  var deck = [], lastQ = '';
+  return {
+    next: function () {
+      var q, tries = 0;
+      do {
+        if (gens.length && (pool.length === 0 || Math.random() < 0.5)) { var g = pick(gens); q = g.f(); q.k = 'g' + GENS.indexOf(g); }
+        else {
+          if (!deck.length) deck = shuffle(pool.slice());
+          q = deck.pop();
+          var o = {}, p; for (p in q) o[p] = q[p]; o.k = 's' + STATIC.indexOf(q); q = o;
+        }
+        tries++;
+      } while ((q.q === lastQ || (opt.noProb && q.p)) && tries < 12);
+      lastQ = q.q;
+      return finish(q);
+    }
+  };
+}
+/* Generadores con números aleatorios, segunda tanda */
+function lin(a, b) {
+  var s = (a === 1 ? '' : a === -1 ? '−' : mn(a)) + 'x';
+  if (b > 0) s += ' + ' + b; else if (b < 0) s += ' − ' + (-b);
+  return s;
+}
+function xm(a) { return a < 0 ? 'x + ' + (-a) : 'x − ' + a; }          /* x − a */
+function xp(a) { return a < 0 ? 'x − ' + (-a) : 'x + ' + a; }          /* x + a */
+function sol(v) { return 'x = ' + mn(v); }
+function sol2(a, b) { return 'x = ' + mn(a) + ' y x = ' + mn(b); }
+function sol3(r) { r = r.slice().sort(function (a, b) { return a - b; }); return 'x = ' + mn(r[0]) + ', x = ' + mn(r[1]) + ' y x = ' + mn(r[2]); }
+function fs(n, d) {               /* fracción reducida con signo */
+  var g = gcd(n, d), s = (n < 0) !== (d < 0) ? '−' : '';
+  n = Math.abs(n) / g; d = Math.abs(d) / g;
+  return d === 1 ? s + n : s + '⟨' + n + '|' + d + '⟩';
+}
+function rd(n, r) { return n === 2 ? '√{' + r + '}' : '√[' + n + ']{' + r + '}'; }
+function lcm(a, b) { return a * b / gcd(a, b); }
+function genr(t, fn) {
+  gen(t, function () {
+    var q;
+    for (var i = 0; i < 80; i++) { q = fn(); if (q.w.length === 3) return q; }
+    return q;
+  });
+}
+function pairs(a, b) { return pick(a) + ',' + pick(b); }
+
+/* --- Despejar --- */
+genr('des', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var a = ri(2, 6), x = nz(-6, 9), b = nz(-9, 9), c = a * x + b;
+    return mk('des', lin(a, b) + ' = ' + mn(c) + ', entonces x =', mn(x), [mn(c - b), mn(-x), mn(x + 1), mn(x - 1)],
+      'Pasamos ' + mn(b) + ' al otro lado: ' + a + 'x = ' + mn(c - b) + ', y dividimos entre ' + a + '.');
+  }
+  if (v === 1) {
+    var a2 = ri(2, 5), b2 = nz(-4, 4), c2 = ri(-3, 6), x2 = a2 * (c2 - b2);
+    return mk('des', '⟨x|' + a2 + '⟩ ' + (b2 < 0 ? '− ' : '+ ') + Math.abs(b2) + ' = ' + mn(c2) + ', entonces x =', mn(x2), [mn(c2 - b2), mn(a2 * (c2 + b2)), mn(x2 + a2), mn(-x2)],
+      'x/' + a2 + ' = ' + mn(c2 - b2) + ', y el ' + a2 + ' pasa multiplicando.');
+  }
+  var a3 = ri(3, 7), c3 = ri(1, a3 - 1), x3 = nz(-5, 6), p = nz(-8, 8), d = (a3 - c3) * x3 + p;
+  return mk('des', lin(a3, p) + ' = ' + lin(c3, d) + ', entonces x =', mn(x3), [mn(-x3), mn(x3 + 1), mn(x3 - 1), mn(x3 + 2)],
+    'Pasamos las x a un lado: ' + (a3 - c3) + 'x = ' + mn(d - p) + '.');
+});
+
+/* --- Operar con letras --- */
+genr('ope', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var a = ri(2, 9), b = ri(2, 9), c = ri(1, 5), r = a + b - c;
+    if (r < 2) { a += 3; r = a + b - c; }
+    return mk('ope', a + 'x^{2} + ' + b + 'x^{2} − ' + c + 'x^{2} =', r + 'x^{2}', [r + 'x^{6}', (a + b + c) + 'x^{2}', r + 'x'],
+      'Términos semejantes: ' + a + ' + ' + b + ' − ' + c + ' = ' + r + ', y la parte literal no cambia.');
+  }
+  if (v === 1) {
+    var p = ri(2, 6), q = ri(2, 6);
+    return mk('ope', p + 'x · ' + q + 'x^{2} =', (p * q) + 'x^{3}', [(p + q) + 'x^{3}', (p * q) + 'x^{2}', (p * q) + 'x^{5}'],
+      'Coeficientes: ' + p + '·' + q + ' = ' + p * q + '. Letras: x · x^{2} = x^{3}.');
+  }
+  var m, n;
+  do { m = nz(-6, 6); n = nz(-6, 6); } while (m + n === 0 || m * n === m + n || m === n);
+  var bp = function (k) { return '(x ' + (k < 0 ? '− ' : '+ ') + Math.abs(k) + ')'; };
+  return mk('ope', bp(m) + bp(n) + ' =', poly([1, m + n, m * n]), [poly([1, m * n, m + n]), poly([1, m + n, -m * n]), poly([1, 0, m * n])],
+    'x^{2} + (' + mn(m) + ' + ' + mn(n) + ')x + (' + mn(m) + ')(' + mn(n) + ').');
+});
+
+/* --- Potencias con exponente negativo o fraccionario --- */
+genr('pot2', function () {
+  if (Math.random() < 0.45) {
+    var a = pick([2, 3, 5, 10]), n = ri(1, a === 2 ? 4 : 3), N = Math.pow(a, n);
+    return mk('pot2', a + '^{−' + n + '} =', '⟨1|' + N + '⟩', ['−' + N, '−⟨1|' + N + '⟩', '⟨1|' + a * n + '⟩', '⟨1|' + (N + 1) + '⟩'],
+      'a^{−n} = 1 / a^{n}: ' + a + '^{' + n + '} = ' + N + '.');
+  }
+  var t = pick([[4, 2, 2], [9, 2, 3], [25, 2, 5], [8, 3, 2], [27, 3, 3], [16, 4, 2], [81, 4, 3], [125, 3, 5], [64, 3, 4], [36, 2, 6]]);
+  var m = (t[1] === 2 || Math.random() < 0.5) ? 1 : 2;
+  var ans = Math.pow(t[2], m);
+  return mk('pot2', t[0] + '^{⟨' + m + '|' + t[1] + '⟩} =', String(ans), [String(t[2] * m + (m === 1 ? 1 : 0)), String(t[0] / t[1] | 0), String(ans + t[2]), String(t[0] * m)],
+    'El denominador ' + t[1] + ' es la raíz: la raíz de índice ' + t[1] + ' de ' + t[0] + ' es ' + t[2] + (m === 1 ? '.' : ', y se eleva a ' + m + '.'));
+});
+
+/* --- Radicales: cúbicas y potencias de x --- */
+genr('rad1', function () {
+  if (Math.random() < 0.5) {
+    var k = ri(2, 4), m = pick([2, 3, 5, 6, 7]);
+    return mk('rad1', '√[3]{' + k * k * k * m + '} =', k + '√[3]{' + m + '}',
+      [k * k * k + '√[3]{' + m + '}', m + '√[3]{' + k + '}', k + '√{' + m + '}'],
+      k * k * k * m + ' = ' + k * k * k + ' · ' + m + ' y la raíz cúbica de ' + k * k * k + ' es ' + k + '.');
+  }
+  var j = ri(2, 4);
+  return mk('rad1', '√{x^{' + (2 * j + 1) + '}} =', 'x^{' + j + '}√{x}', ['x^{' + j + '}', 'x^{' + (j + 1) + '}√{x}', 'x√{x^{' + j + '}}'],
+    'x^{' + (2 * j + 1) + '} = x^{' + 2 * j + '} · x y √{x^{' + 2 * j + '}} = x^{' + j + '}.');
+});
+
+/* --- Racionalizar y multiplicar radicales --- */
+genr('rad2', function () {
+  if (Math.random() < 0.5) {
+    var m = pick([2, 3, 5, 6, 7]), k = ri(2, 9);
+    if (k % m === 0) k += 1;
+    return mk('rad2', '⟨' + k + '|√{' + m + '}⟩ =', '⟨' + k + '√{' + m + '}|' + m + '⟩',
+      [k + '√{' + m + '}', '⟨' + k + '|' + m + '⟩', '⟨√{' + m + '}|' + m + '⟩'],
+      'Se multiplica arriba y abajo por √{' + m + '}: el denominador queda ' + m + '.');
+  }
+  var pr = pick([[2, 3], [2, 5], [3, 5], [2, 7], [3, 7], [5, 7]]), a = ri(2, 6), b = ri(2, 6);
+  return mk('rad2', a + '√{' + pr[0] + '} · ' + b + '√{' + pr[1] + '} =', (a * b) + '√{' + pr[0] * pr[1] + '}',
+    [(a + b) + '√{' + pr[0] * pr[1] + '}', (a * b) + '√{' + (pr[0] + pr[1]) + '}', String(a * b * pr[0] * pr[1])],
+    'Se multiplican los números (' + a + '·' + b + ') y los radicandos (' + pr[0] + '·' + pr[1] + ').');
+});
+
+/* --- Índice común --- */
+genr('rad3', function () {
+  var v = ri(0, 2), idx = [2, 3, 4, 6];
+  if (v === 0) {
+    var n = pick(idx), m;
+    do { m = pick(idx); } while (m === n);
+    var L = lcm(n, m);
+    return mk('rad3', 'El índice común de ' + rd(n, 'a') + ' y ' + rd(m, 'b') + ' es', String(L), [n * m, n + m, Math.max(n, m), L * 2],
+      'Es el mcm de ' + n + ' y ' + m + ': ' + L + '.');
+  }
+  if (v === 1) {
+    var n2 = pick([2, 3, 4]), k = ri(2, 3), a = pick([2, 3, 5]), L2 = n2 * k;
+    return mk('rad3', rd(n2, a) + ' = ' + rd(L2, '…') + '. El radicando que falta es', String(Math.pow(a, k)),
+      [a * k, Math.pow(a, L2), a + k, Math.pow(k, a)],
+      'Se multiplican índice y exponente por ' + k + ': ' + a + '^{' + k + '} = ' + Math.pow(a, k) + '.');
+  }
+  var n3 = pick([2, 3, 4]), m3;
+  do { m3 = pick([2, 3, 4, 6]); } while (m3 === n3);
+  var f = fs(m3 + n3, n3 * m3);
+  return mk('rad3', rd(n3, 'x') + ' · ' + rd(m3, 'x') + ' =', 'x^{' + f + '}',
+    ['x^{' + fs(2, n3 + m3) + '}', 'x^{' + fs(1, n3 * m3) + '}', 'x^{' + fs(1, n3 + m3) + '}', 'x^{' + fs(1, Math.max(n3, m3)) + '}'],
+    'Como potencias: x^{1/' + n3 + '} · x^{1/' + m3 + '} = x^{1/' + n3 + ' + 1/' + m3 + '}.');
+});
+
+/* --- Factorizar con identidades --- */
+genr('idn2', function () {
+  if (Math.random() < 0.5) {
+    var a = ri(2, 6), b = ri(2, 9);
+    return mk('idn2', 'Factoriza ' + a * a + 'x^{2} − ' + b * b + ':', '(' + a + 'x + ' + b + ')(' + a + 'x − ' + b + ')',
+      ['(' + a + 'x − ' + b + ')^{2}', '(' + a * a + 'x + ' + b * b + ')(' + a * a + 'x − ' + b * b + ')', '(' + a + 'x + ' + b * b + ')(' + a + 'x − ' + b * b + ')'],
+      'Diferencia de cuadrados: ' + a * a + 'x^{2} = (' + a + 'x)^{2} y ' + b * b + ' = ' + b + '^{2}.');
+  }
+  var k = ri(2, 9), s = Math.random() < 0.5 ? 1 : -1, g = s > 0 ? '+' : '−';
+  return mk('idn2', 'Factoriza x^{2} ' + g + ' ' + 2 * k + 'x + ' + k * k + ':', '(x ' + g + ' ' + k + ')^{2}',
+    ['(x ' + g + ' ' + 2 * k + ')^{2}', '(x ' + g + ' ' + k + ')(x ' + (s > 0 ? '−' : '+') + ' ' + k + ')', '(x ' + (s > 0 ? '−' : '+') + ' ' + k + ')^{2}'],
+    k * k + ' = ' + k + '^{2} y ' + 2 * k + 'x = 2·x·' + k + '.');
+});
+
+/* --- Factor común --- */
+genr('fac', function () {
+  var k = ri(2, 6), p = ri(1, 4), q = ri(1, 4), u = ri(2, 4), v = ri(1, u - 1);
+  if (gcd(p, q) !== 1 || p === q) { p = 2; q = 3; }
+  var xs = function (e) { return e === 1 ? 'x' : 'x^{' + e + '}'; };
+  var t = function (c, e) { return (c === 1 ? '' : c) + xs(e); };
+  return mk('fac', 'Factor común de ' + t(k * p, u) + ' + ' + t(k * q, v) + ':', t(k, v),
+    [t(k, u), t(k * p, v), String(k), t(1, v)],
+    'Número: el mayor que divide a ' + k * p + ' y ' + k * q + ' es ' + k + '. Letra: la menor potencia de x es ' + xs(v) + '.');
+});
+
+/* --- Teorema del resto y Ruffini: cociente --- */
+genr('pol2', function () {
+  var a = nz(-4, 4), p = nz(-5, 5), q = nz(-6, 6);
+  var c = [1, p - a, q - a * p, -a * q];
+  var quo = poly([1, p, q]);
+  var wrongs = [poly([1, -p, q]), poly([1, p, -q]), poly([1, p + 1, q]), poly([1, p, q + 1])];
+  return mk('pol2', 'Cociente de ' + poly(c) + ' entre ' + bin(a) + ' por Ruffini:', quo, wrongs,
+    'Con a = ' + mn(a) + ' se baja 1, se multiplica por ' + mn(a) + ' y se suma al siguiente. Salen 1, ' + mn(p) + ' y ' + mn(q) + ', con resto 0.');
+});
+
+/* --- Factorizar un cúbico con tres raíces enteras --- */
+genr('pol3', function () {
+  var r = [nz(-5, 5), nz(-5, 5), nz(-5, 5)];
+  if (r[0] === r[1] || r[1] === r[2] || r[0] === r[2]) return { t: 'pol3', q: '', a: '', w: [], e: '' };
+  var s = r[0] + r[1] + r[2], pp = r[0] * r[1] + r[0] * r[2] + r[1] * r[2], pr = r[0] * r[1] * r[2];
+  var f = function (v) { return v.map(bin).join(''); };
+  return mk('pol3', 'Factoriza ' + poly([1, -s, pp, -pr]), f(r),
+    [f(r.map(function (z) { return -z; })), f([-r[0], r[1], r[2]]), f([r[0], -r[1], r[2]])],
+    'Se prueban raíces enteras con Ruffini: las raíces son ' + r.map(mn).join(', ') + '.');
+});
+
+/* --- Simplificar fracciones --- */
+genr('fra1', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var a = ri(2, 9), s = Math.random() < 0.5 ? 1 : -1;
+    return mk('fra1', 'Simplifica ⟨x^{2} − ' + a * a + '|x ' + (s > 0 ? '−' : '+') + ' ' + a + '⟩ =', 'x ' + (s > 0 ? '+' : '−') + ' ' + a,
+      ['x ' + (s > 0 ? '−' : '+') + ' ' + a, 'x', String(a)], 'x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + ').');
+  }
+  if (v === 1) {
+    var b = ri(2, 9);
+    return mk('fra1', 'Simplifica ⟨x^{2} + ' + b + 'x|x⟩ =', 'x + ' + b, ['x^{2} + ' + b, b + 'x', 'x + ' + b + 'x'],
+      'x^{2} + ' + b + 'x = x(x + ' + b + ').');
+  }
+  var r, t;
+  do { r = nz(-6, 6); t = nz(-6, 6); } while (r === t || r === -t);
+  return mk('fra1', 'Simplifica ⟨' + poly([1, -(r + t), r * t]) + '|' + bin(r) + '⟩ =', xm(t),
+    [xp(t), xm(r), xm(r + t)], 'Se factoriza el numerador: ' + bin(r) + bin(t) + '.');
+});
+
+/* --- Operar fracciones --- */
+genr('fra2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var a = ri(1, 7), b = ri(1, 7);
+    return mk('fra2', '⟨' + a + '|x⟩ + ⟨' + b + '|x⟩ =', '⟨' + (a + b) + '|x⟩', ['⟨' + (a + b) + '|2x⟩', '⟨' + a * b + '|x⟩', '⟨' + (a + b) + '|x^{2}⟩'],
+      'Mismo denominador: se suman los numeradores.');
+  }
+  if (v === 1) {
+    var k = ri(2, 7);
+    return mk('fra2', '⟨1|x − ' + k + '⟩ + ⟨1|x + ' + k + '⟩ =', '⟨2x|x^{2} − ' + k * k + '⟩',
+      ['⟨2|x^{2} − ' + k * k + '⟩', '⟨2|2x⟩', '⟨2x|x^{2} + ' + k * k + '⟩'],
+      'Común denominador (x − ' + k + ')(x + ' + k + ') = x^{2} − ' + k * k + ', y el numerador es (x + ' + k + ') + (x − ' + k + ') = 2x.');
+  }
+  var u = ri(2, 4), w = ri(1, 3), xs = function (e) { return e === 1 ? 'x' : 'x^{' + e + '}'; };
+  return mk('fra2', 'El mcm de ' + xs(u) + ' y ' + xs(u + w) + ' es', xs(u + w), [xs(u), xs(2 * u + w), xs(u * (u + w))],
+    'Se toma cada letra con su mayor exponente.');
+});
+
+/* --- Resolver ecuaciones de 2.º grado con raíces enteras y ecuaciones incompletas --- */
+genr('seg2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var r, t;
+    do { r = nz(-8, 8); t = nz(-8, 8); } while (Math.abs(r) === Math.abs(t));
+    return mk('seg2', poly([1, -(r + t), r * t]) + ' = 0 tiene soluciones', sol2(r, t), [sol2(-r, -t), sol2(r, -t), sol2(-r, t)],
+      'Dos números que suman ' + mn(r + t) + ' y multiplican ' + mn(r * t) + ': ' + mn(r) + ' y ' + mn(t) + '.');
+  }
+  if (v === 1) {
+    var a = ri(2, 5), k = ri(2, 7);
+    return mk('seg2', a + 'x^{2} = ' + a * k * k + ' tiene soluciones', sol2(k, -k), ['x = ' + k, 'x = ' + k * k + ' y x = −' + k * k, 'x = ' + a * k * k],
+      'x^{2} = ' + k * k + ', y la raíz tiene dos signos.');
+  }
+  var b = nz(-9, 9);
+  return mk('seg2', 'x^{2} ' + (b < 0 ? '− ' : '+ ') + Math.abs(b) + 'x = 0 tiene soluciones', sol2(0, -b), [sol(-b), sol2(0, b), sol(b)],
+    'x(x ' + (b < 0 ? '− ' : '+ ') + Math.abs(b) + ') = 0. No se divide entre x: se perdería x = 0.');
+});
+
+/* --- Bicuadradas y cúbicas --- */
+genr('seg3', function () {
+  if (Math.random() < 0.5) {
+    var p = ri(1, 4), q = ri(1, 4);
+    if (p === q) q = p + 1;
+    var S = p * p + q * q, P = p * p * q * q;
+    return mk('seg3', poly([1, 0, -S, 0, P]) + ' = 0 tiene soluciones', 'x = ±' + p + ' y x = ±' + q,
+      ['x = ' + p * p + ' y x = ' + q * q, 'x = ±' + p * p + ' y x = ±' + q * q, 'x = ' + p + ' y x = ' + q],
+      'Con t = x^{2}: t^{2} − ' + S + 't + ' + P + ' = 0 da t = ' + p * p + ' y t = ' + q * q + ', y x = ±√{t}.');
+  }
+  var r = [nz(-4, 4), nz(-4, 4), nz(-4, 4)];
+  if (r[0] === r[1] || r[1] === r[2] || r[0] === r[2]) return { t: 'seg3', q: '', a: '', w: [], e: '' };
+  var s = r[0] + r[1] + r[2], pp = r[0] * r[1] + r[0] * r[2] + r[1] * r[2], pr = r[0] * r[1] * r[2];
+  var neg = r.map(function (z) { return -z; });
+  return mk('seg3', poly([1, -s, pp, -pr]) + ' = 0 tiene soluciones', sol3(r), [sol3(neg), sol3([-r[0], r[1], r[2]]), sol3([r[0], -r[1], r[2]])],
+    'Ruffini con una raíz entera deja una ecuación de 2.º grado. Las soluciones son ' + r.map(mn).join(', ') + '.');
+});
+
+/* --- Ecuaciones con radicales --- */
+genr('eqr', function () {
+  if (Math.random() < 0.5) {
+    var a = nz(-5, 8), b = ri(2, 6);
+    return mk('eqr', 'La solución de √{x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + '} = ' + b + ' es', sol(b * b - a),
+      [sol(b - a), sol(b * b + a), sol(2 * b - a)], 'Se eleva al cuadrado: x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + ' = ' + b * b + '.');
+  }
+  var d = ri(1, 3), r = ri(d + 3, d + 6), e = 2 * d + 2 - r, c = d * d - r * e;
+  return mk('eqr', '√{' + lin(2, c) + '} = ' + xm(d) + ' tiene como solución válida', 'Solo x = ' + r,
+    ['x = ' + r + ' y x = ' + mn(e), 'Solo x = ' + mn(e), 'Ninguna solución'],
+    'Elevando al cuadrado salen x = ' + r + ' y x = ' + mn(e) + ', pero con x = ' + mn(e) + ' el lado derecho sería negativo, así que es solución falsa.');
+});
+
+/* --- Ecuaciones con fracciones --- */
+genr('eqf', function () {
+  var a, b, p, q, s, den;
+  for (var i = 0; i < 200; i++) {
+    a = ri(1, 6); b = ri(1, 6); p = nz(-5, 5); q = nz(-5, 5);
+    if (a === b || p === q) continue;
+    den = a - b;
+    if ((b * p - a * q) % den !== 0) continue;
+    s = (b * p - a * q) / den;
+    if (s === -p || s === -q) continue;
+    break;
+  }
+  return mk('eqf', 'La solución de ⟨' + a + '|' + xp(p) + '⟩ = ⟨' + b + '|' + xp(q) + '⟩ es', sol(s), [sol(-s), sol(s + 1), sol(s - 1), sol(s + 2)],
+    'Producto cruzado: ' + a + '(x ' + (q < 0 ? '− ' : '+ ') + Math.abs(q) + ') = ' + b + '(x ' + (p < 0 ? '− ' : '+ ') + Math.abs(p) + ').');
+});
+
+/* --- Ecuaciones con logaritmos y exponenciales --- */
+genr('eql', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var n = ri(2, 5), a = nz(-4, 6);
+    return mk('eql', 'La solución de log_{2}(' + xp(a) + ') = ' + n + ' es', sol(Math.pow(2, n) - a), [sol(2 * n - a), sol(Math.pow(2, n) + a), sol(n * n - a)],
+      xp(a) + ' = 2^{' + n + '} = ' + Math.pow(2, n) + '.');
+  }
+  if (v === 1) {
+    var k = ri(1, 4), r = ri(k + 1, k + 5), e = k - r, m = r * (r - k);
+    return mk('eql', 'log x + log(' + xm(k) + ') = log ' + m + ' tiene como solución válida', sol(r), [sol(e), 'x = ' + r + ' y x = ' + mn(e), sol(m)],
+      'x(' + xm(k) + ') = ' + m + ' da x = ' + r + ' y x = ' + mn(e) + ', pero con x = ' + mn(e) + ' los argumentos serían negativos.');
+  }
+  var base = pick([2, 3, 5]), n2 = ri(2, 4), k2 = nz(-3, 4);
+  return mk('eql', base + '^{' + xp(k2) + '} = ' + Math.pow(base, n2) + ' tiene solución', sol(n2 - k2), [sol(n2 + k2), sol(n2), sol(Math.pow(base, n2) - k2)],
+    base + '^{' + n2 + '} = ' + Math.pow(base, n2) + ', así que ' + xp(k2) + ' = ' + n2 + '.');
+});
+
+/* --- Sistemas lineales --- */
+genr('sis1', function () {
+  var x, y;
+  do { x = ri(1, 8); y = ri(1, 8); } while (x === y);
+  var S = 2 * x + y, D = x - y, askX = Math.random() < 0.5, v = askX ? x : y, o = askX ? y : x;
+  return mk('sis1', '2x + y = ' + S + ' y x − y = ' + mn(D) + ', entonces ' + (askX ? 'x' : 'y') + ' =', String(v), [o, S - D, v + 1, 2 * v],
+    'Sumando las dos ecuaciones: 3x = ' + (S + D) + ', así que x = ' + x + ' y y = ' + y + '.');
+});
+
+/* --- Sistemas no lineales --- */
+genr('sis2', function () {
+  if (Math.random() < 0.6) {
+    var r, t;
+    do { r = nz(-6, 6); t = nz(-6, 6); } while (r === t || r === -t);
+    var P = function (a, b) { return '(' + mn(a) + ', ' + mn(b) + ')'; };
+    return mk('sis2', 'x + y = ' + mn(r + t) + ' y xy = ' + mn(r * t) + ' tienen como soluciones', P(r, t) + ' y ' + P(t, r),
+      [P(-r, -t) + ' y ' + P(-t, -r), P(r, t), P(r + t, r * t) + ' y ' + P(r * t, r + t)],
+      'x e y son las raíces de t^{2} − (' + mn(r + t) + ')t + (' + mn(r * t) + ') = 0, y se pueden intercambiar.');
+  }
+  var m = ri(2, 4), k = ri(1, 4), P2 = function (a, b) { return '(' + mn(a) + ', ' + mn(b) + ')'; };
+  return mk('sis2', 'x^{2} + y^{2} = ' + (1 + m * m) * k * k + ' e y = ' + m + 'x tienen como soluciones', P2(k, m * k) + ' y ' + P2(-k, -m * k),
+    [P2(k, m * k), P2(k, -m * k) + ' y ' + P2(-k, m * k), P2(m * k, k) + ' y ' + P2(-m * k, -k)],
+    'x^{2} + ' + m * m + 'x^{2} = ' + (1 + m * m) * k * k + ' da x = ±' + k + ', y después y = ' + m + 'x.');
+});
+
+/* --- Sistemas con logaritmos y radicales --- */
+genr('sis3', function () {
+  if (Math.random() < 0.5) {
+    var r, t;
+    do { r = ri(1, 8); t = ri(1, 8); } while (r >= t);
+    var P = function (a, b) { return '(' + a + ', ' + b + ')'; };
+    return mk('sis3', 'x + y = ' + (r + t) + ' y log x + log y = log ' + r * t + ' tienen como soluciones', P(r, t) + ' y ' + P(t, r),
+      [P(r, t), P(r + t, r * t) + ' y ' + P(r * t, r + t), P(r * t, 1) + ' y ' + P(1, r * t)],
+      'log x + log y = log(xy), así que xy = ' + r * t + '. x e y son las raíces de t^{2} − ' + (r + t) + 't + ' + r * t + ' = 0.');
+  }
+  var a = ri(2, 6), b = ri(1, a - 1);
+  return mk('sis3', '√{x} + √{y} = ' + (a + b) + ' y √{x} − √{y} = ' + (a - b) + ' tienen como solución', 'x = ' + a * a + ', y = ' + b * b,
+    ['x = ' + a + ', y = ' + b, 'x = ' + b * b + ', y = ' + a * a, 'x = ' + (a + b) + ', y = ' + (a - b)],
+    'Sumando: 2√{x} = ' + 2 * a + ', así que √{x} = ' + a + ' y √{y} = ' + b + '. Después se eleva al cuadrado.');
+});
+
+/* --- Inecuaciones --- */
+genr('ine', function () {
+  if (Math.random() < 0.55) {
+    var a = nz(-5, 5), k = nz(-6, 6), b = nz(-8, 8);
+    if (Math.abs(a) === 1) a = a * 2;
+    var c = a * k + b, ans = a > 0 ? 'x < ' + mn(k) : 'x > ' + mn(k);
+    return mk('ine', lin(a, b) + ' < ' + mn(c) + ', entonces', ans,
+      [a > 0 ? 'x > ' + mn(k) : 'x < ' + mn(k), a > 0 ? 'x < ' + mn(-k) : 'x > ' + mn(-k), a > 0 ? 'x > ' + mn(-k) : 'x < ' + mn(-k)],
+      'Se pasa ' + mn(b) + ' al otro lado y se divide entre ' + mn(a) + (a < 0 ? ', que es negativo, así que la desigualdad se invierte.' : '.'));
+  }
+  var c0 = nz(-5, 6), b0 = ri(1, 5), strict = Math.random() < 0.5;
+  var L = c0 - b0, U = c0 + b0;
+  var ans2 = strict ? '(' + mn(L) + ', ' + mn(U) + ')' : '[' + mn(L) + ', ' + mn(U) + ']';
+  var alt = strict ? '[' + mn(L) + ', ' + mn(U) + ']' : '(' + mn(L) + ', ' + mn(U) + ')';
+  return mk('ine', '|' + xm(c0) + '| ' + (strict ? '<' : '≤') + ' ' + b0 + ', la solución es', ans2,
+    [alt, '(−∞, ' + mn(L) + ') ∪ (' + mn(U) + ', +∞)', '(' + mn(-b0 - c0) + ', ' + mn(b0 - c0) + ')'],
+    'La distancia de x a ' + mn(c0) + ' es como mucho ' + b0 + ': x está entre ' + mn(L) + ' y ' + mn(U) + '.');
+});
+
+/* --- Dominios --- */
+genr('dom', function () {
+  var a = nz(-5, 6), t = ri(0, 4), ma = mn(a), c = ma;
+  var forms = {
+    inv: 'ℝ − {' + ma + '}', sqr: '[' + ma + ', +∞)', ln: '(' + ma + ', +∞)', sqr2: '(−∞, ' + ma + ']', two: 'ℝ − {' + mn(-Math.abs(a)) + ', ' + Math.abs(a) + '}'
+  };
+  var q, key;
+  if (t === 0) { q = '⟨1|' + xm(a) + '⟩'; key = 'inv'; }
+  else if (t === 1) { q = '√{' + xm(a) + '}'; key = 'sqr'; }
+  else if (t === 2) { q = 'ln(' + xm(a) + ')'; key = 'ln'; }
+  else if (t === 3) { q = '√{' + mn(a) + ' − x}'; key = 'sqr2'; a = a; }
+  else { var z = Math.abs(a); q = '⟨1|x^{2} − ' + z * z + '⟩'; key = 'two'; }
+  var alts = {
+    inv: ['ℝ − {' + mn(-a) + '}', 'ℝ', '(' + ma + ', +∞)'],
+    sqr: ['(' + ma + ', +∞)', '[0, +∞)', '(−∞, ' + ma + ']'],
+    ln: ['[' + ma + ', +∞)', '(' + mn(-a) + ', +∞)', 'ℝ − {' + ma + '}'],
+    sqr2: ['[' + ma + ', +∞)', '(−∞, ' + ma + ')', '[0, ' + ma + ']'],
+    two: ['ℝ − {' + Math.abs(a) + '}', 'ℝ − {' + a * a + '}', 'ℝ − {' + mn(-a * a) + ', ' + a * a + '}']
+  };
+  var why = { inv: 'El denominador no puede ser 0.', sqr: 'El radicando tiene que ser mayor o igual que 0.', ln: 'El argumento tiene que ser mayor que 0.', sqr2: 'El radicando tiene que ser mayor o igual que 0.', two: 'El denominador se anula en x = ±' + Math.abs(a) + '.' };
+  return mk('dom', 'Dominio de f(x) = ' + q, forms[key], alts[key], why[key]);
+});
+
+/* --- Logaritmos con números --- */
+genr('log2', function () {
+  if (Math.random() < 0.5) {
+    var b = pick([2, 3, 5]), n = ri(2, 3);
+    return mk('log2', n + ' log ' + b + ' =', 'log ' + Math.pow(b, n), ['log ' + n * b, 'log ' + (b + n), 'log ' + (Math.pow(b, n) + n)],
+      'El ' + n + ' sube como exponente: log ' + b + '^{' + n + '} = log ' + Math.pow(b, n) + '.');
+  }
+  var p = pick([[2, 4, 8, 5], [2, 2, 16, 5], [2, 8, 8, 6], [2, 4, 16, 6], [2, 2, 32, 6], [3, 3, 9, 3], [3, 9, 9, 4], [3, 3, 27, 4], [3, 9, 27, 5], [5, 5, 25, 3], [5, 25, 25, 4], [5, 5, 125, 4]]);
+  return mk('log2', 'log_{' + p[0] + '} ' + p[1] + ' + log_{' + p[0] + '} ' + p[2] + ' =', String(p[3]), [p[3] + 1, p[3] - 1, 'log_{' + p[0] + '} ' + (p[1] + p[2])],
+    'log_{' + p[0] + '}(' + p[1] + '·' + p[2] + ') = log_{' + p[0] + '} ' + p[1] * p[2] + ' = ' + p[3] + '.');
+});
+
+/* --- Trigonometría: valores exactos en cualquier cuadrante --- */
+var TS = { 0: '0', 30: '⟨1|2⟩', 45: '⟨√{2}|2⟩', 60: '⟨√{3}|2⟩', 90: '1' };
+var TC = { 0: '1', 30: '⟨√{3}|2⟩', 45: '⟨√{2}|2⟩', 60: '⟨1|2⟩', 90: '0' };
+var TT = { 0: '0', 30: '⟨√{3}|3⟩', 45: '1', 60: '√{3}', 90: 'No existe' };
+function neg(s) { return s === '0' || s === 'No existe' ? s : '−' + s; }
+function trig(fn, th) {
+  var t = th % 360, ss, cs, ref;
+  if (t <= 90) { ref = t; ss = 1; cs = 1; }
+  else if (t <= 180) { ref = 180 - t; ss = 1; cs = -1; }
+  else if (t <= 270) { ref = t - 180; ss = -1; cs = -1; }
+  else { ref = 360 - t; ss = -1; cs = 1; }
+  if (fn === 'sen') return ss > 0 ? TS[ref] : neg(TS[ref]);
+  if (fn === 'cos') return cs > 0 ? TC[ref] : neg(TC[ref]);
+  var v = TT[ref];
+  return (ss * cs) > 0 ? v : neg(v);
+}
+genr('tri1', function () {
+  var degs = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360];
+  var fn = pick(['sen', 'cos', 'tg']), th = pick(degs);
+  var ok = trig(fn, th);
+  var pool = fn === 'tg' ? ['0', '1', '−1', '√{3}', '−√{3}', '⟨√{3}|3⟩', '−⟨√{3}|3⟩', 'No existe']
+    : ['0', '1', '−1', '⟨1|2⟩', '−⟨1|2⟩', '⟨√{2}|2⟩', '−⟨√{2}|2⟩', '⟨√{3}|2⟩', '−⟨√{3}|2⟩'];
+  var w = shuffle(pool.filter(function (x) { return x !== ok; })).slice(0, 3);
+  var other = fn === 'sen' ? trig('cos', th) : fn === 'cos' ? trig('sen', th) : trig('sen', th);
+  if (other !== ok && w.indexOf(other) < 0) w[0] = other;
+  var okReal = ok;
+  return mk('tri1', fn + ' ' + th + '° =', okReal, w, th > 90 && th !== 180 && th !== 270 && th !== 360 ? 'Ángulo de referencia en el 1.er cuadrante y signo según el cuadrante.' : 'Valor notable de la circunferencia goniométrica.');
+});
+
+/* --- Cuadrantes y ángulo de referencia --- */
+genr('tri2', function () {
+  var v = ri(0, 2), th;
+  do { th = ri(91, 359); } while (th % 90 === 0);
+  var quad = th < 180 ? 1 : th < 270 ? 2 : 3;      /* 0 = 1.º, 1 = 2.º, 2 = 3.º, 3 = 4.º */
+  quad = th < 90 ? 0 : th < 180 ? 1 : th < 270 ? 2 : 3;
+  var names = ['1.er cuadrante', '2.º cuadrante', '3.er cuadrante', '4.º cuadrante'];
+  if (v === 0) {
+    return mk('tri2', 'El ángulo ' + th + '° está en el', names[quad], names.filter(function (_, i) { return i !== quad; }),
+      'Cada cuadrante abarca 90°: ' + (quad * 90) + '° a ' + (quad * 90 + 90) + '°.');
+  }
+  if (v === 1) {
+    var ref = quad === 1 ? 180 - th : quad === 2 ? th - 180 : 360 - th;
+    var cand = [th - 90, th - 180, 180 - th, 360 - th, th - 270, 90 - (th % 90)].map(Math.abs).filter(function (z) { return z > 0 && z < 90 && z !== ref; });
+    return mk('tri2', 'El ángulo de referencia de ' + th + '° es', ref + '°', cand.map(function (z) { return z + '°'; }),
+      'Es el ángulo que forma con el eje x, entre 0° y 90°.');
+  }
+  var signs = ['sen +, cos +', 'sen +, cos −', 'sen −, cos −', 'sen −, cos +'];
+  return mk('tri2', 'En el ' + names[quad] + ' se cumple', signs[quad], signs.filter(function (_, i) { return i !== quad; }),
+    'El seno es la altura y el coseno la posición horizontal del punto en la circunferencia.');
+});
+
+/* --- Identidades: de seno a coseno con ternas pitagóricas --- */
+genr('tri3', function () {
+  var T = pick([[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29]]);
+  var a = T[0], b = T[1], c = T[2], v = ri(0, 3);
+  if (v === 0) {
+    return mk('tri3', 'Si sen x = ⟨' + a + '|' + c + '⟩ y x está en el 1.er cuadrante, cos x =', '⟨' + b + '|' + c + '⟩',
+      ['⟨' + c + '|' + b + '⟩', '⟨' + a + '|' + c + '⟩', '−⟨' + b + '|' + c + '⟩'],
+      'cos^{2}x = 1 − ' + a * a + '/' + c * c + ' = ' + b * b + '/' + c * c + ', y en el 1.er cuadrante es positivo.');
+  }
+  if (v === 1) {
+    return mk('tri3', 'Si cos x = ⟨' + b + '|' + c + '⟩ y x está en el 1.er cuadrante, sen x =', '⟨' + a + '|' + c + '⟩',
+      ['⟨' + c + '|' + a + '⟩', '⟨' + b + '|' + c + '⟩', '−⟨' + a + '|' + c + '⟩'],
+      'sen^{2}x = 1 − ' + b * b + '/' + c * c + ' = ' + a * a + '/' + c * c + '.');
+  }
+  if (v === 2) {
+    return mk('tri3', 'Si sen x = ⟨' + a + '|' + c + '⟩ y x está en el 2.º cuadrante, cos x =', '−⟨' + b + '|' + c + '⟩',
+      ['⟨' + b + '|' + c + '⟩', '−⟨' + a + '|' + c + '⟩', '⟨' + c + '|' + b + '⟩'],
+      'El valor absoluto es ' + b + '/' + c + ', pero en el 2.º cuadrante el coseno es negativo.');
+  }
+  return mk('tri3', 'Si sen x = ⟨' + a + '|' + c + '⟩ y cos x = ⟨' + b + '|' + c + '⟩, tg x =', '⟨' + a + '|' + b + '⟩',
+    ['⟨' + b + '|' + a + '⟩', '⟨' + a + '|' + c + '⟩', '⟨' + a * b + '|' + c * c + '⟩'],
+    'tg x = sen x / cos x = ' + a + '/' + b + '.');
+});
+
+/* La ficha usa también el generador de trinomios para el tema 'fac' */
+(function () {
+  var g0 = GENS.filter(function (g) { return g.t === 'pol3'; })[0];
+  GENS.push({ t: 'fac', f: function () { var q = g0.f(); q.t = 'fac'; return q; } });
+})();
+/* Generadores con números aleatorios, tercera tanda (num1–num6) */
+function g3_p(n) { return n < 0 ? '(' + mn(n) + ')' : String(n); }
+function g3_gs(s) { return s.length >= 5 ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : s; }
+function g3_zeros(k) { return k > 0 ? new Array(k + 1).join('0') : ''; }
+/* valor decimal de (M/10)·10^e, con M entero de dos cifras */
+function g3_dec(M, e) {
+  var k = e - 1;
+  if (k >= 0) return g3_gs(String(M) + g3_zeros(k));
+  if (e === 0) return Math.floor(M / 10) + ',' + (M % 10);
+  return '0,' + g3_zeros(-e - 1) + M;
+}
+function g3_sci(M, e) { return Math.floor(M / 10) + ',' + (M % 10) + ' · 10^{' + mn(e) + '}'; }
+function g3_sc(m, e) { return m + ' · 10^{' + mn(e) + '}'; }
+function g3_pc(p) { return (p > 0 ? '+' : p < 0 ? '−' : '') + String(Math.abs(p)).replace('.', ',') + ' %'; }
+function g3_iv(lo, lc, hi, hc) { return (lc ? '[' : '(') + mn(lo) + ', ' + mn(hi) + (hc ? ']' : ')'); }
+
+/* --- num1: mcd / mcm --- */
+genr('num1', function () {
+  if (Math.random() < 0.5) {
+    var g = ri(2, 6), a, b;
+    do { a = g * ri(2, 6); b = g * ri(2, 6); } while (a === b || a > 40 || b > 40);
+    var L = lcm(a, b), G = gcd(a, b);
+    if (Math.random() < 0.5)
+      return mk('num1', 'mcd(' + a + ', ' + b + ') =', String(G), [L, a * b, G * 2, a + b, Math.min(a, b)],
+        'El mcd es el mayor divisor común (factores comunes con el menor exponente): ' + G + '.');
+    return mk('num1', 'mcm(' + a + ', ' + b + ') =', String(L), [G, a * b, L * 2, a + b, Math.max(a, b) * 2],
+      'El mcm es el menor múltiplo común (todos los factores con el mayor exponente): ' + L + '.');
+  }
+  var v = ri(0, 3), A, B, C, D, ans, w, q;
+  if (v === 0) {
+    A = ri(2, 9); B = ri(2, 6); C = ri(2, 6); var s = pick([1, -1]), op = s > 0 ? ' + ' : ' − ';
+    ans = A + s * B * C;
+    return mk('num1', A + op + B + ' · ' + C + ' =', mn(ans), [mn((A + s * B) * C), mn(-ans), mn(A + s * B + C), mn(A + s * B - C)],
+      'Primero se multiplica (' + B + ' · ' + C + ' = ' + B * C + ') y después se suma o resta.');
+  }
+  if (v === 1) {
+    A = ri(2, 9); B = ri(2, 20);
+    ans = B - A * A;
+    return mk('num1', '−' + A + '^{2} + ' + B + ' =', mn(ans), [mn(A * A + B), mn(B - 2 * A), mn(-(A * A + B)), mn(B + A * A - 2)],
+      'El exponente solo afecta al ' + A + ': −' + A + '^{2} = −' + A * A + ', y luego se suma ' + B + '.');
+  }
+  if (v === 2) {
+    A = ri(2, 5); B = ri(1, 5); C = B + ri(1, 5); D = ri(2, 9);
+    ans = A * (B - C) - D;
+    return mk('num1', A + ' · (' + B + ' − ' + C + ') − ' + D + ' =', mn(ans), [mn(A * B - C - D), mn(A * (B - C) + D), mn(A * (C - B) - D), mn(A * (C - B) + D)],
+      'Primero el paréntesis: ' + B + ' − ' + C + ' = ' + mn(B - C) + '. Luego el producto y al final la resta.');
+  }
+  A = ri(2, 6); B = ri(2, 6); C = ri(2, 6); D = ri(2, 6);
+  ans = A * B - C * D;
+  return mk('num1', '(−' + A + ') · (−' + B + ') + ' + C + ' · (−' + D + ') =', mn(ans), [mn(-A * B - C * D), mn(A * B + C * D), mn(-A * B + C * D), mn(ans + 2)],
+    'Menos por menos es más: ' + A * B + '. Más por menos es menos: −' + C * D + '. Se suman: ' + mn(ans) + '.');
+});
+
+/* --- num2: operaciones con fracciones --- */
+genr('num2', function () {
+  var a, b, c, d;
+  var v = ri(0, 2);
+  if (v === 0) {
+    do { a = ri(1, 5); b = ri(2, 8); c = ri(1, 5); d = ri(2, 8); } while (b === d || a >= b || c >= d || gcd(a, b) > 1 || gcd(c, d) > 1);
+    var s = pick([1, -1]), n = a * d + s * c * b, m = b * d, o = s > 0 ? ' + ' : ' − ';
+    if (n === 0) n = 1;
+    return mk('num2', '⟨' + a + '|' + b + '⟩' + o + '⟨' + c + '|' + d + '⟩ =', fs(a * d + s * c * b, m),
+      [fs(a + s * c, b + d), fs(a + s * c, b * d), fs(a * d + s * c * b, b + d), fs(a * d - s * c * b, m), fs(a * c, b * d)],
+      'Denominador común ' + m + ': ' + (a * d) + '/' + m + o + (c * b) + '/' + m + ' = ' + mn(n) + '/' + m + (gcd(n, m) > 1 ? ', que simplificado es ' + fs(n, m) : '') + '. No se operan los denominadores.');
+  }
+  do { a = ri(1, 7); b = ri(2, 9); c = ri(1, 7); d = ri(2, 9); } while (gcd(a, b) > 1 || gcd(c, d) > 1 || a * d === b * c);
+  if (v === 1)
+    return mk('num2', '⟨' + a + '|' + b + '⟩ · ⟨' + c + '|' + d + '⟩ =', fs(a * c, b * d),
+      [fs(a * d, b * c), fs(a + c, b + d), fs(a * c, b + d), fs(a * d + b * c, b * d)],
+      'Se multiplica numerador por numerador y denominador por denominador, y se simplifica.');
+  return mk('num2', '⟨' + a + '|' + b + '⟩ : ⟨' + c + '|' + d + '⟩ =', fs(a * d, b * c),
+    [fs(a * c, b * d), fs(b * c, a * d), fs(a * d, b * d), fs(a * c, b * c)],
+    'Dividir es multiplicar por la inversa: ' + a + '/' + b + ' · ' + d + '/' + c + '.');
+});
+
+/* --- num3: notación científica --- */
+genr('num3', function () {
+  var M, e;
+  do { M = ri(11, 99); } while (M % 10 === 0);
+  do { e = ri(-6, 7); } while (e === 0);
+  if (Math.random() < 0.5)
+    return mk('num3', 'Escribe ' + g3_dec(M, e) + ' en notación científica:', g3_sci(M, e),
+      [g3_sci(M, e + 1), g3_sci(M, e - 1), g3_sci(M, -e), g3_sci(M, e + 2), g3_sci(M, e - 2)],
+      'La coma se mueve hasta dejar una sola cifra entera; el exponente cuenta los lugares (positivo si el número es mayor o igual que 10, negativo si es menor que 1).');
+  return mk('num3', g3_sci(M, e) + ' =', g3_dec(M, e),
+    [g3_dec(M, e + 1), g3_dec(M, e - 1), g3_dec(M, -e), g3_dec(M, e + 2)],
+    'El exponente ' + mn(e) + ' mueve la coma ' + Math.abs(e) + (Math.abs(e) === 1 ? ' lugar' : ' lugares') + ' a la ' + (e > 0 ? 'derecha' : 'izquierda') + '.');
+});
+
+/* --- num3: decimal exacto o periódico / producto en notación científica --- */
+genr('num3', function () {
+  if (Math.random() < 0.5) {
+    var ex = [2, 4, 5, 8, 10, 20, 25], pe = [3, 6, 7, 9, 11, 12, 14, 15];
+    var fr = function (b) { var a; do { a = ri(1, b + 3); } while (gcd(a, b) !== 1); return '⟨' + a + '|' + b + '⟩'; };
+    if (Math.random() < 0.5) {
+      var d1 = shuffle(pe.slice()).slice(0, 3);
+      return mk('num3', '¿Qué fracción tiene un decimal exacto?', fr(pick(ex)), d1.map(fr),
+        'Es exacto si, ya simplificada, el denominador solo tiene los factores 2 y 5.');
+    }
+    var d2 = shuffle(ex.slice()).slice(0, 3);
+    return mk('num3', '¿Qué fracción tiene un decimal periódico?', fr(pick(pe)), d2.map(fr),
+      'Si el denominador (en fracción irreducible) tiene algún factor distinto de 2 y 5, el decimal es periódico.');
+  }
+  var m, n, a, b;
+  do { m = ri(2, 4); n = ri(2, 3); } while (m * n >= 10);
+  do { a = ri(-5, 6); b = ri(-5, 6); } while (a === 0 || b === 0 || a + b === 0);
+  return mk('num3', '(' + g3_sc(m, a) + ') · (' + g3_sc(n, b) + ') =', g3_sc(m * n, a + b),
+    [g3_sc(m * n, a * b), g3_sc(m + n, a + b), g3_sc(m * n, a + b + 1), g3_sc(m * n, a + b - 1), g3_sc(m * n, a - b), g3_sc(m * n, a + b + 2), g3_sc(m * n, a + b - 2)],
+    'Se multiplican los números (' + m + ' · ' + n + ' = ' + m * n + ') y se suman los exponentes (' + mn(a) + ' + ' + g3_p(b) + ' = ' + mn(a + b) + ').');
+});
+
+/* --- num4: variaciones porcentuales sucesivas --- */
+genr('num4', function () {
+  if (Math.random() < 0.55) {
+    var P = [10, 20, 25, 30, 40, 50], x = pick(P), y = pick(P), s1 = pick([1, -1]), s2 = pick([1, -1]);
+    var p = ((100 + s1 * x) * (100 + s2 * y) - 10000) / 100;
+    var wd = function (s) { return s > 0 ? 'sube' : 'baja'; };
+    return mk('num4', 'Un precio ' + wd(s1) + ' un ' + x + ' % y después ' + wd(s2) + ' un ' + y + ' %. Variación total:', g3_pc(p),
+      [g3_pc(s1 * x + s2 * y), g3_pc(-p), g3_pc(0), g3_pc(s1 * x), g3_pc(p + 10)],
+      'Se multiplican los índices: ' + String((100 + s1 * x) / 100).replace('.', ',') + ' · ' + String((100 + s2 * y) / 100).replace('.', ',') + ' = ' + String((100 + s1 * x) * (100 + s2 * y) / 10000).replace('.', ',') + ', es decir, ' + g3_pc(p) + '.');
+  }
+  var v = ri(0, 3);
+  if (v === 0) {
+    var a = ri(2, 6), k = ri(2, 9), c = ri(a + 1, 12), b = a * k;
+    return mk('num4', a + ' kg cuestan ' + b + ' €. ¿Cuánto cuestan ' + c + ' kg?', c * k + ' €',
+      [(b + c - a) + ' €', (c * k + k) + ' €', (c * k - k) + ' €', (k * (c - a)) + ' €'],
+      'Proporcionalidad directa: ' + k + ' € por kg, y ' + k + ' · ' + c + ' = ' + c * k + ' €.');
+  }
+  if (v === 1) {
+    var n, d, m, tot, ds;
+    do {
+      n = ri(2, 6); d = ri(2, 9); tot = n * d; ds = [];
+      for (var i = 2; i <= 12; i++) if (tot % i === 0 && i !== n) ds.push(i);
+    } while (!ds.length);
+    m = pick(ds);
+    var cand = [d + (m - n), d - (m - n), d * m / n, tot / m + 1, tot / m - 1, tot / m + 2, tot / m * 2].filter(function (z) { return z > 0 && z % 1 === 0; });
+    var du = function (z) { return z + (z === 1 ? ' día' : ' días'); };
+    return mk('num4', n + ' obreros tardan ' + d + ' días. ¿Cuánto tardan ' + m + ' obreros?', du(tot / m),
+      cand.map(du),
+      'Proporcionalidad inversa: ' + n + ' · ' + d + ' = ' + tot + ' obreros·día, y ' + tot + ' : ' + m + ' = ' + tot / m + (tot / m === 1 ? ' día.' : ' días.'));
+  }
+  var N = 20 * ri(2, 10), pp = pick([10, 20, 25, 30, 40, 50, 60, 75]), r = N * pp / 100;
+  if (v === 2)
+    return mk('num4', 'El ' + pp + ' % de ' + N + ' es', String(r),
+      [N - r, r * 10, N + r, pp, N * pp / 10, r + 5, r + 10].filter(function (z) { return z % 1 === 0; }),
+      pp + ' % = ' + pp + '/100, y ' + pp + '/100 de ' + N + ' = ' + r + '.');
+  return mk('num4', 'Un artículo de ' + N + ' € con un ' + pp + ' % de descuento cuesta', (N - r) + ' €',
+    [r, N + r, N - pp, N * (100 - pp) / 10, N - r + 10, N - r - 5].filter(function (z) { return z > 0 && z % 1 === 0; }).map(function (z) { return z + ' €'; }),
+    'El descuento es ' + r + ' € (' + pp + ' % de ' + N + '); se paga ' + N + ' − ' + r + ' = ' + (N - r) + ' €.');
+});
+
+/* --- num5: término n y sumas --- */
+genr('num5', function () {
+  var v = ri(0, 3), a1, d, n, r, an, S;
+  if (v === 0) {
+    a1 = nz(-4, 9); d = nz(-4, 6); n = ri(8, 15); an = a1 + (n - 1) * d;
+    var t = [a1, a1 + d, a1 + 2 * d].map(mn).join(', ');
+    return mk('num5', 'En la progresión aritmética ' + t + ', …, el término a_{' + n + '} es', mn(an),
+      [mn(a1 + n * d), mn(a1 + (n - 2) * d), mn(n * d), mn(a1 * n)],
+      'a_{n} = a_{1} + (n − 1)·d = ' + mn(a1) + ' + ' + (n - 1) + ' · ' + g3_p(d) + ' = ' + mn(an) + '.');
+  }
+  if (v === 1) {
+    a1 = ri(2, 4); r = pick([2, 3, -2]); n = r === 3 ? 4 : ri(4, 5); an = a1 * Math.pow(r, n - 1);
+    return mk('num5', 'Progresión geométrica con a_{1} = ' + a1 + ' y r = ' + mn(r) + '. El término a_{' + n + '} es', mn(an),
+      [mn(a1 * Math.pow(r, n)), mn(a1 + (n - 1) * r), mn(a1 * r * (n - 1)), mn(a1 * r * n), mn(-an)],
+      'a_{n} = a_{1} · r^{n−1} = ' + a1 + ' · ' + g3_p(r) + '^{' + (n - 1) + '} = ' + mn(an) + '.');
+  }
+  if (v === 2) {
+    a1 = ri(1, 8); d = ri(1, 5); n = ri(6, 12); an = a1 + (n - 1) * d; S = n * (a1 + an) / 2;
+    return mk('num5', 'Progresión aritmética con a_{1} = ' + a1 + ', d = ' + d + ' y n = ' + n + '. La suma S_{' + n + '} es', String(S),
+      [n * (a1 + an), S + an + d, S - an, S - a1, n * an / 2].filter(function (z) { return z % 1 === 0; }),
+      'a_{' + n + '} = ' + an + ', y S_{n} = n · (a_{1} + a_{n}) / 2 = ' + n + ' · ' + (a1 + an) + ' / 2 = ' + S + '.');
+  }
+  a1 = ri(1, 3); r = pick([2, 3]); n = r === 3 ? ri(3, 4) : ri(4, 5);
+  S = a1 * (Math.pow(r, n) - 1) / (r - 1);
+  var terms = []; for (var i = 0; i < n; i++) terms.push(a1 * Math.pow(r, i));
+  return mk('num5', terms.join(' + ') + ' =', String(S),
+    [a1 * Math.pow(r, n), S + 1, S - a1, a1 * (Math.pow(r, n) - 1)].map(String),
+    'Se suman los ' + n + ' términos de la progresión geométrica (razón ' + r + '): ' + S + '.');
+});
+
+/* --- num5: término general (aritmética y geométrica) --- */
+genr('num5', function () {
+  var a1, d, r;
+  if (Math.random() < 0.5) {
+    d = nz(-5, 6); a1 = ri(1, 9);
+    var c = a1 - d, ex = function (dd, cc) { return 'a_{n} = ' + (dd === 1 ? '' : dd === -1 ? '−' : mn(dd)) + 'n' + (cc > 0 ? ' + ' + cc : cc < 0 ? ' − ' + (-cc) : ''); };
+    return mk('num5', 'Término general de ' + [a1, a1 + d, a1 + 2 * d, a1 + 3 * d].map(mn).join(', ') + ', …', ex(d, c),
+      [ex(d, a1), ex(a1, d), ex(d, c + d), ex(-d, c), ex(d, -c)],
+      'La diferencia es ' + mn(d) + ' y a_{1} = ' + mn(a1) + ', luego a_{n} = ' + mn(a1) + ' + (n − 1)·' + g3_p(d) + ' = ' + ex(d, c).slice(8) + '.');
+  }
+  do { a1 = ri(1, 3); r = pick([2, 3, 4]); } while (a1 === r);
+  var g = function (aa, rr, ee) { return 'a_{n} = ' + (aa === 1 ? '' : aa + ' · ') + rr + '^{' + ee + '}'; };
+  return mk('num5', 'Término general de ' + [a1, a1 * r, a1 * r * r, a1 * r * r * r].join(', ') + ', …', g(a1, r, 'n − 1'),
+    [g(a1, r, 'n'), g(a1, r, 'n + 1'), 'a_{n} = ' + (a1 * r) + 'n', 'a_{n} = ' + a1 + 'n + ' + (r - 1)].filter(function (z) { return a1 !== 1 || z !== g(1, r, 'n') || true; }),
+    'Es una progresión geométrica de razón ' + r + ': a_{n} = a_{1} · r^{n−1}.');
+});
+
+/* --- num6: unión e intersección de intervalos --- */
+genr('num6', function () {
+  var v = [], a1, a2, b1, b2, l1, l2, h1, h2;
+  var pts = shuffle([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7]).slice(0, 4).sort(function (x, y) { return x - y; });
+  a1 = pts[0]; a2 = pts[1]; b1 = pts[2]; b2 = pts[3];
+  l1 = Math.random() < 0.5; l2 = Math.random() < 0.5; h1 = Math.random() < 0.5; h2 = Math.random() < 0.5;
+  var I1 = g3_iv(a1, l1, b1, h1), I2 = g3_iv(a2, l2, b2, h2);
+  var inter = g3_iv(a2, l2, b1, h1), uni = g3_iv(a1, l1, b2, h2);
+  if (Math.random() < 0.5)
+    return mk('num6', I1 + ' ∩ ' + I2 + ' =', inter, [uni, g3_iv(a2, !l2, b1, h1), g3_iv(a2, l2, b1, !h1), g3_iv(a1, l1, b1, h1), g3_iv(a2, l2, b2, h2)],
+      'La intersección es lo común: del mayor inicio (' + mn(a2) + ') al menor final (' + mn(b1) + '), con el tipo de extremo del intervalo que lo aporta.');
+  return mk('num6', I1 + ' ∪ ' + I2 + ' =', uni, [inter, g3_iv(a1, !l1, b2, h2), g3_iv(a1, l1, b2, !h2), g3_iv(a2, l2, b1, h1), g3_iv(a1, !l1, b2, !h2)],
+    'La unión abarca del menor inicio (' + mn(a1) + ') al mayor final (' + mn(b2) + '), ya que los intervalos se solapan.');
+});
+
+/* --- num6: valor absoluto --- */
+genr('num6', function () {
+  var v = ri(0, 2), a, b, r, c;
+  if (v === 0) {
+    do { a = ri(-9, 9); b = ri(-9, 9); } while (a >= b);
+    return mk('num6', '|' + mn(a) + ' − ' + g3_p(b) + '| =', String(b - a), [mn(a - b), a + b, Math.abs(a) - Math.abs(b), b + a + 2].map(mn),
+      'Primero se resta: ' + mn(a) + ' − ' + g3_p(b) + ' = ' + mn(a - b) + ', y el valor absoluto lo hace positivo: ' + (b - a) + '.');
+  }
+  if (v === 1) {
+    r = ri(2, 9);
+    return mk('num6', '|x| < ' + r + ' equivale a x ∈', g3_iv(-r, false, r, false),
+      [g3_iv(-r, true, r, true), '(−∞, ' + mn(-r) + ') ∪ (' + r + ', +∞)', g3_iv(0, false, r, false), '(−∞, ' + r + ')'],
+      'Son los números a distancia menor que ' + r + ' del cero: entre ' + mn(-r) + ' y ' + r + ', sin los extremos.');
+  }
+  c = nz(-6, 6); r = ri(1, 5);
+  return mk('num6', '|x ' + (c < 0 ? '+ ' + (-c) : '− ' + c) + '| ≤ ' + r + ' equivale a x ∈', g3_iv(c - r, true, c + r, true),
+    [g3_iv(-c - r, true, -c + r, true), g3_iv(-r, true, r, true), g3_iv(c - r, false, c + r, false), g3_iv(c, true, c + r, true)],
+    'Son los números a distancia ' + r + ' o menos de ' + mn(c) + ': desde ' + mn(c - r) + ' hasta ' + mn(c + r) + ', con extremos incluidos.');
+});
+/* Generadores con números aleatorios, cuarta tanda: medida y geometría (med1, geo1-geo5) */
+function g4_n(x) {            /* número con coma decimal y espacio de millares */
+  x = Math.round(x * 1e6) / 1e6;
+  var neg = x < 0; x = Math.abs(x);
+  var p = String(x).split('.');
+  var ip = p[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return (neg ? '−' : '') + ip + (p[1] ? ',' + p[1] : '');
+}
+function g4_pi(k) { return k === 1 ? 'π' : g4_n(k) + 'π'; }
+function g4_pt(x, y) { return '(' + mn(x) + ', ' + mn(y) + ')'; }
+function g4_ok(x) { return isFinite(x) && Math.abs(x) >= 0.001 && Math.abs(x) < 1e12; }
+function g4_list(fn, arr) { return arr.filter(function (x) { return g4_ok(x); }).map(fn); }
+
+function g4_grp(t) { return String(t).replace(/(^|[^\d,])(\d{4,})(?!\d)/g, function (m, p, d) { return p + d.replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }); }
+function g4_genr(t, fn) {
+  genr(t, function () {
+    var q, tail = function (z) { return String(z).replace(/^[−\d ,]*π?/, ''); };
+    for (var tr = 0; tr < 60; tr++) {
+      q = fn();
+      if (q.w.length === 3 && (!/^[−\dπ]/.test(q.a) || tail(q.a) === '' || q.w.every(function (z) { return tail(z) === tail(q.a); }))) break;
+    }
+    q.q = g4_grp(q.q); q.a = g4_grp(q.a); q.w = q.w.map(g4_grp); q.e = g4_grp(q.e);
+    return q;
+  });
+}
+
+/* --- med1: conversión de unidades (longitud, masa, superficie, volumen, capacidad) --- */
+g4_genr('med1', function () {
+  var v = ri(0, 3), n = ri(2, 9), e, u1, u2, k, ex, wexp, x0, expl;
+  if (v === 2) {
+    var P = pick([['m^{3}', 'L', 3], ['L', 'cm^{3}', 3], ['dm^{3}', 'L', 0], ['L', 'dm^{3}', 0], ['L', 'm^{3}', -3], ['cm^{3}', 'L', -3],
+      ['L', 'mL', 3], ['mL', 'L', -3], ['mL', 'cm^{3}', 0], ['cm^{3}', 'mL', 0], ['dm^{3}', 'mL', 3], ['mL', 'dm^{3}', -3]]);
+    u1 = P[0]; u2 = P[1]; e = P[2];
+    wexp = [e + 1, e - 1, e + 2, e - 2, e + 3, e - 3, -e];
+    expl = e === 0 ? 'Son unidades equivalentes: 1 L = 1 dm^{3} y 1 mL = 1 cm^{3}.'
+      : 'Se ' + (e > 0 ? 'multiplica' : 'divide') + ' por 1 000: 1 m^{3} = 1 000 L = 1 000 dm^{3} y 1 L = 1 000 mL = 1 000 cm^{3}.';
+  } else {
+    var ch, sfx, step;
+    if (v === 0) { ch = ['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm']; sfx = '^{2}'; k = 2; step = 100; }
+    else if (v === 1) { ch = ['dam', 'm', 'dm', 'cm', 'mm']; sfx = '^{3}'; k = 3; step = 1000; }
+    else { ch = pick([['km', 'hm', 'dam', 'm', 'dm', 'cm', 'mm'], ['kg', 'hg', 'dag', 'g', 'dg', 'cg', 'mg']]); sfx = ''; k = 1; step = 10; }
+    var i = ri(0, ch.length - 2), d = ri(1, Math.min(3, ch.length - 1 - i)), down = Math.random() < 0.5;
+    var a = ch[i] + sfx, b = ch[i + d] + sfx;
+    if (down) { u1 = a; u2 = b; e = k * d; } else { u1 = b; u2 = a; e = -k * d; }
+    var s = down ? 1 : -1, ks = [1, 2, 3].filter(function (z) { return z !== k; });
+    wexp = ks.map(function (z) { return s * d * z; }).concat([s * (d + 1) * k, s * (d - 1) * k, -e]);
+    expl = 'Hay ' + d + (d === 1 ? ' paso' : ' pasos') + ' entre ' + u1 + ' y ' + u2 + ', y cada paso ' + (k === 2 ? 'de superficie' : k === 3 ? 'de volumen' : '') + ' vale ' + g4_n(step) + ': se ' + (e > 0 ? 'multiplica' : 'divide') + ' por ' + g4_n(Math.pow(10, Math.abs(e))) + '.';
+  }
+  x0 = e < 0 ? n * Math.pow(10, -e) : n;
+  var ans = x0 * Math.pow(10, e);
+  var ws = [];
+  shuffle(wexp.filter(function (z) { return z !== e; })).concat([e + 1, e - 1, e + 2, e - 2]).forEach(function (z) { var y = x0 * Math.pow(10, z); var t = g4_n(y) + ' ' + u2; if (z !== e && g4_ok(y) && ws.indexOf(t) < 0) ws.push(t); });
+  return mk('med1', g4_n(x0) + ' ' + u1 + ' expresados en ' + u2 + ' son', g4_n(ans) + ' ' + u2, ws, expl);
+});
+
+/* --- med1: velocidad y tiempo --- */
+g4_genr('med1', function () {
+  var v = ri(0, 3);
+  if (v === 0) {
+    var s = 5 * ri(1, 7), kmh = s * 18 / 5;
+    return mk('med1', kmh + ' km/h expresados en m/s son', g4_n(s) + ' m/s', [g4_n(kmh * 3.6) + ' m/s', g4_n(kmh / 6) + ' m/s', g4_n(kmh / 36) + ' m/s', g4_n(kmh / 3) + ' m/s'],
+      'De km/h a m/s se divide entre 3,6 (1 000 m entre 3 600 s): ' + kmh + ' : 3,6 = ' + s + '.');
+  }
+  if (v === 1) {
+    var s2 = 5 * ri(1, 7), k2 = s2 * 18 / 5;
+    return mk('med1', s2 + ' m/s expresados en km/h son', g4_n(k2) + ' km/h', [(s2 * 36) + ' km/h', (s2 * 6) + ' km/h', (s2 * 3) + ' km/h', (s2 * 4) + ' km/h'],
+      'De m/s a km/h se multiplica por 3,6: ' + s2 + ' · 3,6 = ' + k2 + '.');
+  }
+  if (v === 2) {
+    var h = ri(1, 5), m = pick([10, 15, 20, 30, 40, 45, 50]), tot = 60 * h + m;
+    return mk('med1', h + ' h ' + m + ' min expresados en minutos son', tot + ' min', [(100 * h + m) + ' min', (60 * h) + ' min', (tot + 60) + ' min', (tot - 60) + ' min'],
+      'Una hora son 60 min: ' + h + ' · 60 + ' + m + ' = ' + tot + ' min. El tiempo no es decimal.');
+  }
+  var hh = ri(2, 9);
+  return mk('med1', hh + ' h expresadas en segundos son', g4_n(3600 * hh) + ' s', [g4_n(60 * hh) + ' s', g4_n(360 * hh) + ' s', g4_n(36000 * hh) + ' s', g4_n(1000 * hh) + ' s'],
+    '1 h = 60 min = 3 600 s, luego ' + hh + ' · 3 600 = ' + g4_n(3600 * hh) + ' s.');
+});
+
+/* distractores del número de lados (barajados, enteros, sin pista de consecutivos) */
+function g4_nw(n) { return shuffle([n + 1, n - 1, n + 2, n - 2, 2 * n].concat(n % 2 === 0 && n / 2 >= 3 ? [n / 2] : [])).map(String); }
+/* --- geo1: polígonos regulares y ángulos interiores/exteriores --- */
+var g4_pname = { 5: 'pentágono', 6: 'hexágono', 8: 'octógono', 9: 'eneágono', 10: 'decágono', 12: 'dodecágono' };
+function g4_reg(n) { return g4_pname[n] ? 'un ' + g4_pname[n] + ' regular' : 'un polígono regular de ' + n + ' lados'; }
+g4_genr('geo1', function () {
+  var v = ri(0, 4), n, ex;
+  if (v === 0) {
+    n = pick([5, 6, 8, 9, 10, 12, 15, 18, 20, 24]); ex = 360 / n; var it = 180 - ex;
+    return mk('geo1', 'Cada ángulo interior de ' + g4_reg(n) + ' mide', g4_n(it) + '°',
+      [g4_n(360 / n) + '°', g4_n((n - 2) * 180) + '°', g4_n((n - 1) * 180 / n) + '°', g4_n(180 / n) + '°', g4_n((n + 2) * 180 / n) + '°'],
+      'Suma de interiores = (' + n + ' − 2) · 180° = ' + (n - 2) * 180 + '°, y se reparte entre ' + n + ' ángulos: ' + g4_n(it) + '°.');
+  }
+  if (v === 1) {
+    n = ri(5, 12);
+    return mk('geo1', 'La suma de los ángulos interiores de un polígono de ' + n + ' lados es', g4_n((n - 2) * 180) + '°',
+      [g4_n(n * 180) + '°', g4_n((n - 1) * 180) + '°', g4_n((n - 3) * 180) + '°', '360°'],
+      'Se usa (n − 2) · 180°: (' + n + ' − 2) · 180° = ' + (n - 2) * 180 + '°.');
+  }
+  if (v === 2) {
+    n = pick([5, 6, 8, 9, 10, 12, 15, 18, 20, 24]); ex = 360 / n;
+    return mk('geo1', 'Cada ángulo exterior de ' + g4_reg(n) + ' mide', g4_n(ex) + '°',
+      [g4_n(180 - ex) + '°', g4_n(180 / n) + '°', g4_n(180 + ex) + '°', g4_n(2 * ex) + '°'],
+      'Los ángulos exteriores suman siempre 360°: 360° : ' + n + ' = ' + g4_n(ex) + '°.');
+  }
+  if (v === 3) {
+    var e = pick([40, 45, 36, 30, 24, 60, 72, 20, 18, 15, 12]); n = 360 / e;
+    return mk('geo1', 'Un polígono regular tiene ángulos exteriores de ' + e + '°. Tiene este número de lados:', String(n),
+      g4_nw(n),
+      'Los exteriores suman 360°, así que el número de lados es 360 : ' + e + ' = ' + n + '.');
+  }
+  var i = pick([108, 120, 135, 140, 144, 150, 156, 160, 162]); n = 360 / (180 - i);
+  return mk('geo1', 'Un polígono regular tiene ángulos interiores de ' + i + '°. Tiene este número de lados:', String(n),
+    g4_nw(n),
+    'Cada exterior mide 180° − ' + i + '° = ' + (180 - i) + '°, y 360° : ' + (180 - i) + '° = ' + n + ' lados.');
+});
+
+/* --- geo1: ángulos en triángulos, rectas y circunferencia --- */
+g4_genr('geo1', function () {
+  var v = ri(0, 5), x, a, b;
+  if (v === 0) {
+    do { x = ri(11, 89); } while (x === 45);
+    if (Math.random() < 0.5)
+      return mk('geo1', 'El complementario de un ángulo de ' + x + '° mide', (90 - x) + '°', [(180 - x) + '°', (90 + x) + '°', (360 - x) + '°'],
+        'Complementarios suman 90°: 90° − ' + x + '° = ' + (90 - x) + '°.');
+    return mk('geo1', 'El suplementario de un ángulo de ' + x + '° mide', (180 - x) + '°', [(90 - x) + '°', (90 + x) + '°', (360 - x) + '°'],
+      'Suplementarios suman 180°: 180° − ' + x + '° = ' + (180 - x) + '°.');
+  }
+  if (v === 1) {
+    do { a = 5 * ri(4, 30); b = 5 * ri(4, 30); } while (a + b > 165 || a === b);
+    var c = 180 - a - b;
+    return mk('geo1', 'Un triángulo tiene dos ángulos de ' + a + '° y ' + b + '°. El tercero mide', c + '°', [(a + b) + '°', (180 - a) + '°', (180 - b) + '°', (360 - a - b) + '°'],
+      'Los ángulos de un triángulo suman 180°: 180° − ' + a + '° − ' + b + '° = ' + c + '°.');
+  }
+  if (v === 2) {
+    do { a = 5 * ri(4, 30); b = 5 * ri(4, 30); } while (a + b > 165 || a + b === 90 || a === b);
+    return mk('geo1', 'Un triángulo tiene dos ángulos interiores de ' + a + '° y ' + b + '°. El ángulo exterior en el tercer vértice mide', (a + b) + '°',
+      [(180 - a - b) + '°', (180 - a) + '°', (180 - b) + '°', (360 - a - b) + '°'],
+      'El ángulo exterior es la suma de los dos interiores no adyacentes: ' + a + '° + ' + b + '° = ' + (a + b) + '°.');
+  }
+  if (v === 3) {
+    if (Math.random() < 0.5) {
+      var cen = 10 * ri(4, 16), ins = cen / 2;
+      return mk('geo1', 'En una circunferencia, un ángulo central mide ' + cen + '°. Un ángulo inscrito que abarca el mismo arco mide', ins + '°',
+        [cen + '°', (2 * cen) + '°', (180 - ins) + '°', (90 - ins) + '°'],
+        'El ángulo inscrito es la mitad del central: ' + cen + '° : 2 = ' + ins + '°.');
+    }
+    var i2 = 5 * ri(4, 16);
+    return mk('geo1', 'En una circunferencia, un ángulo inscrito mide ' + i2 + '°. El ángulo central que abarca el mismo arco mide', (2 * i2) + '°',
+      [i2 + '°', (180 - i2) + '°', (4 * i2) + '°', (90 - i2 > 0 ? 90 - i2 : 180 - 2 * i2) + '°'],
+      'El ángulo central es el doble del inscrito: 2 · ' + i2 + '° = ' + (2 * i2) + '°.');
+  }
+  do { a = ri(30, 80); } while (a === 45);
+  var kinds = [['un ángulo correspondiente', 0], ['un ángulo alterno interno', 0], ['un ángulo alterno externo', 0], ['un ángulo interno del mismo lado de la secante', 1], ['un ángulo externo del mismo lado de la secante', 1]];
+  var kd = pick(kinds), ans = kd[1] ? 180 - a : a;
+  return mk('geo1', 'Dos paralelas cortadas por una secante. Un ángulo mide ' + a + '°; el ángulo situado en la otra recta como ' + kd[0] + ' al primero mide', ans + '°',
+    kd[1] ? [a + '°', (90 - a) + '°', (90 + a) + '°', (360 - a) + '°'] : [(180 - a) + '°', (90 - a) + '°', (90 + a) + '°', (2 * a) + '°'],
+    kd[1] ? 'Del mismo lado de la secante suman 180°: 180° − ' + a + '° = ' + (180 - a) + '°.' : 'Correspondientes, alternos internos y alternos externos entre paralelas son iguales: ' + a + '°.');
+});
+
+/* --- geo2: círculo, circunferencia y sector --- */
+g4_genr('geo2', function () {
+  var v = ri(0, 4), r = ri(3, 12), d = 2 * r;
+  if (v === 0)
+    return mk('geo2', 'Un círculo tiene radio ' + r + ' cm. Su área es', g4_pi(r * r) + ' cm^{2}', [g4_pi(2 * r) + ' cm^{2}', g4_pi(r) + ' cm^{2}', g4_pi(d * d) + ' cm^{2}', g4_pi(2 * r * r) + ' cm^{2}'],
+      'A = πr^{2} = π · ' + r + '^{2} = ' + g4_pi(r * r) + ' cm^{2}.');
+  if (v === 1)
+    return mk('geo2', 'Un círculo tiene diámetro ' + d + ' cm. Su área es', g4_pi(r * r) + ' cm^{2}', [g4_pi(d * d) + ' cm^{2}', g4_pi(d) + ' cm^{2}', g4_pi(r) + ' cm^{2}', g4_pi(2 * d) + ' cm^{2}'],
+      'El radio es ' + d + ' : 2 = ' + r + ' cm, y A = πr^{2} = ' + g4_pi(r * r) + ' cm^{2}. No uses el diámetro en πr^{2}.');
+  if (v === 2) {
+    if (Math.random() < 0.5)
+      return mk('geo2', 'Una circunferencia tiene radio ' + r + ' cm. Su longitud es', g4_pi(d) + ' cm', [g4_pi(r * r) + ' cm', g4_pi(r) + ' cm', g4_pi(4 * r) + ' cm', g4_pi(d * d) + ' cm'],
+        'L = 2πr = 2 · π · ' + r + ' = ' + g4_pi(d) + ' cm.');
+    return mk('geo2', 'Una circunferencia tiene diámetro ' + d + ' cm. Su longitud es', g4_pi(d) + ' cm', [g4_pi(d * d) + ' cm', g4_pi(2 * d) + ' cm', g4_pi(r * r) + ' cm', g4_pi(r) + ' cm'],
+      'L = πd = ' + g4_pi(d) + ' cm.');
+  }
+  var S = pick([[90, [2, 4, 6, 8, 10]], [180, [2, 4, 6, 8, 10]], [120, [3, 6, 9, 12]], [60, [6, 12]], [45, [4, 8, 12]], [30, [6, 12]], [270, [2, 4, 6, 8, 10]]]);
+  var al = S[0], rr = pick(S[1]), area = rr * rr * al / 360, arc = rr * al / 180;
+  var frac = { 90: 'una cuarta parte', 180: 'la mitad', 120: 'un tercio', 60: 'un sexto', 45: 'un octavo', 30: 'un doceavo', 270: 'tres cuartas partes' }[al];
+  if (v === 3)
+    return mk('geo2', 'Un sector circular de radio ' + rr + ' cm tiene un ángulo de ' + al + '°. Su área es', g4_pi(area) + ' cm^{2}',
+      [g4_pi(rr * rr) + ' cm^{2}', g4_pi(arc) + ' cm^{2}', g4_pi(2 * area) + ' cm^{2}', g4_pi(2 * rr) + ' cm^{2}'],
+      'Es ' + frac + ' del círculo: π · ' + rr + '^{2} · ' + al + ' : 360 = ' + g4_pi(area) + ' cm^{2}.');
+  return mk('geo2', 'Un arco de ' + al + '° en una circunferencia de radio ' + rr + ' cm mide', g4_pi(arc) + ' cm',
+    [g4_pi(area) + ' cm', g4_pi(2 * rr) + ' cm', g4_pi(2 * arc) + ' cm', g4_pi(rr * rr) + ' cm'],
+    'Es ' + frac + ' de la circunferencia: 2π · ' + rr + ' · ' + al + ' : 360 = ' + g4_pi(arc) + ' cm.');
+});
+
+/* --- geo2: áreas y perímetros de polígonos --- */
+g4_genr('geo2', function () {
+  var v = ri(0, 5), a, b, h, t;
+  if (v === 0) {
+    do { a = ri(3, 14); h = ri(3, 12); } while ((a * h) % 2);
+    return mk('geo2', 'Un triángulo tiene base ' + a + ' cm y altura ' + h + ' cm. Su área es', (a * h / 2) + ' cm^{2}', [(a * h) + ' cm^{2}', (a + h) + ' cm^{2}', (a * h / 2 + a) + ' cm^{2}', (2 * (a + h)) + ' cm^{2}'],
+      'A = base · altura : 2 = ' + a + ' · ' + h + ' : 2 = ' + (a * h / 2) + ' cm^{2}. No olvides el ½.');
+  }
+  if (v === 1) {
+    var B, bb;
+    do { B = ri(6, 16); bb = ri(2, B - 2); h = ri(3, 9); } while (((B + bb) * h) % 2);
+    return mk('geo2', 'Un trapecio tiene bases de ' + B + ' cm y ' + bb + ' cm y altura ' + h + ' cm. Su área es', ((B + bb) * h / 2) + ' cm^{2}',
+      [((B + bb) * h) + ' cm^{2}', (B * h) + ' cm^{2}', (bb * h) + ' cm^{2}', ((B + bb) * h / 2 + h) + ' cm^{2}'],
+      'A = (B + b) · h : 2 = ' + (B + bb) + ' · ' + h + ' : 2 = ' + ((B + bb) * h / 2) + ' cm^{2}.');
+  }
+  if (v === 2) {
+    var D, dd;
+    do { D = ri(6, 20); dd = ri(3, D - 1); } while ((D * dd) % 2);
+    return mk('geo2', 'Un rombo tiene diagonales de ' + D + ' cm y ' + dd + ' cm. Su área es', (D * dd / 2) + ' cm^{2}', [(D * dd) + ' cm^{2}', (D + dd) + ' cm^{2}', (2 * (D + dd)) + ' cm^{2}', (D * dd / 2 + D) + ' cm^{2}'],
+      'A = D · d : 2 = ' + D + ' · ' + dd + ' : 2 = ' + (D * dd / 2) + ' cm^{2}.');
+  }
+  if (v === 3) {
+    var l;
+    b = ri(5, 14); h = ri(3, 9); l = h + ri(1, 3);
+    return mk('geo2', 'Un paralelogramo tiene base ' + b + ' cm, lado oblicuo ' + l + ' cm y altura ' + h + ' cm. Su área es', (b * h) + ' cm^{2}',
+      [(b * l) + ' cm^{2}', (b * h / 2) + ' cm^{2}', (2 * (b + l)) + ' cm^{2}', (b + h) + ' cm^{2}'],
+      'A = base · altura = ' + b + ' · ' + h + ' = ' + (b * h) + ' cm^{2}. El lado oblicuo no interviene.');
+  }
+  if (v === 4) {
+    a = ri(3, 15); b = ri(2, a - 1);
+    if (Math.random() < 0.5)
+      return mk('geo2', 'Un rectángulo mide ' + a + ' m de largo y ' + b + ' m de ancho. Su perímetro es', (2 * (a + b)) + ' m', [(a * b) + ' m', (a + b) + ' m', (2 * a * b) + ' m', (a + 2 * b) + ' m'],
+        'P = 2 · (' + a + ' + ' + b + ') = ' + (2 * (a + b)) + ' m. El producto ' + a + ' · ' + b + ' sería el área.');
+    return mk('geo2', 'Un rectángulo mide ' + a + ' m de largo y ' + b + ' m de ancho. Su área es', (a * b) + ' m^{2}', [(2 * (a + b)) + ' m^{2}', (a + b) + ' m^{2}', (a * b / 2) + ' m^{2}', (2 * a * b) + ' m^{2}'],
+      'A = largo · ancho = ' + a + ' · ' + b + ' = ' + (a * b) + ' m^{2}. La suma de lados daría el perímetro.');
+  }
+  var ap = ri(2, 9), P = 8 * ap;
+  return mk('geo2', 'Un polígono regular tiene perímetro ' + P + ' cm y apotema ' + ap + ' cm. Su área es', (P * ap / 2) + ' cm^{2}',
+    [(P * ap) + ' cm^{2}', P + ' cm^{2}', (P * ap / 4) + ' cm^{2}', (P + ap) + ' cm^{2}'],
+    'A = perímetro · apotema : 2 = ' + P + ' · ' + ap + ' : 2 = ' + (P * ap / 2) + ' cm^{2}.');
+});
+
+/* --- geo4: volúmenes --- */
+g4_genr('geo4', function () {
+  var v = ri(0, 5), a, l, w, h, r, b;
+  if (v === 0) {
+    a = ri(2, 9);
+    return mk('geo4', 'Un cubo de arista ' + a + ' cm tiene un volumen de', (a * a * a) + ' cm^{3}', [(a * a) + ' cm^{3}', (3 * a) + ' cm^{3}', (6 * a * a) + ' cm^{3}', (3 * a * a) + ' cm^{3}'],
+      'V = arista^{3} = ' + a + '^{3} = ' + (a * a * a) + ' cm^{3}.');
+  }
+  if (v === 1) {
+    l = ri(2, 9); w = ri(2, 9); h = ri(2, 9);
+    return mk('geo4', 'Un prisma recto de base rectangular ' + l + ' cm por ' + w + ' cm y altura ' + h + ' cm tiene un volumen de', (l * w * h) + ' cm^{3}',
+      [(2 * (l * w + l * h + w * h)) + ' cm^{3}', (l * w) + ' cm^{3}', (l + w + h) + ' cm^{3}', (3 * l * w * h) + ' cm^{3}'],
+      'V = área de la base · altura = ' + (l * w) + ' · ' + h + ' = ' + (l * w * h) + ' cm^{3}.');
+  }
+  if (v === 2) {
+    b = ri(2, 9); h = 3 * ri(1, 4);
+    return mk('geo4', 'Una pirámide de base cuadrada de lado ' + b + ' cm y altura ' + h + ' cm tiene un volumen de', (b * b * h / 3) + ' cm^{3}',
+      [(b * b * h) + ' cm^{3}', (b * h / 3) + ' cm^{3}', (b * b * h / 2) + ' cm^{3}', (b * b * h / 3 + b * b) + ' cm^{3}'],
+      'V = ⟨1|3⟩ · área de la base · altura = ' + (b * b) + ' · ' + h + ' : 3 = ' + (b * b * h / 3) + ' cm^{3}.');
+  }
+  if (v === 3) {
+    r = ri(2, 8); h = 3 * ri(1, 4);
+    return mk('geo4', 'Un cono de radio ' + r + ' cm y altura ' + h + ' cm tiene un volumen de', g4_pi(r * r * h / 3) + ' cm^{3}',
+      [g4_pi(r * r * h) + ' cm^{3}', g4_pi(4 * r * r * h / 3) + ' cm^{3}', g4_pi(2 * r * h / 3) + ' cm^{3}', g4_pi(r * r * h / 2) + ' cm^{3}'],
+      'V = ⟨1|3⟩πr^{2}h = π · ' + (r * r) + ' · ' + h + ' : 3 = ' + g4_pi(r * r * h / 3) + ' cm^{3}. No olvides el ⅓.');
+  }
+  if (v === 4) {
+    r = ri(2, 8); h = ri(2, 9);
+    return mk('geo4', 'Un cilindro de radio ' + r + ' cm y altura ' + h + ' cm tiene un volumen de', g4_pi(r * r * h) + ' cm^{3}',
+      [g4_pi(2 * r * h) + ' cm^{3}', g4_pi(4 * r * r * h) + ' cm^{3}', g4_pi(r * h) + ' cm^{3}', g4_pi((r * r * h) % 3 === 0 ? r * r * h / 3 : 2 * r * r * h) + ' cm^{3}'],
+      'V = πr^{2}h = π · ' + (r * r) + ' · ' + h + ' = ' + g4_pi(r * r * h) + ' cm^{3}.');
+  }
+  r = 3 * ri(1, 3);
+  return mk('geo4', 'El volumen de una esfera de radio ' + r + ' cm es', g4_pi(4 * r * r * r / 3) + ' cm^{3}',
+    [g4_pi(4 * r * r) + ' cm^{3}', g4_pi(4 * r * r * r) + ' cm^{3}', g4_pi(4 * r * r / 3) + ' cm^{3}', g4_pi(r * r * r / 3) + ' cm^{3}'],
+    'V = ⟨4|3⟩πr^{3} = ⟨4|3⟩ · π · ' + (r * r * r) + ' = ' + g4_pi(4 * r * r * r / 3) + ' cm^{3}.');
+});
+
+/* --- geo4: Euler y áreas de cuerpos --- */
+g4_genr('geo4', function () {
+  var v = ri(0, 3);
+  if (v === 0) {
+    var nm = { 3: 'triangular', 4: 'cuadrangular', 5: 'pentagonal', 6: 'hexagonal', 7: 'heptagonal', 8: 'octogonal' };
+    var n = ri(3, 8), P = pick([['un prisma de base ' + nm[n], n + 2, 2 * n, 3 * n], ['una pirámide de base ' + nm[n], n + 1, n + 1, 2 * n],
+      ['un cubo', 6, 8, 12], ['un tetraedro', 4, 4, 6], ['un octaedro', 8, 6, 12], ['un dodecaedro', 12, 20, 30], ['un icosaedro', 20, 12, 30]]);
+    var C = P[1], V = P[2], A = P[3], which = ri(0, 2);
+    var nms = ['caras', 'vértices', 'aristas'], vals = [C, V, A], ans = vals[which];
+    var known = [0, 1, 2].filter(function (z) { return z !== which; });
+    var wr = which === 2 ? [C + V, C + V + 1, A - 1, A + 1] : which === 0 ? [A - V, A + V, C - 1, C + 1] : [A - C, A + C, V - 1, V + 1];
+    return mk('geo4', 'En ' + P[0] + ' hay ' + vals[known[0]] + ' ' + nms[known[0]] + ' y ' + vals[known[1]] + ' ' + nms[known[1]] + '. Número de ' + nms[which] + ':', String(ans), wr.map(String),
+      'Euler: caras + vértices = aristas + 2. Con ' + C + ' + ' + V + ' = ' + A + ' + 2 se obtiene el dato que falta: ' + ans + '.');
+  }
+  if (v === 1) {
+    var r = ri(2, 9), h = ri(2, 9);
+    return mk('geo4', 'El área total de un cilindro de radio ' + r + ' cm y altura ' + h + ' cm (con sus dos bases) es', g4_pi(2 * r * (r + h)) + ' cm^{2}',
+      [g4_pi(2 * r * h) + ' cm^{2}', g4_pi(r * (r + h)) + ' cm^{2}', g4_pi(2 * r * r) + ' cm^{2}', g4_pi(r * r * h) + ' cm^{2}'],
+      'A = 2πrh + 2πr^{2} = 2πr · (h + r) = 2π · ' + r + ' · ' + (r + h) + ' = ' + g4_pi(2 * r * (r + h)) + ' cm^{2}.');
+  }
+  if (v === 2) {
+    if (Math.random() < 0.5) {
+      var a = ri(2, 9);
+      return mk('geo4', 'El área total de un cubo de arista ' + a + ' cm es', (6 * a * a) + ' cm^{2}', [(a * a * a) + ' cm^{2}', (4 * a * a) + ' cm^{2}', (12 * a) + ' cm^{2}', (a * a) + ' cm^{2}'],
+        'Son 6 caras cuadradas: 6 · ' + a + '^{2} = ' + (6 * a * a) + ' cm^{2}.');
+    }
+    var rs = ri(2, 12);
+    return mk('geo4', 'El área de una esfera de radio ' + rs + ' cm es', g4_pi(4 * rs * rs) + ' cm^{2}', [g4_pi(2 * rs * rs) + ' cm^{2}', g4_pi(rs * rs) + ' cm^{2}', g4_pi(4 * rs * rs * rs) + ' cm^{2}', g4_pi(2 * rs) + ' cm^{2}'],
+      'A = 4πr^{2} = 4 · π · ' + (rs * rs) + ' = ' + g4_pi(4 * rs * rs) + ' cm^{2}.');
+  }
+  var T = pick([[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 6, 10]]), rc = T[0], hc = T[1], g = T[2];
+  return mk('geo4', 'Un cono tiene radio ' + rc + ' cm, altura ' + hc + ' cm y generatriz ' + g + ' cm. Su área total (lateral más base) es', g4_pi(rc * (rc + g)) + ' cm^{2}',
+    [g4_pi(rc * g) + ' cm^{2}', g4_pi(rc * (rc + hc)) + ' cm^{2}', g4_pi(rc * rc) + ' cm^{2}', g4_pi(2 * rc * (rc + g)) + ' cm^{2}'],
+    'A = πrg + πr^{2} = π · ' + rc + ' · (' + g + ' + ' + rc + ') = ' + g4_pi(rc * (rc + g)) + ' cm^{2}. La altura no se usa, sino la generatriz.');
+});
+
+/* --- geo3: Pitágoras --- */
+g4_genr('geo3', function () {
+  var T = pick([[3, 4, 5, [1, 2, 3, 4]], [5, 12, 13, [1, 2]], [8, 15, 17, [1]], [7, 24, 25, [1]]]);
+  var k = pick(T[3]), a = T[0] * k, b = T[1] * k, c = T[2] * k, v = ri(0, 5);
+  if (Math.random() < 0.5) { var tmp = a; a = b; b = tmp; }
+  if (v === 0)
+    return mk('geo3', 'Un triángulo rectángulo tiene catetos de ' + a + ' cm y ' + b + ' cm. Su hipotenusa mide', c + ' cm', [(a + b) + ' cm', (a * a + b * b) + ' cm', (a * b) + ' cm', (c + 1) + ' cm'],
+      'h^{2} = ' + a + '^{2} + ' + b + '^{2} = ' + (c * c) + ', luego h = ' + c + ' cm.');
+  if (v === 1)
+    return mk('geo3', 'Un triángulo rectángulo tiene hipotenusa de ' + c + ' cm y un cateto de ' + a + ' cm. El otro cateto mide', b + ' cm', [(c - a) + ' cm', (c + a) + ' cm', (c * c + a * a) + ' cm', (b + 1) + ' cm'],
+      'c^{2} = ' + c + '^{2} − ' + a + '^{2} = ' + (b * b) + ', luego c = ' + b + ' cm. Al cateto se llega restando.');
+  if (v === 2)
+    return mk('geo3', 'Un rectángulo mide ' + a + ' cm por ' + b + ' cm. Su diagonal mide', c + ' cm', [(a + b) + ' cm', (a * a + b * b) + ' cm', (2 * (a + b)) + ' cm', (c - 1) + ' cm'],
+      'La diagonal es la hipotenusa: d^{2} = ' + a + '^{2} + ' + b + '^{2} = ' + (c * c) + ', luego d = ' + c + ' cm.');
+  if (v === 3)
+    return mk('geo3', 'Un triángulo rectángulo tiene catetos de ' + a + ' cm y ' + b + ' cm. Su perímetro es', (a + b + c) + ' cm', [(a + b) + ' cm', (a * b / 2) + ' cm', (2 * (a + b)) + ' cm', (a + b + c + 1) + ' cm'],
+      'Hipotenusa: √{' + a + '^{2} + ' + b + '^{2}} = ' + c + ' cm. Perímetro: ' + a + ' + ' + b + ' + ' + c + ' = ' + (a + b + c) + ' cm.');
+  if (v === 4)
+    return mk('geo3', 'Un triángulo isósceles tiene lados iguales de ' + c + ' cm y base de ' + (2 * a) + ' cm. Su altura mide', b + ' cm', [(c - a) + ' cm', a + ' cm', (c + a) + ' cm', (b + 1) + ' cm'],
+      'La altura divide la base en dos mitades de ' + a + ' cm: h^{2} = ' + c + '^{2} − ' + a + '^{2} = ' + (b * b) + ', luego h = ' + b + ' cm.');
+  var x, y, z;
+  if (Math.random() < 0.35) { x = a; y = b; z = c; }
+  else { do { x = ri(2, 9); y = ri(x + 1, 11); z = ri(y + 1, 13); } while (x + y <= z || x * x + y * y === z * z); }
+  var s = x * x + y * y, cls = s === z * z ? 'rectángulo' : s > z * z ? 'acutángulo' : 'obtusángulo';
+  var xs = [x, y, z].sort(function (p, q) { return p - q; });
+  return mk('geo3', 'Un triángulo de lados ' + xs[0] + ' cm, ' + xs[1] + ' cm y ' + xs[2] + ' cm es', cls, ['rectángulo', 'acutángulo', 'obtusángulo', 'equilátero'],
+    'Comparamos ' + xs[0] + '^{2} + ' + xs[1] + '^{2} = ' + (xs[0] * xs[0] + xs[1] * xs[1]) + ' con ' + xs[2] + '^{2} = ' + (xs[2] * xs[2]) + ': ' +
+    (cls === 'rectángulo' ? 'son iguales (Pitágoras).' : cls === 'acutángulo' ? 'la suma es mayor, así que el ángulo mayor es agudo.' : 'la suma es menor, así que el ángulo mayor es obtuso.'));
+});
+
+/* --- geo3: semejanza, Tales y escalas --- */
+g4_genr('geo3', function () {
+  var v = ri(0, 5), k, A;
+  if (v === 0) {
+    k = ri(2, 5); A = ri(2, 9);
+    return mk('geo3', 'Se amplía una figura con razón de semejanza ' + k + '. Si el área original es ' + A + ' cm^{2}, la nueva área es', (k * k * A) + ' cm^{2}',
+      [(k * A) + ' cm^{2}', (k * k * k * A) + ' cm^{2}', (A + k * k) + ' cm^{2}', (2 * k * A) + ' cm^{2}'],
+      'Las áreas se multiplican por k^{2} = ' + (k * k) + ': ' + A + ' · ' + (k * k) + ' = ' + (k * k * A) + ' cm^{2}.');
+  }
+  if (v === 1) {
+    k = ri(2, 4); A = ri(2, 9);
+    return mk('geo3', 'Se amplía un cuerpo con razón de semejanza ' + k + '. Si su volumen original es ' + A + ' cm^{3}, el nuevo volumen es', (k * k * k * A) + ' cm^{3}',
+      [(k * A) + ' cm^{3}', (k * k * A) + ' cm^{3}', (3 * k * A) + ' cm^{3}', (A + k * k * k) + ' cm^{3}'],
+      'Los volúmenes se multiplican por k^{3} = ' + (k * k * k) + ': ' + A + ' · ' + (k * k * k) + ' = ' + (k * k * k * A) + ' cm^{3}.');
+  }
+  if (v === 2) {
+    var m = ri(2, 9);
+    if (Math.random() < 0.5)
+      return mk('geo3', 'Dos figuras semejantes tienen áreas de ' + 1 + ' cm^{2} y ' + (m * m) + ' cm^{2}. La razón de semejanza es', String(m), [String(m * m), String(2 * m), String(m + 1), String(m - 1)],
+        'La razón de áreas es k^{2} = ' + (m * m) + ', así que k = ' + m + '.');
+    var mv = ri(2, 6);
+    return mk('geo3', 'Dos cuerpos semejantes tienen volúmenes de 1 cm^{3} y ' + (mv * mv * mv) + ' cm^{3}. La razón de semejanza es', String(mv), [String(mv * mv * mv), String(mv * mv), String(3 * mv), String(mv + 1)],
+      'La razón de volúmenes es k^{3} = ' + (mv * mv * mv) + ', así que k = ' + mv + '.');
+  }
+  if (v === 3) {
+    var N = pick([100, 200, 500, 1000, 10000, 25000, 50000, 100000]), x = ri(2, 9);
+    var real = x * N, unit, val;
+    if (N <= 1000) { unit = 'm'; val = real / 100; } else { unit = 'km'; val = real / 100000; }
+    return mk('geo3', 'En un plano de escala 1:' + g4_n(N) + ', una distancia mide ' + x + ' cm. En la realidad son', g4_n(val) + ' ' + unit,
+      [g4_n(val * 10) + ' ' + unit, g4_n(val / 10) + ' ' + unit, g4_n(val * 100) + ' ' + unit, g4_n(val / 100) + ' ' + unit],
+      x + ' · ' + g4_n(N) + ' = ' + g4_n(real) + ' cm, que son ' + g4_n(val) + ' ' + unit + '.');
+  }
+  if (v === 4) {
+    var h1 = ri(1, 4), s1 = ri(2, 5), mm = ri(2, 6), s2 = s1 * mm, h2 = h1 * mm;
+    return mk('geo3', 'Un poste de ' + h1 + ' m proyecta una sombra de ' + s1 + ' m. A la misma hora, un árbol proyecta una sombra de ' + s2 + ' m. El árbol mide', h2 + ' m',
+      [(h1 + s2 - s1) + ' m', (h1 * s2) + ' m', (s2 - h1) + ' m', (h2 + s1) + ' m'],
+      'Triángulos semejantes: ⟨' + h1 + '|' + s1 + '⟩ = ⟨h|' + s2 + '⟩, y h = ' + h1 + ' · ' + s2 + ' : ' + s1 + ' = ' + h2 + ' m.');
+  }
+  var p = ri(2, 5), q = ri(2, 8), m2 = ri(2, 4), rr = p * m2, ec = q * m2;
+  return mk('geo3', 'En un triángulo ABC, una paralela a BC corta AB en D y AC en E. Si AD = ' + p + ', DB = ' + q + ' y AE = ' + rr + ', entonces EC mide', String(ec),
+    [String(q), String(rr + q - p), String(rr * q), String(p * rr)],
+    'Tales: ⟨AD|DB⟩ = ⟨AE|EC⟩, o sea ⟨' + p + '|' + q + '⟩ = ⟨' + rr + '|EC⟩, y EC = ' + rr + ' · ' + q + ' : ' + p + ' = ' + ec + '.');
+});
+
+/* --- geo5: coordenadas de la imagen de un punto --- */
+g4_genr('geo5', function () {
+  var x, y, v = ri(0, 4);
+  do { x = nz(-8, 8); y = nz(-8, 8); } while (Math.abs(x) === Math.abs(y));
+  var P = 'P' + g4_pt(x, y);
+  if (v === 0) {
+    var u = nz(-6, 6), w = nz(-6, 6);
+    return mk('geo5', 'Al trasladar el punto ' + P + ' con el vector ' + g4_pt(u, w) + ', se obtiene', g4_pt(x + u, y + w),
+      [g4_pt(x - u, y - w), g4_pt(x + u, y), g4_pt(x, y + w), g4_pt(x + w, y + u)],
+      'Se suman las componentes: (' + mn(x) + ' + ' + (u < 0 ? '(' + mn(u) + ')' : u) + ', ' + mn(y) + ' + ' + (w < 0 ? '(' + mn(w) + ')' : w) + ') = ' + g4_pt(x + u, y + w) + '.');
+  }
+  if (v === 1) {
+    var u2 = nz(-6, 6), w2 = nz(-6, 6);
+    return mk('geo5', 'Una traslación lleva P' + g4_pt(x, y) + ' a P′' + g4_pt(x + u2, y + w2) + '. Su vector es', g4_pt(u2, w2),
+      [g4_pt(-u2, -w2), g4_pt(x + u2, y + w2), g4_pt(u2, -w2), g4_pt(w2, u2)],
+      'Vector = P′ − P = ' + g4_pt(u2, w2) + '.');
+  }
+  if (v === 2) {
+    var pt = g4_pt(x, y);
+    var all = [['El simétrico de ' + pt + ' respecto al eje X es', x, -y, 'La simetría respecto al eje X cambia el signo de la y.'],
+      ['El simétrico de ' + pt + ' respecto al eje Y es', -x, y, 'La simetría respecto al eje Y cambia el signo de la x.'],
+      ['El simétrico de ' + pt + ' respecto al origen es', -x, -y, 'La simetría central respecto al origen cambia el signo de ambas coordenadas.'],
+      ['Al girar 90° en sentido antihorario alrededor del origen el punto ' + pt + ', se obtiene', -y, x, 'Un giro de 90° antihorario lleva (x, y) a (−y, x).'],
+      ['Al girar 90° en sentido horario alrededor del origen el punto ' + pt + ', se obtiene', y, -x, 'Un giro de 90° horario lleva (x, y) a (y, −x).'],
+      ['Al girar 180° alrededor del origen el punto ' + pt + ', se obtiene', -x, -y, 'Un giro de 180° equivale a la simetría central: cambian ambos signos.'],
+      ['El simétrico de ' + pt + ' respecto a la recta y = x es', y, x, 'La simetría respecto a y = x intercambia las coordenadas.'],
+      ['El simétrico de ' + pt + ' respecto a la recta y = −x es', -y, -x, 'La simetría respecto a y = −x intercambia las coordenadas y cambia ambos signos.']];
+    var t = pick(all), ca = g4_pt(t[1], t[2]);
+    var cand = shuffle(all.map(function (z) { return g4_pt(z[1], z[2]); }).concat([g4_pt(x, y)])).filter(function (z) { return z !== ca; });
+    return mk('geo5', t[0], ca, cand, t[3]);
+  }
+  var c = ri(1, 5), ax = Math.random() < 0.5;
+  if (x === c) x += 2;
+  if (ax)
+    return mk('geo5', 'El simétrico de ' + g4_pt(x, y) + ' respecto a la recta x = ' + c + ' es', g4_pt(2 * c - x, y), [g4_pt(-x, y), g4_pt(2 * c + x, y), g4_pt(c - x, y), g4_pt(x, 2 * c - y)],
+      'La distancia al eje se conserva: x′ = 2 · ' + c + ' − ' + g3_p(x) + ' = ' + mn(2 * c - x) + ', y no cambia la y.');
+  if (y === c) y += 2;
+  return mk('geo5', 'El simétrico de ' + g4_pt(x, y) + ' respecto a la recta y = ' + c + ' es', g4_pt(x, 2 * c - y), [g4_pt(x, -y), g4_pt(x, 2 * c + y), g4_pt(x, c - y), g4_pt(2 * c - x, y)],
+    'La distancia al eje se conserva: y′ = 2 · ' + c + ' − ' + g3_p(y) + ' = ' + mn(2 * c - y) + ', y no cambia la x.');
+});
+
+/* --- geo5: ejes de simetría y orden de giro --- */
+g4_genr('geo5', function () {
+  var v = ri(0, 2);
+  var nm = { 3: 'triángulo equilátero', 4: 'cuadrado', 5: 'pentágono regular', 6: 'hexágono regular', 7: 'heptágono regular', 8: 'octógono regular', 9: 'eneágono regular', 10: 'decágono regular', 12: 'dodecágono regular' };
+  var ns = Object.keys(nm).map(Number), n = pick(ns);
+  if (v === 0) {
+    var F = pick([['un rectángulo que no es cuadrado', 2], ['un rombo que no es cuadrado', 2], ['un paralelogramo que no es rectángulo ni rombo', 0], ['un trapecio isósceles', 1],
+      ['un triángulo isósceles que no es equilátero', 1], ['un triángulo escaleno', 0], ['un cuadrado', 4], ['un triángulo equilátero', 3], ['un círculo', 'infinito'],
+      ['un ' + nm[n], n], ['un ' + nm[n], n]]);
+    var pool = ['0', '1', '2', '3', '4', '5', '6', 'infinito'], ans = String(F[1]);
+    var ws = shuffle(pool.filter(function (z) { return z !== ans; })), pref = F[1] === 'infinito' ? [] : [String(F[1] === 0 ? 1 : F[1] + 1), String(F[1] + 2)];
+    return mk('geo5', 'El número de ejes de simetría de ' + F[0] + ' es', ans, pref.filter(function (z) { return z !== ans; }).concat(ws),
+      F[1] === 'infinito' ? 'Cualquier recta que pasa por el centro es un eje de simetría.' : F[1] === 0 ? 'No tiene ningún eje: ninguna recta lo divide en dos mitades que coincidan al doblar.' :
+        'Cuenta las rectas que lo doblan en dos mitades iguales: ' + F[1] + (F[1] === 1 ? ' eje.' : ' ejes.'));
+  }
+  if (v === 1) {
+    n = pick(ns.filter(function (z) { return 360 % z === 0; }));
+    var ang = String(360 / n) + '°', wr = [180 - 360 / n, 180 / n, 2 * 360 / n, 360 - 360 / n].map(function (z) { return g4_n(z) + '°'; });
+    return mk('geo5', 'El menor ángulo de giro que deja invariante un ' + nm[n] + ' es', g4_n(360 / n) + '°', wr,
+      'El giro mínimo es una vuelta entre el número de lados: 360° : ' + n + ' = ' + g4_n(360 / n) + '°.');
+  }
+  var m = pick([3, 4, 5, 6, 8, 9, 10, 12]);
+  return mk('geo5', 'El orden de simetría de giro de un ' + nm[m] + ' es', String(m), [String(2 * m), String(m + 1), String(m - 1), String(360 / m)],
+    'Coincide consigo mismo ' + m + ' veces en una vuelta completa (giros de 360° : ' + m + ' = ' + g4_n(360 / m) + '°).');
+});
+/* Generadores con números aleatorios, quinta tanda: funciones, resolución de triángulos e inecuaciones */
+function g5_rt(c, r) { return r === 1 ? String(c) : (c === 1 ? '' : c) + '√{' + r + '}'; }
+function g5_iv(l, r, lc, rc) { return (lc ? '[' : '(') + l + ', ' + r + (rc ? ']' : ')'); }
+function g5_pw(n, d, k) { return k >= 0 ? [Math.pow(n, k), Math.pow(d, k)] : [Math.pow(d, -k), Math.pow(n, -k)]; }
+
+/* --- fun1: evaluar f(k) --- */
+genr('fun1', function () {
+  var k = -ri(1, 5);
+  if (Math.random() < 0.5) {
+    var a = pick([-5, -4, -3, -2, 2, 3, 4, 5]), b = nz(-9, 9), v = a * k + b;
+    return mk('fun1', 'Si f(x) = ' + lin(a, b) + ', entonces f(' + mn(k) + ') =', mn(v),
+      [mn(a * -k + b), mn(a * k - b), mn(-v), mn(a + k + b)],
+      'f(' + mn(k) + ') = ' + mn(a) + '·(' + mn(k) + ') ' + (b < 0 ? '− ' + (-b) : '+ ' + b) + ' = ' + mn(v) + '.');
+  }
+  var b2 = nz(-4, 4), c2 = nz(-5, 5), v2 = k * k + b2 * k + c2;
+  return mk('fun1', 'Si f(x) = ' + poly([1, b2, c2]) + ', entonces f(' + mn(k) + ') =', mn(v2),
+    [mn(-k * k + b2 * k + c2), mn(k * k - b2 * k + c2), mn(2 * k + b2 * k + c2), mn(-v2)],
+    'f(' + mn(k) + ') = (' + mn(k) + ')^{2} ' + (b2 < 0 ? '− ' + (-b2) : '+ ' + b2) + '·(' + mn(k) + ') ' + (c2 < 0 ? '− ' + (-c2) : '+ ' + c2) + ' = ' + mn(v2) + '.');
+});
+
+/* --- fun1: cortes con los ejes y mínimo en una tabla --- */
+genr('fun1', function () {
+  if (Math.random() < 0.55) {
+    var m = pick([-5, -4, -3, -2, 1, 2, 3, 4, 5]), r = nz(-6, 6), n = -m * r;   /* m ≠ −1: con m = −1 los cortes (r,0) y (0,r) coinciden al permutarlos */
+    var P = function (x, y) { return '(' + mn(x) + ', ' + mn(y) + ')'; };
+    return mk('fun1', 'La recta y = ' + lin(m, n) + ' corta a los ejes en', P(r, 0) + ' y ' + P(0, n),
+      [P(0, r) + ' y ' + P(n, 0), P(-r, 0) + ' y ' + P(0, n), P(r, 0) + ' y ' + P(0, -n), P(n, 0) + ' y ' + P(0, r)],
+      'Con y = 0: ' + lin(m, n) + ' = 0 da x = ' + mn(r) + '. Con x = 0: y = ' + mn(n) + '.');
+  }
+  var x0 = ri(-4, 1), h = x0 + 2, c = ri(-3, 3), xs = [], ys = [];
+  for (var i = 0; i < 5; i++) { xs.push(mn(x0 + i)); var d = x0 + i - h; ys.push(mn(d * d + c)); }
+  return mk('fun1', 'Tabla: x = ' + xs.join(', ') + '; y = ' + ys.join(', ') + '. El mínimo se alcanza en', 'x = ' + mn(h),
+    ['x = ' + mn(c), 'x = ' + mn(x0), 'x = ' + mn(x0 + 4), 'x = ' + mn(h + 1)],
+    'El menor valor de y es ' + mn(c) + ' y corresponde a x = ' + mn(h) + '. Se pide la x, no el valor mínimo.');
+});
+
+/* --- fun2: pendiente y recta por dos puntos, perpendiculares --- */
+genr('fun2', function () {
+  var v = ri(0, 2), P = function (x, y) { return '(' + mn(x) + ', ' + mn(y) + ')'; };
+  if (v === 0) {
+    var x1 = nz(-4, 4), y1 = ri(-5, 5), dx = ri(1, 5), dy = nz(-9, 9), x2 = x1 + dx, y2 = y1 + dy;
+    var pts = Math.random() < 0.5 ? P(x1, y1) + ' y ' + P(x2, y2) : P(x2, y2) + ' y ' + P(x1, y1);
+    return mk('fun2', 'La pendiente de la recta que pasa por ' + pts + ' es', fs(dy, dx),
+      [fs(dx, dy), fs(-dy, dx), mn(dy), mn(dx), mn(dy + dx)],
+      'm = Δy/Δx = (' + mn(y2) + ' − ' + (y1 < 0 ? '(' + mn(y1) + ')' : y1) + ')/(' + mn(x2) + ' − ' + (x1 < 0 ? '(' + mn(x1) + ')' : x1) + ') = ' + fs(dy, dx) + '.');
+  }
+  if (v === 1) {
+    var m = nz(-4, 4), a = nz(-4, 4), b = ri(1, 3), n = ri(-6, 6), c = m * a + n;
+    if (n === 0) n = 3, c = m * a + n;
+    var d = m * (a + b) + n;
+    return mk('fun2', 'La recta que pasa por ' + P(a, c) + ' y ' + P(a + b, d) + ' es', 'y = ' + lin(m, n),
+      ['y = ' + lin(m, -n), 'y = ' + lin(m, c), 'y = ' + lin(-m, n), 'y = ' + lin(n, m)],
+      'm = ' + mn(d - c) + '/' + b + ' = ' + mn(m) + '. Con x = ' + mn(a) + ': ' + mn(c) + ' = ' + mn(m) + '·(' + mn(a) + ') + n, luego n = ' + mn(n) + '.');
+  }
+  var p, q;
+  do { p = nz(-5, 5); q = ri(1, 5); } while (gcd(p, q) !== 1 || Math.abs(p) === q);
+  return mk('fun2', 'Una recta de pendiente ' + fs(p, q) + ' y otra perpendicular a ella. La pendiente de la segunda es', fs(-q, p),
+    [fs(q, p), fs(-p, q), fs(p, q)],
+    'La perpendicular tiene pendiente opuesta e inversa: −1/(' + fs(p, q) + ') = ' + fs(-q, p) + '.');
+});
+
+/* --- fun2: parábola, eje de simetría y vértice --- */
+genr('fun2', function () {
+  var h = nz(-5, 5);
+  if (Math.random() < 0.5) {
+    var a = pick([1, 1, 2, -1, -2, 3]), b = -2 * a * h, c = nz(-5, 5);
+    return mk('fun2', 'El eje de simetría de la parábola y = ' + poly([a, b, c]) + ' es', 'x = ' + mn(h),
+      ['x = ' + mn(-h), 'x = ' + mn(2 * h), 'x = ' + mn(-2 * h), 'x = ' + mn(-h * 2 * a)],
+      'x = −b/(2a) = −(' + mn(b) + ')/' + (2 * a < 0 ? '(' + mn(2 * a) + ')' : 2 * a) + ' = ' + mn(h) + '. Cuidado con el signo menos.');
+  }
+  var a2 = pick([1, 1, -1, 2]), k = nz(-6, 6), b2 = -2 * a2 * h, c2 = a2 * h * h + k;
+  var P = function (x, y) { return '(' + mn(x) + ', ' + mn(y) + ')'; };
+  return mk('fun2', 'El vértice de y = ' + poly([a2, b2, c2]) + ' es', P(h, k),
+    [P(-h, k), P(h, c2), P(k, h), P(-h, c2), P(h, -k)],
+    'x = −b/(2a) = ' + mn(h) + ' y y = f(' + mn(h) + ') = ' + mn(k) + '.');
+});
+
+/* --- fun3: potencias y valores de la exponencial --- */
+genr('fun3', function () {
+  var bases = [[2, 1, [-4, 5]], [3, 1, [-3, 3]], [5, 1, [-2, 3]], [10, 1, [-3, 3]], [1, 2, [-4, 4]], [1, 3, [-3, 3]]];
+  var b = pick(bases), k;
+  do { k = ri(b[2][0], b[2][1]); } while (k === 0);
+  var pw = g5_pw(b[0], b[1], k), n = pw[0], d = pw[1];
+  var base = b[0] === 1 ? '(⟨1|' + b[1] + '⟩)' : String(b[0]);
+  var bt = b[0] === 1 ? '(⟨1|' + b[1] + '⟩)' : String(b[0]);
+  return mk('fun3', 'Si f(x) = ' + base + '^{x}, entonces f(' + mn(k) + ') =', fs(n, d),
+    [fs(d, n), fs(b[0] * k, b[1]), fs(-n, d), fs(b[0] + k * b[1], b[1]), fs(-d, n)],
+    bt + '^{' + mn(k) + '} = ' + fs(n, d) + (k < 0 ? ' (exponente negativo: se invierte la base).' : '.'));
+});
+
+/* --- fun3: inversa y proporcionalidad inversa --- */
+genr('fun3', function () {
+  var P = function (x, y) { return '(' + mn(x) + ', ' + mn(y) + ')'; };
+  if (Math.random() < 0.5) {
+    var a = pick([2, 3, 4, 5, 10]), k = ri(1, 3), N = Math.pow(a, k);
+    return mk('fun3', 'El punto ' + P(k, N) + ' está en y = ' + a + '^{x}. Entonces en su inversa y = log_{' + a + '} x está el punto', P(N, k),
+      [P(k, N), P(N, -k), P(-N, k), P(-k, N)],
+      'En la inversa se intercambian las coordenadas: log_{' + a + '} ' + N + ' = ' + k + '.');
+  }
+  var x0 = ri(2, 8), y0 = ri(2, 9), K = x0 * y0, divs = [];
+  for (var i = 1; i <= 36; i++) if (K % i === 0 && i !== x0) divs.push(i);
+  var x1 = pick(divs), y1 = K / x1;
+  return mk('fun3', 'Dos magnitudes son inversamente proporcionales. Si x = ' + x0 + ', y = ' + y0 + '; entonces para x = ' + x1 + ', y =', fs(K, x1),
+    [fs(y0 * x1, x0), mn(Math.abs(y0 + x0 - x1)), mn(K), mn(x1 * y0)],
+    'k = x·y = ' + x0 + '·' + y0 + ' = ' + K + ', y y = ' + K + '/' + x1 + ' = ' + fs(K, x1) + '.');
+});
+
+/* --- tri4: catetos con ángulos notables, elevación y depresión --- */
+genr('tri4', function () {
+  var v = ri(0, 3);
+  if (v === 0) {
+    var h = 2 * ri(1, 10), al = pick([30, 60]), opp = Math.random() < 0.5;
+    var short = g5_rt(h / 2, 1), long_ = g5_rt(h / 2, 3);
+    var isShort = (al === 30) === opp;           /* opuesto a 30 o adyacente a 60 = corto */
+    var ans = isShort ? short : long_, sw = isShort ? long_ : short;
+    return mk('tri4', 'En un triángulo rectángulo la hipotenusa mide ' + h + ' y un ángulo agudo ' + al + '°. El cateto ' + (opp ? 'opuesto' : 'adyacente') + ' a ese ángulo mide', ans,
+      [sw, g5_rt(h, 3), String(h), g5_rt(h / 2, 2)],
+      (opp ? 'sen ' : 'cos ') + al + '° = ' + (isShort ? '⟨1|2⟩' : '⟨√{3}|2⟩') + ', y ' + h + ' · ' + (isShort ? '⟨1|2⟩' : '⟨√{3}|2⟩') + ' = ' + ans + '.');
+  }
+  if (v === 1) {
+    var c = ri(2, 12);
+    return mk('tri4', 'Un triángulo rectángulo tiene un ángulo de 45° y un cateto de ' + c + '. La hipotenusa mide', g5_rt(c, 2),
+      [String(2 * c), String(c), g5_rt(c, 3), g5_rt(2 * c, 2)],
+      'Es isósceles: los dos catetos miden ' + c + ' y la hipotenusa es √{' + c * c + ' + ' + c * c + '} = ' + g5_rt(c, 2) + '.');
+  }
+  var kk = ri(1, 9), d = 3 * kk, al2 = pick([30, 45, 60]);
+  if (v === 2) {
+    var an = al2 === 30 ? g5_rt(kk, 3) : al2 === 45 ? String(d) : g5_rt(d, 3);
+    var wr = al2 === 30 ? [g5_rt(d, 3), String(d), g5_rt(kk, 2), String(2 * d)] : al2 === 45 ? [g5_rt(d, 3), g5_rt(d, 2), String(2 * d), g5_rt(kk, 3)] : [g5_rt(kk, 3), String(d), g5_rt(d, 2), String(2 * d)];
+    return mk('tri4', 'Desde un punto del suelo a ' + d + ' m de la base de un edificio, la azotea se ve con un ángulo de elevación de ' + al2 + '°. El edificio mide', an + ' m',
+      wr.map(function (s) { return s + ' m'; }),
+      'tg ' + al2 + '° = ⟨altura|' + d + '⟩, con tg ' + al2 + '° = ' + (al2 === 30 ? '⟨√{3}|3⟩' : al2 === 45 ? '1' : '√{3}') + ': la altura es ' + an + ' m.');
+  }
+  var an2 = al2 === 30 ? g5_rt(d, 3) : al2 === 45 ? String(d) : g5_rt(kk, 3);
+  var wr2 = al2 === 30 ? [g5_rt(kk, 3), String(d), g5_rt(d, 2), String(2 * d)] : al2 === 45 ? [g5_rt(d, 3), g5_rt(d, 2), String(2 * d), g5_rt(kk, 3)] : [g5_rt(d, 3), String(d), g5_rt(kk, 2), String(2 * d)];
+  return mk('tri4', 'Desde lo alto de un faro de ' + d + ' m se ve una barca con un ángulo de depresión de ' + al2 + '°. Su distancia horizontal al faro es', an2 + ' m',
+    wr2.map(function (s) { return s + ' m'; }),
+    'tg ' + al2 + '° = ⟨' + d + '|distancia⟩, luego distancia = ' + d + ' : tg ' + al2 + '° = ' + an2 + ' m.');
+});
+
+/* --- tri4: área con ½·a·b·sen C --- */
+genr('tri4', function () {
+  var C = pick([30, 45, 60, 120, 135, 150]), p = ri(1, 6), q = ri(1, 6);
+  var r = (C === 30 || C === 150) ? 1 : (C === 45 || C === 135) ? 2 : 3, other = r === 1 ? 3 : 1;
+  var sn = r === 1 ? '⟨1|2⟩' : r === 2 ? '⟨√{2}|2⟩' : '⟨√{3}|2⟩', u = ' cm^{2}';
+  return mk('tri4', 'Un triángulo tiene dos lados de ' + 2 * p + ' cm y ' + 2 * q + ' cm que forman un ángulo de ' + C + '°. Su área es', g5_rt(p * q, r) + u,
+    [g5_rt(2 * p * q, r) + u, String(2 * p * q) + u, g5_rt(p * q, other) + u, String(4 * p * q) + u],
+    'Área = ½·' + 2 * p + '·' + 2 * q + '·sen ' + C + '° = ' + 2 * p * q + ' · ' + sn + ' = ' + g5_rt(p * q, r) + ' cm^{2}.');
+});
+
+/* --- ine: sistema de dos inecuaciones y segundo grado --- */
+genr('ine', function () {
+  var L = nz(-6, 3), U, a = ri(2, 4), p = nz(-5, 5);
+  do { U = L + ri(2, 7); } while (U === 0);
+  var s1 = Math.random() < 0.5, s2 = Math.random() < 0.5;       /* estricta o no */
+  var q = L + p;                                                  /* x + p > q  →  x > L */
+  var i1 = 'x ' + (p < 0 ? '− ' + (-p) : '+ ' + p) + (s1 ? ' > ' : ' ≥ ') + mn(q);
+  var i2 = a + 'x' + (s2 ? ' < ' : ' ≤ ') + mn(a * U);
+  return mk('ine', 'El sistema ' + i1 + ' y ' + i2 + ' tiene como solución', g5_iv(mn(L), mn(U), !s1, !s2),
+    [g5_iv(mn(L), mn(U), s1, s2), g5_iv(mn(L), mn(U), !s1, s2), g5_iv(mn(L), mn(a * U > L ? a * U : U + a), !s1, !s2), g5_iv(mn(-U), mn(-L), !s2, !s1)],
+    'La primera da x ' + (s1 ? '>' : '≥') + ' ' + mn(L) + ' y la segunda x ' + (s2 ? '<' : '≤') + ' ' + mn(U) + '. Deben cumplirse a la vez.');
+});
+
+genr('ine', function () {
+  var r1 = ri(-6, 5), r2 = r1 + ri(1, 8), op = pick(['<', '≤', '>', '≥']);
+  var strict = op === '<' || op === '>', between = op === '<' || op === '≤';
+  var reg = function (bt, st, x, y) {
+    return bt ? g5_iv(mn(x), mn(y), !st, !st)
+      : '(−∞, ' + mn(x) + (st ? ')' : ']') + ' ∪ ' + (st ? '(' : '[') + mn(y) + ', +∞)';
+  };
+  return mk('ine', 'Si ' + poly([1, -(r1 + r2), r1 * r2]) + ' ' + op + ' 0, la solución es', reg(between, strict, r1, r2),
+    [reg(!between, strict, r1, r2), reg(between, !strict, r1, r2), reg(between, strict, -r2, -r1), reg(!between, !strict, r1, r2)],
+    'Las raíces son ' + mn(r1) + ' y ' + mn(r2) + '. La parábola abre hacia arriba: ' + (op === '<' || op === '≤' ? 'es negativa entre las raíces' : 'es positiva fuera de las raíces') + (strict ? ' y los extremos no se incluyen.' : ' y los extremos se incluyen.'));
+});
+/* Generadores: estadística, combinatoria y probabilidad */
+function g6_dec(x) { return mn(String(Math.round(x * 100) / 100).replace('.', ',')); }
+function g6_num(a, b) { return a - b; }
+function g6_sum(a) { return a.reduce(function (s, x) { return s + x; }, 0); }
+function g6_C(n, k) { var r = 1; for (var i = 1; i <= k; i++) r = r * (n - k + i) / i; return Math.round(r); }
+function g6_V(n, k) { var r = 1; for (var i = 0; i < k; i++) r *= (n - i); return r; }
+function g6_fact(n) { return n <= 1 ? 1 : n * g6_fact(n - 1); }
+function g6_distinct(n, lo, hi) {
+  var s = [];
+  while (s.length < n) { var x = ri(lo, hi); if (s.indexOf(x) < 0) s.push(x); }
+  return s;
+}
+
+/* --- Estadística unidimensional: medidas de una lista --- */
+genr('est1', function () {
+  var v = ri(0, 7), i;
+  if (v === 0) {
+    var n = pick([5, 7]), s = g6_distinct(n, 1, 20).sort(g6_num), mid = (n - 1) / 2, med = s[mid], d = shuffle(s.slice());
+    for (i = 0; i < 50 && d[mid] === med; i++) shuffle(d);
+    return mk('est1', 'La mediana de ' + d.join(', ') + ' es', String(med), [d[mid], g6_dec(g6_sum(s) / n), s[0], s[n - 1], med + 1],
+      'Primero se ordenan: ' + s.join(', ') + '. El dato central es ' + med + '.');
+  }
+  if (v === 1) {
+    var n1 = pick([4, 6]), s1 = g6_distinct(n1, 1, 20).sort(g6_num), lo = s1[n1 / 2 - 1], hi = s1[n1 / 2], m1 = (lo + hi) / 2;
+    var d1 = shuffle(s1.slice());
+    return mk('est1', 'La mediana de ' + d1.join(', ') + ' es', g6_dec(m1), [String(lo), String(hi), g6_dec(g6_sum(s1) / n1), g6_dec(m1 + 1), g6_dec(m1 - 1)],
+      'Ordenados: ' + s1.join(', ') + '. Con n par se promedian los dos centrales: (' + lo + ' + ' + hi + ') : 2 = ' + g6_dec(m1) + '.');
+  }
+  if (v === 2) {
+    var n2 = pick([4, 5, 6]), m2 = ri(4, 15), ds, ok, last;
+    do {
+      ds = []; for (i = 0; i < n2 - 1; i++) ds.push(ri(-4, 4));
+      last = -g6_sum(ds);
+      ds.push(last);
+      ok = Math.abs(last) <= 6 && ds.some(function (x) { return x !== 0; }) && ds.every(function (x) { return m2 + x >= 1; });
+    } while (!ok);
+    var d2 = ds.map(function (x) { return m2 + x; }), sd = d2.slice().sort(g6_num), md = n2 % 2 ? sd[(n2 - 1) / 2] : (sd[n2 / 2 - 1] + sd[n2 / 2]) / 2;
+    return mk('est1', 'La media de ' + shuffle(d2.slice()).join(', ') + ' es', String(m2), [g6_dec(md), String(m2 + 1), String(m2 - 1), String(n2 * m2), String(Math.max.apply(null, d2))],
+      'Suma = ' + (n2 * m2) + ' y ' + (n2 * m2) + ' : ' + n2 + ' = ' + m2 + '.');
+  }
+  if (v === 3) {
+    var d3 = g6_distinct(5, 1, 25), mx = Math.max.apply(null, d3), mi = Math.min.apply(null, d3);
+    var sd3 = d3.slice().sort(g6_num);
+    return mk('est1', 'El rango de ' + d3.join(', ') + ' es', String(mx - mi), [String(mx), String(mx + mi), String(sd3[2]), g6_dec(g6_sum(d3) / 5)],
+      'Rango = máximo − mínimo = ' + mx + ' − ' + mi + ' = ' + (mx - mi) + '.');
+  }
+  if (v === 4) {
+    var m4 = ri(3, 12), k = ri(2, 5), c = ri(2, 9), s4 = ri(1, 4), w = ri(0, 2);
+    if (w === 0) {
+      return mk('est1', 'Una serie tiene media ' + m4 + '. Sumamos ' + c + ' a todos los datos. La nueva media es', String(m4 + c), [String(m4), String(m4 * c), String(m4 + c * c), String(m4 * (c + 1))],
+        'Al sumar una constante, la media aumenta lo mismo: ' + m4 + ' + ' + c + ' = ' + (m4 + c) + '.');
+    }
+    if (w === 1) {
+      return mk('est1', 'Una serie tiene desviación típica ' + s4 + '. Multiplicamos todos los datos por ' + k + '. La nueva desviación típica es', String(s4 * k), [String(s4), String(s4 + k), String(s4 * k * k), String(s4 * k + k)],
+        'Al multiplicar por ' + k + ', la dispersión también se multiplica: ' + s4 + ' · ' + k + ' = ' + (s4 * k) + '.');
+    }
+    return mk('est1', 'Una serie tiene media ' + m4 + '. Multiplicamos todos los datos por ' + k + ' y luego sumamos ' + c + '. La nueva media es', String(m4 * k + c), [String(m4 * (k + c)), String((m4 + c) * k - c), String(m4 * k), String(m4 + k + c)],
+      m4 + ' · ' + k + ' + ' + c + ' = ' + (m4 * k + c) + '.');
+  }
+  if (v === 5) {
+    var a, b;
+    do { a = ri(2, 9); b = ri(3, 10); } while ((a + 3 * b) % 4 !== 0 || a === b);
+    var r5 = (a + 3 * b) / 4;
+    return mk('est1', 'Una nota ' + a + ' con peso 1 y una nota ' + b + ' con peso 3. La media ponderada es', String(r5), [g6_dec((a + b) / 2), String(a + 3 * b), String(b), String(a), String(r5 + 1)],
+      '(' + a + ' · 1 + ' + b + ' · 3) : 4 = ' + (a + 3 * b) + ' : 4 = ' + r5 + '.');
+  }
+  /* v 6-7: varianza de datos simétricos */
+  var m6 = ri(3, 12), e1 = ri(1, 3), e2 = ri(1, 3), dd = [m6 - e1, m6 - e2, m6 + e2, m6 + e1];
+  var vz = (2 * e1 * e1 + 2 * e2 * e2) / 4;
+  if (vz !== Math.floor(vz)) { e2 = e1; dd = [m6 - e1, m6 - e2, m6 + e2, m6 + e1]; vz = e1 * e1; }
+  if (v === 6) {
+    return mk('est1', 'La varianza (poblacional, dividiendo entre el número de datos) de ' + dd.join(', ') + ' es', String(vz), [String(2 * vz * 2), (Math.sqrt(vz) === Math.floor(Math.sqrt(vz)) ? String(vz + 1) : g6_dec(Math.sqrt(vz))), String(m6), String(vz + 1)],
+      'Media ' + m6 + '. Suma de desviaciones al cuadrado: ' + (4 * vz) + '. Varianza = ' + (4 * vz) + ' : 4 = ' + vz + '.');
+  }
+  var c7 = ri(2, Math.min(6, m6)), x7 = [m6 - c7, m6, m6 + c7, m6];
+  return mk('est1', 'La media de ' + shuffle(x7.slice()).join(', ') + ' es', String(m6), [String(m6 + c7), String(m6 - c7), g6_dec(g6_sum(x7) / 3), String(Math.max.apply(null, x7))],
+    'Suma = ' + g6_sum(x7) + ' y ' + g6_sum(x7) + ' : 4 = ' + m6 + '.');
+});
+
+/* --- Estadística unidimensional: tabla de frecuencias --- */
+genr('est1', function () {
+  var k = pick([3, 4]), s0 = ri(0, 3), xs = [], f = [], N, S, i, tries = 0, v = ri(0, 4);
+  do {
+    f = []; xs = []; N = 0; S = 0;
+    for (i = 0; i < k; i++) { xs.push(s0 + i); f.push(ri(1, 8)); N += f[i]; S += xs[i] * f[i]; }
+    tries++;
+  } while (tries < 300 && ((v === 4 && S % N !== 0) || (v === 0 && f.filter(function (x) { return x === Math.max.apply(null, f); }).length > 1)));
+  if (tries >= 300) v = 1;
+  var tab = 'x: ' + xs.join(', ') + ' con frecuencias absolutas ' + f.join(', ') + '. ';
+  if (v === 0) {
+    var mf = Math.max.apply(null, f), mo = xs[f.indexOf(mf)];
+    return mk('est1', tab + 'La moda es', String(mo), [String(mf), String(xs[xs.length - 1]), g6_dec(S / N), String(xs[0])],
+      'La moda es el valor con mayor frecuencia: ' + mo + ' (aparece ' + mf + ' veces).');
+  }
+  if (v === 1) {
+    return mk('est1', tab + '¿Cuántos datos hay en total?', String(N), [String(g6_sum(xs)), String(k), String(Math.max.apply(null, f)), String(N + 1)],
+      'N = ' + f.join(' + ') + ' = ' + N + '.');
+  }
+  if (v === 2) {
+    var j = ri(0, k - 1);
+    return mk('est1', tab + 'La frecuencia relativa del valor ' + xs[j] + ' es', fs(f[j], N), [String(f[j]), fs(1, N), fs(N - f[j], N), fs(f[j] + 1, N), fs(f[j], N - 1)],
+      'f_{r} = ' + f[j] + ' : ' + N + ' = ' + fs(f[j], N) + '.');
+  }
+  if (v === 3) {
+    var j3 = ri(1, k - 2), cum = g6_sum(f.slice(0, j3 + 1));
+    return mk('est1', tab + 'La frecuencia absoluta acumulada del valor ' + xs[j3] + ' es', String(cum), [String(f[j3]), String(cum - f[j3]), String(cum + f[j3 + 1]), String(N)],
+      'Se suman las frecuencias hasta ' + xs[j3] + ': ' + f.slice(0, j3 + 1).join(' + ') + ' = ' + cum + '.');
+  }
+  var me = S / N;
+  return mk('est1', tab + 'La media es', String(me), [String(xs[f.indexOf(Math.max.apply(null, f))]), g6_dec(g6_sum(xs) / k), String(me + 1), String(S)],
+    'Σ x·f = ' + S + ' y N = ' + N + ', así que la media es ' + S + ' : ' + N + ' = ' + me + '.');
+});
+
+/* --- Estadística bidimensional: interpretar r --- */
+genr('est2', function () {
+  var r = pick([0.95, 0.9, 0.85, 0.8, 0.35, 0.3, 0.4, 0.1, 0.05]), sg = pick([1, -1]), v = ri(0, 2);
+  var rr = r < 0.2 ? 0 : sg;
+  var txt = mn((sg < 0 ? '-' : '') + String(r).replace('.', ','));
+  var D = ['Correlación positiva fuerte', 'Correlación positiva débil', 'Correlación negativa fuerte', 'Correlación negativa débil', 'Correlación nula'];
+  var a;
+  if (r < 0.2) a = D[4]; else a = (sg > 0 ? 'Correlación positiva ' : 'Correlación negativa ') + (r >= 0.8 ? 'fuerte' : 'débil');
+  var wr = r < 0.2 ? [D[0], D[2], 'Correlación perfecta'] : shuffle(D.filter(function (x) { return x !== a; }));
+  var why = r < 0.2 ? 'r está muy cerca de 0: no hay relación lineal.' : (r >= 0.8 ? 'está cerca de ' + (sg > 0 ? '1' : '−1') + ': relación fuerte' : 'está lejos de ' + (sg > 0 ? '1' : '−1') + ' y de 0: relación débil') + (sg > 0 ? ', creciente.' : ', decreciente.');
+  if (r >= 0.2) why = 'r ' + (sg > 0 ? 'positivo' : 'negativo') + ' ' + why.replace(/^.*?(?=cerca|lejos)/, '');
+  if (v === 0) return mk('est2', 'Si r = ' + txt + ', la correlación es', a, wr, why);
+  if (v === 1) {
+    var sign = sg > 0 ? 'crece' : 'decrece';
+    return mk('est2', 'Si r = ' + txt + ', al aumentar x, y en general', r < 0.2 ? 'No sigue una tendencia clara' : (sg > 0 ? 'Aumenta' : 'Disminuye'),
+      r < 0.2 ? ['Aumenta', 'Disminuye', 'Es siempre igual'] : (sg > 0 ? ['Disminuye', 'No sigue una tendencia clara', 'Es siempre igual'] : ['Aumenta', 'No sigue una tendencia clara', 'Es siempre igual']), why);
+  }
+  /* comparar dos r */
+  var pool = [0.9, 0.6, 0.3, 0.1, 0.5, 0.8, 0.2, 0.7];
+  var s = shuffle(pool.slice()).slice(0, 4), sgs = s.map(function () { return pick([1, -1]); });
+  var strs = s.map(function (x, i) { return 'r = ' + mn((sgs[i] < 0 ? '-' : '') + String(x).replace('.', ',')); });
+  var bi = 0; s.forEach(function (x, i) { if (x > s[bi]) bi = i; });
+  return mk('est2', '¿Qué valor de r indica la relación lineal más fuerte?', strs[bi], strs.filter(function (x, i) { return i !== bi; }),
+    'Importa el valor absoluto: el más cercano a 1 o −1 es ' + strs[bi] + '.');
+});
+
+/* --- Estadística bidimensional: recta de regresión --- */
+genr('est2', function () {
+  var a = nz(-4, 4), b = ri(-6, 12), v = ri(0, 3), x = ri(1, 7), eq = 'y = ' + lin(a, b);
+  if (v === 0) {
+    return mk('est2', 'La recta de regresión es ' + eq + '. Para x = ' + x + ' se predice y =', mn(a * x + b), [mn(a * x), mn(a * x - b), mn(a + x + b), mn(x * b + a), mn(a * (x + 1) + b)],
+      'Sustituimos: ' + mn(a) + ' · ' + x + (b < 0 ? ' − ' + (-b) : ' + ' + b) + ' = ' + mn(a * x + b) + '.');
+  }
+  if (v === 1) {
+    return mk('est2', 'La recta de regresión es ' + eq + ' y x̄ = ' + x + '. Entonces ȳ =', mn(a * x + b), [mn(a * x), mn(a * x - b), mn(b), mn(x + b)],
+      'La recta pasa por (x̄, ȳ): ȳ = ' + mn(a) + ' · ' + x + (b < 0 ? ' − ' + (-b) : ' + ' + b) + ' = ' + mn(a * x + b) + '.');
+  }
+  if (v === 2) {
+    var d = ri(2, 5);
+    return mk('est2', 'En ' + eq + ', si x aumenta ' + d + ' unidades, y varía en', mn(a * d), [mn(d), mn(a + d), mn(b * d), mn(-a * d), mn(a * d + b)],
+      'La pendiente es ' + mn(a) + ': ' + mn(a) + ' · ' + d + ' = ' + mn(a * d) + '.');
+  }
+  var xb = ri(2, 8), yb = a * xb + b;
+  return mk('est2', 'La recta y = ' + lin(a, 0).replace(/ \+ 0$/, '') + ' + b pasa por (x̄, ȳ) = (' + xb + ', ' + mn(yb) + '). Entonces b =', mn(b), [mn(yb), mn(-b), mn(yb + a * xb), mn(b + a)],
+    'b = ȳ − ' + (a === 1 ? '' : a < 0 ? '(' + mn(a) + ') · ' : a + ' · ') + xb + ' = ' + mn(yb) + ' − ' + (a * xb < 0 ? '(' + mn(a * xb) + ')' : a * xb) + ' = ' + mn(b) + '.');
+});
+
+/* --- Combinatoria: valores numéricos --- */
+genr('com', function () {
+  var v = ri(0, 4), n, k;
+  if (v === 0) {
+    n = ri(4, 9); k = ri(2, 3);
+    return mk('com', 'C(' + n + ', ' + k + ') =', String(g6_C(n, k)), [String(g6_V(n, k)), String(n * k), String(g6_C(n + 1, k)), String(g6_C(n, k + 1))],
+      'C(n, k) = ' + (k === 2 ? n + ' · ' + (n - 1) + ' / 2' : n + ' · ' + (n - 1) + ' · ' + (n - 2) + ' / 6') + ' = ' + g6_C(n, k) + '.');
+  }
+  if (v === 1) {
+    do { n = ri(7, 12); k = ri(2, 4); } while (k >= n - k);
+    return mk('com', 'Si C(' + n + ', ' + k + ') = C(' + n + ', j) con j ≠ ' + k + ', entonces j =', String(n - k), [String(n - k + 1), String(n - k - 1), String(n), String(k + 1)].filter(function (x) { return x !== String(k); }),
+      'C(n, k) = C(n, n − k): ' + n + ' − ' + k + ' = ' + (n - k) + '.');
+  }
+  if (v === 2) {
+    n = ri(5, 9);
+    return mk('com', '⟨' + n + '!|' + (n - 2) + '!⟩ =', String(n * (n - 1)), [String(n - 2), String(n * (n - 2)), String(n * (n + 1)), String(n * (n - 1) / 2)],
+      n + '!/' + (n - 2) + '! = ' + n + ' · ' + (n - 1) + ' = ' + (n * (n - 1)) + '.');
+  }
+  if (v === 3) {
+    var m = pick([2, 3, 4, 5, 6, 10]); k = ri(2, 3);
+    var N = Math.pow(m, k);
+    return mk('com', 'Con ' + m + ' símbolos distintos, ¿cuántas secuencias de ' + k + ' símbolos hay si se pueden repetir?', String(N), [String(m * k), String(Math.pow(k, m)), String(g6_V(m, k)), String(g6_C(m, k))],
+      'Variaciones con repetición: ' + m + '^{' + k + '} = ' + N + '.');
+  }
+  n = ri(4, 7);
+  return mk('com', n + '! =', String(g6_fact(n)), [String(n * n), String(g6_fact(n - 1)), String(g6_fact(n + 1)), String(2 * n)],
+    n + '! = ' + Array.apply(null, Array(n)).map(function (_, i) { return n - i; }).join(' · ') + ' = ' + g6_fact(n) + '.');
+});
+
+/* --- Combinatoria: problemas con texto --- */
+genr('com', function () {
+  var v = ri(0, 5), n = ri(5, 8), k;
+  if (v === 0) {
+    return mk('com', 'En una carrera de ' + n + ' corredores, ¿de cuántas formas se reparten oro, plata y bronce?', String(g6_V(n, 3)), [String(g6_C(n, 3)), String(n * n * n), String(g6_fact(n)), String(n * (n - 1))],
+      'Importa el orden y no se repite: ' + n + ' · ' + (n - 1) + ' · ' + (n - 2) + ' = ' + g6_V(n, 3) + '.');
+  }
+  if (v === 1) {
+    k = ri(2, 3);
+    return mk('com', '¿De cuántas formas se eligen ' + k + ' alumnos de ' + n + ' para un comité sin cargos?', String(g6_C(n, k)), [String(g6_V(n, k)), String(Math.pow(n, k)), String(g6_fact(n)), String(g6_C(n, k + 1))],
+      'No importa el orden: C(' + n + ', ' + k + ') = ' + g6_C(n, k) + '.');
+  }
+  if (v === 2) {
+    n = ri(4, 6);
+    return mk('com', '¿De cuántas formas se pueden ordenar ' + n + ' libros distintos en una estantería?', String(g6_fact(n)), [String(n * n), String(g6_fact(n - 1)), String(2 * n), String(g6_fact(n + 1))],
+      'Permutaciones: ' + n + '! = ' + g6_fact(n) + '.');
+  }
+  if (v === 3) {
+    return mk('com', n + ' amigos se saludan todos con todos con un apretón de manos. ¿Cuántos apretones hay?', String(g6_C(n, 2)), [String(n * (n - 1)), String(n * n), String(2 * n), String(g6_C(n, 3))],
+      'Cada pareja cuenta una vez (no importa el orden): C(' + n + ', 2) = ' + g6_C(n, 2) + '.');
+  }
+  if (v === 4) {
+    return mk('com', 'En un grupo de ' + n + ' personas se elige presidente y secretario. ¿De cuántas formas?', String(n * (n - 1)), [String(g6_C(n, 2)), String(n * n), String(2 * n), String(n * (n - 1) * (n - 2))],
+      'Importa el orden (cargos distintos): ' + n + ' · ' + (n - 1) + ' = ' + n * (n - 1) + '.');
+  }
+  var a = ri(2, 4), b = ri(2, 4), c = ri(2, 3);
+  return mk('com', 'Un menú tiene ' + a + ' primeros, ' + b + ' segundos y ' + c + ' postres. ¿Cuántos menús distintos hay?', String(a * b * c), [String(a + b + c), String(a * b + c), String(a * b * c + a), String(a * b)],
+    'Regla del producto: ' + a + ' · ' + b + ' · ' + c + ' = ' + a * b * c + '.');
+});
+
+/* --- Probabilidad: bolas con y sin reemplazamiento --- */
+genr('pro', function () {
+  var r = ri(2, 5), b = ri(1, 4), T = r + b, v = ri(0, 4);
+  var bag = 'Una bolsa tiene ' + r + ' bolas rojas y ' + b + (b === 1 ? ' azul. ' : ' azules. ');
+  if (v === 0) {
+    return mk('pro', bag + 'Se saca una bola. P(roja) =', fs(r, T), [fs(b, T), fs(r - 1, T), fs(1, T), fs(r, T + 1)],
+      'Favorables entre totales: ' + r + '/' + T + '.');
+  }
+  if (v === 1) {
+    return mk('pro', bag + 'Se saca una bola, se devuelve y se saca otra. P(las dos rojas) =', fs(r * r, T * T), [fs(r * (r - 1), T * (T - 1)), fs(r, T), fs(2 * r, T * T), fs(r * r, T * (T - 1))],
+      'Con reemplazamiento: ' + fs(r, T) + ' · ' + fs(r, T) + ' = ' + fs(r * r, T * T) + '.');
+  }
+  if (v === 2) {
+    return mk('pro', bag + 'Se sacan dos bolas sin devolverlas. P(las dos rojas) =', fs(r * (r - 1), T * (T - 1)), [fs(r * r, T * T), fs(r, T), fs(r * (r - 1), T * T), fs(2 * r, T * (T - 1))],
+      'Sin reemplazamiento: ' + fs(r, T) + ' · ' + fs(r - 1, T - 1) + ' = ' + fs(r * (r - 1), T * (T - 1)) + '.');
+  }
+  if (v === 3) {
+    return mk('pro', bag + 'Se sacan dos bolas sin devolverlas. P(1.ª roja y 2.ª azul) =', fs(r * b, T * (T - 1)), [fs(r * b, T * T), fs(r * (r - 1), T * (T - 1)), fs(b, T), fs(r * b, T * (T + 1))],
+      'Sin reemplazamiento: ' + fs(r, T) + ' · ' + fs(b, T - 1) + ' = ' + fs(r * b, T * (T - 1)) + '.');
+  }
+  return mk('pro', bag + 'Se saca una bola. P(no sea roja) =', fs(b, T), [fs(r, T), fs(1, T), fs(b, T + 1), fs(T - 1, T)],
+    'Suceso contrario: 1 − ' + fs(r, T) + ' = ' + fs(b, T) + '.');
+});
+
+/* --- Probabilidad: unión, independencia, complementario, condicionada, dados --- */
+genr('pro', function () {
+  var v = ri(0, 4), i;
+  if (v === 0) {
+    var N = pick([20, 24, 30]), a, b, c;
+    do { a = ri(6, 14); b = ri(6, 14); c = ri(1, 5); } while (c >= Math.min(a, b) || a + b - c > N || a + b - c < 8);
+    return mk('pro', 'En una clase de ' + N + ' alumnos, ' + a + ' juegan al fútbol, ' + b + ' al baloncesto y ' + c + ' a ambos. Se elige uno al azar: P(fútbol o baloncesto) =',
+      fs(a + b - c, N), [[a + b, N], [a + b - 2 * c, N], [a + b + c, N], [c, N], [a + b - c - 1, N], [a + b - c + 1, N]].filter(function (z) { return z[0] <= N; }).map(function (z) { return fs(z[0], z[1]); }),
+      'P(A∪B) = P(A) + P(B) − P(A∩B) = (' + a + ' + ' + b + ' − ' + c + ') / ' + N + '.');
+  }
+  if (v === 1) {
+    var P = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5]], p, q;
+    do { p = pick(P); q = pick(P); } while (p === q);
+    var pa = fs(p[0], p[1]), pb = fs(q[0], q[1]);
+    return mk('pro', 'A y B son independientes, P(A) = ' + pa + ' y P(B) = ' + pb + '. Entonces P(A∩B) =', fs(p[0] * q[0], p[1] * q[1]),
+      [[p[0] * q[1] + q[0] * p[1] - p[0] * q[0], p[1] * q[1]], [p[0] + q[0], p[1] + q[1]], [p[0] * q[0], p[1] + q[1]], [p[0] + q[0], p[1] * q[1]], [p[0] * q[1] + q[0] * p[1], p[1] * q[1]]].filter(function (z) { return z[0] <= z[1]; }).map(function (z) { return fs(z[0], z[1]); }),
+      'Independientes: se multiplican, ' + pa + ' · ' + pb + ' = ' + fs(p[0] * q[0], p[1] * q[1]) + '.');
+  }
+  if (v === 2) {
+    var n = ri(3, 5), M = Math.pow(2, n);
+    return mk('pro', 'Se lanzan ' + n + ' monedas. P(al menos una cara) =', fs(M - 1, M), [fs(1, M), fs(n, M), fs(M - 2, M), fs(1, 2)],
+      'Contrario de "ninguna cara": 1 − ' + fs(1, M) + ' = ' + fs(M - 1, M) + '.');
+  }
+  if (v === 3) {
+    var T = pick([20, 24, 30, 40]), cg, d;
+    do { cg = ri(Math.floor(T / 4), Math.floor(T / 2)); d = ri(2, cg - 1); } while (cg <= 3);
+    return mk('pro', 'De ' + T + ' alumnos, ' + cg + ' llevan gafas y ' + d + ' de ellos son chicas. Elegido uno con gafas, P(sea chica) =', fs(d, cg),
+      [fs(d, T), fs(cg, T), fs(cg - d, cg), fs(d, T - cg)],
+      'Condicionada: solo cuentan los ' + cg + ' con gafas: ' + d + '/' + cg + '.');
+  }
+  var s = ri(3, 11), w = 6 - Math.abs(7 - s);
+  return mk('pro', 'Con dos dados, P(suma ' + s + ') =', fs(w, 36), [fs(1, 11), fs(s, 36), fs(w, 12), fs(w + 1, 36), fs(1, 6)],
+    'Hay ' + w + ' casos favorables de 36.');
+});
+/* Generadores 7: radicales (rad1, rad2, rad3), muchas plantillas con números aleatorios */
+var G7_START = GENS.length;
+
+/* N = k^n · m con m mínimo → [k, m] */
+function g7_sf(N, n) {
+  var k = 1, m = N;
+  for (var d = 2; Math.pow(d, n) <= m; d++) {
+    var p = Math.pow(d, n);
+    while (m % p === 0) { m /= p; k *= d; }
+  }
+  return [k, m];
+}
+/* c·√[n]{m} (c > 0) como texto */
+function g7_t(c, m, n) {
+  if (m === 1) return String(c);
+  return (c === 1 ? '' : String(c)) + rd(n || 2, m);
+}
+/* c·√[n]{m} con signo → [texto, valor] */
+function g7_T(c, m, n) {
+  n = n || 2;
+  if (c === 0) return ['0', 0];
+  return [(c < 0 ? '−' : '') + g7_t(Math.abs(c), m, n), c * Math.pow(m, 1 / n)];
+}
+/* suma de términos [c, m] (c con signo) → [texto, valor] */
+function g7_comb(parts, n) {
+  var s = '', v = 0, first = true;
+  parts.forEach(function (p) {
+    var c = p[0];
+    if (c === 0) return;
+    var t = g7_t(Math.abs(c), p[1], n);
+    s += first ? (c < 0 ? '−' : '') + t : (c < 0 ? ' − ' : ' + ') + t;
+    first = false;
+    v += c * Math.pow(p[1], 1 / (n || 2));
+  });
+  return [first ? '0' : s, v];
+}
+/* simplifica y agrupa términos [c, N] de índice n */
+function g7_norm(terms, n) {
+  var g = {}, ks = [];
+  terms.forEach(function (t) {
+    var f = g7_sf(t[1], n);
+    if (g[f[1]] === undefined) { g[f[1]] = 0; ks.push(f[1]); }
+    g[f[1]] += t[0] * f[0];
+  });
+  ks.sort(function (a, b) { return a - b; });
+  return ks.filter(function (m) { return g[m] !== 0; }).map(function (m) { return [g[m], m]; });
+}
+/* (suma de términos c·√m) / d, reducida → [texto, valor] */
+function g7_fraction(parts, den, n) {
+  var g = den;
+  parts.forEach(function (p) { g = gcd(g, Math.abs(p[0])); });
+  var ps = parts.map(function (p) { return [p[0] / g, p[1]]; });
+  var d = den / g, c = g7_comb(ps, n);
+  return [d === 1 ? c[0] : '⟨' + c[0] + '|' + d + '⟩', c[1] / d];
+}
+function g7_fr(c, m, d, n) { return g7_fraction([[c, m]], d, n); }
+/* p^(E/L) simplificado: p^q · raíz → [texto, valor] */
+function g7_pw(p, E, L) {
+  var q = Math.floor(E / L), r = E % L, c = Math.pow(p, q);
+  if (r === 0) return [String(c), c];
+  var g = gcd(r, L), idx = L / g, ex = r / g;
+  return [g7_t(c, Math.pow(p, ex), idx), Math.pow(p, E / L)];
+}
+function g7_I(a) { return [mn(a), a]; }
+/* construye la pregunta; ans y cands son [texto, valor]; qv = valor calculado a partir del enunciado */
+function g7_mk(t, q, ans, cands, e, p, qv) {
+  var seen = {}, w = [];
+  seen[ans[0]] = 1;
+  cands.forEach(function (c) {
+    if (w.length >= 3 || !c || seen[c[0]]) return;
+    if (typeof c[1] === 'number' && Math.abs(c[1] - ans[1]) < 1e-9) return;
+    seen[c[0]] = 1; w.push(c[0]);
+  });
+  var r = mk(t, q, ans[0], w, e);
+  r.chk = ans[1];
+  r.qv = qv;
+  r.cv = cands.map(function (c) { return c ? c[0] : null; });
+  if (p) r.p = 1;
+  return r;
+}
+
+/* ===================== rad1: simplificar radicales ===================== */
+
+/* 1. coeficiente por raíz que se simplifica */
+genr('rad1', function () {
+  var a = ri(2, 6), s = ri(2, 5), m = pick([2, 3, 5, 6, 7]), N = s * s * m;
+  return g7_mk('rad1', 'Simplifica: ' + a + '√{' + N + '} =', g7_T(a * s, m),
+    [g7_T(a * s * s, m), g7_T(a + s, m), g7_T(a, s * m), g7_I(a * s * m)],
+    N + ' = ' + s * s + ' · ' + m + ', luego √{' + N + '} = ' + s + '√{' + m + '} y ' + a + ' · ' + s + ' = ' + a * s + '.',
+    0, a * Math.sqrt(N));
+});
+
+/* 2. raíz cuarta */
+genr('rad1', function () {
+  var k = pick([2, 2, 3]), m = pick([2, 3, 5]), K = Math.pow(k, 4), N = K * m;
+  return g7_mk('rad1', 'Simplifica: √[4]{' + N + '} =', g7_T(k, m, 4),
+    [g7_T(k * k, m, 4), g7_T(k, m, 2), g7_T(K, m, 4), g7_T(m, k, 4)],
+    N + ' = ' + K + ' · ' + m + ' y la raíz cuarta de ' + K + ' es ' + k + '.',
+    0, Math.pow(N, 0.25));
+});
+
+/* 3. introducir un factor en la raíz cuadrada */
+genr('rad1', function () {
+  var a = ri(2, 9), m = pick([2, 3, 5, 6, 7]), N = a * a * m;
+  return g7_mk('rad1', 'Introduce el factor dentro de la raíz: ' + a + '√{' + m + '} =', [rd(2, N), Math.sqrt(N)],
+    [[rd(2, a * m), Math.sqrt(a * m)], [rd(2, a + m), Math.sqrt(a + m)], [rd(2, 2 * a * m), Math.sqrt(2 * a * m)], [rd(2, a * m * m), Math.sqrt(a * m * m)]],
+    'El factor entra elevado al cuadrado: ' + a + ' = √{' + a * a + '}, así que ' + a + '√{' + m + '} = √{' + a * a + ' · ' + m + '} = √{' + N + '}.',
+    0, a * Math.sqrt(m));
+});
+
+/* 4. introducir un factor en una raíz de índice 3 o 4 */
+genr('rad1', function () {
+  var n = pick([3, 3, 4]), a = ri(2, n === 3 ? 4 : 3), m = pick([2, 3, 5]), N = Math.pow(a, n) * m;
+  return g7_mk('rad1', 'Introduce el factor dentro de la raíz: ' + a + rd(n, m) + ' =', [rd(n, N), Math.pow(N, 1 / n)],
+    [[rd(n, a * m), Math.pow(a * m, 1 / n)], [rd(n, a * a * m), Math.pow(a * a * m, 1 / n)], [rd(n, n * a * m), Math.pow(n * a * m, 1 / n)], [rd(n, a + m), Math.pow(a + m, 1 / n)]],
+    'Con índice ' + n + ' el factor entra elevado a ' + n + ': ' + a + '^{' + n + '} = ' + Math.pow(a, n) + ', y queda ' + rd(n, Math.pow(a, n) + ' · ' + m) + ' = ' + rd(n, N) + '.',
+    0, a * Math.pow(m, 1 / n));
+});
+
+/* 5. reducir el índice de un radical */
+genr('rad1', function () {
+  var n, e, p, N, ok = false;
+  while (!ok) {
+    n = pick([4, 6, 6, 8, 9, 10, 12]); e = pick([2, 3, 4, 5]); p = pick([2, 3, 5, 7]);
+    N = Math.pow(p, e);
+    ok = n % e === 0 && n / e >= 2 && N <= 300;
+  }
+  var idx = n / e;
+  return g7_mk('rad1', 'Simplifica: ' + rd(n, N) + ' =', [rd(idx, p), Math.pow(p, 1 / idx)],
+    [g7_I(p), [rd(n, p), Math.pow(p, 1 / n)], [rd(e, p), Math.pow(p, 1 / e)], [rd(idx, N), Math.pow(N, 1 / idx)]],
+    N + ' = ' + p + '^{' + e + '}, así que ' + rd(n, N) + ' = ' + p + '^{⟨' + e + '|' + n + '⟩} = ' + p + '^{⟨1|' + idx + '⟩} = ' + rd(idx, p) + '.',
+    0, Math.pow(N, 1 / n));
+});
+
+/* 6. raíz de raíz con resultado entero */
+genr('rad1', function () {
+  var ab = pick([[2, 2], [2, 2], [2, 3], [3, 2], [3, 3]]), a = ab[0], b = ab[1];
+  var k = ab[0] * ab[1] === 4 ? pick([2, 3, 4]) : ab[0] * ab[1] === 6 ? pick([2, 3]) : 2;
+  var N = Math.pow(k, a * b);
+  return g7_mk('rad1', 'Calcula: ' + rd(a, rd(b, N)) + ' =', g7_I(k),
+    [g7_I(k * k), g7_I(k * a * b), g7_I(k + 1), [rd(a + b, N), Math.pow(N, 1 / (a + b))]],
+    'Los índices se multiplican: ' + rd(a * b, N) + ', y ' + k + '^{' + a * b + '} = ' + N + ', luego el resultado es ' + k + '.',
+    0, Math.pow(Math.pow(N, 1 / b), 1 / a));
+});
+
+/* 7. raíz de una fracción */
+genr('rad1', function () {
+  var k, d, m = pick([2, 3, 5, 7]);
+  do { k = ri(2, 7); d = ri(2, 7); } while (gcd(k, d) !== 1);
+  var N1 = k * k * m, N2 = d * d;
+  return g7_mk('rad1', 'Simplifica: √{⟨' + N1 + '|' + N2 + '⟩} =', g7_fr(k, m, d),
+    [g7_fr(k * k, m, d), g7_fr(k, m, d * d), [k + '√{' + m + '}', k * Math.sqrt(m)], [(function () { return '⟨' + g7_t(k, m) + '|√{' + d + '}⟩'; })(), k * Math.sqrt(m) / Math.sqrt(d)]],
+    'La raíz se hace en numerador y denominador: √{' + N1 + '} = ' + k + '√{' + m + '} y √{' + N2 + '} = ' + d + '.',
+    0, Math.sqrt(N1 / N2));
+});
+
+/* 8. igualdad correcta entre varias con "barbaridades" */
+genr('rad1', function () {
+  var sq = [4, 9, 16, 25, 36, 49], a = pick(sq), b;
+  do { b = pick(sq); } while (b === a);
+  if (a < b) { var tt = a; a = b; b = tt; }
+  var A = Math.sqrt(a), B = Math.sqrt(b);
+  var S = [
+    ['√{' + a + ' · ' + b + '} = √{' + a + '} · √{' + b + '}', Math.sqrt(a * b), A * B],
+    ['⟨√{' + a + '}|√{' + b + '}⟩ = √{⟨' + a + '|' + b + '⟩}', A / B, Math.sqrt(a / b)],
+    ['(√{' + a + '})^{2} = ' + a, A * A, a],
+    ['√{' + a + ' + ' + b + '} = √{' + a + '} + √{' + b + '}', Math.sqrt(a + b), A + B],
+    ['√{' + a + ' · ' + b + '} = √{' + a + '} + √{' + b + '}', Math.sqrt(a * b), A + B],
+    ['√{' + a + ' − ' + b + '} = √{' + a + '} − √{' + b + '}', Math.sqrt(a - b), A - B],
+    ['⟨√{' + a + '}|√{' + b + '}⟩ = √{' + a + ' − ' + b + '}', A / B, Math.sqrt(a - b)],
+    ['(√{' + a + '})^{2} = 2√{' + a + '}', A * A, 2 * A]
+  ];
+  var T = [], F = [];
+  S.forEach(function (s) { (Math.abs(s[1] - s[2]) < 1e-9 ? T : F).push(s[0]); });
+  shuffle(F);
+  return mk('rad1', '¿Cuál de estas igualdades es CORRECTA?', pick(T), F.slice(0, 3),
+    'La raíz se reparte en productos y cocientes, pero no en sumas ni restas; y (√{x})^{2} = x.');
+});
+
+/* 9. entre qué enteros está una raíz */
+genr('rad1', function () {
+  var n, k;
+  do { n = ri(10, 99); k = Math.floor(Math.sqrt(n)); } while (k * k === n);
+  var f = function (x) { return 'Entre ' + x + ' y ' + (x + 1); };
+  if (!(k * k < n && n < (k + 1) * (k + 1))) throw new Error('rad1 est');
+  return mk('rad1', '√{' + n + '} es un número comprendido', f(k), [f(k - 1), f(k + 1), f(k - 2), f(k + 2)],
+    k + '^{2} = ' + k * k + ' < ' + n + ' < ' + (k + 1) * (k + 1) + ' = ' + (k + 1) + '^{2}.');
+});
+
+/* 10. comparar a√b y c√d */
+genr('rad1', function () {
+  var a, b, c, d, X, Y;
+  do { a = ri(2, 6); b = pick([2, 3, 5, 7]); c = ri(2, 6); d = pick([2, 3, 5, 7]); X = a * a * b; Y = c * c * d; } while (Math.abs(X - Y) < 4 || a === c);
+  var E1 = g7_T(a, b), E2 = g7_T(c, d), big = X > Y ? E1 : E2, sm = X > Y ? E2 : E1;
+  return g7_mk('rad1', '¿Cuál es mayor, ' + E1[0] + ' o ' + E2[0] + '?', big,
+    [sm, ['Son iguales', null], ['No se pueden comparar', null]],
+    'Se introducen los factores: ' + E1[0] + ' = √{' + X + '} y ' + E2[0] + ' = √{' + Y + '}. Es mayor √{' + Math.max(X, Y) + '}.',
+    0, Math.max(a * Math.sqrt(b), c * Math.sqrt(d)));
+});
+
+/* 11. terna pitagórica bajo la raíz */
+genr('rad1', function () {
+  var T = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15], [7, 24, 25]]), a = T[0], b = T[1], c = T[2];
+  if (Math.random() < 0.5) {
+    return g7_mk('rad1', 'Calcula: √{' + a + '^{2} + ' + b + '^{2}} =', g7_I(c),
+      [g7_I(a + b), g7_I(c * c), g7_I(b - a), g7_I(a * b)],
+      a + '^{2} + ' + b + '^{2} = ' + (a * a + b * b) + ' = ' + c + '^{2}. La raíz de una suma no es la suma de raíces.',
+      0, Math.sqrt(a * a + b * b));
+  }
+  return g7_mk('rad1', 'Calcula: √{' + c + '^{2} − ' + a + '^{2}} =', g7_I(b),
+    [g7_I(c - a), g7_I(c * c - a * a), g7_I(a + c), g7_I(b + 1)],
+    c + '^{2} − ' + a + '^{2} = ' + (c * c - a * a) + ' = ' + b + '^{2}. La raíz de una resta no es la resta de raíces.',
+    0, Math.sqrt(c * c - a * a));
+});
+
+/* 12. raíz cúbica de un negativo */
+genr('rad1', function () {
+  var k = ri(2, 4), m = pick([2, 3, 5, 7]), K = k * k * k, N = K * m;
+  return g7_mk('rad1', 'Simplifica: √[3]{−' + N + '} =', g7_T(-k, m, 3),
+    [g7_T(k, m, 3), ['No existe', null], g7_T(-k * k, m, 3), g7_T(-K, m, 3)],
+    'El índice es impar, así que existe la raíz de un negativo: −' + N + ' = −' + K + ' · ' + m + ' y √[3]{−' + K + '} = −' + k + '.',
+    0, Math.cbrt(-N));
+});
+
+/* P1. factorizado en primos (problema) */
+genr('rad1', function () {
+  var P = [2, 3, 5], N, out, inn, txt, tries = 0;
+  do {
+    var es = [ri(1, 5), ri(0, 4), ri(0, 3)];
+    if (Math.random() < 0.3) es[2] = 0;
+    N = 1; out = 1; inn = 1; var parts = [], ex = [];
+    for (var i = 0; i < 3; i++) {
+      if (!es[i]) continue;
+      N *= Math.pow(P[i], es[i]);
+      out *= Math.pow(P[i], Math.floor(es[i] / 2));
+      inn *= Math.pow(P[i], es[i] % 2);
+      parts.push(es[i] === 1 ? String(P[i]) : P[i] + '^{' + es[i] + '}');
+      ex.push(P[i] + '^{' + es[i] + '}');
+    }
+    tries++;
+  } while ((out < 2 || inn < 2 || out > 60 || parts.length < 2) && tries < 200);
+  var r = g7_mk('rad1', 'Simplifica: √{' + parts.join(' · ') + '} =', g7_T(out, inn),
+    [g7_T(out * out, inn), g7_T(out, inn * 2), g7_T(inn, out), g7_I(out * inn)],
+    'De cada potencia sale la mitad entera del exponente: fuera queda ' + out + ' y dentro ' + inn + '.',
+    1, Math.sqrt(N));
+  return r;
+});
+
+/* P2. producto de dos raíces que da un entero (problema) */
+genr('rad1', function () {
+  var m = pick([2, 3, 5, 6]), s = ri(2, 5), t;
+  do { t = ri(2, 5); } while (t === s);
+  var a = m * s * s, b = m * t * t;
+  return g7_mk('rad1', 'Calcula: √{' + a + '} · √{' + b + '} =', g7_I(m * s * t),
+    [g7_I(s * t), g7_I(m * (s + t)), [rd(2, a + b), Math.sqrt(a + b)], g7_I(m * s * t * m), g7_T(s * t, m)],
+    '√{' + a + '} = ' + s + '√{' + m + '} y √{' + b + '} = ' + t + '√{' + m + '}; el producto es ' + s + ' · ' + t + ' · ' + m + ' = ' + m * s * t + '.',
+    1, Math.sqrt(a) * Math.sqrt(b));
+});
+
+/* P3. fracción con raíz en el numerador (problema) */
+genr('rad1', function () {
+  var a, s, m, d, c, g;
+  do { a = ri(2, 6); s = ri(2, 4); m = pick([2, 3, 5, 7]); d = ri(2, 12); c = a * s; g = gcd(c, d); } while (g === 1 || c / g === d / g);
+  var N = s * s * m;
+  return g7_mk('rad1', 'Simplifica: ⟨' + a + '√{' + N + '}|' + d + '⟩ =', g7_fr(c, m, d),
+    [g7_fr(a, m, d), g7_fr(a * s * s, m, d), g7_fr(c, m, d * s), g7_fr(c, N, d)],
+    '√{' + N + '} = ' + s + '√{' + m + '}, así que el numerador es ' + c + '√{' + m + '}; después se simplifica ' + c + '/' + d + '.',
+    1, a * Math.sqrt(N) / d);
+});
+
+/* ===================== rad2: operaciones y racionalización ===================== */
+
+/* genera términos [c, N] de índice n con radicando común m (o varios) */
+function g7_terms(cnt, n, ms, kmax) {
+  var T = [], i;
+  for (i = 0; i < cnt; i++) {
+    var c = ri(1, 4) * (i > 0 && Math.random() < 0.5 ? -1 : 1), k = ri(1, kmax), m = ms[i % ms.length];
+    T.push([c, Math.pow(k, n) * m]);
+  }
+  return T;
+}
+function g7_sumStr(terms, n) { return g7_comb(terms, n); }
+/* pregunta de sumar/restar radicales con simplificación; devuelve null si queda 0 */
+function g7_sumQ(t, prefix, terms, n, p) {
+  var nm = g7_norm(terms, n);
+  if (!nm.length) return null;
+  var ans = g7_comb(nm, n), q = g7_comb(terms.map(function (x) { return x; }), n);
+  var qv = 0;
+  terms.forEach(function (x) { qv += x[0] * Math.pow(x[1], 1 / n); });
+  var sc = 0, sN = 0, sk = 0, sm = 0, i, f;
+  var ign = {}, ks = [];
+  terms.forEach(function (x) {
+    f = g7_sf(x[1], n);
+    sc += x[0]; sN += x[1]; sk += x[0] * f[0]; sm += f[1];
+    if (ign[f[1]] === undefined) { ign[f[1]] = 0; ks.push(f[1]); }
+    ign[f[1]] += x[0];
+  });
+  ks.sort(function (a, b) { return a - b; });
+  var cands = [
+    g7_T(sc, sN, n),
+    g7_comb(ks.filter(function (m) { return ign[m] !== 0; }).map(function (m) { return [ign[m], m]; }), n),
+    g7_T(sk, sm, n),
+    g7_T(sk, g7_sf(terms[0][1], n)[1], n),
+    g7_comb(terms.map(function (x, j) { var ff = g7_sf(x[1], n); return [(j === 1 ? -1 : 1) * x[0] * ff[0], ff[1]]; }).reduce(function (acc, y) { var done = false; acc.forEach(function (z) { if (z[1] === y[1]) { z[0] += y[0]; done = true; } }); if (!done) acc.push(y); return acc; }, []).filter(function (z) { return z[0] !== 0; }), n)
+  ];
+  var lst = terms.map(function (x) { var ff = g7_sf(x[1], n); return ff[0] > 1 ? rd(n, x[1]) + ' = ' + g7_t(ff[0], ff[1], n) : null; }).filter(function (z) { return z; });
+  var e = (lst.length ? 'Primero se simplifica cada radical (' + lst.join('; ') + ') y después ' : 'Se ') + 'suman los radicales semejantes: ' + ans[0] + '.';
+  return g7_mk(t, prefix + q[0] + ' =', ans, cands, e, p, qv);
+}
+
+/* 1. suma/resta de dos radicales que hay que simplificar */
+genr('rad2', function () {
+  var r = null, m, n;
+  while (!r) {
+    m = pick([2, 3, 5, 7]);
+    var s1 = ri(1, 5), s2 = ri(1, 5), c1 = ri(1, 4), c2 = ri(1, 4) * (Math.random() < 0.5 ? -1 : 1);
+    if (s1 === 1 && s2 === 1) continue;
+    r = g7_sumQ('rad2', 'Calcula: ', [[c1, s1 * s1 * m], [c2, s2 * s2 * m]], 2, 0);
+  }
+  return r;
+});
+
+/* 2. PROBLEMA: tres términos con simplificaciones */
+genr('rad2', function () {
+  var r = null;
+  while (!r) {
+    var m = pick([2, 3, 5, 7]), m2 = pick([2, 3, 5, 7]), two = Math.random() < 0.35;
+    var ms = [m, m, two ? m2 : m];
+    if (two && m2 === m) continue;
+    var T = [];
+    for (var i = 0; i < 3; i++) T.push([ri(1, 4) * (i > 0 && Math.random() < 0.55 ? -1 : 1), ri(1, 5) * ri(1, 5) * ms[i]]);
+    T = T.map(function (x, i) { var k = ri(1, 4); return [x[0], k * k * ms[i]]; });
+    if (T.every(function (x) { return g7_sf(x[1], 2)[0] === 1; })) continue;
+    r = g7_sumQ('rad2', 'Calcula: ', T, 2, 1);
+    if (r && r.a.length > 24) r = null;
+  }
+  return r;
+});
+
+/* 3. radicales semejantes sin simplificar (barbaridad: 2√3 + 3√3 = 5√6) */
+genr('rad2', function () {
+  var m = pick([2, 3, 5, 6, 7]), cnt = pick([2, 3]), cs = [], tot = 0, s = '', i;
+  for (i = 0; i < cnt; i++) { var c = ri(1, 7) * (i > 0 && Math.random() < 0.4 ? -1 : 1); cs.push(c); tot += c; }
+  if (tot === 0) cs[0] += 1;
+  tot = cs.reduce(function (x, y) { return x + y; }, 0);
+  var q = g7_comb(cs.map(function (c) { return [c, m]; }));
+  return g7_mk('rad2', 'Calcula: ' + q[0] + ' =', g7_T(tot, m),
+    [g7_T(tot, cnt * m), g7_T(tot, m * m), g7_I(tot * m), g7_T(tot + 1, m), g7_T(tot - 1, m)],
+    'Son radicales semejantes: se suman los coeficientes (' + cs.map(mn).join(', ') + ' → ' + mn(tot) + ') y el radical √{' + m + '} se queda igual.',
+    0, tot * Math.sqrt(m));
+});
+
+/* 4a. (√a ± √b)^2 */
+genr('rad2', function () {
+  var P = [2, 3, 5, 7], a = pick(P), b, sg = pick([1, -1]);
+  do { b = pick(P); } while (b === a);
+  var q = '(√{' + a + '} ' + (sg > 0 ? '+' : '−') + ' √{' + b + '})^{2}';
+  return g7_mk('rad2', 'Desarrolla y simplifica: ' + q + ' =', g7_comb([[a + b, 1], [2 * sg, a * b]]),
+    [g7_I(a + b), g7_comb([[a + b, 1], [sg, a * b]]), g7_comb([[a + b, 1], [-2 * sg, a * b]]), g7_T(1, a + b), g7_comb([[a * b, 1], [2 * sg, a + b]])],
+    'Cuadrado de ' + (sg > 0 ? 'una suma' : 'una diferencia') + ': ' + a + ' + ' + b + ' ' + (sg > 0 ? '+' : '−') + ' 2√{' + a + '}√{' + b + '} = ' + g7_comb([[a + b, 1], [2 * sg, a * b]])[0] + '.',
+    0, Math.pow(Math.sqrt(a) + sg * Math.sqrt(b), 2));
+});
+
+/* 4b. (a ± b√m)^2 */
+genr('rad2', function () {
+  var a = ri(1, 4), b = ri(1, 3), m = pick([2, 3, 5, 7]), sg = pick([1, -1]);
+  var q = '(' + a + ' ' + (sg > 0 ? '+' : '−') + ' ' + g7_t(b, m) + ')^{2}';
+  return g7_mk('rad2', 'Desarrolla y simplifica: ' + q + ' =', g7_comb([[a * a + b * b * m, 1], [2 * a * b * sg, m]]),
+    [g7_comb([[a * a + b * b * m, 1]]), g7_comb([[a * a + b, 1], [2 * a * b * sg, m]]), g7_comb([[a * a + b * b * m, 1], [a * b * sg, m]]), g7_comb([[a * a + b * b * m, 1], [-2 * a * b * sg, m]]), g7_comb([[a * a + b * b, 1], [2 * a * b * sg, m]])],
+    'Identidad notable: ' + a + '^{2} + (' + g7_t(b, m) + ')^{2} ' + (sg > 0 ? '+' : '−') + ' 2·' + a + '·' + g7_t(b, m) + ' = ' + a * a + ' + ' + b * b * m + ' ' + (sg > 0 ? '+' : '−') + ' ' + g7_t(2 * a * b, m) + '.',
+    0, Math.pow(a + sg * b * Math.sqrt(m), 2));
+});
+
+/* 5. suma por diferencia con radicales */
+genr('rad2', function () {
+  var cx = ri(1, 3), mx = pick([2, 3, 5, 7]), cy, my, v = ri(0, 2);
+  if (v === 0) { cy = ri(1, 4); my = 1; } else if (v === 1) { cy = 1; my = pick([2, 3, 5, 7]); } else { cy = ri(1, 3); my = pick([2, 3, 5]); }
+  var X = g7_t(cx, mx), Y = g7_t(cy, my), r = cx * cx * mx - cy * cy * my;
+  if (r === 0) { mx = 11; r = cx * cx * mx - cy * cy * my; }
+  X = g7_t(cx, mx);
+  var qv = (cx * Math.sqrt(mx) + cy * Math.sqrt(my)) * (cx * Math.sqrt(mx) - cy * Math.sqrt(my));
+  return g7_mk('rad2', 'Calcula: (' + X + ' + ' + Y + ')(' + X + ' − ' + Y + ') =', g7_I(r),
+    [g7_I(cx * cx * mx + cy * cy * my), g7_I(-r), g7_I(cx * mx - cy * my), g7_comb([[cx * cx * mx, 1], [-cy * cy, my]]), g7_I(r + 2 * cx * cy)],
+    'Suma por diferencia: (A + B)(A − B) = A^{2} − B^{2} = ' + cx * cx * mx + ' − ' + cy * cy * my + ' = ' + mn(r) + '.',
+    0, qv);
+});
+
+/* 6. producto de binomios con raíz */
+genr('rad2', function () {
+  var a, b, c, d, m = pick([2, 3, 5, 7]), R;
+  do { a = nz(-4, 4); b = nz(-3, 3); c = nz(-4, 4); d = nz(-3, 3); R = a * d + b * c; } while (R === 0 || a * c + b * d * m === 0);
+  var f1 = g7_comb([[a, 1], [b, m]]), f2 = g7_comb([[c, 1], [d, m]]);
+  var P = a * c + b * d * m;
+  return g7_mk('rad2', 'Calcula: (' + f1[0] + ')(' + f2[0] + ') =', g7_comb([[P, 1], [R, m]]),
+    [g7_comb([[a * c + b * d, 1], [R, m]]), g7_comb([[a * c - b * d * m, 1], [R, m]]), g7_comb([[P, 1], [a * d - b * c, m]]), g7_T(P + R, m)],
+    'Se multiplica término a término, con (√{' + m + '})^{2} = ' + m + ': el término independiente es ' + mn(P) + ' y el de √{' + m + '} es ' + mn(R) + '. Resultado: ' + g7_comb([[P, 1], [R, m]])[0] + '.',
+    0, (a + b * Math.sqrt(m)) * (c + d * Math.sqrt(m)));
+});
+
+/* 7. producto de raíces que se simplifica */
+genr('rad2', function () {
+  var u = pick([2, 3, 5]), w, z, c = ri(1, 3), d = ri(1, 3), P = [2, 3, 5, 7];
+  do { w = pick(P); z = pick(P); } while (w === z || w === u || z === u);
+  var a = u * w, b = u * z, A = g7_t(c, a), B = g7_t(d, b);
+  return g7_mk('rad2', 'Calcula y simplifica: ' + A + ' · ' + B + ' =', g7_T(c * d * u, w * z),
+    [g7_T(c * d, w * z), g7_T(c * d * u * u, w * z), g7_T(c * d, a + b), g7_T(c + d, a * b), g7_T(c * d, a * b)],
+    'Se multiplican radicandos: ' + a + '·' + b + ' = ' + a * b + ' = ' + u * u + ' · ' + w * z + ', y √{' + u * u + '} = ' + u + '. Resultado: ' + g7_T(c * d * u, w * z)[0] + '.',
+    0, c * Math.sqrt(a) * d * Math.sqrt(b));
+});
+
+/* 8. cociente de raíces */
+genr('rad2', function () {
+  var b = pick([2, 3, 5, 6, 7]), s = ri(1, 4), m = pick([2, 3, 5, 6]), q = s * s * m, a = b * q, e = ri(1, 3), j = ri(1, 3), c = e * j;
+  var Q = '⟨' + g7_t(c, a) + '|' + g7_t(e, b) + '⟩';
+  return g7_mk('rad2', 'Calcula y simplifica: ' + Q + ' =', g7_T(j * s, m),
+    [g7_T(j, a - b), g7_T(j * s * s, m), g7_T(j, q + 1), g7_I(j * q), g7_T(j * s, m * s)],
+    'Se dividen los radicandos (' + a + ' : ' + b + ' = ' + q + ')' + (e > 1 ? ' y los coeficientes (' + c + ' : ' + e + ' = ' + j + ')' : '') + '. Queda ' + g7_t(j, q) + (s > 1 ? ' = ' + g7_T(j * s, m)[0] : '') + '.',
+    0, c * Math.sqrt(a) / (e * Math.sqrt(b)));
+});
+
+/* 9. racionalizar un monomio */
+genr('rad2', function () {
+  var k = ri(1, 12), a = ri(1, 4), m = pick([2, 3, 5, 6, 7]);
+  return g7_mk('rad2', 'Racionaliza: ⟨' + k + '|' + g7_t(a, m) + '⟩ =', g7_fr(k, m, a * m),
+    [g7_fr(k, m, a), g7_fr(k, 1, a * m), g7_fr(k * m, m, a), g7_fr(k, m, a * a * m), g7_fr(k, m, m)],
+    'Se multiplica numerador y denominador por √{' + m + '}: el denominador queda ' + a + '·' + m + ' = ' + a * m + '.',
+    0, k / (a * Math.sqrt(m)));
+});
+
+/* 10. racionalizar con dos raíces distintas */
+genr('rad2', function () {
+  var P = [2, 3, 5, 7], m = pick(P), n, a = ri(1, 6), b = ri(1, 3);
+  do { n = pick(P); } while (n === m);
+  return g7_mk('rad2', 'Racionaliza: ⟨' + g7_t(a, m) + '|' + g7_t(b, n) + '⟩ =', g7_fr(a, m * n, b * n),
+    [g7_fr(a, m * n, b), g7_fr(a, m, b * n), g7_fr(a, m * n, n), g7_fr(a, m * n, b * n * n), g7_fr(a, m, b)],
+    'Se multiplica arriba y abajo por √{' + n + '}: el numerador es ' + g7_t(a, m * n) + ' y el denominador ' + b + '·' + n + ' = ' + b * n + '.',
+    0, a * Math.sqrt(m) / (b * Math.sqrt(n)));
+});
+
+/* conjugado: ⟨k | √m + s·a√b⟩ */
+function g7_conj(k, m, a, b, s, t, p, prefix) {
+  var d = m - a * a * b;
+  var den = g7_comb([[1, m], [s * a, b]]);
+  var num = [[k, m], [-s * k * a, b]];
+  var ans = g7_fraction(num, d);
+  var cands = [
+    g7_fraction([[k, m], [s * k * a, b]], d),
+    g7_fraction(num, m + a * a * b),
+    g7_fraction([[k, m]], d),
+    g7_fraction(num, m - a),
+    g7_comb(num)
+  ];
+  var qv = k / (Math.sqrt(m) + s * a * Math.sqrt(b));
+  return g7_mk(t, prefix + '⟨' + k + '|' + den[0] + '⟩ =', ans, cands,
+    'Se multiplica por el conjugado ' + g7_comb([[1, m], [-s * a, b]])[0] + ': el denominador es ' + m + ' − ' + a * a * b + ' = ' + d + '.',
+    p, qv);
+}
+function g7_conjParams() {
+  var o = null;
+  while (!o) {
+    var m = pick([3, 5, 6, 7, 10, 11]), a, b, v = Math.random() < 0.6;
+    if (v) { a = ri(1, 3); b = 1; } else { a = 1; b = pick([2, 3, 5]); if (b === m) continue; }
+    if (m - a * a * b > 0) o = { m: m, a: a, b: b, s: pick([1, -1]), d: m - a * a * b };
+  }
+  return o;
+}
+
+/* 11. racionalizar con conjugado (el denominador divide al numerador) */
+genr('rad2', function () {
+  var o = g7_conjParams(), k = o.d * ri(1, 4);
+  return g7_conj(k, o.m, o.a, o.b, o.s, 'rad2', 0, 'Racionaliza: ');
+});
+
+/* 12. PROBLEMA: racionalizar con conjugado y simplificar */
+genr('rad2', function () {
+  var o = g7_conjParams(), k = ri(2, 12);
+  return g7_conj(k, o.m, o.a, o.b, o.s, 'rad2', 1, 'Racionaliza y simplifica: ');
+});
+
+/* 13. PROBLEMA: (√m + a)/(√m − a) */
+genr('rad2', function () {
+  var m, a, s = pick([1, -1]);
+  do { m = pick([3, 5, 6, 7, 10, 11]); a = ri(1, 3); } while (m - a * a <= 0);
+  var d = m - a * a, f = '⟨√{' + m + '} ' + (s > 0 ? '+' : '−') + ' ' + a + '|√{' + m + '} ' + (s > 0 ? '−' : '+') + ' ' + a + '⟩';
+  var P = m + a * a, Q = 2 * a * s;
+  return g7_mk('rad2', 'Racionaliza y simplifica: ' + f + ' =', g7_fraction([[P, 1], [Q, m]], d),
+    [g7_fraction([[P, 1], [-Q, m]], d), g7_fraction([[m + a * a, 1]], d), g7_fraction([[1, m], [s * a, 1]], d), g7_fraction([[m - a * a, 1], [Q, m]], d), g7_fraction([[P, 1], [Q, m]], m + a * a)],
+    'Se multiplica por el conjugado del denominador: el numerador es (√{' + m + '} ' + (s > 0 ? '+' : '−') + ' ' + a + ')^{2} = ' + P + ' ' + (s > 0 ? '+' : '−') + ' ' + 2 * a + '√{' + m + '} y el denominador ' + m + ' − ' + a * a + ' = ' + d + '.',
+    1, (Math.sqrt(m) + s * a) / (Math.sqrt(m) - s * a));
+});
+
+/* 14. PROBLEMA: racionalizar un término y sumar */
+genr('rad2', function () {
+  var m, j, a, s, b, t, tot;
+  do { m = pick([2, 3, 5, 7]); j = ri(1, 4); a = ri(1, 3); s = ri(1, 3); b = ri(1, 3); t = ri(1, 3); tot = j + a * s - b * t; } while (tot === 0 || (s === 1 && t === 1));
+  var N1 = s * s * m, N2 = t * t * m;
+  var Q = '⟨' + j * m + '|√{' + m + '}⟩ + ' + g7_t(a, N1) + ' − ' + g7_t(b, N2);
+  return g7_mk('rad2', 'Calcula: ' + Q + ' =', g7_T(tot, m),
+    [g7_T(j * m + a * s - b * t, m), g7_T(j + a + b, m), g7_T(j + a * s + b * t, m), g7_T(j + a - b, m), g7_T(tot, m * m)],
+    'Racionalizando, ⟨' + j * m + '|√{' + m + '}⟩ = ' + g7_t(j, m) + '. Al extraer factores, los otros términos son ' + g7_t(a * s, m) + ' y ' + g7_t(b * t, m) + '. Coeficientes: ' + j + ' + ' + a * s + ' − ' + b * t + ' = ' + mn(tot) + '.',
+    1, j * m / Math.sqrt(m) + a * Math.sqrt(N1) - b * Math.sqrt(N2));
+});
+
+/* 15. potencia de un radical con coeficiente */
+genr('rad2', function () {
+  var a = ri(2, 4), m = pick([2, 3, 5]), n = pick([2, 3, 4]), ans;
+  if (n === 2) ans = g7_I(a * a * m);
+  else if (n === 3) ans = g7_T(a * a * a * m, m);
+  else ans = g7_I(a * a * a * a * m * m);
+  var wr = n === 2 ? g7_I(a * m) : n === 3 ? g7_T(a * m, m) : g7_I(a * m * m);
+  return g7_mk('rad2', 'Calcula: (' + g7_t(a, m) + ')^{' + n + '} =', ans,
+    [wr, g7_T(Math.pow(a, n), m), g7_T(n * a, m), g7_I(Math.pow(a, n) * n * m), g7_I(Math.pow(a * m, n))],
+    'El exponente afecta al coeficiente y a la raíz: ' + a + '^{' + n + '} · (√{' + m + '})^{' + n + '} = ' + Math.pow(a, n) + ' · ' + (n === 3 ? m + '√{' + m + '}' : Math.pow(m, n / 2)) + ' = ' + ans[0] + '.',
+    0, Math.pow(a * Math.sqrt(m), n));
+});
+
+/* 16. dividir un binomio entre una raíz */
+genr('rad2', function () {
+  var m = pick([2, 3, 5, 7]), c = ri(1, 4), d = nz(-4, 4);
+  var num = g7_comb([[c * m, 1], [d, m]]);
+  return g7_mk('rad2', 'Simplifica: ⟨' + num[0] + '|√{' + m + '}⟩ =', g7_comb([[c, m], [d, 1]]),
+    [g7_comb([[c * m + d, 1]]), g7_comb([[c, 1], [d, m]]), g7_comb([[c * m, m], [d, 1]]), g7_T(c + d, m), g7_comb([[c * m, 1], [d, 1]])],
+    'Se divide cada sumando entre √{' + m + '}: ' + c * m + ' : √{' + m + '} = ' + g7_t(c, m) + ' y ' + g7_t(Math.abs(d), m) + ' : √{' + m + '} = ' + Math.abs(d) + (d < 0 ? ', con su signo menos' : '') + '.',
+    0, (c * m + d * Math.sqrt(m)) / Math.sqrt(m));
+});
+
+/* ===================== rad3: índice común, potencias y raíces de raíces ===================== */
+
+function g7_sup(p, e) { return e === 1 ? String(p) : p + '^{' + e + '}'; }
+function g7_rn(i, p, e) { return i >= 2 ? [rd(i, g7_sup(p, e)), Math.pow(p, e / i)] : null; }
+
+/* 1. mcm de tres índices */
+genr('rad3', function () {
+  var pool = [2, 3, 4, 5, 6, 8, 9, 10, 12], I, L;
+  do { I = shuffle(pool.slice()).slice(0, 3); L = lcm(lcm(I[0], I[1]), I[2]); } while (lcm(I[0], I[1]) === L || L > 60);
+  return mk('rad3', 'Para operar con ' + rd(I[0], 'a') + ', ' + rd(I[1], 'b') + ' y ' + rd(I[2], 'c') + ' hay que reducirlos a un índice común, el menor es',
+    String(L), [I[0] * I[1] * I[2], Math.max.apply(null, I), lcm(I[0], I[1]), I[0] + I[1] + I[2], L * 2],
+    'El índice común más pequeño es el mcm(' + I.join(', ') + ') = ' + L + '.');
+});
+
+/* 2. reducir dos radicales a índice común */
+genr('rad3', function () {
+  var pr = pick([[2, 3], [2, 4], [3, 6], [2, 6], [3, 4]]), n = pr[0], m = pr[1];
+  if (Math.random() < 0.5) { n = pr[1]; m = pr[0]; }
+  var L = lcm(n, m), a = pick([2, 3, 5]), b;
+  do { b = pick([2, 3, 5]); } while (b === a);
+  var X = Math.pow(a, L / n), Y = Math.pow(b, L / m);
+  if (Math.abs(Math.pow(X, 1 / L) - Math.pow(a, 1 / n)) > 1e-9 || Math.abs(Math.pow(Y, 1 / L) - Math.pow(b, 1 / m)) > 1e-9) throw new Error('rad3 idx');
+  var f = function (u, v) { return rd(L, u) + ' y ' + rd(L, v); };
+  var r = g7_mk('rad3', 'Reduce a índice común: ' + rd(n, a) + ' y ' + rd(m, b), [f(X, Y), null],
+    [[f(a, b), null], [f(Math.pow(a, L / m), Math.pow(b, L / n)), null], [f(X, b), null], [f(Math.pow(a, n), Math.pow(b, m)), null]],
+    'El índice común es mcm(' + n + ', ' + m + ') = ' + L + '. Se eleva cada radicando al cociente (índice común : índice): ' + a + '^{' + L / n + '} = ' + X + ' y ' + b + '^{' + L / m + '} = ' + Y + '.', 0, null);
+  return r;
+});
+
+/* 3. producto de radicales de distinto índice */
+genr('rad3', function () {
+  var pr = pick([[2, 3], [2, 4], [3, 6], [2, 6], [3, 4]]), n = pr[0], m = pr[1];
+  if (Math.random() < 0.5) { n = pr[1]; m = pr[0]; }
+  var L = lcm(n, m), a = pick([2, 3, 5]), b;
+  do { b = pick([2, 3, 5]); } while (b === a);
+  var X = Math.pow(a, L / n), Y = Math.pow(b, L / m), N = X * Y;
+  return g7_mk('rad3', 'Calcula: ' + rd(n, a) + ' · ' + rd(m, b) + ' =', [rd(L, N), Math.pow(a, 1 / n) * Math.pow(b, 1 / m)],
+    [[rd(n + m, a * b), Math.pow(a * b, 1 / (n + m))], [rd(L, a * b), Math.pow(a * b, 1 / L)], [rd(L, Math.pow(a, L / m) * Math.pow(b, L / n)), Math.pow(Math.pow(a, L / m) * Math.pow(b, L / n), 1 / L)], [rd(n * m, a * b), Math.pow(a * b, 1 / (n * m))], [rd(Math.max(n, m), a * b), Math.pow(a * b, 1 / Math.max(n, m))]],
+    'Índice común ' + L + ': ' + rd(L, X) + ' · ' + rd(L, Y) + ' = ' + rd(L, N) + '. No basta con multiplicar los radicandos.',
+    0, Math.pow(a, 1 / n) * Math.pow(b, 1 / m));
+});
+
+/* 4. cociente de radicales de distinto índice */
+genr('rad3', function () {
+  var pr = pick([[2, 3], [2, 4], [3, 6], [2, 6], [3, 4]]), n = pr[0], m = pr[1];
+  if (Math.random() < 0.5) { n = pr[1]; m = pr[0]; }
+  var L = lcm(n, m), a = pick([2, 3, 5]), b;
+  do { b = pick([2, 3, 5]); } while (b === a);
+  var X = Math.pow(a, L / n), Y = Math.pow(b, L / m), fr = function (u, v) { return '⟨' + u + '|' + v + '⟩'; };
+  var val = function (u, v, i) { return Math.pow(u / v, 1 / i); };
+  return g7_mk('rad3', 'Calcula: ' + fr(rd(n, a), rd(m, b)) + ' =', [rd(L, fr(X, Y)), Math.pow(a, 1 / n) / Math.pow(b, 1 / m)],
+    [[rd(L, fr(Y, X)), val(Y, X, L)], [rd(L, fr(a, b)), val(a, b, L)], [rd(n * m + 1, fr(a, b)), val(a, b, n * m + 1)], [rd(L, fr(X, b)), val(X, b, L)], [rd(Math.abs(n - m) + 1, fr(a, b)), val(a, b, Math.abs(n - m) + 1)]],
+    'A índice ' + L + ': ' + rd(L, X) + ' : ' + rd(L, Y) + ' = ' + rd(L, fr(X, Y)) + '.',
+    0, Math.pow(a, 1 / n) / Math.pow(b, 1 / m));
+});
+
+/* 5. raíz de raíz con un solo radical */
+genr('rad3', function () {
+  var n = pick([2, 3, 4]), m = pick([2, 3, 4]), a = pick([2, 3, 5, 7]);
+  return g7_mk('rad3', 'Escribe con un solo radical: ' + rd(n, rd(m, a)) + ' =', [rd(n * m, a), Math.pow(a, 1 / (n * m))],
+    [[rd(n + m, a), Math.pow(a, 1 / (n + m))], [rd(m, Math.pow(a, n)), Math.pow(a, n / m)], [rd(n * m, Math.pow(a, n)), Math.pow(a, 1 / m)], [rd(Math.max(n, m), a), Math.pow(a, 1 / Math.max(n, m))], [rd(n * m, a * n), Math.pow(a * n, 1 / (n * m))]],
+    'En una raíz de raíz los índices se multiplican: ' + n + ' · ' + m + ' = ' + n * m + '.',
+    0, Math.pow(Math.pow(a, 1 / m), 1 / n));
+});
+
+/* 6. raíz de un producto con raíz dentro */
+genr('rad3', function () {
+  var n = pick([2, 3]), a = pick([2, 3, 5]), b = pick([2, 3, 5, 7]), N = a * a * b;
+  return g7_mk('rad3', 'Escribe con un solo radical: ' + rd(n, a + '√{' + b + '}') + ' =', [rd(2 * n, N), Math.pow(N, 1 / (2 * n))],
+    [[rd(2 * n, a * b), Math.pow(a * b, 1 / (2 * n))], [rd(n + 2, N), Math.pow(N, 1 / (n + 2))], [rd(2 * n, a * b * b), Math.pow(a * b * b, 1 / (2 * n))], [rd(n, N), Math.pow(N, 1 / n)], [rd(2 * n, a * a * b * b), Math.pow(a * a * b * b, 1 / (2 * n))]],
+    'Primero se mete el factor: ' + a + '√{' + b + '} = √{' + N + '}. Después los índices se multiplican: ' + rd(2 * n, N) + '.',
+    0, Math.pow(a * Math.sqrt(b), 1 / n));
+});
+
+/* 7. simplificar índice y exponente */
+genr('rad3', function () {
+  var N, E, g, p, ok = false;
+  while (!ok) {
+    N = pick([4, 6, 8, 9, 10, 12]); E = ri(2, N - 1); g = gcd(N, E); p = pick([2, 3, 5]);
+    ok = g > 1 && N / g >= 2;
+  }
+  var idx = N / g, ex = E / g;
+  return g7_mk('rad3', 'Simplifica: ' + rd(N, g7_sup(p, E)) + ' =', [rd(idx, g7_sup(p, ex)), Math.pow(p, E / N)],
+    [g7_rn(idx, p, E), g7_rn(N, p, ex), g7_rn(E / g, p, N / g), g7_rn(N - g, p, E), g7_rn(idx, p, E + 1)],
+    'Se dividen índice y exponente entre ' + g + ': ' + N + ' : ' + g + ' = ' + idx + ' y ' + E + ' : ' + g + ' = ' + ex + '.',
+    0, Math.pow(p, E / N));
+});
+
+/* 8. comparar radicales de distinto índice */
+genr('rad3', function () {
+  var pr = pick([[2, 3], [2, 4], [3, 4], [3, 6]]), n = pr[0], m = pr[1], a, b, X, Y, L = lcm(n, m);
+  if (Math.random() < 0.5) { n = pr[1]; m = pr[0]; }
+  do { a = ri(2, 9); b = ri(2, 9); X = Math.pow(a, L / n); Y = Math.pow(b, L / m); } while (Math.abs(Math.pow(X, 1 / L) - Math.pow(Y, 1 / L)) < 0.03);
+  var E1 = [rd(n, a), Math.pow(a, 1 / n)], E2 = [rd(m, b), Math.pow(b, 1 / m)], big = X > Y ? E1 : E2, sm = X > Y ? E2 : E1;
+  return g7_mk('rad3', '¿Cuál es mayor, ' + E1[0] + ' o ' + E2[0] + '?', big,
+    [sm, ['Son iguales', null], ['No se pueden comparar', null]],
+    'A índice ' + L + ': ' + rd(L, X) + ' y ' + rd(L, Y) + '. Es mayor la de radicando mayor, ' + Math.max(X, Y) + '.',
+    0, Math.max(E1[1], E2[1]));
+});
+
+/* 9. PROBLEMA: producto de dos raíces de la misma base con distinto índice */
+genr('rad3', function () {
+  var pr = pick([[2, 3], [2, 4], [3, 6], [4, 6], [2, 6]]), n = pr[0], m = pr[1], p, i, j, ok = false;
+  if (Math.random() < 0.5) { n = pr[1]; m = pr[0]; }
+  while (!ok) {
+    p = pick([2, 2, 3, 5]); i = ri(1, 2 * n - 1); j = ri(1, 2 * m - 1);
+    ok = Math.pow(p, i) <= 250 && Math.pow(p, j) <= 250 && (i % n !== 0 || j % m !== 0) && (i > 1 || j > 1);
+  }
+  var L = lcm(n, m), E = i * (L / n) + j * (L / m), A = Math.pow(p, i), B = Math.pow(p, j);
+  var ans = g7_pw(p, E, L);
+  return g7_mk('rad3', 'Calcula y simplifica: ' + rd(n, A) + ' · ' + rd(m, B) + ' =', ans,
+    [g7_pw(p, i + j, n + m), g7_pw(p, i + j, L), g7_pw(p, E + 1, L), g7_pw(p, E - 1, L), g7_pw(p, E, n * m)],
+    'Como potencias: ' + p + '^{⟨' + i + '|' + n + '⟩} · ' + p + '^{⟨' + j + '|' + m + '⟩} = ' + p + '^{⟨' + E + '|' + L + '⟩}. Se saca la parte entera del exponente y queda ' + ans[0] + '.',
+    1, Math.pow(A, 1 / n) * Math.pow(B, 1 / m));
+});
+
+/* 10a. de radical a potencia */
+genr('rad3', function () {
+  var n = pick([2, 3, 4, 5]), k, p = pick([2, 3, 5, 7]);
+  do { k = ri(1, n + 2); } while (gcd(k, n) !== 1 || k === n);
+  var f = function (e, d) { return p + '^{⟨' + e + '|' + d + '⟩}'; };
+  return g7_mk('rad3', 'Escribe como potencia de exponente fraccionario: ' + rd(n, g7_sup(p, k)) + ' =', [f(k, n), Math.pow(p, k / n)],
+    [[f(n, k), Math.pow(p, n / k)], [p + '^{' + k * n + '}', Math.pow(p, k * n)], [p + '^{' + (k + n) + '}', Math.pow(p, k + n)], [f(k, n + 1), Math.pow(p, k / (n + 1))], [f(1, n), Math.pow(p, 1 / n)]],
+    'El índice de la raíz va en el denominador del exponente y el exponente del radicando en el numerador: ' + p + '^{⟨' + k + '|' + n + '⟩}.',
+    0, Math.pow(Math.pow(p, k), 1 / n));
+});
+
+/* 10b. de potencia a radical */
+genr('rad3', function () {
+  var n = pick([2, 3, 4, 5]), k, p = pick([2, 3, 5, 7]);
+  do { k = ri(2, n + 2); } while (gcd(k, n) !== 1 || k === n);
+  return g7_mk('rad3', 'Escribe como radical: ' + p + '^{⟨' + k + '|' + n + '⟩} =', [rd(n, g7_sup(p, k)), Math.pow(p, k / n)],
+    [g7_rn(k, p, n), [rd(n, p * k), Math.pow(p * k, 1 / n)], g7_rn(n + k, p, 1), g7_rn(n, p, 1), g7_rn(n, p, k + n)],
+    'El denominador ' + n + ' es el índice y el numerador ' + k + ' es el exponente del radicando: ' + rd(n, g7_sup(p, k)) + '.',
+    0, Math.pow(p, k / n));
+});
+
+/* 11. racionalizar una raíz de índice 3 o 4 */
+genr('rad3', function () {
+  var n = pick([3, 3, 4]), p = pick([2, 3, 5]), j = ri(1, n - 1), k = ri(1, 9);
+  var A = Math.pow(p, j), m = Math.pow(p, n - j);
+  return g7_mk('rad3', 'Racionaliza: ⟨' + k + '|' + rd(n, A) + '⟩ =', g7_fr(k, m, p, n),
+    [g7_fr(k, A, p, n), g7_fr(k, m, m, n), g7_fr(k, m, A, n), g7_fr(k, p, p, n), g7_fr(k, m, p * p, n)],
+    'Se multiplica arriba y abajo por ' + rd(n, m) + ': en el denominador queda ' + rd(n, A + ' · ' + m) + ' = ' + rd(n, Math.pow(p, n)) + ' = ' + p + '.',
+    0, k / Math.pow(A, 1 / n));
+});
+
+/* 12. producto de radicales de igual índice que se simplifica */
+genr('rad3', function () {
+  var n, k, m, N, ds, d, isP = function (x) { return Math.pow(Math.round(Math.pow(x, 1 / n)), n) === x; };
+  do {
+    n = pick([3, 3, 4]); k = n === 3 ? ri(2, 3) : 2; m = pick([2, 3, 5, 6]); N = Math.pow(k, n) * m; ds = [];
+    for (d = 2; d < N; d++) if (N % d === 0 && !isP(d) && !isP(N / d)) ds.push(d);
+  } while (!ds.length);
+  var a = pick(ds), b = N / a;
+  return g7_mk('rad3', 'Calcula y simplifica: ' + rd(n, a) + ' · ' + rd(n, b) + ' =', g7_T(k, m, n),
+    [[rd(n, a + b), Math.pow(a + b, 1 / n)], [rd(2 * n, N), Math.pow(N, 1 / (2 * n))], g7_T(k * k, m, n), g7_T(k, m, 2), g7_T(Math.pow(k, n), m, n)],
+    'Con el mismo índice se multiplican los radicandos: ' + a + ' · ' + b + ' = ' + N + ' = ' + Math.pow(k, n) + ' · ' + m + ', y la raíz de ' + Math.pow(k, n) + ' es ' + k + '.',
+    0, Math.pow(a, 1 / n) * Math.pow(b, 1 / n));
+});
+
+/* 13. cociente de radicales de igual índice que se simplifica */
+genr('rad3', function () {
+  var n = pick([3, 3, 4]), k = n === 3 ? ri(2, 3) : 2, m = pick([2, 3, 5]), d = pick([2, 3]), N1 = d * Math.pow(k, n) * m;
+  return g7_mk('rad3', 'Calcula y simplifica: ⟨' + rd(n, N1) + '|' + rd(n, d) + '⟩ =', g7_T(k, m, n),
+    [[rd(n, N1 - d), Math.pow(N1 - d, 1 / n)], g7_T(Math.pow(k, n), m, n), g7_T(k, d * m, n), g7_T(k, m, 2), [rd(n, N1 * d), Math.pow(N1 * d, 1 / n)]],
+    'Con el mismo índice se dividen los radicandos: ' + N1 + ' : ' + d + ' = ' + N1 / d + ' = ' + Math.pow(k, n) + ' · ' + m + ', y la raíz de ' + Math.pow(k, n) + ' es ' + k + '.',
+    0, Math.pow(N1, 1 / n) / Math.pow(d, 1 / n));
+});
+
+/* 14. PROBLEMA: suma de raíces cúbicas */
+genr('rad3', function () {
+  var r = null;
+  while (!r) {
+    var m = pick([2, 3, 5]), T = [];
+    for (var i = 0; i < 3; i++) T.push([ri(1, 4) * (i > 0 && Math.random() < 0.55 ? -1 : 1), Math.pow(ri(1, 3), 3) * m]);
+    if (T.every(function (x) { return x[1] === m; })) continue;
+    r = g7_sumQ('rad3', 'Calcula: ', T, 3, 1);
+    if (r && r.a.length > 24) r = null;
+  }
+  return r;
+});
+
+/* 15. PROBLEMA: producto de tres raíces de la misma base */
+genr('rad3', function () {
+  var I = pick([[2, 3, 6], [2, 4, 4], [3, 3, 3], [2, 2, 4], [3, 6, 6], [2, 3, 3], [4, 4, 4], [2, 6, 3]]), p = pick([2, 3, 5]);
+  var L = lcm(lcm(I[0], I[1]), I[2]), E = L / I[0] + L / I[1] + L / I[2], ans = g7_pw(p, E, L);
+  return g7_mk('rad3', 'Calcula: ' + rd(I[0], p) + ' · ' + rd(I[1], p) + ' · ' + rd(I[2], p) + ' =', ans,
+    [g7_pw(p, 3, I[0] + I[1] + I[2]), g7_pw(p, E - 1, L), g7_pw(p, E + 1, L), g7_pw(p, E, I[0] * I[1] * I[2]), g7_pw(p, 3, L)],
+    'Como potencias, se suman los exponentes: ⟨1|' + I[0] + '⟩ + ⟨1|' + I[1] + '⟩ + ⟨1|' + I[2] + '⟩ = ⟨' + E + '|' + L + '⟩, es decir, ' + p + '^{⟨' + E + '|' + L + '⟩} = ' + ans[0] + '.',
+    1, Math.pow(p, 1 / I[0]) * Math.pow(p, 1 / I[1]) * Math.pow(p, 1 / I[2]));
+});
+
+/* 16. potencia de un radical */
+genr('rad3', function () {
+  var n = pick([3, 4, 5]), k = ri(2, 2 * n), p = pick([2, 3, 5]), ans = g7_pw(p, k, n);
+  return g7_mk('rad3', 'Calcula: (' + rd(n, p) + ')^{' + k + '} =', ans,
+    [g7_T(1, p * k, n), g7_pw(p, k, n + k), g7_pw(p, k, n * k), g7_pw(p, k + 1, n), g7_I(p * k)],
+    '(' + rd(n, p) + ')^{' + k + '} = ' + p + '^{⟨' + k + '|' + n + '⟩}' + (k >= n ? ': sale ' + p + ' por cada ' + n + ' del exponente.' : ' = ' + rd(n, g7_sup(p, k)) + '.'),
+    0, Math.pow(Math.pow(p, 1 / n), k));
+});
+
+/* 17. producto de potencias fraccionarias de la misma base */
+genr('rad3', function () {
+  var p = pick([2, 3, 5, 7]), m = pick([2, 3, 4, 6]), k;
+  do { k = pick([2, 3, 4, 6]); } while (k === m);
+  var L = lcm(m, k), E = L / m + L / k, g = gcd(E, L), en = E / g, ed = L / g;
+  var f = function (a, b) { return p + '^{⟨' + a + '|' + b + '⟩}'; };
+  return g7_mk('rad3', 'Calcula: ' + f(1, m) + ' · ' + f(1, k) + ' =', [f(en, ed), Math.pow(p, E / L)],
+    [[f(2, m + k), Math.pow(p, 2 / (m + k))], [f(1, m * k), Math.pow(p, 1 / (m * k))], [f(1, m + k), Math.pow(p, 1 / (m + k))], [f(en + 1, ed), Math.pow(p, (en + 1) / ed)], [f(en, ed + 1), Math.pow(p, en / (ed + 1))]],
+    'Misma base: se suman los exponentes, ⟨1|' + m + '⟩ + ⟨1|' + k + '⟩ = ⟨' + E + '|' + L + '⟩' + (g > 1 ? ' = ⟨' + en + '|' + ed + '⟩' : '') + '.',
+    0, Math.pow(p, 1 / m) * Math.pow(p, 1 / k));
+});
+/* Generadores g8: logaritmos (definición, propiedades) y ecuaciones con log/exp */
+function g8_ok(c, m) { if (!c) throw new Error('g8 verif: ' + m); }
+function g8_near(a, b, m) { g8_ok(Math.abs(a - b) < 1e-9, m + ' ' + a + ' vs ' + b); }
+function g8_fr(n, d) {
+  var g = gcd(n, d); n /= g; d /= g;
+  if (d < 0) { n = -n; d = -d; }
+  if (d === 1) return mn(n);
+  return (n < 0 ? '−' : '') + '⟨' + Math.abs(n) + '|' + d + '⟩';
+}
+function g8_dn(n, k) {
+  var s = n < 0, a = Math.abs(Math.round(n)), p = Math.pow(10, k), f = String(a % p);
+  while (f.length < k) f = '0' + f;
+  return (s ? '−' : '') + Math.floor(a / p) + ',' + f;
+}
+function g8_L(b) { return b === 10 ? 'log' : b === 'e' ? 'ln' : 'log_{' + b + '}'; }
+function g8_pwf(b, k) { return k >= 0 ? String(Math.pow(b, k)) : '⟨1|' + Math.pow(b, -k) + '⟩'; }
+function g8_rt(k, N) { return k === 2 ? '√{' + N + '}' : '√[' + k + ']{' + N + '}'; }
+function g8_lg(x, b) { return Math.log(x) / Math.log(b); }
+function g8_fx(s) { return typeof s === 'string' ? s.replace(/(^|[^\d\w])-(?=\d)/g, '$1−') : s; }
+function g8_mk(t, q, a, w, e) {
+  var r = mk(t, g8_fx(q), g8_fx(String(a)), w.map(function (x) { return g8_fx(String(x)); }), g8_fx(e));
+  r.w = r.w.map(g8_fx);
+  return r;
+}
+function g8_P(r) { r.p = 1; return r; }
+
+/* ===== log1: definición y valores ===== */
+genr('log1', function () {
+  var b = pick([2, 3, 5, 7]), n = ri(2, b === 2 ? 6 : b === 3 ? 4 : b === 5 ? 3 : 2), N = Math.pow(b, n), neg = Math.random() < 0.4;
+  var arg = neg ? '⟨1|' + N + '⟩' : String(N), v = neg ? -n : n;
+  g8_near(g8_lg(neg ? 1 / N : N, b), v, 'l1a');
+  return g8_mk('log1', 'Calcula: log_{' + b + '} ' + arg + ' =', mn(v), [mn(-v), mn(v + 1), mn(b * n), mn(v - 1)],
+    neg ? '1/' + N + ' = ' + b + '^{−' + n + '}, así que el logaritmo es −' + n + '.' : b + '^{' + n + '} = ' + N + ', así que el logaritmo es ' + n + '.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 4, 5, 10]), k = nz(-3, b === 10 ? 4 : 4), x = Math.pow(b, k), neg = k < 0;
+  var L = b === 10 ? 'log' : 'log_{' + b + '}';
+  g8_near(Math.pow(b, k), neg ? 1 / Math.pow(b, -k) : x, 'l1b');
+  var ans = g8_pwf(b, k), alt = g8_pwf(b, -k);
+  return g8_mk('log1', 'Si ' + L + ' x = ' + mn(k) + ', entonces x =', ans, [alt, mn(b * k), String(k * k), mn(b + k)],
+    L + ' x = ' + mn(k) + ' significa x = ' + b + '^{' + mn(k) + '} = ' + ans + '.');
+});
+genr('log1', function () {
+  var x = pick([2, 3, 4, 5, 6, 10]), n = ri(2, 4), N = Math.pow(x, n);
+  if (N > 5000) n = 2, N = x * x;
+  g8_near(g8_lg(N, x), n, 'l1c');
+  return g8_mk('log1', 'Si log_{x} ' + N + ' = ' + n + ' (con x > 0), entonces x =', String(x), [String(n), String(N - n), String(x + 1), String(x * n)],
+    'x^{' + n + '} = ' + N + ' y ' + x + '^{' + n + '} = ' + N + ', luego x = ' + x + '.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5]), k = pick([2, 3]), m;
+  do { m = ri(1, 5); } while (m % k === 0 || Math.pow(b, m) > 700);
+  var N = Math.pow(b, m);
+  g8_near(g8_lg(Math.pow(N, 1 / k), b), m / k, 'l1d');
+  return g8_mk('log1', 'Calcula: log_{' + b + '} ' + g8_rt(k, N) + ' =', g8_fr(m, k), [g8_fr(k, m), String(m), String(m * k), g8_fr(m + 1, k)],
+    g8_rt(k, N) + ' = ' + b + '^{⟨' + m + '|' + k + '⟩}, así que el logaritmo es ' + g8_fr(m, k) + '.');
+});
+genr('log1', function () {
+  var n = ri(2, 6), v = ri(0, 3), q, a, w;
+  if (v === 0) { q = 'log 0,' + new Array(n).join('0') + '1'; a = -n; }
+  else if (v === 1) { q = 'log ⟨1|' + Math.pow(10, n) + '⟩'; a = -n; }
+  else if (v === 2) { var k = pick([2, 3]), m; do { m = ri(1, 5); } while (m % k === 0); q = 'log ' + g8_rt(k, '10^{' + m + '}'); g8_near(Math.log10(Math.pow(10, m / k)), m / k, 'l1e'); return g8_mk('log1', 'Calcula: ' + q + ' =', g8_fr(m, k), [g8_fr(k, m), String(m), String(m * k), g8_fr(m + 1, k)], 'La raíz es una potencia de 10 con exponente ⟨' + m + '|' + k + '⟩.'); }
+  else { q = 'log ' + Math.pow(10, n); a = n; }
+  var val = v === 3 ? n : -n;
+  g8_near(Math.log10(v === 3 ? Math.pow(10, n) : Math.pow(10, -n)), val, 'l1e2');
+  return g8_mk('log1', 'Calcula: ' + q + ' =', mn(val), [mn(-val), mn(val + 1), mn(val - 1), String(Math.pow(10, n))],
+    'Se busca el exponente de 10: 10^{' + mn(val) + '} da el número del enunciado.');
+});
+genr('log1', function () {
+  var v = ri(0, 2);
+  if (v === 0) { var n = ri(2, 7); g8_near(Math.log(Math.exp(-n)), -n, 'l1f'); return g8_mk('log1', 'Calcula: ln ⟨1|e^{' + n + '}⟩ =', mn(-n), [String(n), '⟨1|' + n + '⟩', mn(-n - 1), 'e^{' + mn(-n) + '}'], '⟨1|e^{' + n + '}⟩ = e^{−' + n + '}, y ln e^{−' + n + '} = −' + n + '.'); }
+  if (v === 1) { var k = pick([2, 3]), m; do { m = ri(1, 5); } while (m % k === 0); g8_near(Math.log(Math.exp(m / k)), m / k, 'l1f2'); return g8_mk('log1', 'Calcula: ln ' + g8_rt(k, 'e^{' + m + '}') + ' =', g8_fr(m, k), [g8_fr(k, m), String(m), String(m * k), g8_fr(m + 1, k)], g8_rt(k, 'e^{' + m + '}') + ' = e^{⟨' + m + '|' + k + '⟩} y ln e^{p} = p.'); }
+  var a = ri(2, 6), b = nz(-4, 4);
+  g8_near(Math.log(Math.exp(a) * Math.exp(b)), a + b, 'l1f3');
+  return g8_mk('log1', 'Calcula: ln(e^{' + mn(a) + '} · e^{' + mn(b) + '}) =', mn(a + b), [mn(a * b), mn(a - b), 'e^{' + mn(a + b) + '}', mn(a + b + 1)], 'e^{' + mn(a) + '} · e^{' + mn(b) + '} = e^{' + mn(a + b) + '}, y ln e^{p} = p.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5, 10]), a = ri(1, 6), v = ri(0, 2), L = g8_L(b), q, t, inc, dir;
+  var f;
+  if (v === 0) { q = 'x − ' + a; t = a; dir = 1; f = function (x) { return x - a; }; }
+  else if (v === 1) { q = 'x + ' + a; t = -a; dir = 1; f = function (x) { return x + a; }; }
+  else { q = a + ' − x'; t = a; dir = -1; f = function (x) { return a - x; }; }
+  g8_ok(f(t + dir * 0.01) > 0 && f(t - dir * 0.01) < 0, 'l1g');
+  var ans = dir > 0 ? 'x > ' + mn(t) : 'x < ' + mn(t);
+  var alt = dir > 0 ? 'x < ' + mn(t) : 'x > ' + mn(t);
+  return g8_mk('log1', '¿Para qué valores de x existe ' + L + '(' + q + ')?', ans, [alt, ans.replace('>', '≥').replace('<', '≤'), 'x ≠ ' + mn(t), dir > 0 ? 'x > ' + mn(-t) : 'x < ' + mn(-t)],
+    'El argumento debe ser positivo: ' + q + ' > 0 da ' + ans + '.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5]), n = ri(1, 3), N = Math.pow(b, n), k = pick([4, 6, 8, 9, 12]);
+  var bad = [{ s: 'log_{' + b + '} (−' + N + ')', ok: 0 }, { s: 'log_{' + b + '} 0', ok: 0 }, { s: 'log_{1} ' + k, ok: 0 }, { s: 'log_{−' + b + '} ' + N, ok: 0 }];
+  var good = [{ s: 'log_{' + b + '} ' + N }, { s: 'log_{' + b + '} ⟨1|' + N + '⟩' }, { s: 'log_{' + b + '} 1' }, { s: 'log_{' + (b + 1) + '} ' + k }, { s: 'log_{' + b + '} ' + k }];
+  var ans = pick(bad), w = shuffle(good).slice(0, 3).map(function (o) { return o.s; });
+  return g8_mk('log1', '¿Cuál de estos logaritmos NO existe?', ans.s, w, 'El argumento tiene que ser positivo y la base positiva y distinta de 1.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5, 10, 'e']), y = nz(-3, 4), N = b === 'e' ? 'e^{' + mn(y) + '}' : g8_pwf(b, y);
+  if (b === 'e') return g8_mk('log1', 'e^{' + mn(y) + '} = N equivale a', 'ln N = ' + mn(y), ['log N = ' + mn(y), 'ln ' + mn(y) + ' = N', 'ln N = e'], 'La base e se queda como base: ln N = ' + mn(y) + '.');
+  var L = g8_L(b), z = b === 10 ? 'log' : 'log_{' + b + '}', Nn = b === 10 ? (y >= 0 ? String(Math.pow(10, y)) : g8_pwf(10, y)) : N;
+  g8_near(Math.pow(b, y), y >= 0 ? Math.pow(b, y) : 1 / Math.pow(b, -y), 'l1i');
+  return g8_mk('log1', b + '^{' + mn(y) + '} = ' + Nn + ' equivale a', z + ' ' + Nn + ' = ' + mn(y), [z + ' ' + mn(y) + ' = ' + Nn, 'log_{' + mn(y) + '} ' + Nn + ' = ' + b, 'log_{' + Nn + '} ' + b + ' = ' + mn(y)].map(function (s) { return b === 10 ? s : s; }),
+    'La base ' + b + ' sigue siendo la base y el exponente ' + mn(y) + ' es el valor del logaritmo.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5]), n = ri(2, 4), c1 = pick([1, 2, 3]), c3 = pick([1, 2, 3]), v = c1 * n - c3;
+  g8_near(c1 * g8_lg(Math.pow(b, n), b) + 0 - c3 * g8_lg(b, b), v, 'l1j');
+  var q = (c1 > 1 ? c1 + ' ' : '') + 'log_{' + b + '} ' + b + '^{' + n + '} + log_{' + b + '} 1 − ' + (c3 > 1 ? c3 + ' ' : '') + 'log_{' + b + '} ' + b + ' =';
+  return g8_mk('log1', 'Calcula: ' + q, mn(v), [mn(v + 1), mn(c1 * n), mn(c1 * n + 1 - c3), mn(n - c3 - 1)],
+    'log_{' + b + '} ' + b + '^{' + n + '} = ' + n + ', log_{' + b + '} 1 = 0 y log_{' + b + '} ' + b + ' = 1: ' + c1 + '·' + n + ' + 0 − ' + c3 + ' = ' + v + '.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5, 10]), a = ri(2, 5), v = ri(0, 2), L = g8_L(b), E, xs;
+  if (v === 0) { E = 'x + ' + a; xs = 'x + ' + a; return g8_mk('log1', 'Simplifica: ' + L + ' ' + b + '^{x + ' + a + '} =', E, ['x', b + '(x + ' + a + ')', 'x · ' + a, a + 'x'], 'log_{' + b + '} ' + b + '^{p} = p.'); }
+  if (v === 1) { return g8_mk('log1', 'Simplifica: ln e^{' + a + 'x} =', a + 'x', ['x', 'e · ' + a + 'x', a + ' + x', 'x^{' + a + '}'], 'ln e^{p} = p.'); }
+  return g8_mk('log1', 'Simplifica: log 10^{x − ' + a + '} =', 'x − ' + a, ['x', '10(x − ' + a + ')', 'x + ' + a, '−' + a + 'x'], 'log 10^{p} = p.');
+});
+genr('log1', function () {
+  var b = pick([2, 3, 5, 10]), N, k;
+  do { N = ri(b + 1, b === 10 ? 900 : b === 2 ? 200 : 300); } while (Math.abs(Math.log(N) / Math.log(b) - Math.round(Math.log(N) / Math.log(b))) < 1e-9);
+  k = Math.floor(g8_lg(N, b));
+  g8_ok(Math.pow(b, k) < N && N < Math.pow(b, k + 1), 'l1l');
+  return g8_mk('log1', 'log_{' + b + '} ' + N + ' está entre', k + ' y ' + (k + 1), [(k - 1) + ' y ' + k, (k + 1) + ' y ' + (k + 2), (k + 2) + ' y ' + (k + 3), '0 y 1'],
+    b + '^{' + k + '} = ' + Math.pow(b, k) + ' < ' + N + ' < ' + b + '^{' + (k + 1) + '} = ' + Math.pow(b, k + 1) + '.');
+});
+/* problemas largos log1 */
+genr('log1', function () {
+  var x = pick([2, 3, 4, 5]), n = ri(3, 4), N = Math.pow(x, n), m = ri(1, n - 1), M = Math.pow(x, m);
+  g8_near(g8_lg(N, x), n, 'l1p1');
+  return g8_P(g8_mk('log1', 'Se sabe que log_{x} ' + N + ' = ' + n + '. Calcula log_{x} ' + M + ' (x > 0).', String(m), [String(n), String(m + 1), String(M), String(N / M)],
+    'x^{' + n + '} = ' + N + ' da x = ' + x + '; y log_{' + x + '} ' + M + ' = ' + m + ' porque ' + x + '^{' + m + '} = ' + M + '.'));
+});
+genr('log1', function () {
+  var items = [], tot = 0, den = 2, parts = [], i, tx = [];
+  var bs = shuffle([2, 3, 5]);
+  for (i = 0; i < 3; i++) {
+    var b = bs[i], t = ri(0, 2), n = ri(1, 4), sg = i === 0 ? 1 : pick([1, -1]), val, s;
+    if (t === 0) { val = 2 * n; s = 'log_{' + b + '} ' + Math.pow(b, n); }
+    else if (t === 1) { val = -2 * n; s = 'log_{' + b + '} ⟨1|' + Math.pow(b, n) + '⟩'; }
+    else { val = 1; s = 'log_{' + b + '} √{' + b + '}'; }
+    g8_near(g8_lg(t === 2 ? Math.sqrt(b) : t === 1 ? 1 / Math.pow(b, n) : Math.pow(b, n), b) * 2, val, 'l1p2');
+    tot += sg * val; tx.push((i === 0 ? '' : sg > 0 ? ' + ' : ' − ') + s);
+  }
+  var ans = g8_fr(tot, 2), wr = [g8_fr(tot + 1, 2), g8_fr(-tot, 2), g8_fr(tot, 4), String(tot)];
+  return g8_P(g8_mk('log1', 'Calcula: ' + tx.join('') + ' =', ans, wr, 'Se calcula cada logaritmo por separado (log_{b} √{b} vale ⟨1|2⟩) y se suman con su signo: resultado ' + ans + '.'));
+});
+genr('log1', function () {
+  var b1 = pick([2, 3]), b2 = pick([3, 5, 10]), n1 = ri(2, 5), n2 = ri(1, 3), y = -n2;
+  if (b1 === b2) b2 = 5;
+  var x = Math.pow(b1, n1), yv = 1 / Math.pow(b2, n2);
+  var ans = g8_fr(x, Math.pow(b2, n2));
+  g8_near(g8_lg(x, b1), n1, 'l1p3a'); g8_near(g8_lg(yv, b2), y, 'l1p3b');
+  return g8_P(g8_mk('log1', 'Si log_{' + b1 + '} x = ' + n1 + ' y log_{' + b2 + '} y = −' + n2 + ', entonces x · y =', ans, [String(x), String(x * Math.pow(b2, n2)), mn(n1 * y), g8_fr(x, Math.pow(b2, n2) + 1)],
+    'x = ' + b1 + '^{' + n1 + '} = ' + x + ' e y = ' + b2 + '^{−' + n2 + '} = ⟨1|' + Math.pow(b2, n2) + '⟩; su producto es ' + ans + '.'));
+});
+genr('log1', function () {
+  var b, n, x, m, c;
+  do { b = pick([2, 3, 5]); n = ri(2, 3); x = ri(2, 9); m = ri(2, 4); c = m * x - Math.pow(b, n); } while (c === 0 || Math.abs(c) > 30);
+  var N = Math.pow(b, n), xx = (N + c) / m;
+  g8_ok(Math.abs(xx - Math.round(xx)) < 1e-9 && xx > 0 && m * xx - c > 0, 'l1p4');
+  var arg = m + 'x ' + (c < 0 ? '+ ' + (-c) : '− ' + c);
+  g8_near(g8_lg(m * xx - c, b), n, 'l1p4b');
+  return g8_P(g8_mk('log1', 'Resuelve log_{' + b + '}(' + arg + ') = ' + n + '. La solución es', 'x = ' + xx, ['x = ' + (N - c), 'x = ' + (b * n + c), 'x = ' + (xx + 1), 'x = ' + (xx - 1)],
+    arg + ' = ' + b + '^{' + n + '} = ' + N + ', luego ' + m + 'x = ' + (N + c) + ' y x = ' + xx + '.'));
+});
+
+/* ===== log2: propiedades ===== */
+function g8_vars() { return pick([['x', 'y'], ['a', 'b'], ['m', 'n']]); }
+function g8_c(k, L, x) { return (k > 1 ? k + ' ' : '') + L + ' ' + x; }
+function g8_pw(x, k) { return k > 1 ? x + '^{' + k + '}' : x; }
+genr('log2', function () {
+  var v = g8_vars(), b = pick([10, 2, 3, 'e']), L = g8_L(b), c1 = ri(1, 4), c2 = ri(1, 4), s = pick([1, -1]), sg = s > 0 ? ' + ' : ' − ';
+  var p1 = g8_pw(v[0], c1), p2 = g8_pw(v[1], c2), X = 3.7, Y = 2.3;
+  var ans = s > 0 ? L + '(' + p1 + ' · ' + p2 + ')' : L + ' ⟨' + p1 + '|' + p2 + '⟩';
+  g8_near(c1 * Math.log(X) + s * c2 * Math.log(Y), s > 0 ? Math.log(Math.pow(X, c1) * Math.pow(Y, c2)) : Math.log(Math.pow(X, c1) / Math.pow(Y, c2)), 'l2a');
+  var wr = [s > 0 ? L + ' ⟨' + p1 + '|' + p2 + '⟩' : L + '(' + p1 + ' · ' + p2 + ')', L + '(' + (c1 > 1 ? c1 : '') + v[0] + sg + (c2 > 1 ? c2 : '') + v[1] + ')', L + '(' + p1 + sg + p2 + ')', L + ' ' + p1 + (s > 0 ? ' · ' : ' : ') + L + ' ' + p2];
+  return g8_mk('log2', 'Escribe como un solo logaritmo: ' + g8_c(c1, L, v[0]) + sg + g8_c(c2, L, v[1]), ans, wr,
+    'Los coeficientes suben como exponentes; la suma es un producto y la resta un cociente.');
+});
+genr('log2', function () {
+  var v = pick([['x', 'y', 'z'], ['a', 'b', 'c']]), b = pick([10, 10, 'e']), L = g8_L(b), m = ri(1, 4), n = ri(1, 3);
+  var q = L + ' ⟨' + g8_pw(v[0], m) + v[1] + '|' + g8_pw(v[2], n) + '⟩';
+  var ans = g8_c(m, L, v[0]) + ' + ' + L + ' ' + v[1] + ' − ' + g8_c(n, L, v[2]);
+  var wr = [g8_c(m, L, v[0]) + ' · ' + L + ' ' + v[1] + ' − ' + g8_c(n, L, v[2]), g8_c(m, L, v[0]) + ' − ' + L + ' ' + v[1] + ' + ' + g8_c(n, L, v[2]), L + ' ' + g8_pw(v[0], m) + ' + ' + L + ' ' + v[1] + ' − ' + L + ' ' + g8_pw(v[2], n), '⟨' + g8_c(m, L, v[0]) + ' + ' + L + ' ' + v[1] + '|' + g8_c(n, L, v[2]) + '⟩'];
+  var X = 1.9, Y = 3.3, Z = 2.6;
+  g8_near(Math.log(Math.pow(X, m) * Y / Math.pow(Z, n)), m * Math.log(X) + Math.log(Y) - n * Math.log(Z), 'l2b');
+  return g8_mk('log2', 'Desarrolla: ' + q, ans, wr, 'El producto se convierte en suma, el cociente en resta y los exponentes bajan como coeficientes.');
+});
+genr('log2', function () {
+  var v = pick(['x', 'a', 'm']), b = pick([10, 2, 3, 'e']), L = g8_L(b), P = pick([[1, 2], [1, 3], [2, 3], [3, 2], [3, 4], [2, 5], [1, 4], [5, 2]]), m = P[0], k = P[1];
+  var rad = g8_rt(k, g8_pw(v, m)), ans = g8_fr(m, k) + ' ' + L + ' ' + v;
+  g8_near(Math.log(Math.pow(Math.pow(2.9, m), 1 / k)), m / k * Math.log(2.9), 'l2c');
+  return g8_mk('log2', 'Desarrolla: ' + L + ' ' + rad, ans, [g8_fr(k, m) + ' ' + L + ' ' + v, g8_c(m * k, L, v), '√{' + L + ' ' + g8_pw(v, m) + '}', L + ' ' + v + ' − ' + k],
+    'La raíz de índice ' + k + ' es el exponente ⟨1|' + k + '⟩: el exponente total ' + g8_fr(m, k) + ' baja multiplicando.');
+});
+/* dados log 2 y log 3 */
+genr('log2', function () {
+  var a = 301, b = 477, i, j, N, lg;
+  do { i = ri(-3, 3); j = ri(0, 3); } while ((i === 0 && j === 0) || (i === 0 && j === 1) || (j === 0 && i === 1) || (i === 1 && j === 0));
+  N = Math.pow(2, i) * Math.pow(3, j); lg = i * a + j * b;
+  g8_ok(Math.abs(Math.log10(N) * 1000 - lg) < 1.5 * (Math.abs(i) + j), 'l2d');
+  var Ns = String(N).replace('.', ',');
+  var wr = [j * a + i * b, i * a - j * b, (i + j) * a, Math.abs(i) * a * 0 + (i * 2 + j) * a];
+  var ex = N + ' = ' + (i >= 0 ? '2^{' + i + '}' : '⟨1|2^{' + (-i) + '}⟩') + (j > 0 ? ' · 3^{' + j + '}' : '') + '.';
+  wr = wr.map(function (z) { return g8_dn(z, 3); });
+  return g8_mk('log2', 'Si log 2 ≈ 0,301 y log 3 ≈ 0,477, entonces log ' + Ns + ' ≈', g8_dn(lg, 3), wr.concat([g8_dn(lg + 1000, 3), g8_dn(-lg, 3)]),
+    ex + ' Aplicando las propiedades: ' + i + '·0,301 + ' + j + '·0,477 = ' + g8_dn(lg, 3) + '.'.replace('x', ''));
+});
+/* dado log 2, calcular potencias de 2 y 5 */
+genr('log2', function () {
+  var a = 301, i, j, N, lg;
+  do { i = ri(-3, 3); j = ri(-2, 3); } while ((i === 0 && j === 0) || N === 1 || (i === 1 && j === 0) || (i === 0 && j === 1) || (i === 1 && j === 1));
+  N = Math.pow(2, i) * Math.pow(5, j); lg = i * a + j * (1000 - a);
+  g8_ok(Math.abs(Math.log10(N) * 1000 - lg) < 4, 'l2e');
+  var Ns = String(N).replace('.', ',');
+  if (Ns.length > 8) return null || g8_mk('log2', 'Si log 2 ≈ 0,301, entonces log 5 ≈', '0,699', ['0,602', '1,301', '0,150', '3,010'], 'log 5 = log ⟨10|2⟩ = 1 − log 2 = 0,699.');
+  var wr = [i * a + j * (1000 + a), i * a - j * (1000 - a), (i + j) * a, -i * a + j * (1000 - a)].map(function (z) { return g8_dn(z, 3); });
+  return g8_mk('log2', 'Si log 2 ≈ 0,301, entonces log ' + Ns + ' ≈', g8_dn(lg, 3), wr.concat([g8_dn(lg + 1000, 3), g8_dn(lg - 1000, 3)]),
+    'Se usa log 5 = log ⟨10|2⟩ = 1 − log 2 = 0,699 y ' + Ns + ' = ' + (i >= 0 ? '2^{' + i + '}' : '⟨1|2^{' + (-i) + '}⟩') + ' · ' + (j >= 0 ? '5^{' + j + '}' : '⟨1|5^{' + (-j) + '}⟩') + '.');
+});
+/* cambio de base con logaritmos decimales */
+genr('log2', function () {
+  var b = pick([3, 5, 7, 6, 11]), N = pick([2, 7, 9, 12, 20, 50]); if (b === N) N = 13;
+  var f = pick(['log', 'ln']), L = f;
+  g8_near(g8_lg(N, b), Math.log(N) / Math.log(b), 'l2f');
+  var ans = '⟨' + L + ' ' + N + '|' + L + ' ' + b + '⟩';
+  return g8_mk('log2', 'Con la calculadora, log_{' + b + '} ' + N + ' se obtiene como', ans, ['⟨' + L + ' ' + b + '|' + L + ' ' + N + '⟩', L + ' ' + N + ' − ' + L + ' ' + b, L + ' ' + N + ' · ' + L + ' ' + b, L + ' ⟨' + N + '|' + b + '⟩'],
+    'Cambio de base: log_{b} N = ⟨' + L + ' N|' + L + ' b⟩, con el argumento arriba y la base abajo.');
+});
+/* mismo cambio de base con potencias */
+genr('log2', function () {
+  var p = pick([2, 3, 5]), m = pick([2, 3, 4]), n = ri(1, 7), B = Math.pow(p, m), N = Math.pow(p, n);
+  if (n === m || B > 300 || N > 300 || n % m === 0) { n = m + 1; N = Math.pow(p, n); }
+  g8_near(g8_lg(N, B), n / m, 'l2g');
+  var ans = g8_fr(n, m);
+  return g8_mk('log2', 'Calcula: log_{' + B + '} ' + N + ' =', ans, [g8_fr(m, n), String(n - m), g8_fr(n, m + 1), String(Math.round(N / B))],
+    'Con base ' + p + ': log_{' + B + '} ' + N + ' = ⟨log_{' + p + '} ' + N + '|log_{' + p + '} ' + B + '⟩ = ⟨' + n + '|' + m + '⟩.');
+});
+/* regla de la cadena */
+genr('log2', function () {
+  var a = pick([2, 3, 5]), b, c, n = ri(2, 5);
+  do { b = pick([3, 5, 7, 10]); } while (b === a);
+  c = Math.pow(a, n);
+  var ans = String(n);
+  g8_near(g8_lg(b, a) * g8_lg(c, b), n, 'l2h');
+  return g8_mk('log2', 'Calcula: log_{' + a + '} ' + b + ' · log_{' + b + '} ' + c + ' =', ans, [String(n + 1), String(n - 1), 'log_{' + a + '} ' + b * c, String(b * n)],
+    'Cambiando a base ' + a + ': ⟨log ' + b + '|log ' + a + '⟩ · ⟨log ' + c + '|log ' + b + '⟩ = log_{' + a + '} ' + c + ' = ' + n + '.');
+});
+/* igualdades ciertas y falsas */
+genr('log2', function () {
+  var b = pick(['', '', '_{2}', '_{3}', '_{5}']), L = b === '' ? 'log' : 'log' + b, a = pick([['a', 'b'], ['x', 'y']]), A = a[0], B = a[1], n = pick(['n', 'k']);
+  var T = [L + '(' + A + ' · ' + B + ') = ' + L + ' ' + A + ' + ' + L + ' ' + B, L + ' ⟨' + A + '|' + B + '⟩ = ' + L + ' ' + A + ' − ' + L + ' ' + B, L + ' ' + A + '^{' + n + '} = ' + n + ' · ' + L + ' ' + A, L + ' √{' + A + '} = ⟨1|2⟩ ' + L + ' ' + A, L + ' 1 = 0', L + ' ⟨1|' + A + '⟩ = −' + L + ' ' + A];
+  var F = [L + '(' + A + ' + ' + B + ') = ' + L + ' ' + A + ' + ' + L + ' ' + B, L + '(' + A + ' · ' + B + ') = ' + L + ' ' + A + ' · ' + L + ' ' + B, L + ' ' + A + '^{' + n + '} = (' + L + ' ' + A + ')^{' + n + '}', L + ' ⟨' + A + '|' + B + '⟩ = ⟨' + L + ' ' + A + '|' + L + ' ' + B + '⟩', L + '(' + A + ' − ' + B + ') = ' + L + ' ' + A + ' − ' + L + ' ' + B, L + ' 1 = 1', L + ' ⟨1|' + A + '⟩ = ⟨1|' + L + ' ' + A + '⟩', L + ' √{' + A + '} = √{' + L + ' ' + A + '}'];
+  if (b === '') { T.push('log 10 = 1'); F.push('log 10 = 0'); } else { T.push(L + ' ' + b.replace(/[_{}]/g, '') + ' = 1'); F.push(L + ' ' + b.replace(/[_{}]/g, '') + ' = 0'); }
+  if (Math.random() < 0.5) return g8_mk('log2', '¿Cuál de estas igualdades es CIERTA (para valores positivos)?', pick(T), shuffle(F).slice(0, 3), 'Producto → suma, cociente → resta, exponente → coeficiente; no hay propiedad para suma, resta o producto de logaritmos.');
+  return g8_mk('log2', '¿Cuál de estas igualdades es FALSA?', pick(F), shuffle(T).slice(0, 3), 'El logaritmo de una suma o una resta no se separa, y el producto de logaritmos no es el logaritmo de nada sencillo.');
+});
+/* n log m − log k = entero */
+genr('log2', function () {
+  var cand = [], b, m, n, t, k;
+  [2, 3, 5].forEach(function (b0) { for (m = 2; m <= 12; m++) for (n = 2; n <= 3; n++) for (t = 1; t <= 4; t++) { var P = Math.pow(m, n), Q = Math.pow(b0, t); if (P % Q === 0 && P / Q >= 2 && P / Q <= 60 && P / Q !== m && m !== b0) cand.push([b0, m, n, t, P / Q]); } });
+  var c = pick(cand); b = c[0]; m = c[1]; n = c[2]; t = c[3]; k = c[4];
+  g8_near(n * g8_lg(m, b) - g8_lg(k, b), t, 'l2i');
+  return g8_mk('log2', 'Calcula: ' + g8_c(n, 'log_{' + b + '}', m) + ' − log_{' + b + '} ' + k + ' =', String(t), [String(t + 1), String(t - 1), 'log_{' + b + '} ' + (n * m + k), String(n * m + k)],
+    g8_c(n, 'log_{' + b + '}', m) + ' − log_{' + b + '} ' + k + ' = log_{' + b + '} ⟨' + m + '^{' + n + '}|' + k + '⟩ = log_{' + b + '} ' + Math.pow(b, t) + ' = ' + t + '.');
+});
+/* ln(e^n x^m) − m ln x */
+genr('log2', function () {
+  var b = pick([10, 'e', 2, 3]), L = g8_L(b), n = ri(2, 6), m = ri(2, 5), bb = b === 'e' ? 'e' : String(b);
+  g8_near(n + m * Math.log(2.4) / Math.log(2.4) - m, n, 'l2j');
+  var Z = n === 1 ? bb : bb + '^{' + n + '}';
+  return g8_mk('log2', 'Simplifica: ' + L + '(' + Z + ' · x^{' + m + '}) − ' + m + ' ' + L + ' x =', String(n), [String(n + m), String(n * m), 'x^{' + n + '}', String(n - m)],
+    'log(' + Z + '·x^{' + m + '}) = ' + n + ' + ' + m + ' ' + L + ' x, y al restar ' + m + ' ' + L + ' x queda ' + n + '.');
+});
+/* valores dados de log_b x, log_b y */
+genr('log2', function () {
+  var b = pick([2, 3, 5, 10]), L = g8_L(b), p = nz(-3, 4), q = nz(-3, 4), m = ri(1, 3), n = ri(1, 3), t = ri(0, 1), ans, expr;
+  if (t === 0) { expr = L + '(' + g8_pw('x', m) + ' · ' + g8_pw('y', n) + ')'; ans = m * p + n * q; }
+  else { expr = L + ' ⟨' + g8_pw('x', m) + '|' + g8_pw('y', n) + '⟩'; ans = m * p - n * q; }
+  var wr = t === 0 ? [m * p * n * q, m * p - n * q, p + q, (m + n) * (p + q)] : [m * p + n * q, p - q, (m * p) / (n * q) === Math.round(m * p / (n * q)) ? m * p / (n * q) : p * m * n * q, m * n * (p - q)];
+  return g8_mk('log2', 'Si ' + L + ' x = ' + mn(p) + ' y ' + L + ' y = ' + mn(q) + ', entonces ' + expr + ' =', mn(ans), wr.map(mn),
+    'Se desarrolla: ' + (t === 0 ? m + '·(' + mn(p) + ') + ' + n + '·(' + mn(q) + ')' : m + '·(' + mn(p) + ') − ' + n + '·(' + mn(q) + ')') + ' = ' + mn(ans) + '.');
+});
+/* ln con ln2≈0,69 y ln3≈1,10 */
+genr('log2', function () {
+  var i, j, N, lg;
+  do { i = ri(-2, 3); j = ri(0, 3); } while ((i === 0 && j === 0) || (i === 1 && j === 0) || (i === 0 && j === 1));
+  N = Math.pow(2, i) * Math.pow(3, j); lg = i * 69 + j * 110;
+  g8_ok(Math.abs(Math.log(N) * 100 - lg) < 1.2 * (Math.abs(i) + j), 'l2l');
+  var Ns = String(N).replace('.', ',');
+  return g8_mk('log2', 'Si ln 2 ≈ 0,69 y ln 3 ≈ 1,10, entonces ln ' + Ns + ' ≈', g8_dn(lg, 2), [g8_dn(j * 69 + i * 110, 2), g8_dn(i * 69 - j * 110, 2), g8_dn((i + j) * 69, 2), g8_dn(lg + 100, 2), g8_dn(-lg, 2)],
+    Ns + ' = ' + (i >= 0 ? '2^{' + i + '}' : '⟨1|2^{' + (-i) + '}⟩') + ' · 3^{' + j + '}, así que ln ' + Ns + ' = ' + i + '·0,69 + ' + j + '·1,10 = ' + g8_dn(lg, 2) + '.');
+});
+/* log_b con valores dados de decimales */
+genr('log2', function () {
+  var b = pick([2, 3]), N = pick([2, 3, 6, 12, 18, 24]);
+  if (N === b) N = 6;
+  var a = 0.301, c = 0.477, f = { 2: a, 3: c, 6: a + c, 12: 2 * a + c, 18: a + 2 * c, 24: 3 * a + c };
+  var val = f[N] / f[b], ans = String(Math.round(val * 100) / 100).replace('.', ',');
+  if (ans.indexOf(',') < 0) ans += ',00'; else if (ans.split(',')[1].length < 2) ans += '0';
+  g8_ok(Math.abs(g8_lg(N, b) - val) < 0.01, 'l2m');
+  var inv = f[b] / f[N], alt = (f[N] - f[b]);
+  var fm = function (z) { var s = String(Math.round(z * 100) / 100).replace('.', ','); if (s.indexOf(',') < 0) s += ',00'; else if (s.split(',')[1].length < 2) s += '0'; return s; };
+  return g8_mk('log2', 'Si log 2 ≈ 0,301 y log 3 ≈ 0,477, entonces log_{' + b + '} ' + N + ' ≈ (redondeado a centésimas)', ans, [fm(inv), fm(alt), fm(f[N] * f[b]), fm(f[N] + f[b])],
+    'Cambio de base: log_{' + b + '} ' + N + ' = ⟨log ' + N + '|log ' + b + '⟩ = ⟨' + fm(f[N]).replace(',', ',') + '|' + fm(f[b]) + '⟩ ≈ ' + ans + '.');
+});
+/* problemas */
+genr('log2', function () {
+  var b = pick([2, 3, 5]), L = 'log_{' + b + '}', p = nz(-3, 4), q = 2 * nz(-3, 3), r = nz(-3, 4), m = ri(1, 3), n = ri(1, 3);
+  var val = m * p + q / 2 - n * r;
+  var expr = L + ' ⟨' + g8_pw('x', m) + '√{y}|' + g8_pw('z', n) + '⟩';
+  g8_near(m * p + q / 2 - n * r, m * p + 0.5 * q - n * r, 'l2p1');
+  return g8_P(g8_mk('log2', 'Si ' + L + ' x = ' + mn(p) + ', ' + L + ' y = ' + mn(q) + ' y ' + L + ' z = ' + mn(r) + ', calcula ' + expr + '.', mn(val), [mn(m * p + q - n * r), mn(m * p + q / 2 + n * r), mn(m * p - q / 2 - n * r), mn(val + 1)],
+    'Se desarrolla: ' + g8_c(m, L, 'x') + ' + ⟨1|2⟩ ' + L + ' y − ' + g8_c(n, L, 'z') + ' = ' + m + '·(' + mn(p) + ') + ⟨1|2⟩·(' + mn(q) + ') − ' + n + '·(' + mn(r) + ') = ' + mn(val) + '.'));
+});
+genr('log2', function () {
+  var M = [2, 4, 5, 8, 10, 20, 25, 40, 50, 100, 125, 200, 250, 500], best = null, it, T;
+  for (it = 0; it < 20000 && !best; it++) {
+    var k = pick([3, 4]), sum = 0, terms = [], i;
+    for (i = 0; i < k; i++) { var m = pick(M), n = pick([1, 1, 2, 3]), s = i === 0 ? 1 : pick([1, -1]); sum += s * n * Math.log10(m); terms.push([s, n, m]); }
+    if (Math.abs(sum - Math.round(sum)) < 1e-9 && Math.round(sum) >= 1 && Math.round(sum) <= 4 && terms.filter(function (t) { return t[2] === 10 || t[2] === 100; }).length === 0) best = [terms, Math.round(sum)];
+  }
+  if (!best) best = [[[1, 3, 2], [1, 2, 5], [-1, 1, 8], [1, 1, 40]], 3];
+  var tx = '', i2, tot = 0;
+  best[0].forEach(function (t, ix) { tx += (ix === 0 ? '' : t[0] > 0 ? ' + ' : ' − ') + g8_c(t[1], 'log', t[2]); tot += t[0] * t[1] * Math.log10(t[2]); });
+  g8_near(tot, best[1], 'l2p2');
+  var v = best[1], sumT = best[0].reduce(function (s, t) { return s + t[0] * t[1] * t[2]; }, 0);
+  return g8_P(g8_mk('log2', 'Calcula: ' + tx + ' =', String(v), [String(v + 1), String(v - 1), 'log ' + (Math.abs(sumT) + 3), String(Math.abs(sumT) + 3 === v ? v + 2 : Math.abs(sumT) + 3)],
+    'Se agrupa todo en un solo logaritmo con producto, cociente y potencias: da log 10^{' + v + '} = ' + v + '.'));
+});
+genr('log2', function () {
+  var k = pick([2, 3]), i, j, lg, N;
+  do { i = ri(0, 5); j = ri(0, 5); lg = i * 301 + j * 477; } while (lg % k !== 0 || (i === 0 && j === 0) || i + j < 2);
+  N = Math.pow(2, i) * Math.pow(3, j);
+  if (N > 5000) return g8_mk('log2', 'Si log 2 ≈ 0,301 y log 3 ≈ 0,477, entonces log √{36} ≈', '0,778', ['1,556', '0,389', '0,602', '1,556'], '√{36} = 6 y log 6 = 0,301 + 0,477.');
+  g8_ok(Math.abs(Math.log10(N) * 1000 - lg) < 8, 'l2p3');
+  var res = g8_dn(lg / k, 3);
+  return g8_P(g8_mk('log2', 'Si log 2 ≈ 0,301 y log 3 ≈ 0,477, calcula log ' + g8_rt(k, N) + '.', res, [g8_dn(lg * k, 3), g8_dn(lg, 3), g8_dn(Math.round(lg / k) + 301, 3), g8_dn(lg / k + 477, 3)],
+    N + ' = 2^{' + i + '} · 3^{' + j + '}: log ' + N + ' = ' + i + '·0,301 + ' + j + '·0,477 = ' + g8_dn(lg, 3) + '. La raíz de índice ' + k + ' divide entre ' + k + ': ' + res + '.'));
+});
+genr('log2', function () {
+  var c = [], a, b, d, t;
+  for (d = 2; d <= 3; d++) for (a = 2; a <= 12; a++) for (b = 2; b <= 30; b++) { var num = a * a * b, den = d * d * d; if (num % den === 0) c.push([a, b, d, num / den]); }
+  var z = pick(c), a1 = z[0], b1 = z[1], d1 = z[2], x = z[3];
+  g8_near(2 * Math.log(a1) + Math.log(b1) - 3 * Math.log(d1), Math.log(x), 'l2p4');
+  return g8_P(g8_mk('log2', 'Si log x = 2 log ' + a1 + ' + log ' + b1 + ' − 3 log ' + d1 + ', entonces x =', String(x), [String(2 * a1 + b1 - 3 * d1), String(a1 * a1 + b1 - d1), g8_fr(a1 * a1 * b1, 3 * d1) , String(x + a1)],
+    'log x = log ⟨' + a1 + '^{2}·' + b1 + '|' + d1 + '^{3}⟩ = log ' + x + ', luego x = ' + x + '.'));
+});
+
+/* ===== eql: ecuaciones con logaritmos y exponenciales ===== */
+function g8_sx(v) { return 'x = ' + v; }
+genr('eql', function () {
+  var p = pick([2, 3, 5]), m = pick([1, 2, 2, 3]), n = ri(-4, 4), B = Math.pow(p, m), N;
+  if (n === 0 || (p === 5 && m === 3) || (p === 3 && m === 3)) n = 1;
+  if (n === m) n = m + 1;
+  N = n >= 0 ? String(Math.pow(p, n)) : '⟨1|' + Math.pow(p, -n) + '⟩';
+  if (m === 1) { m = 2; B = p * p; }
+  var ans = g8_sx(g8_fr(n, m));
+  g8_near(Math.pow(B, n / m), n >= 0 ? Math.pow(p, n) : 1 / Math.pow(p, -n), 'e1');
+  return g8_mk('eql', B + '^{x} = ' + N + ' tiene solución', ans, [g8_sx(g8_fr(m, n)), g8_sx(g8_fr(-n, m)), g8_sx(mn(n)), g8_sx(g8_fr(n, m + 1))],
+    'Se escriben ambos lados como potencias de ' + p + ': ' + p + '^{' + (m) + 'x} = ' + p + '^{' + mn(n) + '}, luego ' + m + 'x = ' + mn(n) + '.');
+});
+genr('eql', function () {
+  var a = pick([2, 3, 4, 5, 6, 7]), b = pick([2, 3, 5]), t = ri(1, 4), k = pick([0, 0, 1, 2]);
+  var N = a * Math.pow(b, t), x = t - k;
+  g8_near(a * Math.pow(b, x + k), N, 'e2');
+  var ex = k === 0 ? 'x' : 'x + ' + k;
+  return g8_mk('eql', a + ' · ' + b + '^{' + ex + '} = ' + N + ' tiene solución', g8_sx(x), [g8_sx(N / a), g8_sx(t + k), g8_sx(N / (a * b)), g8_sx(x + 1)],
+    'Se divide entre ' + a + ': ' + b + '^{' + ex + '} = ' + Math.pow(b, t) + ' = ' + b + '^{' + t + '}, luego ' + ex + ' = ' + t + '.');
+});
+genr('eql', function () {
+  var b = pick([10, 2, 3, 'e']), L = g8_L(b), c = [], a, cc, m;
+  for (m = 2; m <= 4; m++) for (a = 1; a <= 9; a++) for (cc = 1; cc <= 9; cc++) if ((a + cc) % (m - 1) === 0) c.push([m, a, cc, (a + cc) / (m - 1)]);
+  var z = pick(c); m = z[0]; a = z[1]; cc = z[2]; var x = z[3];
+  g8_ok(m * x - a > 0 && x + cc > 0 && m * x - a === x + cc, 'e3');
+  return g8_mk('eql', L + '(' + (m > 1 ? m : '') + 'x − ' + a + ') = ' + L + '(x + ' + cc + ') tiene solución', g8_sx(x), [g8_sx(a - cc), g8_sx(x + 1), g8_sx(m * x), g8_sx(a + cc + 1)],
+    'Si los logaritmos son iguales, los argumentos también: ' + m + 'x − ' + a + ' = x + ' + cc + ', y x = ' + x + '.');
+});
+genr('eql', function () {
+  var b = pick([10, 2, 3, 'e']), L = g8_L(b), r = ri(2, 6), t = ri(1, r - 1), m = r - t, k = r * t, ex;
+  ex = m === 1 ? 'x + ' + k : m + 'x + ' + k;
+  g8_ok(r * r === m * r + k && t * t === m * (-t) + k, 'e4');
+  return g8_mk('eql', '2 ' + L + ' x = ' + L + '(' + ex + ') tiene como solución válida', g8_sx(r), [g8_sx(-t), 'x = ' + r + ' y x = −' + t, g8_sx(r + t), g8_sx(k)],
+    'x^{2} = ' + ex + ' da x = ' + r + ' y x = −' + t + ', pero con x = −' + t + ' el logaritmo de x no existe.');
+});
+genr('eql', function () {
+  var b = pick([10, 2, 3, 'e']), L = g8_L(b), c = [], a, k, d;
+  for (a = 2; a <= 9; a++) for (k = 2; k <= 3; k++) for (d = 2; d <= 12; d++) if (Math.pow(a, k) % d === 0 && Math.pow(a, k) / d >= 2 && d !== a) c.push([a, k, d, Math.pow(a, k) / d]);
+  var z = pick(c), a1 = z[0], k1 = z[1], d1 = z[2], x = z[3];
+  g8_near(k1 * Math.log(a1) - Math.log(d1), Math.log(x), 'e5');
+  return g8_mk('eql', L + ' x = ' + k1 + ' ' + L + ' ' + a1 + ' − ' + L + ' ' + d1 + ' tiene solución', g8_sx(x), [g8_sx(k1 * a1 - d1), g8_sx(Math.pow(a1, k1) + d1), g8_sx(Math.pow(a1, k1 - 1) / d1 === Math.round(Math.pow(a1, k1 - 1) / d1) ? Math.pow(a1, k1 - 1) / d1 + 1 : x + 1), g8_sx(Math.pow(a1, k1))],
+    L + ' x = ' + L + ' ⟨' + a1 + '^{' + k1 + '}|' + d1 + '⟩ = ' + L + ' ' + x + ', luego x = ' + x + '.');
+});
+genr('eql', function () {
+  var b = pick([10, 'e', 2, 3, 5, 7]), N = pick([3, 5, 7, 12, 20, 50]), ans, wr, ex;
+  if (b === 'e') { ans = 'x = ln ' + N; wr = ['x = log ' + N, 'x = ⟨' + N + '|e⟩', 'x = e^{' + N + '}', 'x = ' + N + ' − e']; ex = 'e^{x} = ' + N + ' se resuelve con el logaritmo neperiano: x = ln ' + N + '.'; g8_near(Math.exp(Math.log(N)), N, 'e6'); }
+  else if (b === 10) { ans = 'x = log ' + N; wr = ['x = ln ' + N, 'x = ⟨' + N + '|10⟩', 'x = 10^{' + N + '}', 'x = ' + N + ' − 10']; ex = 'x = log ' + N + ' porque 10^{log ' + N + '} = ' + N + '.'; g8_near(Math.pow(10, Math.log10(N)), N, 'e6'); }
+  else { if (N === b) N = 11; ans = 'x = ⟨log ' + N + '|log ' + b + '⟩'; wr = ['x = ⟨log ' + b + '|log ' + N + '⟩', 'x = ⟨' + N + '|' + b + '⟩', 'x = log ' + N + ' − log ' + b, 'x = ' + N + ' − ' + b]; ex = 'Tomando logaritmos: x log ' + b + ' = log ' + N + ', luego x = ⟨log ' + N + '|log ' + b + '⟩.'; g8_near(Math.pow(b, g8_lg(N, b)), N, 'e6'); }
+  return g8_mk('eql', b + '^{x} = ' + N + ' tiene solución', ans, wr, ex);
+});
+/* problemas largos */
+genr('eql', function () {
+  var b = pick([2, 3, 5]), u, w, v = ri(0, 1), E, ans, wr, ex;
+  if (v === 0) {
+    do { u = ri(0, 3); w = ri(0, 3); } while (u === w || (b === 5 && Math.max(u, w) > 2));
+    var p = Math.pow(b, u), q = Math.pow(b, w), S = p + q, Pm = p * q, lo = Math.min(u, w), hi = Math.max(u, w);
+    E = b + '^{2x} − ' + S + ' · ' + b + '^{x} + ' + Pm + ' = 0';
+    for (var x = -3; x <= 4; x++) { var f = Math.pow(b, 2 * x) - S * Math.pow(b, x) + Pm, isr = (x === lo || x === hi); g8_ok(isr ? Math.abs(f) < 1e-9 : Math.abs(f) > 1e-6, 'e7a'); }
+    ans = 'x = ' + lo + ' y x = ' + hi;
+    wr = ['x = ' + p + ' y x = ' + q, 'x = ' + hi, 'x = ' + lo + ' y x = ' + (hi + 1), 'x = ' + (-lo) + ' y x = ' + (-hi)];
+    ex = 'Con t = ' + b + '^{x}: t^{2} − ' + S + 't + ' + Pm + ' = 0 da t = ' + p + ' y t = ' + q + '. Entonces ' + b + '^{x} = ' + p + ' y ' + b + '^{x} = ' + q + ': x = ' + lo + ' y x = ' + hi + '.';
+  } else {
+    u = ri(1, 3); if (b === 5 && u > 2) u = 2;
+    var pp = Math.pow(b, u), qq = ri(1, 4), Sm = pp - qq, Pr = pp * qq;
+    E = b + '^{2x} ' + (Sm > 0 ? '− ' + (Sm === 1 ? '' : Sm + ' · ') + b + '^{x}' : Sm === 0 ? '' : '+ ' + (-Sm === 1 ? '' : (-Sm) + ' · ') + b + '^{x}') + ' − ' + Pr + ' = 0';
+    E = E.replace('  ', ' ');
+    for (var y = -3; y <= 4; y++) { var g = Math.pow(b, 2 * y) - Sm * Math.pow(b, y) - Pr; g8_ok(y === u ? Math.abs(g) < 1e-9 : Math.abs(g) > 1e-6, 'e7b'); }
+    ans = 'x = ' + u;
+    wr = ['x = ' + u + ' y x = −' + qq, 'x = ' + pp, 'x = −' + qq, 'x = ' + u + ' y x = ' + (u + 1)];
+    ex = 'Con t = ' + b + '^{x}: t^{2} ' + (Sm > 0 ? '− ' + Sm : '+ ' + (-Sm)) + 't − ' + Pr + ' = 0 da t = ' + pp + ' y t = −' + qq + '. Como ' + b + '^{x} > 0, solo vale t = ' + pp + ': x = ' + u + '.';
+  }
+  return g8_P(g8_mk('eql', 'Resuelve ' + E + '. Las soluciones son', ans, wr, ex));
+});
+genr('eql', function () {
+  var P = pick([[2, 3], [2, 5], [3, 5], [3, 7], [2, 7], [5, 7]]), k = ri(1, 3), b1 = P[0], b2 = P[1];
+  var x = k * Math.log(b1) / (Math.log(b2) - Math.log(b1));
+  g8_ok(Math.abs(Math.pow(b1, x + k) / Math.pow(b2, x) - 1) < 1e-9, 'e8');
+  var kl = (k > 1 ? k + ' ' : '') + 'log ' + b1, kl2 = (k > 1 ? k + ' ' : '') + 'log ' + b2;
+  var ans = 'x = ⟨' + kl + '|log ' + b2 + ' − log ' + b1 + '⟩';
+  return g8_P(g8_mk('eql', b1 + '^{x + ' + k + '} = ' + b2 + '^{x} tiene solución', ans, ['x = ⟨' + kl + '|log ' + b2 + ' + log ' + b1 + '⟩', 'x = ⟨' + kl2 + '|log ' + b2 + ' − log ' + b1 + '⟩', 'x = ⟨' + k + '|' + b2 + ' − ' + b1 + '⟩', 'x = ⟨log ' + b1 + '|log ' + b2 + '⟩ − ' + k],
+    'Tomando log: (x + ' + k + ') log ' + b1 + ' = x log ' + b2 + '. Pasando x a un lado: x(log ' + b2 + ' − log ' + b1 + ') = ' + kl + '.'));
+});
+genr('eql', function () {
+  var c = [], b, n, k, y;
+  [2, 3, 5].forEach(function (b0) { for (n = 1; n <= 4; n++) for (k = 1; k <= 12; k++) { var X2 = k * k + Math.pow(b0, n), X = Math.round(Math.sqrt(X2)); if (X * X === X2 && X > k) c.push([b0, n, k, X]); } });
+  var z = pick(c); b = z[0]; n = z[1]; k = z[2]; var X = z[3];
+  g8_near(g8_lg(X + k, b) + g8_lg(X - k, b), n, 'e9');
+  return g8_P(g8_mk('eql', 'La solución válida de log_{' + b + '}(x + ' + k + ') + log_{' + b + '}(x − ' + k + ') = ' + n + ' es', g8_sx(X), [g8_sx(-X), 'x = ' + X + ' y x = −' + X, g8_sx(X * X), g8_sx(Math.pow(b, n))],
+    'log_{' + b + '}(x^{2} − ' + k * k + ') = ' + n + ' da x^{2} − ' + k * k + ' = ' + Math.pow(b, n) + ', x^{2} = ' + X * X + ' y x = ±' + X + '. Con x = −' + X + ' los argumentos son negativos: solo vale x = ' + X + '.'));
+});
+genr('eql', function () {
+  var c = [], b, n, a, cc;
+  [2, 3].forEach(function (b0) { for (n = 1; n <= 2; n++) for (a = 1; a <= 8; a++) for (cc = 1; cc <= 6; cc++) { var B = Math.pow(b0, n); if ((a + B * cc) % (B - 1) === 0) c.push([b0, n, a, cc, (a + B * cc) / (B - 1)]); } });
+  var z = pick(c); b = z[0]; n = z[1]; a = z[2]; cc = z[3]; var X = z[4], B2 = Math.pow(b, n);
+  g8_near(g8_lg(X + a, b) - g8_lg(X - cc, b), n, 'e10');
+  return g8_P(g8_mk('eql', 'Resuelve log_{' + b + '}(x + ' + a + ') − log_{' + b + '}(x − ' + cc + ') = ' + n + '. La solución es', g8_sx(X), [g8_sx(X + 1), g8_sx(a + cc), g8_sx(B2 * cc - a), g8_sx(a + B2 + cc)],
+    'log_{' + b + '} ⟨x + ' + a + '|x − ' + cc + '⟩ = ' + n + ' da x + ' + a + ' = ' + B2 + '(x − ' + cc + '), luego ' + (B2 - 1 === 1 ? '' : (B2 - 1) + 'x = ' + (a + B2 * cc) + ' y ') + 'x = ' + X + '.'));
+});
+
+genr('eql', function () {
+  var b = pick([2, 3, 5]), t = ri(2, 4), x, ans;
+  if (b === 5 && t > 3) t = 3;
+  x = Math.pow(b, 1) * 0 + t;
+  var B = Math.pow(b, t), v = ri(0, 1), L = pick(['log_{' + b + '}', 'log_{' + b + '}']);
+  g8_ok(Math.pow(b, 2 * Math.log(B) / Math.log(b) / 2) > 0, 'e11');
+  var wr = ['x = ' + B, 'x = ' + B * B, 'x = ' + b * t, 'x = ' + (B + b)];
+  if (v === 0) {
+    g8_near(g8_lg(B * B, b), 2 * t, 'e11a'); g8_near(g8_lg(-B * -B, b), 2 * t, 'e11b');
+    return g8_mk('eql', L + '(x^{2}) = ' + 2 * t + ' tiene como soluciones', 'x = ' + B + ' y x = −' + B, ['x = ' + B, 'x = −' + B, 'x = ' + B * B, 'x = ' + B * B + ' y x = −' + B * B],
+      'x^{2} = ' + b + '^{' + 2 * t + '} = ' + B * B + ', luego x = ±' + B + '. Como x^{2} es siempre positivo, las dos soluciones valen.');
+  }
+  return g8_mk('eql', '2 ' + L + ' x = ' + 2 * t + ' tiene como solución válida', 'x = ' + B, ['x = −' + B, 'x = ' + B + ' y x = −' + B, 'x = ' + B * B, 'x = ' + b * t],
+    L + ' x = ' + t + ' y x = ' + b + '^{' + t + '} = ' + B + '. Con x = −' + B + ' el logaritmo de x no existe.');
+});
+genr('eql', function () {
+  var b = pick([2, 3, 5]), t = ri(2, 4), k = pick([1, 2]), x = t;
+  if (b === 5 && t > 3) t = 3, x = 3;
+  var tot = (1 + Math.pow(b, k)) * Math.pow(b, t);
+  var lhs = b + '^{x} + ' + b + '^{x + ' + k + '}';
+  g8_near(Math.pow(b, x) + Math.pow(b, x + k), tot, 'e12');
+  return g8_mk('eql', lhs + ' = ' + tot + ' tiene solución', g8_sx(x), [g8_sx(x + k), g8_sx(t + 1), g8_sx(Math.round(tot / (1 + Math.pow(b, k)))), g8_sx(x - 1)],
+    'Se saca factor común ' + b + '^{x}: ' + b + '^{x}(1 + ' + Math.pow(b, k) + ') = ' + tot + ', luego ' + b + '^{x} = ' + Math.pow(b, t) + ' y x = ' + x + '.');
+});
+/* Generadores 9: exponentes (potencias, notación científica, raíces) y álgebra básica */
+var G9_START = GENS.length;
+
+/* ---------- ayudas generales ---------- */
+var G9_AL = 'abcmnpqtuvxyz';
+var G9_PTS = [0, 1, 2].map(function (k) {
+  var o = {};
+  for (var i = 0; i < G9_AL.length; i++) o[G9_AL.charAt(i)] = 1.3 + ((i * 5 + k * 7) % 9) * 0.35;
+  return o;
+});
+function g9_p(n) { return n < 0 ? '(' + mn(n) + ')' : String(n); }
+function g9_ip(b, n) { var r = 1, i; for (i = 0; i < n; i++) r *= b; return r; }
+function g9_ls() { return pick(['x', 'a', 'b', 'm', 't', 'y', 'z', 'p']); }
+function g9_ls2() { return pick([['x', 'y'], ['a', 'b'], ['p', 'q'], ['m', 't'], ['x', 'z']]); }
+function g9_xp(l, n) { return n === 0 ? '1' : n === 1 ? l : l + '^{' + mn(n) + '}'; }
+function g9_gs(s) { return s.length >= 5 ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : s; }
+function g9_zeros(k) { return k > 0 ? new Array(k + 1).join('0') : ''; }
+function g9_close(a, b) { return Math.abs(a - b) <= 1e-9 * Math.max(Math.abs(a), Math.abs(b)); }
+function g9_pick3(sp, fl) {
+  var out = sp.length >= 3 ? [sp[0]].concat(shuffle(sp.slice(1))).slice(0, 3)
+    : sp.concat(shuffle((fl || []).slice())).slice(0, 3);
+  return out;
+}
+function g9_mkx(t, q, a, w, e) { return { t: t, q: q, a: String(a), w: w, e: e }; }
+
+/* cadena y valor: ans {s,v}, wrongs [{s,v}], val = valor calculado por otra vía */
+function g9_sq(t, q, ans, wrongs, ex, val, fill) {
+  var seen = {}; seen[ans.s] = 1;
+  function ok(list) {
+    var out = [];
+    (list || []).forEach(function (w) {
+      if (!w || seen[w.s] || !isFinite(w.v) || g9_close(w.v, ans.v)) return;
+      seen[w.s] = 1; out.push(w);
+    });
+    return out;
+  }
+  var sp = ok(wrongs), fl = ok(fill);
+  var r = g9_mkx(t, q, ans.s, g9_pick3(sp, fl).map(function (w) { return w.s; }), ex);
+  r.k = [[val, ans.v]];
+  return r;
+}
+
+/* ---------- potencias numéricas ---------- */
+function g9_P(b, e) { return { s: b + '^{' + mn(e) + '}', v: Math.pow(b, e) }; }
+function g9_PB(bs, bv, e) { return { s: bs + '^{' + mn(e) + '}', v: Math.pow(bv, e) }; }
+function g9_PF(b, e) { var r = g9_P(b, e); return [r]; }
+function g9_Pfill(b, e) { return [g9_P(b, e + 1), g9_P(b, e - 1), g9_P(b, -e), g9_P(b, e + 2), g9_P(b, 2 * e)]; }
+
+/* ---------- racionales ---------- */
+function g9_q(n, d) { if (d < 0) { n = -n; d = -d; } var g = gcd(n, d) || 1; return { n: n / g, d: d / g }; }
+function g9_qs(r) { return r.d === 1 ? mn(r.n) : (r.n < 0 ? '−' : '') + '⟨' + Math.abs(r.n) + '|' + r.d + '⟩'; }
+function g9_qmul(a, b) { return g9_q(a.n * b.n, a.d * b.d); }
+function g9_qpow(a, k) {
+  var base = k < 0 ? g9_q(a.d, a.n) : a, r = { n: 1, d: 1 }, i;
+  for (i = 0; i < Math.abs(k); i++) r = g9_qmul(r, base);
+  return r;
+}
+function g9_qo(x) { return typeof x === 'number' ? g9_q(x, 1) : x; }
+function g9_rq(t, q, ans, wr, ex, val) {
+  ans = g9_qo(ans);
+  function conv(x) { x = g9_qo(x); return (Math.abs(x.n) > 99999 || x.d > 99999) ? null : { s: g9_qs(x), v: x.n / x.d }; }
+  var fl = [g9_q(-ans.n, ans.d), g9_q(2 * ans.n, ans.d), g9_q(ans.n, 2 * ans.d), g9_q(ans.n + ans.d, ans.d), g9_q(ans.n - ans.d, ans.d), g9_q(3 * ans.n, ans.d)];
+  if (ans.n !== 0) fl.push(g9_q(ans.d, ans.n));
+  return g9_sq(t, q, conv(ans), wr.map(conv), ex, val, fl.map(conv));
+}
+
+/* ---------- monomios {c, e, d}: c/d · letras ---------- */
+function g9_M(c, e, d) { return { c: c, e: e || {}, d: d || 1 }; }
+function g9_mv(m, pt) { var v = m.c / m.d, k; for (k in m.e) v *= Math.pow(pt[k], m.e[k]); return v; }
+function g9_meq(a, b) {
+  if (a.c * b.d !== b.c * a.d) return false;
+  var k;
+  for (k in a.e) if ((a.e[k] || 0) !== (b.e[k] || 0)) return false;
+  for (k in b.e) if ((b.e[k] || 0) !== (a.e[k] || 0)) return false;
+  return true;
+}
+function g9_ord(e) { return Object.keys(e).sort(); }
+function g9_fmN(m) {
+  var s = '', any = false;
+  g9_ord(m.e).forEach(function (k) { var n = m.e[k]; if (n === 0) return; any = true; s += g9_xp(k, n); });
+  var cs = (m.c === 1 && any) ? '' : (m.c === -1 && any) ? '−' : mn(m.c);
+  return cs + s;
+}
+function g9_fmP(m) {
+  var nu = '', de = '';
+  g9_ord(m.e).forEach(function (k) {
+    var n = m.e[k];
+    if (n > 0) nu += g9_xp(k, n); else if (n < 0) de += g9_xp(k, -n);
+  });
+  var ac = Math.abs(m.c), sg = m.c < 0 ? '−' : '';
+  var ns = (ac === 1 && nu !== '') ? nu : String(ac) + nu;
+  var ds = (m.d > 1 ? String(m.d) : '') + de;
+  return ds === '' ? sg + ns : sg + '⟨' + ns + '|' + ds + '⟩';
+}
+function g9_mq(t, q, ans, wrongs, ex, fmt, f) {
+  var seen = [ans], sp = [], fl = [], i;
+  function add(list, w) {
+    if (!w || w.c === 0) return;
+    for (var j = 0; j < seen.length; j++) if (g9_meq(seen[j], w)) return;
+    seen.push(w); list.push(w);
+  }
+  wrongs.forEach(function (w) { add(sp, w); });
+  var ks = Object.keys(ans.e);
+  for (i = 0; i < 40 && fl.length < 6; i++) {
+    var w = g9_M(ans.c, JSON.parse(JSON.stringify(ans.e)), ans.d);
+    if (ks.length && ri(0, 2) < 2) { var kk = pick(ks); w.e[kk] = (w.e[kk] || 0) + pick([-2, -1, 1, 2]); }
+    else w.c = ans.c + pick([-2, -1, 1, 2]);
+    add(fl, w);
+  }
+  var r = g9_mkx(t, q, fmt(ans), g9_pick3(sp, fl).map(fmt), ex);
+  r.k = G9_PTS.map(function (pt) { return [f(pt), g9_mv(ans, pt)]; });
+  return r;
+}
+
+/* ---------- notación científica: valor N·10^E con N entero positivo ---------- */
+function g9_sn(N, E) {
+  var s = String(N), ex = E + s.length - 1;
+  s = s.replace(/0+$/, '');
+  return { m: s.charAt(0) + (s.length > 1 ? ',' + s.slice(1) : ''), e: ex };
+}
+function g9_Sw(m, e) { return { s: m + ' · 10^{' + mn(e) + '}', v: parseFloat(String(m).replace(',', '.')) * Math.pow(10, e) }; }
+function g9_Sn(N, E) { var x = g9_sn(N, E); return g9_Sw(x.m, x.e); }
+function g9_dec(N, E) {
+  var s = String(N);
+  if (E >= 0) return g9_gs(s + g9_zeros(E));
+  if (-E >= s.length) return '0,' + g9_zeros(-E - s.length) + s;
+  return s.slice(0, s.length + E) + ',' + s.slice(s.length + E);
+}
+function g9_Sf(N, E, a, b) { return [g9_Sw(a, b)]; }
+function g9_scfill(x) {
+  return [g9_Sw(x.m, x.e + 1), g9_Sw(x.m, x.e - 1), g9_Sw(x.m, x.e + 2), g9_Sw(x.m, x.e - 2)];
+}
+
+/* ================================================================
+   POT1: propiedades de las potencias
+   ================================================================ */
+
+/* 1. una sola potencia numérica (producto, cociente, potencia de potencia, tres factores) */
+genr('pot1', function () {
+  var b = pick([2, 3, 5, 7, 10]), v = ri(0, 3), m, n, k, tot, q, ex, ans, wr, val;
+  if (v === 0) {
+    do { m = ri(-5, 8); n = ri(-5, 8); tot = m + n; } while (m === 0 || n === 0 || tot === 0 || tot === 1 || Math.abs(tot) > 9);
+    q = 'Expresa como una sola potencia: ' + b + '^{' + mn(m) + '} · ' + b + '^{' + mn(n) + '}';
+    ans = g9_P(b, tot); val = Math.pow(b, m) * Math.pow(b, n);
+    wr = [g9_PB(b * b, b * b, tot), g9_P(b, m * n), g9_P(b, m - n), g9_P(b, n - m)];
+    ex = 'Misma base: se suman los exponentes, ' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(tot) + '.';
+    return g9_sq('pot1', q, ans, wr, ex, val, g9_Pfill(b, tot));
+  }
+  if (v === 1) {
+    do { m = ri(-3, 8); n = ri(-3, 8); tot = m - n; } while (m === 0 || n === 0 || tot === 0 || tot === 1 || Math.abs(tot) > 9);
+    q = 'Expresa como una sola potencia: ⟨' + b + '^{' + mn(m) + '}|' + b + '^{' + mn(n) + '}⟩';
+    ans = g9_P(b, tot); val = Math.pow(b, m) / Math.pow(b, n);
+    wr = [g9_P(b, m + n), { s: '1^{' + mn(tot) + '}', v: 1 }, g9_P(b, n - m), g9_P(b, m * n)];
+    ex = 'Misma base: se restan los exponentes, ' + mn(m) + ' − ' + g9_p(n) + ' = ' + mn(tot) + '.';
+    return g9_sq('pot1', q, ans, wr, ex, val, g9_Pfill(b, tot));
+  }
+  if (v === 2) {
+    do { m = nz(-3, 4); n = nz(-3, 4); tot = m * n; } while (tot === 1 || Math.abs(tot) > 9 || (m < 0 && n < 0 && false));
+    q = 'Expresa como una sola potencia: (' + b + '^{' + mn(m) + '})^{' + mn(n) + '}';
+    ans = g9_P(b, tot); val = Math.pow(Math.pow(b, m), n);
+    wr = [g9_P(b, m + n), g9_P(b, m - n), g9_P(b, -tot)];
+    if (n > 0) wr.push(g9_P(b, Math.pow(m, n)));
+    ex = 'Potencia de potencia: se multiplican los exponentes, ' + g9_p(m) + ' · ' + g9_p(n) + ' = ' + mn(tot) + '.';
+    return g9_sq('pot1', q, ans, wr, ex, val, g9_Pfill(b, tot));
+  }
+  var k2;
+  do { m = nz(-4, 6); n = nz(-4, 6); k2 = nz(-4, 6); tot = m + n + k2; } while (tot === 0 || tot === 1 || Math.abs(tot) > 9);
+  q = 'Expresa como una sola potencia: ' + b + '^{' + mn(m) + '} · ' + b + '^{' + mn(n) + '} · ' + b + '^{' + mn(k2) + '}';
+  ans = g9_P(b, tot); val = Math.pow(b, m) * Math.pow(b, n) * Math.pow(b, k2);
+  wr = [g9_P(b, m * n * k2), g9_PB(b * b * b, b * b * b, tot), g9_P(b, m + n - k2), g9_P(b, tot + 1)];
+  ex = 'Misma base: se suman los tres exponentes, ' + mn(m) + ' + ' + g9_p(n) + ' + ' + g9_p(k2) + ' = ' + mn(tot) + '.';
+  return g9_sq('pot1', q, ans, wr, ex, val, g9_Pfill(b, tot));
+});
+
+/* 2. letras: producto y cociente con exponentes negativos */
+genr('pot1', function () {
+  var l = g9_ls(), v = ri(0, 2), m, n, k, X, q, ex, f, wr;
+  if (v === 0) {
+    do { m = nz(-6, 7); n = nz(-6, 7); } while (m + n === 1 || Math.abs(m + n) > 9 || (m > 0 && n > 0 && Math.random() < 0.7));
+    X = m + n;
+    q = 'Simplifica: ' + g9_xp(l, m) + ' · ' + g9_xp(l, n);
+    f = function (pt) { return Math.pow(pt[l], m) * Math.pow(pt[l], n); };
+    wr = [m * n, m - n, n - m, -X, X + 1];
+    ex = 'Misma base: se suman los exponentes, ' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(X) + '.';
+  } else if (v === 1) {
+    do { m = nz(-5, 7); n = nz(-5, 7); X = m - n; } while (X === 1 || Math.abs(X) > 9);
+    q = 'Simplifica: ⟨' + g9_xp(l, m) + '|' + g9_xp(l, n) + '⟩';
+    f = function (pt) { return Math.pow(pt[l], m) / Math.pow(pt[l], n); };
+    wr = [m + n, n - m, m * n, X + 1];
+    ex = 'Misma base: se restan los exponentes, ' + mn(m) + ' − ' + g9_p(n) + ' = ' + mn(X) + '.';
+  } else {
+    do { m = nz(-4, 6); n = nz(-4, 6); k = nz(-4, 6); X = m + n - k; } while (X === 1 || Math.abs(X) > 9);
+    q = 'Simplifica: ⟨' + g9_xp(l, m) + ' · ' + g9_xp(l, n) + '|' + g9_xp(l, k) + '⟩';
+    f = function (pt) { return Math.pow(pt[l], m) * Math.pow(pt[l], n) / Math.pow(pt[l], k); };
+    wr = [m + n + k, m - n - k, m + n, X + 1];
+    ex = 'Arriba se suma: ' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(m + n) + '. Al dividir se resta: ' + mn(m + n) + ' − ' + g9_p(k) + ' = ' + mn(X) + '.';
+  }
+  return g9_mq('pot1', q, g9_M(1, (function () { var o = {}; o[l] = X; return o; })()),
+    wr.map(function (e) { var o = {}; o[l] = e; return g9_M(1, o); }), ex, g9_fmN, f);
+});
+
+/* 3. potencia de potencia con letras y exponentes negativos */
+genr('pot1', function () {
+  var l = g9_ls(), m, n, k, X, q, ex, f, wr;
+  if (Math.random() < 0.6) {
+    do { m = nz(-5, 5); n = nz(-5, 5); X = m * n; } while (X === 1 || Math.abs(X) > 12);
+    q = 'Simplifica: (' + g9_xp(l, m) + ')^{' + mn(n) + '}';
+    f = function (pt) { return Math.pow(Math.pow(pt[l], m), n); };
+    wr = [{ c: m, e: n }, m + n, m - n, -X];
+    ex = 'Potencia de potencia: se multiplican los exponentes, ' + g9_p(m) + ' · ' + g9_p(n) + ' = ' + mn(X) + '.';
+  } else {
+    do { m = nz(-4, 4); n = nz(2, 4); k = nz(-6, 6); X = m * n + k; } while (X === 1 || X === 0 || Math.abs(X) > 12 || m * n === 1);
+    q = 'Simplifica: (' + g9_xp(l, m) + ')^{' + n + '} · ' + g9_xp(l, k);
+    f = function (pt) { return Math.pow(Math.pow(pt[l], m), n) * Math.pow(pt[l], k); };
+    wr = [m + n + k, m * n * k, m * n - k, m + n * k];
+    ex = 'Primero (' + g9_xp(l, m) + ')^{' + n + '} = ' + g9_xp(l, m * n) + ' (se multiplican). Después se suman: ' + mn(m * n) + ' + ' + g9_p(k) + ' = ' + mn(X) + '.';
+  }
+  var o = {}; o[l] = X;
+  return g9_mq('pot1', q, g9_M(1, o), wr.map(function (e) {
+    if (typeof e === 'object') { var z = {}; z[l] = e.e; return g9_M(e.c, z); }
+    var y = {}; y[l] = e; return g9_M(1, y);
+  }), ex, g9_fmN, f);
+});
+
+/* 4. potencia de un producto de letras */
+genr('pot1', function () {
+  var L = g9_ls2(), a = L[0], b = L[1], m, k, n, q, f, ex, mm = nz(-3, 4), kk = nz(-3, 4);
+  do { n = pick([2, 3, 4, -1, -2, -3]); } while (false);
+  m = mm; k = kk;
+  var X = m * n, Y = k * n, o = {}, mon = function (x, y) { var z = {}; z[a] = x; z[b] = y; return g9_M(1, z); };
+  q = 'Simplifica: (' + g9_xp(a, m) + g9_xp(b, k) + ')^{' + mn(n) + '}';
+  f = function (pt) { return Math.pow(Math.pow(pt[a], m) * Math.pow(pt[b], k), n); };
+  ex = 'El exponente ' + mn(n) + ' multiplica el exponente de cada letra: ' + g9_p(m) + '·' + g9_p(n) + ' = ' + mn(X) + ' y ' + g9_p(k) + '·' + g9_p(n) + ' = ' + mn(Y) + '.';
+  return g9_mq('pot1', q, mon(X, Y), [mon(X, k), mon(m, Y), mon(m + n, k + n), mon(X, k + n), mon(m + n, Y)], ex, g9_fmN, f);
+});
+
+/* 5. potencia de un monomio con coeficiente */
+genr('pot1', function () {
+  var l = pick([['x'], ['a'], ['m'], ['x', 'y'], ['a', 'b'], ['p', 'q']]), c = pick([2, 3, -2, -3, 4, 5]), n = pick([2, 3, 4]);
+  if (Math.abs(c) >= 4 && n > 3) n = 3; if (Math.abs(c) === 5) n = pick([2, 3]);
+  var es = l.map(function () { return nz(1, 4); }), cn = Math.pow(c, n);
+  var o = {}, o1 = {}, o2 = {}, o3 = {};
+  l.forEach(function (s, i) { o[s] = es[i] * n; o1[s] = es[i]; o2[s] = es[i] + n; o3[s] = es[i] * n + 1; });
+  var inner = mn(c) + l.map(function (s, i) { return g9_xp(s, es[i]); }).join('');
+  var q = 'Simplifica: (' + inner + ')^{' + n + '}';
+  var f = function (pt) { var p = c; l.forEach(function (s, i) { p *= Math.pow(pt[s], es[i]); }); return Math.pow(p, n); };
+  var wr = [g9_M(c, o), g9_M(c * n, o), g9_M(cn, o2), g9_M(cn, o1), g9_M(-cn, o)];
+  var ex = 'El exponente ' + n + ' afecta al coeficiente y a las letras: (' + mn(c) + ')^{' + n + '} = ' + mn(cn) + ' y los exponentes de las letras se multiplican por ' + n + '.';
+  return g9_mq('pot1', q, g9_M(cn, o), wr, ex, g9_fmN, f);
+});
+
+/* 6. potencia de un cociente */
+genr('pot1', function () {
+  if (Math.random() < 0.5) {
+    var L = g9_ls2(), a = L[0], b = L[1], m = ri(1, 4), k = ri(1, 4), n = pick([2, 3, 4]);
+    var mon = function (x, y) { var z = {}; z[a] = x; z[b] = y; return g9_M(1, z); };
+    var q = 'Simplifica: (⟨' + g9_xp(a, m) + '|' + g9_xp(b, k) + '⟩)^{' + n + '}';
+    var f = function (pt) { return Math.pow(Math.pow(pt[a], m) / Math.pow(pt[b], k), n); };
+    var ex = 'El exponente ' + n + ' afecta al numerador y al denominador: ' + m + '·' + n + ' = ' + m * n + ' y ' + k + '·' + n + ' = ' + k * n + '.';
+    return g9_mq('pot1', q, mon(m * n, -k * n), [mon(m * n, -k), mon(m, -k * n), mon(m + n, -(k + n)), mon(m * n, k * n)], ex, g9_fmP, f);
+  }
+  var p, s;
+  do { p = ri(1, 5); s = ri(2, 5); } while (gcd(p, s) !== 1);
+  var e = pick([2, 3, 4]); if (Math.max(p, s) > 3 && e === 4) e = 3;
+  var ans = { s: '⟨' + Math.pow(p, e) + '|' + Math.pow(s, e) + '⟩', v: Math.pow(p / s, e) };
+  var wr = [{ s: '⟨' + Math.pow(p, e) + '|' + s + '⟩', v: Math.pow(p, e) / s }, { s: '⟨' + p + '|' + Math.pow(s, e) + '⟩', v: p / Math.pow(s, e) },
+    { s: '⟨' + p * e + '|' + s * e + '⟩', v: p / s }, { s: '⟨' + (p + e) + '|' + (s + e) + '⟩', v: (p + e) / (s + e) }];
+  var q2 = 'Calcula: (⟨' + p + '|' + s + '⟩)^{' + e + '}';
+  return g9_sq('pot1', q2, ans, wr, 'El exponente ' + e + ' se aplica al numerador y al denominador: ' + p + '^{' + e + '} = ' + Math.pow(p, e) + ' y ' + s + '^{' + e + '} = ' + Math.pow(s, e) + '.', Math.pow(p / s, e), []);
+});
+
+/* 7. signo de la base negativa */
+genr('pot1', function () {
+  var a = pick([2, 3, 4, 5]), n = ri(2, 5), f = ri(0, 3), q, val, ex, wr, m;
+  if (a >= 4 && n > 3) n = ri(2, 3);
+  var par = function (k) { return k % 2 === 0 ? 'par' : 'impar'; };
+  if (f === 0) {
+    val = g9_ip(-a, n); q = 'Calcula: (−' + a + ')^{' + n + '}';
+    ex = 'La base es −' + a + ' (hay paréntesis). Exponente ' + par(n) + ': el resultado es ' + (n % 2 ? 'negativo' : 'positivo') + ', ' + mn(val) + '.';
+    wr = [-val, a * n, -a * n];
+  } else if (f === 1) {
+    val = -g9_ip(a, n); q = 'Calcula: −' + a + '^{' + n + '}';
+    ex = 'Sin paréntesis el exponente solo afecta a ' + a + ': −(' + a + '^{' + n + '}) = ' + mn(val) + '.';
+    wr = [-val, Math.pow(-a, n) === val ? a * n : Math.pow(-a, n), -a * n];
+  } else if (f === 2) {
+    val = -g9_ip(-a, n); q = 'Calcula: −(−' + a + ')^{' + n + '}';
+    ex = 'Primero (−' + a + ')^{' + n + '} = ' + mn(Math.pow(-a, n)) + ' y después se cambia el signo: ' + mn(val) + '.';
+    wr = [-val, Math.pow(a, n) === val ? -a * n : Math.pow(a, n), -a * n];
+  } else {
+    a = pick([2, 3]); n = ri(1, 3); m = ri(1, 3); val = g9_ip(-a, n) * g9_ip(-a, m);
+    q = 'Calcula: (−' + a + ')^{' + n + '} · (−' + a + ')^{' + m + '}';
+    ex = 'Misma base −' + a + ': se suman los exponentes, (−' + a + ')^{' + (n + m) + '}. Exponente ' + par(n + m) + ': resultado ' + ((n + m) % 2 ? 'negativo' : 'positivo') + ', ' + mn(val) + '.';
+    wr = [-val, Math.pow(a, n + m) === val ? -Math.pow(a, n + m) : Math.pow(a, n + m), Math.pow(-a, n * m) === val ? a * (n + m) : Math.pow(-a, n * m), -a * (n + m)];
+  }
+  return g9_rq('pot1', q, val, wr, ex, f === 0 ? Math.pow(-a, n) : f === 1 ? -Math.pow(a, n) : f === 2 ? -Math.pow(-a, n) : Math.pow(-a, n) * Math.pow(-a, m));
+});
+
+/* 8. valor de un producto, cociente o potencia de potencia numérica */
+genr('pot1', function () {
+  var b = pick([2, 2, 3, 5, 10]), v = ri(0, 3), m, n, k, q, tot, ex, wr, val;
+  if (v === 0) {
+    do { m = ri(-4, 6); n = ri(-4, 6); tot = m + n; } while (m === 0 || n === 0 || tot < -3 || tot > 5 || (b > 3 && tot > 4));
+    q = 'Calcula: ' + b + '^{' + mn(m) + '} · ' + b + '^{' + mn(n) + '}'; val = Math.pow(b, m) * Math.pow(b, n);
+    wr = [g9_qpow(g9_q(b, 1), m * n), g9_qpow(g9_q(b, 1), m - n), g9_qpow(g9_q(b, 1), tot + 1), g9_qpow(g9_q(b, 1), -tot), tot];
+    ex = 'Se suman los exponentes: ' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(tot) + ', y ' + b + '^{' + mn(tot) + '} = ' + g9_qs(g9_qpow(g9_q(b, 1), tot)) + '.';
+  } else if (v === 1) {
+    do { m = ri(-3, 7); n = ri(-4, 6); tot = m - n; } while (m === 0 || n === 0 || tot < -3 || tot > 5 || (b > 3 && tot > 4));
+    q = 'Calcula: ⟨' + b + '^{' + mn(m) + '}|' + b + '^{' + mn(n) + '}⟩'; val = Math.pow(b, m) / Math.pow(b, n);
+    wr = [g9_qpow(g9_q(b, 1), m + n), g9_qpow(g9_q(b, 1), n - m), g9_qpow(g9_q(b, 1), tot + 1), tot];
+    ex = 'Se restan los exponentes: ' + mn(m) + ' − ' + g9_p(n) + ' = ' + mn(tot) + ', y ' + b + '^{' + mn(tot) + '} = ' + g9_qs(g9_qpow(g9_q(b, 1), tot)) + '.';
+  } else if (v === 2) {
+    b = pick([2, 3]); m = ri(2, 3); n = ri(2, 3); tot = m * n;
+    q = 'Calcula: (' + b + '^{' + m + '})^{' + n + '}'; val = Math.pow(Math.pow(b, m), n);
+    wr = [g9_qpow(g9_q(b, 1), m + n), g9_qpow(g9_q(b, 1), Math.pow(m, n)), g9_qpow(g9_q(b, 1), tot + 1), tot];
+    ex = 'Se multiplican los exponentes: ' + m + ' · ' + n + ' = ' + tot + ', y ' + b + '^{' + tot + '} = ' + Math.pow(b, tot) + '.';
+  } else {
+    do { m = ri(2, 8); n = ri(-3, 4); k = ri(1, 6); tot = m + n - k; } while (n === 0 || tot < -2 || tot > 5 || (b > 3 && tot > 3));
+    q = 'Calcula: ⟨' + b + '^{' + m + '} · ' + b + '^{' + mn(n) + '}|' + b + '^{' + k + '}⟩'; val = Math.pow(b, m) * Math.pow(b, n) / Math.pow(b, k);
+    wr = [g9_qpow(g9_q(b, 1), m + n + k), g9_qpow(g9_q(b, 1), m * n - k), g9_qpow(g9_q(b, 1), tot + 1), g9_qpow(g9_q(b, 1), -tot)];
+    ex = 'Arriba se suma: ' + m + ' + ' + g9_p(n) + ' = ' + (m + n) + '. Al dividir se resta: ' + (m + n) + ' − ' + k + ' = ' + mn(tot) + ', y ' + b + '^{' + mn(tot) + '} = ' + g9_qs(g9_qpow(g9_q(b, 1), tot)) + '.';
+  }
+  return g9_rq('pot1', q, g9_qpow(g9_q(b, 1), tot), wr, ex, val);
+});
+
+/* 9. exponente cero */
+genr('pot1', function () {
+  var a = ri(2, 9), b = ri(2, 9), c = ri(2, 5), l = pick(['x', 'a', 'm', 't']), v = ri(0, 6), q, ans, wr, ex, val;
+  if (v === 0) { q = 'Calcula: ' + a + '^{0} + ' + b + '^{0}'; ans = 2; val = Math.pow(a, 0) + Math.pow(b, 0); wr = [0, 1, a + b]; ex = 'Todo número distinto de 0 elevado a 0 vale 1: 1 + 1 = 2.'; }
+  else if (v === 1) { q = 'Calcula: −' + a + '^{0}'; ans = -1; val = -Math.pow(a, 0); wr = [1, 0, -a]; ex = a + '^{0} = 1 y el signo menos queda delante: −1.'; }
+  else if (v === 2) { q = 'Calcula: (−' + a + ')^{0}'; ans = 1; val = Math.pow(-a, 0); wr = [-1, 0, -a]; ex = 'La base −' + a + ' no es 0, así que (−' + a + ')^{0} = 1.'; }
+  else if (v === 3) { q = 'Calcula: ' + c + ' · ' + a + '^{0}'; ans = c; val = c * Math.pow(a, 0); wr = [0, c * a, 1]; ex = a + '^{0} = 1, así que ' + c + ' · 1 = ' + c + '.'; }
+  else if (v === 4) { q = 'Simplifica (' + l + ' ≠ 0): ' + c + l + '^{0}'; ans = c; val = c * Math.pow(1.7, 0); wr = [1, 0, c + 1]; ex = 'Solo la ' + l + ' está elevada a 0: ' + l + '^{0} = 1, y el coeficiente ' + c + ' se queda.'; }
+  else if (v === 5) { q = 'Simplifica (' + l + ' ≠ 0): (' + c + l + ')^{0}'; ans = 1; val = Math.pow(c * 1.7, 0); wr = [c, 0, -1]; ex = 'Todo el producto está elevado a 0, así que vale 1.'; }
+  else { q = 'Calcula: (' + a + '^{2} + ' + b + ')^{0}'; ans = 1; val = Math.pow(a * a + b, 0); wr = [0, a * a + b, 2]; ex = 'Lo de dentro del paréntesis no es 0, así que su potencia 0 vale 1.'; }
+  return g9_rq('pot1', q, ans, wr, ex, val);
+});
+
+/* 10. comparar potencias */
+genr('pot1', function () {
+  var items = [], vals = {}, tries = 0;
+  while (items.length < 4 && tries++ < 400) {
+    var b = ri(2, 7), e = ri(2, 5), v = Math.pow(b, e);
+    if (v > 20000 || vals[v]) continue;
+    vals[v] = 1; items.push({ b: b, e: e, v: v });
+  }
+  var big = Math.random() < 0.5, best = items[0], mx = -1, mnn = 1e9, i;
+  items.forEach(function (it) { if (it.v > mx) mx = it.v; if (it.v < mnn) mnn = it.v; });
+  items.forEach(function (it) { if ((big && it.v === mx) || (!big && it.v === mnn)) best = it; });
+  var f = function (it) { return it.b + '^{' + it.e + '}'; };
+  var q = '¿Cuál de estas potencias es la ' + (big ? 'mayor' : 'menor') + '?';
+  var ex = 'Calculando: ' + items.map(function (it) { return f(it) + ' = ' + it.v; }).join(', ') + '. La ' + (big ? 'mayor' : 'menor') + ' es ' + f(best) + '.';
+  var r = g9_mkx('pot1', q, f(best), items.filter(function (it) { return it !== best; }).map(f), ex);
+  var ref = 0, ff = 0; for (i = 0; i < items.length; i++) { var vv = Math.pow(items[i].b, items[i].e); if (i === 0 || (big ? vv > ref : vv < ref)) ref = vv; }
+  r.k = [[ref, Math.pow(best.b, best.e)]];
+  return r;
+});
+
+/* 11. notación científica: producto y cociente */
+genr('pot1', function () {
+  var q, ans, wr, val, ex, a, b, m, n;
+  if (Math.random() < 0.55) {
+    a = ri(2, 9); b = ri(2, 9); m = ri(2, 8); n = ri(2, 8);
+    ans = g9_Sn(a * b, m + n); val = a * Math.pow(10, m) * b * Math.pow(10, n);
+    var x = g9_sn(a * b, m + n);
+    q = 'Calcula en notación científica: (' + a + ' · 10^{' + m + '}) · (' + b + ' · 10^{' + n + '})';
+    wr = [g9_Sw(x.m, x.e - 1), g9_Sw(x.m, m * n), g9_Sw(String(a + b), m + n), g9_Sw(x.m, x.e + 1)];
+    ex = 'Se multiplican los números (' + a + ' · ' + b + ' = ' + a * b + ') y se suman los exponentes (' + m + ' + ' + n + ' = ' + (m + n) + ')' + (a * b >= 10 ? '. Como ' + a * b + ' no está entre 1 y 10, queda ' + ans.s + '.' : '.');
+    return g9_sq('pot1', q, ans, wr, ex, val, g9_scfill(x));
+  }
+  var p = ri(1, 9), d = pick([2, 4, 5, 8]);
+  do { m = ri(4, 10); n = ri(1, m - 2); } while (false);
+  var N = p * (1000 / d), E = m - n - 3, y = g9_sn(N, E);
+  ans = g9_Sn(N, E); val = (p * Math.pow(10, m)) / (d * Math.pow(10, n));
+  q = 'Calcula en notación científica: ⟨' + p + ' · 10^{' + m + '}|' + d + ' · 10^{' + n + '}⟩';
+  wr = [g9_Sw(y.m, m + n), g9_Sw(y.m, y.e + 1), g9_Sw(y.m, y.e - 1), g9_Sw(String(p * d), m - n)];
+  ex = 'Se dividen los números (' + p + ' : ' + d + ' = ' + String(p / d).replace('.', ',') + ') y se restan los exponentes (' + m + ' − ' + n + ' = ' + (m - n) + '): ' + (function (t) { return t === ans.s ? t : t + ' = ' + ans.s; })(String(p / d).replace('.', ',') + ' · 10^{' + (m - n) + '}') + '.';
+  return g9_sq('pot1', q, ans, wr, ex, val, g9_scfill(y));
+});
+
+/* 12. notación científica: convertir y sumar */
+genr('pot1', function () {
+  var v = ri(0, 2), N, E, ans, wr, q, ex, val, x, i, digs;
+  if (v === 0) {
+    do { N = ri(1, 999); } while (N % 10 === 0);
+    E = ri(3, 9); x = g9_sn(N, E); digs = String(N);
+    q = 'Escribe en notación científica: ' + g9_dec(N, E);
+    ans = g9_Sw(x.m, x.e);
+    wr = [g9_Sw(x.m, x.e - 1), g9_Sw(x.m, x.e + 1), g9_Sw('0,' + digs, x.e), g9_Sw(digs, x.e)];
+    ex = 'Se coloca la coma tras la primera cifra (' + x.m + ') y se cuenta cuántos lugares se ha movido: ' + x.e + '.';
+    return g9_sq('pot1', q, ans, wr, ex, N * Math.pow(10, E), g9_scfill(x));
+  }
+  if (v === 1) {
+    do { N = ri(1, 999); } while (N % 10 === 0);
+    E = ri(3, 8); x = g9_sn(N, E);
+    q = 'Escribe con todas sus cifras: ' + x.m + ' · 10^{' + x.e + '}';
+    var D = function (e) { return { s: g9_dec(N, e), v: N * Math.pow(10, e) }; };
+    ans = D(E);
+    wr = [D(E - 1), D(E + 1), D(E - 2), D(E + 2)];
+    ex = 'El exponente ' + x.e + ' indica que la coma se desplaza ' + x.e + ' lugares a la derecha: ' + ans.s + '.';
+    return g9_sq('pot1', q, ans, wr, ex, parseFloat(x.m.replace(',', '.')) * Math.pow(10, x.e), []);
+  }
+  var a = ri(2, 9), b = ri(2, 9), m = ri(3, 9);
+  x = g9_sn(a + b, m); ans = g9_Sw(x.m, x.e);
+  q = 'Calcula en notación científica: ' + a + ' · 10^{' + m + '} + ' + b + ' · 10^{' + m + '}';
+  wr = [g9_Sw(x.m, 2 * m), g9_Sw(x.m, x.e - 1), g9_Sw(x.m, x.e + 1), g9_Sw(g9_sn(a * b, 0).m, m)];
+  ex = 'Con el mismo 10^{' + m + '} se suman solo los números: ' + a + ' + ' + b + ' = ' + (a + b) + (a + b >= 10 ? ', que en notación científica es ' + ans.s + '.' : '. El exponente no cambia.');
+  return g9_sq('pot1', q, ans, wr, ex, a * Math.pow(10, m) + b * Math.pow(10, m), g9_scfill(x));
+});
+
+/* 13. PROBLEMA: fracción con potencia de producto y varias letras */
+genr('pot1', function () {
+  var L = g9_ls2(), a = L[0], b = L[1], k = ri(2, 3), m = ri(1, 3), n = ri(1, 3), p = nz(-3, 4), s = ri(1, 4), r = ri(1, 4);
+  var X = m * k + p - s, Y = n * k - r;
+  if (X === 0 && Y === 0) { m++; X = m * k + p - s; }
+  var mon = function (x, y) { var z = {}; z[a] = x; z[b] = y; return g9_M(1, z); };
+  var q = 'Simplifica: ⟨(' + g9_xp(a, m) + g9_xp(b, n) + ')^{' + k + '} · ' + g9_xp(a, p) + '|' + g9_xp(a, s) + g9_xp(b, r) + '⟩';
+  var f = function (pt) { return Math.pow(Math.pow(pt[a], m) * Math.pow(pt[b], n), k) * Math.pow(pt[a], p) / (Math.pow(pt[a], s) * Math.pow(pt[b], r)); };
+  var ex = '(' + g9_xp(a, m) + g9_xp(b, n) + ')^{' + k + '} = ' + g9_xp(a, m * k) + g9_xp(b, n * k) + '. En el numerador ' + a + ': ' + m * k + ' + ' + g9_p(p) + ' = ' + (m * k + p) + '. Al dividir se resta: ' + a + ': ' + (m * k + p) + ' − ' + s + ' = ' + mn(X) + ' y ' + b + ': ' + n * k + ' − ' + r + ' = ' + mn(Y) + '.';
+  var res = g9_mq('pot1', q, mon(X, Y), [mon(m + k + p - s, n + k - r), mon(X, n - r), mon(m * k + p + s, n * k + r), mon(m * k - p - s, Y)], ex, g9_fmN, f);
+  res.p = 1;
+  return res;
+});
+
+/* 14. PROBLEMA: todo a la misma base y operar */
+genr('pot1', function () {
+  var fam = pick([{ b: 2, o: { 2: 1, 4: 2, 8: 3, 16: 4 } }, { b: 3, o: { 3: 1, 9: 2, 27: 3 } }, { b: 5, o: { 5: 1, 25: 2 } }]);
+  var bases = Object.keys(fam.o).map(Number), u, w, w2, a, b, c, t, tries = 0;
+  do {
+    u = pick(bases); w = pick(bases); w2 = pick(bases); a = ri(1, 4); b = ri(1, 3); c = ri(1, 4);
+    t = a * fam.o[u] + b * fam.o[w] - c * fam.o[w2];
+    tries++;
+  } while ((u === w || t < 1 || t > 6 || (fam.b === 5 && t > 3) || (fam.b === 3 && t > 4)) && tries < 500);
+  var B = fam.b, val = Math.pow(u, a) * Math.pow(w, b) / Math.pow(w2, c);
+  var q = 'Calcula: ⟨' + u + '^{' + a + '} · ' + w + '^{' + b + '}|' + w2 + '^{' + c + '}⟩';
+  var nm = function (x) { return fam.o[x] === 1 ? String(x) : x + ' = ' + B + '^{' + fam.o[x] + '}'; };
+  var ex = 'Todo a base ' + B + ': ' + [u, w, w2].filter(function (x, i, arr) { return arr.indexOf(x) === i && fam.o[x] > 1; }).map(nm).join(', ') + '. Queda ' + B + '^{' + a * fam.o[u] + '} · ' + B + '^{' + b * fam.o[w] + '} : ' + B + '^{' + c * fam.o[w2] + '} = ' + B + '^{' + t + '} = ' + Math.pow(B, t) + '.';
+  var Q = function (x, e) { return g9_qpow(g9_q(x, 1), e); };
+  var wr = [Q(u, a + b - c), Q(w, a + b - c), Q(B, t + 1), Q(B, t - 1), Q(B, a + b - c)];
+  var res = g9_rq('pot1', q, Q(B, t), wr, ex, val);
+  res.p = 1;
+  return res;
+});
+
+/* 15. PROBLEMA: coeficientes, potencia de monomio y cociente */
+genr('pot1', function () {
+  var l = g9_ls(), c = pick([2, 3, -2, -3]), n = pick([2, 3]), m = ri(1, 3), p = nz(-3, 4), s = ri(1, 4);
+  var cn = Math.pow(c, n), ds = [], i;
+  for (i = 2; i <= Math.abs(cn); i++) if (Math.abs(cn) % i === 0) ds.push(i);
+  var d = pick(ds), X = m * n + p - s;
+  var cc = cn / d;
+  var q = 'Simplifica: ⟨(' + (c < 0 ? '−' : '') + Math.abs(c) + g9_xp(l, m) + ')^{' + n + '} · ' + g9_xp(l, p) + '|' + d + g9_xp(l, s) + '⟩';
+  var f = function (pt) { return Math.pow(c * Math.pow(pt[l], m), n) * Math.pow(pt[l], p) / (d * Math.pow(pt[l], s)); };
+  var mon = function (co, x, de) { var z = {}; z[l] = x; return g9_M(co, z, de || 1); };
+  var ex = '(' + mn(c) + g9_xp(l, m) + ')^{' + n + '} = ' + mn(cn) + g9_xp(l, m * n) + '. Numerador: ' + mn(cn) + g9_xp(l, m * n + p) + '. Se divide: ' + mn(cn) + ' : ' + d + ' = ' + mn(cc) + ' y ' + (m * n + p) + ' − ' + s + ' = ' + mn(X) + '.';
+  var res = g9_mq('pot1', q, mon(cc, X), [mon(c, X), mon(cn, X), mon(cc, m + n + p - s), mon(-cc, X), mon(cc, X + 2 * s)], ex, g9_fmN, f);
+  res.p = 1;
+  return res;
+});
+
+/* 16. sumar potencias iguales */
+genr('pot1', function () {
+  if (Math.random() < 0.5) {
+    var b = pick([2, 3, 4, 5]), n = ri(2, 5), parts = [], i;
+    if (b === 5 && n > 3) n = 3;
+    for (i = 0; i < b; i++) parts.push(b + '^{' + n + '}');
+    var q = 'Expresa como una sola potencia: ' + parts.join(' + ');
+    return g9_sq('pot1', q, g9_P(b, n + 1), [g9_P(b, b * n), g9_P(b, n), g9_PB(b * b, b * b, n), g9_P(b, n + 2), g9_P(b, n * n)],
+      'Son ' + b + ' sumandos iguales: ' + b + ' · ' + b + '^{' + n + '} = ' + b + '^{' + (n + 1) + '}. Sumar no multiplica los exponentes.',
+      b * Math.pow(b, n), g9_Pfill(b, n + 1));
+  }
+  var l = g9_ls(), k = ri(2, 4), e = ri(2, 5), ps = [], j, o = {}, o2 = {}, o3 = {};
+  for (j = 0; j < k; j++) ps.push(g9_xp(l, e));
+  o[l] = e; o2[l] = k * e; o3[l] = e + 1;
+  var q2 = 'Simplifica: ' + ps.join(' + ');
+  var f = function (pt) { var s = 0, z; for (z = 0; z < k; z++) s += Math.pow(pt[l], e); return s; };
+  return g9_mq('pot1', q2, g9_M(k, o), [g9_M(1, o2), g9_M(k, o2), g9_M(1, o3), g9_M(1, o)],
+    'Son ' + k + ' términos semejantes: se suman los coeficientes y la parte literal no cambia, ' + k + g9_xp(l, e) + '.', g9_fmN, f);
+});
+
+/* ================================================================
+   POT2: exponentes negativos y fraccionarios
+   ================================================================ */
+
+/* 1. base entera con exponente negativo (con signos) */
+genr('pot2', function () {
+  var a = pick([2, 3, 4, 5]), n = ri(1, 3), f = ri(0, 3), q, val, ex;
+  if (a >= 4 && n > 2) n = 2;
+  var A = Math.pow(a, n), I = g9_q(1, A), J = g9_q(A, 1);
+  var neg = function (r) { return g9_q(-r.n, r.d); };
+  if (f === 0) {
+    q = 'Calcula: ' + a + '^{−' + n + '}'; val = Math.pow(a, -n);
+    ex = 'a^{−n} = 1/a^{n}: ' + a + '^{−' + n + '} = 1/' + A + ', y el exponente negativo no cambia el signo.';
+    return g9_rq('pot2', q, I, [neg(I), neg(J), J, g9_q(1, a * n)], ex, val);
+  }
+  if (f === 1) {
+    q = 'Calcula: (−' + a + ')^{−' + n + '}'; val = Math.pow(-a, -n);
+    var ans = n % 2 ? neg(I) : I;
+    ex = '(−' + a + ')^{−' + n + '} = 1/(−' + a + ')^{' + n + '} = 1/' + mn(Math.pow(-a, n)) + '. Exponente ' + (n % 2 ? 'impar: negativo' : 'par: positivo') + '.';
+    return g9_rq('pot2', q, ans, [neg(ans), n % 2 ? J : neg(J), neg(J), g9_q(1, -a * n)], ex, val);
+  }
+  if (f === 2) {
+    q = 'Calcula: −' + a + '^{−' + n + '}'; val = -Math.pow(a, -n);
+    ex = 'El signo menos queda delante: −(' + a + '^{−' + n + '}) = −1/' + A + '.';
+    return g9_rq('pot2', q, neg(I), [I, J, neg(J), g9_q(-1, a * n)], ex, val);
+  }
+  q = 'Calcula: (⟨1|' + a + '⟩)^{−' + n + '}'; val = Math.pow(1 / a, -n);
+  ex = 'El exponente negativo invierte la fracción: (⟨' + a + '|1⟩)^{' + n + '} = ' + a + '^{' + n + '} = ' + A + '.';
+  return g9_rq('pot2', q, J, [I, neg(J), neg(I), g9_q(a * n, 1)], ex, val);
+});
+
+/* 2. fracción elevada a exponente negativo */
+genr('pot2', function () {
+  var p, s;
+  do { p = ri(1, 5); s = ri(2, 5); } while (gcd(p, s) !== 1);
+  var n = ri(1, 3); if (Math.max(p, s) > 3 && n > 2) n = 2;
+  var ans = g9_qpow(g9_q(s, p), n), same = g9_qpow(g9_q(p, s), n);
+  var q = 'Calcula: (⟨' + p + '|' + s + '⟩)^{−' + n + '}', val = Math.pow(p / s, -n);
+  var ex = 'El exponente negativo invierte la fracción: (⟨' + s + '|' + p + '⟩)^{' + n + '} = ' + g9_qs(ans) + '.';
+  var neg = function (r) { return g9_q(-r.n, r.d); };
+  return g9_rq('pot2', q, ans, [same, neg(ans), neg(same), g9_q(s, Math.pow(p, n)), g9_q(Math.pow(s, n), p * n)], ex, val);
+});
+
+/* 3. escribir con exponentes positivos */
+genr('pot2', function () {
+  var v = ri(0, 5), l = g9_ls(), L = g9_ls2(), a = L[0], b = L[1], n = ri(1, 4), m = ri(1, 3), c = ri(2, 4), q, ans, wr, f, ex, o;
+  var one = function (x, e) { var z = {}; z[x] = e; return z; };
+  if (v === 0) {
+    q = 'Escribe con exponente positivo: ' + g9_xp(l, -n);
+    ans = g9_M(1, one(l, -n)); f = function (pt) { return Math.pow(pt[l], -n); };
+    wr = [g9_M(-1, one(l, n)), g9_M(1, one(l, n)), g9_M(-1, one(l, -n)), g9_M(1, one(l, -1), n)];
+    ex = 'x^{−n} = 1/x^{n}: el exponente negativo pasa la potencia al denominador con exponente positivo.';
+  } else if (v === 1) {
+    q = 'Escribe con exponente positivo: (' + c + l + ')^{−' + n + '}';
+    ans = g9_M(1, one(l, -n), Math.pow(c, n)); f = function (pt) { return Math.pow(c * pt[l], -n); };
+    wr = [g9_M(1, one(l, -n), c), g9_M(1, one(l, -n), Math.pow(c, n) * 2), g9_M(-1, one(l, -n), Math.pow(c, n)), g9_M(Math.pow(c, n), one(l, n)), g9_M(1, one(l, -1), Math.pow(c, n))];
+    ex = 'El exponente afecta al ' + c + ' y a la ' + l + ': ' + c + '^{−' + n + '} · ' + l + '^{−' + n + '} = ⟨1|' + Math.pow(c, n) + g9_xp(l, n) + '⟩.';
+    if (n === 1) ex = 'El exponente −1 invierte: (' + c + l + ')^{−1} = ⟨1|' + c + l + '⟩.';
+    wr = wr.map(function (w) { return w; });
+  } else if (v === 2) {
+    q = 'Escribe con exponente positivo: ' + c + g9_xp(l, -n);
+    ans = g9_M(c, one(l, -n)); f = function (pt) { return c * Math.pow(pt[l], -n); };
+    wr = [g9_M(1, one(l, -n), c), g9_M(c, one(l, n)), g9_M(-c, one(l, -n)), g9_M(1, one(l, -n), c * 2)];
+    ex = 'El exponente negativo solo afecta a la ' + l + ', no al ' + c + ': ' + c + ' · ⟨1|' + g9_xp(l, n) + '⟩ = ⟨' + c + '|' + g9_xp(l, n) + '⟩.';
+  } else if (v === 3) {
+    q = 'Escribe con exponente positivo: ⟨' + c + '|' + g9_xp(l, -n) + '⟩';
+    ans = g9_M(c, one(l, n)); f = function (pt) { return c / Math.pow(pt[l], -n); };
+    wr = [g9_M(c, one(l, -n)), g9_M(-c, one(l, n)), g9_M(1, one(l, -n), c), g9_M(1, one(l, n), c)];
+    ex = 'Un factor con exponente negativo en el denominador pasa al numerador con exponente positivo: ' + c + g9_xp(l, n) + '.';
+  } else if (v === 4) {
+    q = 'Escribe con exponentes positivos: ⟨' + g9_xp(a, -m) + '|' + g9_xp(b, -n) + '⟩';
+    ans = g9_M(1, (function () { var z = {}; z[a] = -m; z[b] = n; return z; })());
+    f = function (pt) { return Math.pow(pt[a], -m) / Math.pow(pt[b], -n); };
+    wr = [g9_M(1, (function () { var z = {}; z[a] = m; z[b] = -n; return z; })()), g9_M(1, (function () { var z = {}; z[a] = -m; z[b] = -n; return z; })()),
+      g9_M(-1, (function () { var z = {}; z[a] = -m; z[b] = n; return z; })()), g9_M(1, (function () { var z = {}; z[a] = m; z[b] = n; return z; })())];
+    ex = g9_xp(a, -m) + ' pasa al denominador (' + g9_xp(a, m) + ') y ' + g9_xp(b, -n) + ' pasa al numerador (' + g9_xp(b, n) + ').';
+  } else {
+    q = 'Escribe con exponentes positivos: ' + g9_xp(a, -n) + g9_xp(b, m);
+    ans = g9_M(1, (function () { var z = {}; z[a] = -n; z[b] = m; return z; })());
+    f = function (pt) { return Math.pow(pt[a], -n) * Math.pow(pt[b], m); };
+    wr = [g9_M(1, (function () { var z = {}; z[a] = n; z[b] = m; return z; })()), g9_M(1, (function () { var z = {}; z[a] = -n; z[b] = -m; return z; })()),
+      g9_M(-1, (function () { var z = {}; z[a] = -n; z[b] = m; return z; })()), g9_M(1, (function () { var z = {}; z[a] = n; z[b] = -m; return z; })())];
+    ex = 'Solo ' + g9_xp(a, -n) + ' tiene exponente negativo: pasa al denominador y ' + g9_xp(b, m) + ' se queda arriba.';
+  }
+  return g9_mq('pot2', q, ans, wr, ex, g9_fmP, f);
+});
+
+/* 4. inversa como potencia con exponente negativo */
+genr('pot2', function () {
+  var v = ri(0, 2), q, ans, wr, ex, val, b, n;
+  if (v === 0) {
+    b = pick([2, 3, 4, 5, 6]); n = ri(2, 4); if (b >= 5 && n > 3) n = 3;
+    q = 'Expresa ⟨1|' + Math.pow(b, n) + '⟩ como potencia de base ' + b;
+    ans = g9_P(b, -n);
+    wr = [{ s: '−' + b + '^{' + n + '}', v: -Math.pow(b, n) }, g9_P(b, n), g9_P(n, -b), g9_P(b, -n - 1), g9_P(b, -n + 1)];
+    ex = '⟨1|' + Math.pow(b, n) + '⟩ = ⟨1|' + b + '^{' + n + '}⟩ = ' + b + '^{−' + n + '}.';
+    return g9_sq('pot2', q, ans, wr, ex, 1 / Math.pow(b, n), [g9_P(b, -n + 1)]);
+  }
+  if (v === 1) {
+    n = ri(2, 6);
+    q = 'Escribe 0,' + g9_zeros(n - 1) + '1 como potencia de 10';
+    ans = g9_P(10, -n);
+    wr = [g9_P(10, n), g9_P(10, -n + 1), g9_P(10, -n - 1), { s: '−10^{' + n + '}', v: -Math.pow(10, n) }];
+    ex = '0,' + g9_zeros(n - 1) + '1 = ⟨1|1' + g9_zeros(n) + '⟩ = ⟨1|10^{' + n + '}⟩ = 10^{−' + n + '}.';
+    return g9_sq('pot2', q, ans, wr, ex, parseFloat('0.' + g9_zeros(n - 1) + '1'), []);
+  }
+  var l = g9_ls(); n = ri(2, 6);
+  q = 'Expresa como potencia: ⟨1|' + g9_xp(l, n) + '⟩';
+  var o = {}; o[l] = -n;
+  var z = function (c, e) { var y = {}; y[l] = e; return g9_M(c, y); };
+  return g9_mq('pot2', q, g9_M(1, o), [z(-1, n), z(1, n), z(-1, -n), z(1, -n + 1), z(1, 1 - n)], 'Un factor del denominador pasa al numerador cambiando el signo del exponente: ' + g9_xp(l, -n) + '.', g9_fmN,
+    function (pt) { return 1 / Math.pow(pt[l], n); });
+});
+
+/* 5. valor numérico con exponentes negativos */
+genr('pot2', function () {
+  var b = pick([2, 2, 3, 5, 10]), v = ri(0, 2), m, n, k, tot, q, wr, ex, val;
+  var Q = function (e) { return g9_qpow(g9_q(b, 1), e); };
+  if (v === 0) {
+    do { m = ri(-5, 5); n = ri(-5, 5); tot = m + n; } while (m === 0 || n === 0 || (m > 0 && n > 0) || tot === 0 || Math.abs(tot) > 4);
+    q = 'Calcula: ' + b + '^{' + mn(m) + '} · ' + b + '^{' + mn(n) + '}'; val = Math.pow(b, m) * Math.pow(b, n);
+    wr = [Q(m * n), Q(-tot), Q(m - n), Q(tot + 1), Q(Math.abs(tot))];
+    ex = 'Se suman los exponentes: ' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(tot) + ', y ' + b + '^{' + mn(tot) + '} = ' + g9_qs(Q(tot)) + '.';
+  } else if (v === 1) {
+    do { m = ri(-3, 5); n = ri(-3, 5); tot = m - n; } while (m === 0 || n === 0 || tot === 0 || tot > -1 && m > 0 && n > 0 && false || Math.abs(tot) > 4 || (tot > 0 && Math.random() < 0.5));
+    q = 'Calcula: ⟨' + b + '^{' + mn(m) + '}|' + b + '^{' + mn(n) + '}⟩'; val = Math.pow(b, m) / Math.pow(b, n);
+    wr = [Q(m + n), Q(-tot), Q(tot + 1), Q(n - m === tot ? tot - 1 : n - m), Q(m * n)];
+    ex = 'Se restan los exponentes: ' + mn(m) + ' − ' + g9_p(n) + ' = ' + mn(tot) + ', y ' + b + '^{' + mn(tot) + '} = ' + g9_qs(Q(tot)) + '.';
+  } else {
+    do { m = ri(-3, 4); n = ri(-3, 4); k = ri(-3, 4); tot = m + n - k; } while (m === 0 || n === 0 || k === 0 || tot === 0 || Math.abs(tot) > 4 || (m > 0 && n > 0 && k < 0));
+    q = 'Calcula: ⟨' + b + '^{' + mn(m) + '} · ' + b + '^{' + mn(n) + '}|' + b + '^{' + mn(k) + '}⟩'; val = Math.pow(b, m) * Math.pow(b, n) / Math.pow(b, k);
+    wr = [Q(m + n + k), Q(-tot), Q(m * n - k), Q(tot + 1)];
+    ex = 'Arriba: ' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(m + n) + '. Al dividir: ' + mn(m + n) + ' − ' + g9_p(k) + ' = ' + mn(tot) + ', y ' + b + '^{' + mn(tot) + '} = ' + g9_qs(Q(tot)) + '.';
+  }
+  return g9_rq('pot2', q, Q(tot), wr, ex, val);
+});
+
+/* utilidades para exponentes racionales */
+function g9_xe(l, r) {
+  r = g9_qo(r);
+  if (r.n === 0) return '1';
+  if (r.n === 1 && r.d === 1) return l;
+  return l + '^{' + g9_qs(r) + '}';
+}
+function g9_qadd(a, b) { return g9_q(a.n * b.d + b.n * a.d, a.d * b.d); }
+function g9_qsub(a, b) { return g9_q(a.n * b.d - b.n * a.d, a.d * b.d); }
+function g9_qv(r) { return r.n / r.d; }
+function g9_er(t, q, l, ans, wr, ex, f) {
+  ans = g9_qo(ans);
+  var seen = [g9_qs(ans)], sp = [], pts = G9_PTS;
+  function conv(w) { w = g9_qo(w); var s = g9_xe(l, w); return { s: s, v: g9_qv(w), r: w }; }
+  var all = wr.map(conv);
+  var fl = [g9_q(-ans.n, ans.d), g9_q(ans.n + ans.d, ans.d), g9_q(ans.n - ans.d, ans.d), g9_q(ans.d, ans.n || 1), g9_q(2 * ans.n, ans.d)].map(conv);
+  var A = { s: g9_xe(l, ans), v: g9_qv(ans) };
+  var r = g9_sq(t, q, A, all.filter(function (w) { return w.v !== 0; }), ex, 0, fl.filter(function (w) { return w.v !== 0; }));
+  r.k = pts.map(function (pt) { return [f(pt), Math.pow(pt[l], g9_qv(ans))]; });
+  return r;
+}
+
+/* 6. de raíz a potencia */
+genr('pot2', function () {
+  var l = g9_ls(), n, m, neg = Math.random() < 0.3;
+  do { n = pick([2, 3, 4, 5]); m = ri(1, 5); } while (gcd(m, n) !== 1 || m === n);
+  var rt = n === 2 ? '√{' + g9_xp(l, m) + '}' : '√[' + n + ']{' + g9_xp(l, m) + '}';
+  var s = neg ? -1 : 1, ans = g9_q(s * m, n);
+  var q = 'Escribe como potencia: ' + (neg ? '⟨1|' + rt + '⟩' : rt);
+  var wr = [g9_q(s * n, m), g9_q(s * m * n, 1), g9_q(s * (m - n), 1), g9_q(-s * m, n), g9_q(s * m, n * m + 0 === 0 ? 1 : n + m)];
+  var ex = 'La raíz de índice ' + n + ' equivale al exponente ⟨1|' + n + '⟩, así que ' + rt + ' = ' + l + '^{⟨' + m + '|' + n + '⟩}' + (neg ? ', y al estar en el denominador el exponente cambia de signo.' : '. El índice va abajo y el exponente arriba.');
+  return g9_er('pot2', q, l, ans, wr, ex, function (pt) { var v = Math.pow(Math.pow(pt[l], m), 1 / n); return neg ? 1 / v : v; });
+});
+
+/* 7. de potencia a raíz */
+genr('pot2', function () {
+  var l = g9_ls(), n, m, neg = Math.random() < 0.25;
+  do { n = pick([2, 3, 4, 5]); m = ri(1, 5); } while (gcd(m, n) !== 1 || m === n);
+  var rt = function (idx, pw) { if (idx < 2) return null; var inner = pw === 1 ? l : l + '^{' + pw + '}'; return idx === 2 ? '√{' + inner + '}' : '√[' + idx + ']{' + inner + '}'; };
+  var rtv = function (idx, pw) { return Math.pow(2, pw / idx); };
+  var wrap = function (idx, pw) { var s = rt(idx, pw), v = rtv(idx, pw); if (!s) return null; return neg ? { s: '⟨1|' + s + '⟩', v: 1 / v } : { s: s, v: v }; };
+  var q = 'Escribe con raíz: ' + g9_xe(l, g9_q(neg ? -m : m, n));
+  var ans = wrap(n, m);
+  var wr = [wrap(m, n), wrap(n, m + 1), wrap(m * n, 1), wrap(m + n, 1), wrap(n, 1)];
+  if (neg) wr.push({ s: '−' + rt(n, m), v: -rtv(n, m) });
+  var ex = 'El denominador ' + n + ' del exponente es el índice de la raíz y el numerador ' + m + ' es el exponente del radicando: ' + rt(n, m) + (neg ? ', y el signo menos del exponente lo pasa al denominador.' : '.');
+  var r = g9_sq('pot2', q, ans, wr, ex, 0, []);
+  r.k = G9_PTS.map(function (pt) { var v = Math.pow(Math.pow(pt[l], m), 1 / n); return [neg ? 1 / v : v, Math.pow(pt[l], (neg ? -m : m) / n)]; });
+  return r;
+});
+
+/* 8. valor de a^{m/n}, con negativos y fracciones */
+genr('pot2', function () {
+  var v = ri(0, 2), c, n, m, q, ans, wr, ex, val, B;
+  if (v === 0) {
+    do { c = ri(2, 5); n = pick([2, 3, 4]); m = pick([1, 2, 3, 4]); B = Math.pow(c, n); } while (B > 130 || gcd(m, n) !== 1 || (n === 2 && m === 1 && Math.random() < 0.5));
+    var neg = Math.random() < 0.5, s = neg ? -1 : 1;
+    q = 'Calcula: ' + B + '^{' + (neg ? '−' : '') + '⟨' + m + '|' + n + '⟩}';
+    ans = g9_qpow(g9_q(c, 1), s * m); val = Math.pow(B, s * m / n);
+    wr = [g9_qpow(g9_q(c, 1), -s * m), g9_q(c * m * s, 1), g9_q(c, 1), g9_qpow(g9_q(B, 1), s * m), g9_q(B * m, n)];
+    ex = 'El denominador ' + n + ' es la raíz de índice ' + n + ': la raíz de ' + B + ' es ' + c + '. Se eleva a ' + m + ': ' + c + '^{' + m + '} = ' + Math.pow(c, m) + (neg ? ', y el exponente negativo invierte: ' + g9_qs(ans) + '.' : '.');
+    return g9_rq('pot2', q, ans, wr, ex, val);
+  }
+  if (v === 1) {
+    var pr = pick([[4, 9, 2, 3], [1, 4, 1, 2], [9, 16, 3, 4], [1, 9, 1, 3], [4, 25, 2, 5], [9, 25, 3, 5], [16, 9, 4, 3], [25, 4, 5, 2], [1, 25, 1, 5], [36, 25, 6, 5]]);
+    var inv = Math.random() < 0.4;
+    q = 'Calcula: (⟨' + pr[0] + '|' + pr[1] + '⟩)^{' + (inv ? '−' : '') + '⟨1|2⟩}';
+    ans = inv ? g9_q(pr[3], pr[2]) : g9_q(pr[2], pr[3]); val = Math.pow(pr[0] / pr[1], inv ? -0.5 : 0.5);
+    wr = [inv ? g9_q(pr[2], pr[3]) : g9_q(pr[3], pr[2]), g9_q(pr[0], pr[1] * 2), g9_q(pr[0] * pr[0], pr[1] * pr[1]), g9_q(pr[2], pr[1]), g9_q(pr[0], pr[3])];
+    ex = 'El exponente ' + (inv ? '−' : '') + '⟨1|2⟩ es la raíz cuadrada' + (inv ? ' con la fracción invertida' : '') + ': √{' + pr[0] + '} = ' + pr[2] + ' y √{' + pr[1] + '} = ' + pr[3] + '. Resultado ' + g9_qs(ans) + '.';
+    return g9_rq('pot2', q, ans, wr, ex, val);
+  }
+  if (v === 2) {
+    var pr2 = pick([[8, 27, 2, 3], [1, 8, 1, 2], [27, 64, 3, 4], [64, 27, 4, 3], [8, 125, 2, 5], [1, 27, 1, 3]]);
+    var m2 = pick([1, 1, 2]);
+    q = 'Calcula: (⟨' + pr2[0] + '|' + pr2[1] + '⟩)^{⟨' + m2 + '|3⟩}';
+    ans = g9_qpow(g9_q(pr2[2], pr2[3]), m2); val = Math.pow(pr2[0] / pr2[1], m2 / 3);
+    wr = [g9_qpow(g9_q(pr2[3], pr2[2]), m2), g9_q(pr2[0] * m2, pr2[1] * 3), g9_qpow(g9_q(pr2[2], pr2[3]), m2 + 1), g9_q(pr2[2] * m2, pr2[3] * 3)];
+    ex = 'La raíz cúbica de ' + pr2[0] + ' es ' + pr2[2] + ' y la de ' + pr2[1] + ' es ' + pr2[3] + (m2 === 2 ? '; después se eleva al cuadrado' : '') + ': ' + g9_qs(ans) + '.';
+    return g9_rq('pot2', q, ans, wr, ex, val);
+  }
+  return g9_mkx('pot2', q, '', [], '');
+});
+
+/* 9. notación científica con exponente negativo: convertir */
+genr('pot2', function () {
+  var v = ri(0, 1), N, E, x, q, ans, wr, ex, digs;
+  do { N = ri(1, 999); } while (N % 10 === 0);
+  digs = String(N);
+  if (v === 0) {
+    E = -ri(3, 9) ; if (-E < String(N).length + 1) E = -(String(N).length + ri(1, 4));
+    x = g9_sn(N, E);
+    q = 'Escribe en notación científica: ' + g9_dec(N, E);
+    ans = g9_Sw(x.m, x.e);
+    wr = [g9_Sw(x.m, x.e + 1), g9_Sw(x.m, x.e - 1), g9_Sw(x.m, -x.e), g9_Sw('0,' + digs, x.e), g9_Sw(digs, x.e)];
+    ex = 'Hay que mover la coma ' + (-x.e) + ' lugares a la derecha para dejar una sola cifra entera (' + x.m + '), así que el exponente es −' + (-x.e) + '.';
+    return g9_sq('pot2', q, ans, wr, ex, N * Math.pow(10, E), g9_scfill(x));
+  }
+  E = -ri(2, 8) - (digs.length - 1); x = g9_sn(N, E);
+  q = 'Escribe como número decimal: ' + x.m + ' · 10^{' + mn(x.e) + '}';
+  var D = function (e) { return { s: g9_dec(N, e), v: N * Math.pow(10, e) }; };
+  var xe = x.e, scale = (N + '').length - 1;
+  ans = { s: g9_dec(N, x.e - scale), v: N * Math.pow(10, x.e - scale) };
+  var Dd = function (e) { return { s: g9_dec(N, e - scale), v: N * Math.pow(10, e - scale) }; };
+  wr = [Dd(xe + 1), Dd(xe - 1), Dd(-xe), Dd(xe + 2)];
+  ex = 'El exponente negativo ' + mn(x.e) + ' indica que la coma se mueve ' + (-x.e) + ' lugares a la izquierda: ' + ans.s + '.';
+  return g9_sq('pot2', q, ans, wr, ex, parseFloat(x.m.replace(',', '.')) * Math.pow(10, x.e), []);
+});
+
+/* 10. operar en notación científica con exponentes negativos */
+genr('pot2', function () {
+  var v = ri(0, 2), a, b, m, n, N, E, x, ans, q, wr, ex, val;
+  if (v < 2) {
+    a = ri(2, 9); b = ri(2, 9);
+    if (v === 0) { m = -ri(2, 7); n = -ri(2, 7); } else { m = -ri(2, 7); n = ri(2, 7); }
+    N = a * b; E = m + n; x = g9_sn(N, E); ans = g9_Sw(x.m, x.e);
+    q = 'Calcula en notación científica: (' + a + ' · 10^{' + mn(m) + '}) · (' + b + ' · 10^{' + mn(n) + '})';
+    val = a * Math.pow(10, m) * b * Math.pow(10, n);
+    wr = [g9_Sw(x.m, x.e - 1), g9_Sw(x.m, m * n), g9_Sw(x.m, -x.e), g9_Sw(String(a + b), m + n), g9_Sw(x.m, x.e + 1), g9_Sw(x.m, m - n)];
+    ex = 'Se multiplican los números (' + a + ' · ' + b + ' = ' + N + ') y se suman los exponentes (' + mn(m) + ' + ' + g9_p(n) + ' = ' + mn(E) + ')' + (N >= 10 ? '. Como ' + N + ' no está entre 1 y 10, queda ' + ans.s + '.' : '.');
+    return g9_sq('pot2', q, ans, wr, ex, val, g9_scfill(x));
+  }
+  var p = ri(1, 9), d = pick([2, 4, 5, 8]);
+  m = ri(-8, 2); n = ri(-3, 4);
+  N = p * (1000 / d); E = m - n - 3; x = g9_sn(N, E); ans = g9_Sw(x.m, x.e);
+  q = 'Calcula en notación científica: ⟨' + p + ' · 10^{' + mn(m) + '}|' + d + ' · 10^{' + mn(n) + '}⟩';
+  val = (p * Math.pow(10, m)) / (d * Math.pow(10, n));
+  wr = [g9_Sw(x.m, m + n), g9_Sw(x.m, x.e + 1), g9_Sw(x.m, x.e - 1), g9_Sw(x.m, n - m), g9_Sw(String(p * d), m - n)];
+  ex = 'Se dividen los números (' + p + ' : ' + d + ' = ' + String(p / d).replace('.', ',') + ') y se restan los exponentes (' + mn(m) + ' − ' + g9_p(n) + ' = ' + mn(m - n) + '): ' + String(p / d).replace('.', ',') + ' · 10^{' + mn(m - n) + '} = ' + ans.s + '.';
+  return g9_sq('pot2', q, ans, wr, ex, val, g9_scfill(x));
+});
+
+/* 11. comparar potencias con exponente negativo o fraccionario */
+genr('pot2', function () {
+  var items = [], tries = 0, big = Math.random() < 0.5, i, mode = Math.random() < 0.55;
+  var pool = [[4, 1, 2], [9, 1, 2], [16, 1, 2], [25, 1, 2], [8, 1, 3], [27, 1, 3], [8, 2, 3], [16, 1, 4], [81, 1, 4], [16, 3, 4], [4, 3, 2], [9, 3, 2], [64, 1, 3], [64, 1, 2], [36, 1, 2], [125, 1, 3], [27, 2, 3], [32, 1, 5]];
+  if (mode) {
+    while (items.length < 4 && tries++ < 500) {
+      var b = ri(2, 6), e = ri(1, 4), v = Math.pow(b, -e), dup = false;
+      items.forEach(function (it) { if (Math.abs(it.v - v) < 1e-12) dup = true; });
+      if (!dup) items.push({ s: b + '^{−' + e + '}', v: v, c: b + '^{−' + e + '} = ⟨1|' + Math.pow(b, e) + '⟩' });
+    }
+  } else {
+    var cand = shuffle(pool.slice());
+    cand.forEach(function (p) {
+      var v = Math.pow(p[0], p[1] / p[2]), r = Math.round(v), dup = false;
+      items.forEach(function (it) { if (Math.abs(it.v - r) < 1e-9) dup = true; });
+      if (!dup && items.length < 4) items.push({ s: p[0] + '^{⟨' + p[1] + '|' + p[2] + '⟩}', v: r, c: p[0] + '^{⟨' + p[1] + '|' + p[2] + '⟩} = ' + r });
+    });
+  }
+  var best = items[0];
+  items.forEach(function (it) { if (big ? it.v > best.v : it.v < best.v) best = it; });
+  var q = '¿Cuál de estas potencias es la ' + (big ? 'mayor' : 'menor') + '?';
+  var ex = 'Calculando: ' + items.map(function (it) { return it.c; }).join('; ') + '. La ' + (big ? 'mayor' : 'menor') + ' es ' + best.s + '.';
+  var r = g9_mkx('pot2', q, best.s, items.filter(function (it) { return it !== best; }).map(function (it) { return it.s; }), ex);
+  var ref = items[0].v; items.forEach(function (it) { if (big ? it.v > ref : it.v < ref) ref = it.v; });
+  r.k = [[ref, best.v]];
+  return r;
+});
+
+/* 12. letras con exponentes fraccionarios */
+genr('pot2', function () {
+  var l = g9_ls(), v = ri(0, 4), fr = [g9_q(1, 2), g9_q(3, 2), g9_q(1, 3), g9_q(2, 3), g9_q(5, 2), g9_q(1, 4), g9_q(-1, 2), g9_q(-1, 3), g9_q(3, 4), g9_q(5, 3), g9_q(-3, 2)];
+  var a, b, X, q, wr, ex, f, k;
+  if (v === 0 || v === 1) {
+    do { a = pick(fr); b = pick(fr); X = v === 0 ? g9_qadd(a, b) : g9_qsub(a, b); } while (X.n === 0 || (X.d === 1 && X.n === 1) || (a.d === 1) || Math.abs(X.n) > 12 || X.d > 12 || (a.d === b.d && a.d === 2 && false));
+    if (v === 0) {
+      q = 'Simplifica: ' + g9_xe(l, a) + ' · ' + g9_xe(l, b);
+      f = function (pt) { return Math.pow(pt[l], g9_qv(a)) * Math.pow(pt[l], g9_qv(b)); };
+      wr = [g9_qmul(a, b), g9_qsub(a, b), g9_q(a.n + b.n, a.d + b.d), g9_q(-X.n, X.d)];
+      ex = 'Misma base: se suman los exponentes, ' + g9_qs(a) + ' + ' + (b.n < 0 ? '(' + g9_qs(b) + ')' : g9_qs(b)) + ' = ' + g9_qs(X) + '. Las fracciones se suman con denominador común.';
+    } else {
+      q = 'Simplifica: ⟨' + g9_xe(l, a) + '|' + g9_xe(l, b) + '⟩';
+      f = function (pt) { return Math.pow(pt[l], g9_qv(a)) / Math.pow(pt[l], g9_qv(b)); };
+      wr = [g9_qadd(a, b), g9_qsub(b, a), g9_q(a.n - b.n, a.d - b.d === 0 ? 1 : a.d - b.d), g9_qmul(a, b)];
+      ex = 'Misma base: se restan los exponentes, ' + g9_qs(a) + ' − ' + (b.n < 0 ? '(' + g9_qs(b) + ')' : g9_qs(b)) + ' = ' + g9_qs(X) + '.';
+    }
+    return g9_er('pot2', q, l, X, wr, ex, f);
+  }
+  if (v === 2) {
+    do { a = pick(fr); k = pick([2, 3, 4, 6, -2]); X = g9_qmul(a, g9_q(k, 1)); } while (X.n === 0 || X.d > 12 || Math.abs(X.n) > 12 || (X.d === 1 && X.n === 1) || a.d === 1);
+    q = 'Simplifica: (' + g9_xe(l, a) + ')^{' + mn(k) + '}';
+    f = function (pt) { return Math.pow(Math.pow(pt[l], g9_qv(a)), k); };
+    wr = [g9_qadd(a, g9_q(k, 1)), g9_q(a.n * k, a.d * k + 0 === 0 ? 1 : a.d + k), g9_q(-X.n, X.d), g9_qsub(a, g9_q(k, 1)), g9_qmul(g9_q(k, 1), g9_q(1, a.n || 1))];
+    ex = 'Potencia de potencia: se multiplican los exponentes, ' + g9_qs(a) + ' · ' + g9_p(k) + ' = ' + g9_qs(X) + '.';
+    return g9_er('pot2', q, l, X, wr, ex, f);
+  }
+  if (v === 3) {
+    var pw = pick([g9_q(3, 2), g9_q(5, 2), g9_q(1, 2), g9_q(7, 2), g9_q(-1, 2), g9_q(3, 2)]);
+    X = g9_qadd(g9_q(1, 2), pw);
+    if (X.n === 0) { pw = g9_q(3, 2); X = g9_qadd(g9_q(1, 2), pw); }
+    q = 'Simplifica: √{' + l + '} · ' + g9_xe(l, pw);
+    f = function (pt) { return Math.sqrt(pt[l]) * Math.pow(pt[l], g9_qv(pw)); };
+    wr = [g9_qmul(g9_q(1, 2), pw), g9_q(1 + pw.n, 2 + pw.d), g9_qadd(pw, g9_q(2, 1)), g9_qsub(pw, g9_q(1, 2))];
+    ex = 'La raíz cuadrada es el exponente ⟨1|2⟩. Misma base: ⟨1|2⟩ + ' + (pw.n < 0 ? '(' + g9_qs(pw) + ')' : g9_qs(pw)) + ' = ' + g9_qs(X) + '.';
+    return g9_er('pot2', q, l, X, wr, ex, f);
+  }
+  var idx = pick([3, 4, 5]); X = g9_qadd(g9_q(1, 2), g9_q(1, idx));
+  q = 'Simplifica: √{' + l + '} · √[' + idx + ']{' + l + '}';
+  f = function (pt) { return Math.sqrt(pt[l]) * Math.pow(pt[l], 1 / idx); };
+  wr = [g9_q(2, 2 + idx), g9_q(1, 2 * idx), g9_q(1, 2 + idx), g9_q(1, 2), g9_qsub(g9_q(1, 2), g9_q(1, idx))];
+  ex = 'Se pasan a potencias: ' + l + '^{⟨1|2⟩} · ' + l + '^{⟨1|' + idx + '⟩} = ' + l + '^{⟨1|2⟩ + ⟨1|' + idx + '⟩} = ' + g9_xe(l, X) + '.';
+  return g9_er('pot2', q, l, X, wr, ex, f);
+});
+
+/* 13. PROBLEMA: simplificar con exponentes negativos y resultado positivo */
+genr('pot2', function () {
+  var L = g9_ls2(), a = L[0], b = L[1], A, B, k, c, d, e, X, Y, tries = 0;
+  do {
+    A = nz(-3, 3); B = nz(-3, 3); k = pick([2, 3, -1, -2]); c = nz(-3, 3); d = nz(-3, 3); e = nz(-3, 3);
+    X = A * k + c - d; Y = B * k - e; tries++;
+  } while ((X === 0 && Y === 0 || Math.abs(X) > 8 || Math.abs(Y) > 8 || (X === 0 || Y === 0) && Math.random() < 0.8) && tries < 500);
+  var mon = function (x, y) { var z = {}; z[a] = x; z[b] = y; return g9_M(1, z); };
+  var q = 'Simplifica y escribe el resultado con exponentes positivos: ⟨(' + g9_xp(a, A) + g9_xp(b, B) + ')^{' + mn(k) + '} · ' + g9_xp(a, c) + '|' + g9_xp(a, d) + g9_xp(b, e) + '⟩';
+  var f = function (pt) { return Math.pow(Math.pow(pt[a], A) * Math.pow(pt[b], B), k) * Math.pow(pt[a], c) / (Math.pow(pt[a], d) * Math.pow(pt[b], e)); };
+  var ex = 'El exponente ' + mn(k) + ' multiplica: ' + g9_xp(a, A * k) + g9_xp(b, B * k) + '. Con el factor ' + g9_xp(a, c) + ' y al dividir, ' + a + ' queda ' + mn(A * k) + ' + ' + g9_p(c) + ' − ' + g9_p(d) + ' = ' + mn(X) + ' y ' + b + ' queda ' + mn(B * k) + ' − ' + g9_p(e) + ' = ' + mn(Y) + '. Los exponentes negativos pasan al otro lado.';
+  var res = g9_mq('pot2', q, mon(X, Y), [mon(-X, Y), mon(X, -Y), mon(A + k + c - d, B + k - e), mon(A * k + c + d, B * k + e), mon(A * k - c - d, Y)], ex, g9_fmP, f);
+  res.p = 1;
+  return res;
+});
+
+/* 14. PROBLEMA: potencias de bases relacionadas con exponentes negativos */
+genr('pot2', function () {
+  var fam = pick([{ b: 2, o: { 2: 1, 4: 2, 8: 3, 16: 4 } }, { b: 3, o: { 3: 1, 9: 2, 27: 3 } }, { b: 5, o: { 5: 1, 25: 2 } }]);
+  var bases = Object.keys(fam.o).map(Number), u, w, z, a, b, c, t, tries = 0, div = Math.random() < 0.5;
+  do {
+    u = pick(bases); w = pick(bases); z = pick(bases); a = nz(-3, 3); b = nz(-3, 3); c = nz(-3, 3);
+    t = a * fam.o[u] + b * fam.o[w] + (div ? -1 : 1) * c * fam.o[z];
+    tries++;
+  } while ((u === w || t === 0 || Math.abs(t) > 4 || (fam.b === 5 && Math.abs(t) > 2) || (fam.b === 3 && Math.abs(t) > 3)) && tries < 800);
+  var B = fam.b, Q = function (x, e) { return g9_qpow(g9_q(x, 1), e); };
+  var q, val;
+  if (div) {
+    q = 'Calcula: ⟨' + u + '^{' + mn(a) + '} · ' + w + '^{' + mn(b) + '}|' + z + '^{' + mn(c) + '}⟩';
+    val = Math.pow(u, a) * Math.pow(w, b) / Math.pow(z, c);
+  } else {
+    q = 'Calcula: ' + u + '^{' + mn(a) + '} · ' + w + '^{' + mn(b) + '} · ' + z + '^{' + mn(c) + '}';
+    val = Math.pow(u, a) * Math.pow(w, b) * Math.pow(z, c);
+  }
+  var seenB = [], names = [];
+  [u, w, z].forEach(function (x) { if (seenB.indexOf(x) < 0 && fam.o[x] > 1) { seenB.push(x); names.push(x + ' = ' + B + '^{' + fam.o[x] + '}'); } });
+  var ex = 'Todo a base ' + B + (names.length ? ' (' + names.join(', ') + ')' : '') + '. Exponente final: ' + mn(a * fam.o[u]) + (b * fam.o[w] < 0 ? ' − ' + (-b * fam.o[w]) : ' + ' + b * fam.o[w]) + (div ? (c * fam.o[z] < 0 ? ' + ' + (-c * fam.o[z]) : ' − ' + c * fam.o[z]) : (c * fam.o[z] < 0 ? ' − ' + (-c * fam.o[z]) : ' + ' + c * fam.o[z])) + ' = ' + mn(t) + ', y ' + B + '^{' + mn(t) + '} = ' + g9_qs(Q(B, t)) + '.';
+  var wr = [Q(B, -t), Q(B, t + 1), Q(B, t - 1), Q(u, a + b + (div ? -c : c)), Q(B, a + b + (div ? -c : c))];
+  var res = g9_rq('pot2', q, Q(B, t), wr, ex, val);
+  res.p = 1;
+  return res;
+});
+
+/* 15. PROBLEMA: raíces y exponentes fraccionarios con números */
+genr('pot2', function () {
+  var pool = [[4, 1, 2, 2], [9, 1, 2, 3], [16, 1, 2, 4], [25, 1, 2, 5], [8, 1, 3, 2], [27, 1, 3, 3], [8, 2, 3, 4], [16, 1, 4, 2], [27, 2, 3, 9], [32, 1, 5, 2], [4, 3, 2, 8], [9, 3, 2, 27], [36, 1, 2, 6], [64, 1, 3, 4], [1000, 1, 3, 10]];
+  var fs = [], sg = [], res = { n: 1, d: 1 }, tries = 0, i, chosen;
+  do {
+    chosen = shuffle(pool.slice()).slice(0, 3);
+    sg = chosen.map(function () { return Math.random() < 0.5 ? -1 : 1; });
+    res = { n: 1, d: 1 };
+    chosen.forEach(function (c, i) { res = g9_qmul(res, g9_qpow(g9_q(c[3], 1), sg[i])); });
+    tries++;
+  } while ((res.n > 100 || res.d > 100 || (res.n === 1 && res.d === 1) || (chosen[0][0] === chosen[1][0] && chosen[0][1] === chosen[1][1])) && tries < 500);
+  var parts = chosen.map(function (c, i) { return c[0] + '^{' + (sg[i] < 0 ? '−' : '') + '⟨' + c[1] + '|' + c[2] + '⟩}'; });
+  var q = 'Calcula: ' + parts.join(' · ');
+  var val = 1; chosen.forEach(function (c, i) { val *= Math.pow(c[0], sg[i] * c[1] / c[2]); });
+  var ex = chosen.map(function (c, i) { return parts[i] + ' = ' + g9_qs(g9_qpow(g9_q(c[3], 1), sg[i])); }).join('; ') + '. Producto: ' + g9_qs(res) + '.';
+  var wr = [];
+  chosen.forEach(function (c, i) { wr.push(g9_qmul(res, g9_qpow(g9_q(c[3], 1), -2 * sg[i]))); });
+  wr.push(g9_q(res.d, res.n));
+  var r = g9_rq('pot2', q, res, wr, ex, val);
+  r.p = 1;
+  return r;
+});
+
+/* ================================================================
+   SIG: signos y paréntesis
+   ================================================================ */
+
+/* 1. potencias de −1 */
+genr('sig', function () {
+  var v = ri(0, 3), n, m, k, q, val, ex, wr;
+  var par = function (x) { return x % 2 === 0; };
+  if (v === 0) {
+    n = ri(10, 99); q = 'Calcula: (−1)^{' + n + '}'; val = n % 2 ? -1 : 1;
+    ex = 'Exponente ' + (par(n) ? 'par' : 'impar') + ': (−1)^{' + n + '} = ' + mn(val) + '.';
+    wr = [-val, 0, n, -n];
+  } else if (v === 1) {
+    n = ri(5, 60); m = ri(5, 60); q = 'Calcula: (−1)^{' + n + '} + (−1)^{' + m + '}'; val = (n % 2 ? -1 : 1) + (m % 2 ? -1 : 1);
+    ex = '(−1)^{' + n + '} = ' + mn(Math.pow(-1, n)) + ' (exponente ' + (par(n) ? 'par' : 'impar') + ') y (−1)^{' + m + '} = ' + mn(Math.pow(-1, m)) + ' (exponente ' + (par(m) ? 'par' : 'impar') + '). Suma: ' + mn(val) + '.';
+    wr = [-val, val === 0 ? 2 : 0, n + m, val + 1, val - 1];
+  } else if (v === 2) {
+    n = ri(5, 60); m = ri(5, 60); q = 'Calcula: (−1)^{' + n + '} · (−1)^{' + m + '}'; val = (n % 2 ? -1 : 1) * (m % 2 ? -1 : 1);
+    ex = 'Se suman los exponentes: ' + n + ' + ' + m + ' = ' + (n + m) + ', que es ' + (par(n + m) ? 'par' : 'impar') + ', así que el resultado es ' + mn(val) + '.';
+    wr = [-val, 0, n + m, -(n + m)];
+  } else {
+    n = ri(5, 60); m = ri(5, 60); k = ri(5, 60);
+    q = 'Calcula: −(−1)^{' + n + '} − (−1)^{' + m + '} + (−1)^{' + k + '}';
+    val = -(n % 2 ? -1 : 1) - (m % 2 ? -1 : 1) + (k % 2 ? -1 : 1);
+    ex = '−(' + mn(Math.pow(-1, n)) + ') − (' + mn(Math.pow(-1, m)) + ') + (' + mn(Math.pow(-1, k)) + ') = ' + mn(val) + '.';
+    wr = [-val, val + 2, val - 2, Math.pow(-1, n) + Math.pow(-1, m) + Math.pow(-1, k), 0];
+  }
+  return g9_rq('sig', q, val, wr, ex, v === 0 ? Math.pow(-1, n) : v === 1 ? Math.pow(-1, n) + Math.pow(-1, m) : v === 2 ? Math.pow(-1, n + m) : -Math.pow(-1, n) - Math.pow(-1, m) + Math.pow(-1, k));
+});
+
+/* 2. −a^n frente a (−a)^n combinados */
+genr('sig', function () {
+  var a = pick([2, 3]), n = ri(2, 4), m = ri(2, 4), op = pick(['+', '−']), s = op === '+' ? 1 : -1;
+  var t1 = -g9_ip(a, n), t2 = g9_ip(-a, m);
+  var q = 'Calcula: −' + a + '^{' + n + '} ' + op + ' (−' + a + ')^{' + m + '}';
+  var val = t1 + s * t2;
+  var ex = '−' + a + '^{' + n + '} = ' + mn(t1) + ' (el signo queda fuera) y (−' + a + ')^{' + m + '} = ' + mn(t2) + ' (exponente ' + (m % 2 ? 'impar' : 'par') + '). Entonces ' + mn(t1) + ' ' + op + ' ' + g9_p(t2) + ' = ' + mn(val) + '.';
+  var wr = [Math.pow(a, n) + s * t2, t1 + s * Math.pow(a, m), Math.pow(-a, n) + s * t2, -t1 + s * Math.pow(a, m), t1 - s * t2];
+  return g9_rq('sig', q, val, wr, ex, -Math.pow(a, n) + s * Math.pow(-a, m));
+});
+
+/* 3. quitar paréntesis con signos delante */
+function g9_lin(t) { // t = [cx, c0] -> texto
+  var s = '', cx = t[0], c0 = t[1];
+  if (cx !== 0) s += (cx === 1 ? '' : cx === -1 ? '−' : mn(cx)) + 'x';
+  if (c0 !== 0) s += (s === '' ? mn(c0) : (c0 < 0 ? ' − ' : ' + ') + Math.abs(c0));
+  return s === '' ? '0' : s;
+}
+genr('sig', function () {
+  var k1 = pick([-1, -2, -3, 2, 3]), k2 = pick([-1, 1, -2, 2]), a1 = nz(-4, 4), b1 = nz(-6, 6), a2 = nz(-4, 4), b2 = nz(-6, 6);
+  var p1 = a1 === 1 ? 'x' : a1 === -1 ? '−x' : mn(a1) + 'x';
+  var P = function (a, b) { return '(' + g9_lin([a, b]) + ')'; };
+  var kf = function (k, first) { return (k === 1 ? (first ? '' : '+ ') : k === -1 ? (first ? '−' : '− ') : (first ? mn(k) : (k < 0 ? '− ' + (-k) : '+ ' + k))); };
+  var q = 'Simplifica: ' + kf(k1, true) + P(a1, b1) + ' ' + kf(k2, false) + P(a2, b2);
+  var ans = [k1 * a1 + k2 * a2, k1 * b1 + k2 * b2];
+  if (ans[0] === 0 && ans[1] === 0) return g9_mkx('sig', q, 'x', [], '');
+  var mkL = function (t) { return { s: g9_lin(t), v: t[0] * 1.7 + t[1] } };
+  var wr = [mkL([k1 * a1 + k2 * a2, b1 + b2 * k2]), mkL([k1 * a1 + k2 * a2, k1 * b1 + b2]), mkL([k1 * a1 + a2, k1 * b1 + k2 * b2]), mkL([k1 * a1 + k2 * a2, b1 + b2]), mkL([k1 * a1 + k2 * a2, -ans[1]])];
+  var sp = [], seen = {}, A = mkL(ans); seen[A.s] = 1;
+  var wf = wr.filter(function (w) { if (seen[w.s] || w.v === A.v && w.s === A.s) return false; seen[w.s] = 1; return true; });
+  var ex = 'Se multiplica cada paréntesis por su número, cambiando el signo de TODOS los términos si es negativo: ' + g9_lin([k1 * a1, k1 * b1]) + ' y ' + g9_lin([k2 * a2, k2 * b2]) + '. Se suman: ' + g9_lin(ans) + '.';
+  var fill = [mkL([ans[0] + 1, ans[1]]), mkL([ans[0], ans[1] + 1]), mkL([-ans[0], ans[1]])].filter(function (w) { return !seen[w.s]; });
+  var r = g9_mkx('sig', q, A.s, g9_pick3(wf, fill).map(function (w) { return w.s; }), ex);
+  r.k = G9_PTS.map(function (pt) { var x = pt.x; return [k1 * (a1 * x + b1) + k2 * (a2 * x + b2), ans[0] * x + ans[1]]; });
+  return r;
+});
+
+/* 4. sustituir un valor negativo */
+genr('sig', function () {
+  var a = ri(2, 5), x = -a;
+  var forms = [
+    ['−x^{2}', function (x) { return -(x * x); }, function (x) { return -Math.pow(x, 2); }, 'el exponente solo afecta a la x: x^{2} = ' + a * a + ' y después se cambia el signo'],
+    ['(−x)^{2}', function (x) { return (-x) * (-x); }, function (x) { return Math.pow(-x, 2); }, 'primero −x = ' + a + ' y después se eleva al cuadrado'],
+    ['−x^{3}', function (x) { return -(x * x * x); }, function (x) { return -Math.pow(x, 3); }, 'x^{3} = ' + mn(-a * a * a) + ' y después se cambia el signo'],
+    ['(−x)^{3}', function (x) { return (-x) * (-x) * (-x); }, function (x) { return Math.pow(-x, 3); }, 'primero −x = ' + a + ' y después se eleva al cubo'],
+    ['x^{2} − x', function (x) { return x * x - x; }, function (x) { return Math.pow(x, 2) - x; }, 'x^{2} − x = ' + a * a + ' − (' + mn(x) + ') = ' + a * a + ' + ' + a],
+    ['−x^{2} − x', function (x) { return -(x * x) - x; }, function (x) { return -Math.pow(x, 2) - x; }, 'x^{2} = ' + a * a + ', así que −' + a * a + ' − (' + mn(x) + ') = −' + a * a + ' + ' + a],
+    ['x^{3} + x^{2}', function (x) { return x * x * x + x * x; }, function (x) { return Math.pow(x, 3) + Math.pow(x, 2); }, 'x^{3} = ' + mn(-a * a * a) + ' y x^{2} = ' + a * a]
+  ];
+  var F = pick(forms), val = F[1](x);
+  var q = 'Si x = ' + mn(x) + ', ¿cuánto vale ' + F[0] + '?';
+  var ex = 'Con x = ' + mn(x) + ': ' + F[3] + '. Resultado ' + mn(val) + '.';
+  var alt = forms.map(function (f) { return f[1](x); }).concat(forms.map(function (f) { return f[1](a); }));
+  var wr = [F[1](a), -val].concat(shuffle(alt.slice()).slice(0, 4));
+  return g9_rq('sig', q, val, wr, ex, F[2](x));
+});
+
+/* ================================================================
+   OPE: operar con letras
+   ================================================================ */
+
+/* 1. multiplicar monomios con dos letras */
+genr('ope', function () {
+  var L = g9_ls2(), a = L[0], b = L[1], c1 = nz(-5, 5), c2 = nz(-5, 5), m1 = ri(1, 4), n1 = ri(1, 3), m2 = ri(1, 4), n2 = ri(1, 3);
+  var mon = function (c, x, y) { var z = {}; z[a] = x; z[b] = y; return g9_M(c, z); };
+  var fm = function (c, x, y) { return (c === 1 ? '' : c === -1 ? '−' : mn(c)) + g9_xp(a, x) + g9_xp(b, y); };
+  var q = 'Multiplica: (' + fm(c1, m1, n1) + ') · (' + fm(c2, m2, n2) + ')';
+  var f = function (pt) { return c1 * Math.pow(pt[a], m1) * Math.pow(pt[b], n1) * c2 * Math.pow(pt[a], m2) * Math.pow(pt[b], n2); };
+  var ex = 'Coeficientes: ' + g9_p(c1) + ' · ' + g9_p(c2) + ' = ' + mn(c1 * c2) + '. Letras: se suman los exponentes de cada letra, ' + a + ': ' + m1 + ' + ' + m2 + ' = ' + (m1 + m2) + ' y ' + b + ': ' + n1 + ' + ' + n2 + ' = ' + (n1 + n2) + '.';
+  return g9_mq('ope', q, mon(c1 * c2, m1 + m2, n1 + n2), [mon(c1 * c2, m1 * m2, n1 * n2), mon(c1 + c2, m1 + m2, n1 + n2), mon(c1 * c2, m1 + m2, n1 * n2), mon(-c1 * c2, m1 + m2, n1 + n2), mon(c1 * c2, m1 + m2, n1 + n2 + 1)], ex, g9_fmN, f);
+});
+
+/* 2. dividir monomios */
+genr('ope', function () {
+  var L = g9_ls2(), a = L[0], b = L[1], d = ri(2, 5), qq = nz(-4, 4), c1 = d * qq, m1 = ri(1, 6), n1 = ri(1, 5), m2 = ri(1, 4), n2 = ri(1, 4);
+  var X = m1 - m2, Y = n1 - n2;
+  if (X === 0 && Y === 0) m1++, X = m1 - m2;
+  var mon = function (c, x, y, dd) { var z = {}; z[a] = x; z[b] = y; return g9_M(c, z, dd || 1); };
+  var fm = function (c, x, y) { return (c === 1 ? '' : c === -1 ? '−' : mn(c)) + g9_xp(a, x) + g9_xp(b, y); };
+  var q = 'Simplifica: ⟨' + fm(c1, m1, n1) + '|' + fm(d, m2, n2) + '⟩';
+  var f = function (pt) { return c1 * Math.pow(pt[a], m1) * Math.pow(pt[b], n1) / (d * Math.pow(pt[a], m2) * Math.pow(pt[b], n2)); };
+  var ex = 'Coeficientes: ' + mn(c1) + ' : ' + d + ' = ' + mn(qq) + '. Letras: se restan los exponentes, ' + a + ': ' + m1 + ' − ' + m2 + ' = ' + mn(X) + ' y ' + b + ': ' + n1 + ' − ' + n2 + ' = ' + mn(Y) + '. Los exponentes negativos pasan al denominador.';
+  return g9_mq('ope', q, mon(qq, X, Y), [mon(qq, m1 + m2, n1 + n2), mon(qq, X, n1 + n2), mon(qq, m2 - m1, n2 - n1), mon(c1 - d, X, Y), mon(-qq, X, Y)], ex, g9_fmP, f);
+});
+
+/* polinomios en x como lista de términos [coef, exp] */
+function g9_tl(ts) {
+  var s = '', i;
+  ts = ts.filter(function (t) { return t[0] !== 0; }).sort(function (u, v) { return v[1] - u[1]; });
+  if (!ts.length) return '0';
+  ts.forEach(function (t) {
+    var c = t[0], e = t[1], body = (Math.abs(c) === 1 && e > 0 ? '' : String(Math.abs(c))) + (e === 0 ? '' : e === 1 ? 'x' : 'x^{' + e + '}');
+    if (s === '') s = (c < 0 ? '−' : '') + body; else s += (c < 0 ? ' − ' : ' + ') + body;
+  });
+  return s;
+}
+function g9_tv(ts, x) { var v = 0; ts.forEach(function (t) { v += t[0] * Math.pow(x, t[1]); }); return v; }
+function g9_tnorm(ts) {
+  var o = {}; ts.forEach(function (t) { o[t[1]] = (o[t[1]] || 0) + t[0]; });
+  return Object.keys(o).map(function (k) { return [o[k], Number(k)]; }).filter(function (t) { return t[0] !== 0; });
+}
+function g9_pq(t, q, ans, wrongs, ex, f) {
+  var A = g9_tl(g9_tnorm(ans)), seen = {}, sp = [], fl = [];
+  seen[A] = 1;
+  wrongs.forEach(function (w) { var s = g9_tl(g9_tnorm(w)); if (!seen[s] && s !== '0') { seen[s] = 1; sp.push(s); } });
+  var an = g9_tnorm(ans);
+  [[1, 0], [-1, 0], [2, 1]].forEach(function (d) { var s = g9_tl(g9_tnorm(an.concat([d]))); if (!seen[s]) { seen[s] = 1; fl.push(s); } });
+  var r = g9_mkx(t, q, A, g9_pick3(sp, fl), ex);
+  r.k = [1.5, 2, 3].map(function (x) { return [f(x), g9_tv(ans, x)]; });
+  return r;
+}
+
+/* 3. reducir términos semejantes de distinto grado */
+genr('ope', function () {
+  var p = ri(2, 4), s = ri(1, p - 1), a = nz(-6, 6), b = nz(-6, 6), c = nz(-6, 6), d = nz(-6, 6);
+  while (a + c === 0) c = nz(-6, 6);
+  while (b + d === 0) d = nz(-6, 6);
+  var order = shuffle([[a, p], [b, s], [c, p], [d, s]]);
+  var parts = order.map(function (t) { return g9_tl([t]); }), q = 'Reduce: ';
+  parts.forEach(function (x, i) { q += i === 0 ? x : (x.charAt(0) === '−' ? ' − ' + x.slice(1) : ' + ' + x); });
+  var ans = [[a + c, p], [b + d, s]];
+  var f = function (x) { return a * Math.pow(x, p) + b * Math.pow(x, s) + c * Math.pow(x, p) + d * Math.pow(x, s); };
+  var ex = 'Solo se suman los términos con la misma parte literal: ' + g9_tl([[a, p], [c, p]]) + ' = ' + g9_tl([[a + c, p]]) + ' y ' + g9_tl([[b, s], [d, s]]) + ' = ' + g9_tl([[b + d, s]]) + '. Los exponentes no se suman.';
+  var wr = [[[a + b + c + d, p + s]], [[a + c + b + d, p]], [[a + c, p], [b + d, s + 1]], [[a * c, p], [b * d, s]], [[a + c, 2 * p], [b + d, 2 * s]], [[a - c, p], [b - d, s]]];
+  return g9_pq('ope', q, ans, wr, ex, f);
+});
+
+/* 4. propiedad distributiva con monomios */
+genr('ope', function () {
+  var c = nz(-4, 4), m = ri(1, 3), a = nz(-4, 4), n = ri(1, 4), b = nz(-4, 4), k = ri(0, 3);
+  while (k === n) k = ri(0, 3);
+  var out = g9_tl([[c, m]]);
+  var inner = g9_tl([[a, n], [b, k]]);
+  var q = 'Desarrolla: ' + out + '(' + inner + ')';
+  var ans = [[c * a, m + n], [c * b, m + k]];
+  var f = function (x) { return c * Math.pow(x, m) * (a * Math.pow(x, n) + b * Math.pow(x, k)); };
+  var ex = 'La propiedad distributiva multiplica ' + out + ' por cada término: ' + g9_tl([[c, m]]) + ' · ' + (a < 0 ? '(' + g9_tl([[a, n]]) + ')' : g9_tl([[a, n]])) + ' = ' + g9_tl([ans[0]]) + ' y ' + g9_tl([[c, m]]) + ' · ' + (b < 0 ? '(' + g9_tl([[b, k]]) + ')' : g9_tl([[b, k]])) + ' = ' + g9_tl([ans[1]]) + '.';
+  var wr = [[[c * a, m + n], [b, k]], [[c * a, m * n], [c * b, m * k]], [[c * a, m + n], [-c * b, m + k]], [[c * a, m + n], [c * b, k]], [[c + a, m + n], [c + b, m + k]]];
+  return g9_pq('ope', q, ans, wr, ex, f);
+});
+
+/* ================================================================
+   DES: despejar la incógnita
+   ================================================================ */
+
+/* 1. despejar una x con exponente */
+genr('des', function () {
+  var v = ri(0, 6), N, q, ans, wr, ex, chk, d;
+  if (v === 0) {
+    N = ri(2, 12); q = 'Si x^{2} = ' + N * N + ' y x > 0, entonces x ='; ans = N;
+    wr = [g9_q(N * N, 2), -N, 2 * N, N * N];
+    ex = 'x es la raíz cuadrada de ' + N * N + ': como x es positivo, x = ' + N + '.'; chk = [Math.pow(N, 2), N * N];
+  } else if (v === 1) {
+    N = nz(-5, 5); q = 'Si x^{3} = ' + mn(Math.pow(N, 3)) + ', entonces x ='; ans = N;
+    wr = [g9_q(Math.pow(N, 3), 3), -N, 3 * N, Math.pow(N, 3), g9_q(Math.pow(N, 3), 2)];
+    ex = 'x es la raíz cúbica de ' + mn(Math.pow(N, 3)) + ': ' + mn(N) + '^{3} = ' + mn(Math.pow(N, 3)) + '.'; chk = [Math.pow(N, 3), Math.pow(N, 3)];
+  } else if (v === 2) {
+    N = ri(2, 12); q = 'Si √{x} = ' + N + ', entonces x ='; ans = N * N;
+    wr = [2 * N, g9_q(N, 2), N, N * N * N, -N * N];
+    ex = 'Para quitar la raíz se eleva al cuadrado los dos lados: x = ' + N + '^{2} = ' + N * N + '.'; chk = [Math.sqrt(N * N), N];
+  } else if (v === 3) {
+    N = ri(2, 5); q = 'Si x^{⟨1|3⟩} = ' + N + ', entonces x ='; ans = Math.pow(N, 3);
+    wr = [3 * N, g9_q(N, 3), N, Math.pow(N, 2), -ans];
+    ex = 'x^{⟨1|3⟩} es la raíz cúbica de x; para despejar x se eleva al cubo: x = ' + N + '^{3} = ' + ans + '.'; chk = [Math.cbrt(ans), N];
+  } else if (v === 4) {
+    N = ri(2, 9); q = 'Si x^{−1} = ⟨1|' + N + '⟩, entonces x ='; ans = N;
+    wr = [-N, g9_q(1, N), -ans * 2, N * N, N + 1];
+    ex = 'x^{−1} = ⟨1|x⟩, así que ⟨1|x⟩ = ⟨1|' + N + '⟩ y x = ' + N + '.'; chk = [1 / N, 1 / N];
+  } else if (v === 5) {
+    N = ri(2, 8); q = 'Si x^{−2} = ⟨1|' + N * N + '⟩ y x > 0, entonces x ='; ans = N;
+    wr = [-N, g9_q(1, N), N * N, g9_q(N * N, 2), 2 * N];
+    ex = 'x^{−2} = ⟨1|x^{2}⟩, así que x^{2} = ' + N * N + ' y, como x es positivo, x = ' + N + '.'; chk = [Math.pow(N, -2), 1 / (N * N)];
+  } else {
+    d = pick([3, 5]); N = ri(2, d === 5 ? 3 : 4); q = 'Si x^{⟨' + d + '|2⟩} = ' + Math.pow(N, d) + ', entonces x ='; ans = N * 1;
+    wr = [g9_q(Math.pow(N, d) * 2, d), Math.pow(N, d), g9_q(Math.pow(N, d), 2), N * d, Math.pow(N, 2 * d)];
+    ex = 'x^{⟨' + d + '|2⟩} es la raíz cuadrada de x elevada a ' + d + '. Si (√{x})^{' + d + '} = ' + Math.pow(N, d) + ', entonces √{x} = ' + N + ' y x = ' + N * N + '.';
+    ans = N * N; wr = [N, g9_q(Math.pow(N, d), 2), Math.pow(N, d), N * d, Math.pow(N, d) * 2];
+    chk = [Math.pow(N * N, d / 2), Math.pow(N, d)];
+  }
+  var r = g9_rq('des', q, ans, wr, ex, chk[0]);
+  r.k = [[chk[0], chk[1]]];
+  return r;
+});
+
+/* 2. ecuaciones exponenciales sencillas */
+genr('des', function () {
+  var b = pick([2, 3, 5, 10]), v = ri(0, 4), n, k, c, p, q, ans, wr, ex, lhs, rhs;
+  var big = function (e) { return g9_qs(g9_qpow(g9_q(b, 1), e)); };
+  if (v === 0) {
+    do { n = ri(-3, 5); } while (n === 0 || (b > 3 && n > 3));
+    q = 'Si ' + b + '^{x} = ' + big(n) + ', entonces x ='; ans = n;
+    wr = [n * b, n + 1, -n, g9_q(Math.pow(b, Math.abs(n)), b), n - 1];
+    ex = big(n) + ' = ' + b + '^{' + mn(n) + '}, así que x = ' + mn(n) + '.'; lhs = Math.pow(b, n); var rr = g9_qpow(g9_q(b, 1), n); rhs = rr.n / rr.d;
+  } else if (v === 1) {
+    do { n = ri(1, 5); k = ri(1, 4); } while (b > 3 && n > 3);
+    q = 'Si ' + b + '^{x + ' + k + '} = ' + Math.pow(b, n + k) + ', entonces x ='; ans = n;
+    wr = [n + k, n * k, n + k + 1, -n, k - n === n ? n + 1 : k - n];
+    ex = Math.pow(b, n + k) + ' = ' + b + '^{' + (n + k) + '}, así que x + ' + k + ' = ' + (n + k) + ' y x = ' + n + '.'; lhs = Math.pow(b, n + k); rhs = Math.pow(b, n + k);
+  } else if (v === 2) {
+    do { c = ri(2, 5); n = ri(1, 4); } while (c === b || (b > 3 && n > 3));
+    q = 'Si ' + c + ' · ' + b + '^{x} = ' + c * Math.pow(b, n) + ', entonces x ='; ans = n;
+    wr = [Math.pow(b, n), c * n, n + c, g9_q(c * Math.pow(b, n), b), n + 1];
+    ex = 'Se divide entre ' + c + ': ' + b + '^{x} = ' + Math.pow(b, n) + ' = ' + b + '^{' + n + '}, así que x = ' + n + '.'; lhs = c * Math.pow(b, n); rhs = c * Math.pow(b, n);
+  } else if (v === 3) {
+    n = ri(1, 3);
+    q = 'Si ' + b + '^{2x} = ' + Math.pow(b, 2 * n) + ', entonces x ='; ans = n;
+    wr = [2 * n, g9_q(n, 2), n + 2, n * n, 2 * n + 1];
+    ex = Math.pow(b, 2 * n) + ' = ' + b + '^{' + 2 * n + '}, así que 2x = ' + 2 * n + ' y x = ' + n + '.'; lhs = Math.pow(b, 2 * n); rhs = lhs;
+  } else {
+    var pr = pick([[2, 4, 2], [2, 8, 3], [3, 9, 2], [2, 16, 4], [3, 27, 3]]);
+    n = ri(2, 6);
+    if (pr[0] === 3 && n > 4) n = 4;
+    q = 'Si ' + pr[1] + '^{x} = ' + Math.pow(pr[0], n) + ', entonces x ='; ans = g9_q(n, pr[2]);
+    wr = [g9_q(pr[2], n), n - pr[2], n * pr[2], g9_q(Math.pow(pr[0], n), pr[1]), n];
+    ex = pr[1] + ' = ' + pr[0] + '^{' + pr[2] + '}, así que ' + pr[0] + '^{' + pr[2] + 'x} = ' + pr[0] + '^{' + n + '}. Entonces ' + pr[2] + 'x = ' + n + ' y x = ' + g9_qs(ans) + '.';
+    var ra = g9_qo(ans);
+    lhs = Math.pow(pr[1], ra.n / ra.d); rhs = Math.pow(pr[0], n);
+  }
+  var r = g9_rq('des', q, ans, wr, ex, lhs);
+  r.k = [[lhs, rhs]];
+  if (v === 0 || v === 1 || v === 2 || v === 3) {
+    var an = g9_qo(ans), xv = an.n / an.d;
+    r.k = [[v === 0 ? Math.pow(b, xv) : v === 1 ? Math.pow(b, xv + k) : v === 2 ? c * Math.pow(b, xv) : Math.pow(b, 2 * xv), rhs]];
+  }
+  return r;
+});
+
+/* 3. despejar en fórmulas con potencias */
+genr('des', function () {
+  var F = [
+    { q: 'Despeja r (r > 0) en A = πr^{2}', a: 'r = √{⟨A|π⟩}', fwd: function (r) { return Math.PI * r * r; },
+      w: [['r = ⟨√{A}|π⟩', function (A) { return Math.sqrt(A) / Math.PI; }], ['r = ⟨A|π⟩', function (A) { return A / Math.PI; }], ['r = √{A} − π', function (A) { return Math.sqrt(A) - Math.PI; }], ['r = ⟨A^{2}|π⟩', function (A) { return A * A / Math.PI; }], ['r = √{A·π}', function (A) { return Math.sqrt(A * Math.PI); }]],
+      sol: function (A) { return Math.sqrt(A / Math.PI); }, e: 'Se divide entre π: r^{2} = ⟨A|π⟩, y se extrae la raíz cuadrada de todo el cociente.' },
+    { q: 'Despeja a en V = a^{3}', a: 'a = √[3]{V}', fwd: function (a) { return a * a * a; },
+      w: [['a = ⟨V|3⟩', function (V) { return V / 3; }], ['a = V^{3}', function (V) { return V * V * V; }], ['a = √{V}', function (V) { return Math.sqrt(V); }], ['a = V − 3', function (V) { return V - 3; }]],
+      sol: function (V) { return Math.cbrt(V); }, e: 'Para quitar el exponente 3 se hace la raíz cúbica a los dos lados.' },
+    { q: 'Despeja c (c > 0) en E = mc^{2}', a: 'c = √{⟨E|m⟩}', fwd: function (c) { return 2.5 * c * c; },
+      w: [['c = ⟨√{E}|m⟩', null], ['c = ⟨E|m^{2}⟩', null], ['c = √{E − m}', null], ['c = ⟨E|2m⟩', null], ['c = √{E·m}', null]],
+      sol: null, e: 'Se divide entre m: c^{2} = ⟨E|m⟩, y se hace la raíz cuadrada.' },
+    { q: 'En un triángulo rectángulo a^{2} + b^{2} = c^{2}. Despeja b (b > 0)', a: 'b = √{c^{2} − a^{2}}', fwd: null,
+      w: [['b = c − a', null], ['b = √{c^{2} + a^{2}}', null], ['b = √{c − a}', null], ['b = c^{2} − a^{2}', null], ['b = √{c^{2}} − √{a^{2}}', null]],
+      sol: null, e: 'Se pasa a^{2} restando: b^{2} = c^{2} − a^{2}, y se hace la raíz cuadrada de toda la resta.' },
+    { q: 'Despeja t (t > 0) en d = ⟨1|2⟩gt^{2}', a: 't = √{⟨2d|g⟩}', fwd: null,
+      w: [['t = √{⟨d|2g⟩}', null], ['t = ⟨2d|g⟩', null], ['t = √{2dg}', null], ['t = ⟨√{2d}|g⟩', null], ['t = ⟨d|2g⟩', null]],
+      sol: null, e: 'Se multiplica por 2 y se divide entre g: t^{2} = ⟨2d|g⟩, y se hace la raíz cuadrada.' }
+  ];
+  var f = pick(F), i;
+  /* comprobación numérica con valores concretos */
+  var chk;
+  if (f.q.indexOf('A = πr') >= 0) chk = [f.sol(f.fwd(2.5)), 2.5];
+  else if (f.q.indexOf('V = a') >= 0) chk = [f.sol(f.fwd(3)), 3];
+  else if (f.q.indexOf('mc') >= 0) { var c0 = 3, E0 = 2.5 * c0 * c0; chk = [Math.sqrt(E0 / 2.5), c0]; }
+  else if (f.q.indexOf('triángulo') >= 0) { var a0 = 3, b0 = 4, c1 = Math.sqrt(a0 * a0 + b0 * b0); chk = [Math.sqrt(c1 * c1 - a0 * a0), b0]; }
+  else { var g0 = 10, t0 = 2, d0 = 0.5 * g0 * t0 * t0; chk = [Math.sqrt(2 * d0 / g0), t0]; }
+  var ws = f.w.map(function (x) { return x[0]; });
+  var r = g9_mkx('des', f.q + ':', f.a, g9_pick3(ws.map(function (s) { return { s: s }; }), []).map(function (o) { return o.s; }), f.e);
+  r.q = f.q;
+  r.k = [[chk[0], chk[1]]];
+  return r;
+});
+
+/* 4. ecuaciones con x^2 o x^3 */
+genr('des', function () {
+  var v = ri(0, 2), a, b, N, c, q, ans, wr, ex, chk, lhs;
+  if (v === 0) {
+    a = ri(2, 5); N = ri(2, 6); b = nz(-9, 9); c = a * N * N + b;
+    q = 'Si ' + a + 'x^{2} ' + (b < 0 ? '− ' + (-b) : '+ ' + b) + ' = ' + mn(c) + ' y x > 0, entonces x =';
+    ans = N; wr = [N * N, g9_q(c - b, a), -N, g9_q(c - b, 1), g9_q(N * N + a, 1)];
+    ex = 'Se pasa ' + mn(b) + ' al otro lado: ' + a + 'x^{2} = ' + mn(c - b) + '. Se divide entre ' + a + ': x^{2} = ' + N * N + '. Como x > 0, x = ' + N + '.';
+    lhs = a * N * N + b;
+  } else if (v === 1) {
+    a = ri(2, 5); N = ri(2, 6); b = nz(-9, 9); c = a * N * N + b;
+    q = 'Si ' + a + 'x^{2} ' + (b < 0 ? '− ' + (-b) : '+ ' + b) + ' = ' + mn(c) + ' y x < 0, entonces x =';
+    ans = -N; wr = [N, -N * N, g9_q(-(c - b), a), N * N, g9_q(-c, a)];
+    ex = 'Se pasa ' + mn(b) + ' al otro lado: ' + a + 'x^{2} = ' + mn(c - b) + '. Se divide entre ' + a + ': x^{2} = ' + N * N + '. Como x < 0, x = −' + N + '.';
+    lhs = a * N * N + b;
+  } else {
+    a = ri(2, 4); N = nz(-3, 3); b = nz(-9, 9); c = a * Math.pow(N, 3) + b;
+    q = 'Si ' + a + 'x^{3} ' + (b < 0 ? '− ' + (-b) : '+ ' + b) + ' = ' + mn(c) + ', entonces x =';
+    ans = N; wr = [-N, Math.pow(N, 3), g9_q(c - b, a), g9_q(c - b, a * 3), g9_q(Math.pow(N, 3) * a, 1)];
+    ex = 'Se pasa ' + mn(b) + ' al otro lado: ' + a + 'x^{3} = ' + mn(c - b) + '. Se divide entre ' + a + ': x^{3} = ' + mn(Math.pow(N, 3)) + ', y la raíz cúbica es x = ' + mn(N) + '.';
+    lhs = a * Math.pow(N, 3) + b;
+  }
+  var r = g9_rq('des', q, ans, wr, ex, lhs);
+  r.k = [[lhs, c]];
+  return r;
+});
+
+var G9_END = GENS.length;
+/* gens10.js — Generadores: identidades notables, factorizar y fracciones algebraicas (insistiendo en factorizar) */
+var G10_START = GENS.length;
+var G10_XS = [-4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6];
+var G10_YS = [3, -2, 5, -1, 1, -3, 2, 4, -4, 0, 6];
+var G10_PTS = (function () {
+  var r = [], i;
+  for (i = 0; i < 11; i++) { r.push([G10_XS[i], G10_YS[i]]); r.push([G10_XS[i], G10_YS[(i + 4) % 11]]); }
+  return r;
+})();
+
+function g10_ev(c, x) { var r = 0, i; for (i = 0; i < c.length; i++) r = r * x + c[i]; return r; }
+function g10_trim(c) { var i = 0; while (i < c.length - 1 && c[i] === 0) i++; return c.slice(i); }
+function g10_mul(a, b) {
+  var r = [], i, j;
+  for (i = 0; i < a.length + b.length - 1; i++) r.push(0);
+  for (i = 0; i < a.length; i++) for (j = 0; j < b.length; j++) r[i + j] += a[i] * b[j];
+  return r;
+}
+function g10_pw(c, e) { var r = [1], i; for (i = 0; i < e; i++) r = g10_mul(r, c); return r; }
+function g10_padd(a, b, s) {
+  var n = Math.max(a.length, b.length), r = [], i;
+  for (i = 0; i < n; i++) {
+    var ia = i - (n - a.length), ib = i - (n - b.length);
+    r.push((ia >= 0 ? a[ia] : 0) + s * (ib >= 0 ? b[ib] : 0));
+  }
+  return g10_trim(r);
+}
+/* polinomio en x como objeto {s, f, c} */
+function g10_P(c) {
+  c = g10_trim(c);
+  var allz = c.every(function (k) { return k === 0; });
+  return { s: allz ? '0' : poly(c), c: c, f: function (x) { return g10_ev(c, x); } };
+}
+/* producto k · Π (ts[i][0])^(ts[i][1]) con factores lineales/polinómicos en x */
+function g10_prod(k, ts) {
+  var s = k === 1 ? '' : k === -1 ? '−' : mn(k), c = [k], i;
+  for (i = 0; i < ts.length; i++) {
+    var tc = ts[i][0], e = ts[i][1] || 1, st;
+    if (tc.length === 2 && tc[1] === 0) st = (tc[0] === 1 ? '' : tc[0]) + 'x' + (e > 1 ? '^{' + e + '}' : '');
+    else st = '(' + poly(tc) + ')' + (e > 1 ? '^{' + e + '}' : '');
+    s += st;
+    c = g10_mul(c, g10_pw(tc, e));
+  }
+  if (!ts.length) s = mn(k);
+  return {
+    s: s, c: g10_trim(c),
+    f: function (x) { var r = k, j; for (j = 0; j < ts.length; j++) r *= Math.pow(g10_ev(ts[j][0], x), ts[j][1] || 1); return r; }
+  };
+}
+var G10_X = [1, 0];
+function g10_xp(a) { return [1, a]; }
+/* fracción y operaciones entre objetos {s, f} */
+function g10_fr(N, D) { return { s: '⟨' + N.s + '|' + D.s + '⟩', f: function (x, y) { return N.f(x, y) / D.f(x, y); } }; }
+function g10_op(A, B, o) {
+  var sym = { '+': ' + ', '−': ' − ', '·': ' · ', '÷': ' ÷ ' }[o];
+  return {
+    s: A.s + sym + B.s,
+    f: function (x, y) {
+      var a = A.f(x, y), b = B.f(x, y);
+      return o === '+' ? a + b : o === '−' ? a - b : o === '·' ? a * b : a / b;
+    }
+  };
+}
+/* forma en dos variables: parts = [[coef, 'x^{2}', fn(x,y)], ...] */
+function g10_f2(cs) {
+  var parts = [['x^{2}', function (x, y) { return x * x; }], ['xy', function (x, y) { return x * y; }], ['y^{2}', function (x, y) { return y * y; }]];
+  var out = '', i;
+  for (i = 0; i < 3; i++) {
+    var k = cs[i];
+    if (k === 0) continue;
+    var ab = Math.abs(k), body = (ab === 1 ? '' : String(ab)) + parts[i][0];
+    if (out === '') out = (k < 0 ? '−' : '') + body; else out += ' ' + (k < 0 ? '−' : '+') + ' ' + body;
+  }
+  return { s: out, c: cs, f: function (x, y) { return cs[0] * x * x + cs[1] * x * y + cs[2] * y * y; } };
+}
+/* αx + βy */
+function g10_l2(a, b) {
+  var sa = a === 1 ? '' : a === -1 ? '−' : mn(a), sb = Math.abs(b) === 1 ? '' : String(Math.abs(b));
+  return { s: sa + 'x ' + (b < 0 ? '−' : '+') + ' ' + sb + 'y', a: a, b: b, f: function (x, y) { return a * x + b * y; } };
+}
+function g10_pr2(ls, es) {
+  var s = '', i;
+  for (i = 0; i < ls.length; i++) s += '(' + ls[i].s + ')' + ((es && es[i] > 1) ? '^{' + es[i] + '}' : '');
+  return { s: s, f: function (x, y) { var r = 1, j; for (j = 0; j < ls.length; j++) r *= Math.pow(ls[j].f(x, y), (es && es[j]) || 1); return r; } };
+}
+/* desarrollo (αx+βy)(γx+δy) → [xx, xy, yy] */
+function g10_m2(l1, l2) { return [l1.a * l2.a, l1.a * l2.b + l1.b * l2.a, l1.b * l2.b]; }
+function g10_raw(s, f) { return { s: s, f: f }; }
+
+/* distintos no nulos */
+function g10_dn(n, lo, hi) {
+  var r = [], g = 0;
+  while (r.length < n && g++ < 500) { var v = nz(lo, hi); if (r.indexOf(v) < 0) r.push(v); }
+  return r;
+}
+function g10_close(a, b) { return Math.abs(a - b) <= 1e-9 * (1 + Math.abs(a)); }
+function g10_cmp(O, W) {
+  var n = 0, same = true, i;
+  for (i = 0; i < G10_PTS.length; i++) {
+    var x = G10_PTS[i][0], y = G10_PTS[i][1], o = O.f(x, y);
+    if (typeof o !== 'number' || !isFinite(o)) continue;
+    n++;
+    var w = W.f(x, y);
+    if (typeof w !== 'number' || !isFinite(w) || !g10_close(o, w)) same = false;
+  }
+  return { n: n, same: same };
+}
+/* pregunta de equivalencia: la correcta DEBE ser equivalente a O y las incorrectas NO */
+function g10_q(t, q, O, A, Ws, e) {
+  var ca = g10_cmp(O, A);
+  if (ca.n < 6 || !ca.same) throw new Error('g10: respuesta no equivalente: ' + q + ' -> ' + A.s);
+  var seen = {}, w = [];
+  seen[A.s] = 1;
+  Ws.forEach(function (W) {
+    var s = typeof W === 'string' ? W : W.s;
+    if (seen[s]) return;
+    if (typeof W !== 'string' && g10_cmp(O, W).same) return;
+    seen[s] = 1; w.push(s);
+  });
+  return { t: t, q: q, a: A.s, w: w.slice(0, 3), e: e, _o: O.s };
+}
+/* pregunta sin comprobación por equivalencia (valores numéricos, textos) */
+function g10_qs(t, q, a, Ws, e) {
+  var seen = {}, w = [];
+  a = String(a); seen[a] = 1;
+  Ws.forEach(function (s) { s = String(s); if (!seen[s]) { seen[s] = 1; w.push(s); } });
+  return { t: t, q: q, a: a, w: w.slice(0, 3), e: e };
+}
+function g10_ab(k) { return Math.abs(k) === 1 ? '' : String(Math.abs(k)); }
+function g10_cx(k, v) { return (k < 0 ? '−' : '') + g10_ab(k) + v; }
+function g10_retry(t) { return { t: t, q: '', a: '', w: [], e: '' }; }
+function g10_pp(r) { r.p = 1; return r; }
+
+/* ================= IDN1: desarrollar identidades notables ================= */
+
+/* (ax ± b)^2 con coeficiente */
+genr('idn1', function () {
+  var a = ri(2, 5), b = ri(1, 7), s = Math.random() < 0.5 ? 1 : -1;
+  var O = g10_raw('(' + poly([a, s * b]) + ')^{2}', function (x) { return Math.pow(a * x + s * b, 2); });
+  var A = g10_P([a * a, 2 * s * a * b, b * b]);
+  return g10_q('idn1', 'Desarrolla: ' + O.s, O, A, [
+    g10_P([a * a, 0, b * b]),
+    g10_P([a * a, s * a * b, b * b]),
+    g10_P([a * a, 2 * s * a * b, -b * b]),
+    g10_P([a, 2 * s * a * b, b * b]),
+    g10_P([a * a, -2 * s * a * b, b * b])
+  ], 'Cuadrado del primero (' + a * a + 'x^{2}), doble producto (2·' + a + 'x·' + b + ' = ' + 2 * a * b + 'x, con signo ' + (s > 0 ? '+' : '−') + ') y cuadrado del segundo (+' + b * b + ').');
+});
+
+/* suma por diferencia con coeficientes */
+genr('idn1', function () {
+  var v = ri(0, 2), a = ri(2, 5), b = ri(2, 9), O, A, W, e;
+  if (v === 0) {
+    O = g10_raw('(' + poly([a, b]) + ')(' + poly([a, -b]) + ')', function (x) { return (a * x + b) * (a * x - b); });
+    A = g10_P([a * a, 0, -b * b]);
+    W = [g10_P([a * a, 0, b * b]), g10_P([a * a, -2 * a * b, -b * b]), g10_P([a, 0, -b * b]), g10_P([a * a, 0, -b])];
+    e = 'Suma por diferencia: (' + a + 'x)^{2} − ' + b + '^{2} = ' + a * a + 'x^{2} − ' + b * b + '.';
+  } else if (v === 1) {
+    O = g10_raw('(' + b + ' + ' + (a === 1 ? '' : a) + 'x)(' + b + ' − ' + a + 'x)', function (x) { return (b + a * x) * (b - a * x); });
+    A = g10_P([-a * a, 0, b * b]);
+    W = [g10_P([a * a, 0, -b * b]), g10_P([a * a, 0, b * b]), g10_P([-a * a, 0, -b * b]), g10_P([-a * a, 2 * a * b, b * b])];
+    e = 'Es suma por diferencia: ' + b + '^{2} − (' + a + 'x)^{2} = ' + b * b + ' − ' + a * a + 'x^{2}.';
+  } else {
+    O = g10_raw('(x^{2} + ' + a + ')(x^{2} − ' + a + ')', function (x) { return (x * x + a) * (x * x - a); });
+    A = g10_P([1, 0, 0, 0, -a * a]);
+    W = [g10_P([1, 0, 0, 0, a * a]), g10_P([1, 0, -a * a]), g10_P([1, 0, 0, 0, -a]), g10_P([1, 0, -a, 0, -a * a])];
+    e = 'Suma por diferencia: (x^{2})^{2} − ' + a + '^{2} = x^{4} − ' + a * a + '.';
+  }
+  return g10_q('idn1', 'Desarrolla: ' + O.s, O, A, W, e);
+});
+
+/* desarrollar y reducir */
+genr('idn1', function () {
+  var v = ri(0, 3), a = ri(2, 6), b = ri(2, 6), O, A, W, e;
+  if (v === 0) {
+    while (b === a) b = ri(2, 6);
+    O = g10_raw('(x + ' + a + ')^{2} − (x − ' + b + ')^{2}', function (x) { return Math.pow(x + a, 2) - Math.pow(x - b, 2); });
+    A = g10_P([2 * a + 2 * b, a * a - b * b]);
+    W = [g10_P([2, 2 * a - 2 * b, a * a + b * b]), g10_P([2 * a - 2 * b, a * a + b * b]), g10_P([2 * a + 2 * b, a * a + b * b]), g10_P([2, 2 * a + 2 * b, a * a - b * b])];
+    e = 'Se desarrolla cada cuadrado y se cambia el signo de todo el segundo: las x^{2} se cancelan y queda ' + A.s + '.';
+  } else if (v === 1) {
+    O = g10_raw('(x + ' + a + ')^{2} − (x + ' + a + ')(x − ' + a + ')', function (x) { return Math.pow(x + a, 2) - (x + a) * (x - a); });
+    A = g10_P([2 * a, 2 * a * a]);
+    W = [g10_P([2 * a, 0]), g10_P([2 * a, 0 + a * a - a * a - 2 * a * a]), g10_P([2 * a, a * a]), g10_P([2, 2 * a, 2 * a * a])];
+    e = '(x + ' + a + ')^{2} = x^{2} + ' + 2 * a + 'x + ' + a * a + ' y (x + ' + a + ')(x − ' + a + ') = x^{2} − ' + a * a + '; al restar, ' + A.s + '.';
+  } else if (v === 2) {
+    O = g10_raw('(x + ' + a + ')^{2} + (x − ' + a + ')^{2}', function (x) { return Math.pow(x + a, 2) + Math.pow(x - a, 2); });
+    A = g10_P([2, 0, 2 * a * a]);
+    W = [g10_P([2, 0, 0]), g10_P([2, 0, a * a]), g10_P([2, 4 * a, 2 * a * a]), g10_P([1, 0, 2 * a * a])];
+    e = 'Los dobles productos +' + 2 * a + 'x y −' + 2 * a + 'x se cancelan: queda 2x^{2} + ' + 2 * a * a + '.';
+  } else {
+    while (b === a) b = ri(2, 6);
+    O = g10_raw('(x + ' + a + ')(x + ' + b + ') − x(x + ' + (a + b) + ')', function (x) { return (x + a) * (x + b) - x * (x + a + b); });
+    A = g10_P([a * b]);
+    W = [g10_P([a + b]), g10_P([a * b, 0]), g10_P([-a * b]), g10_P([a * b, a + b])];
+    e = 'Se obtiene x^{2} + ' + (a + b) + 'x + ' + a * b + ' − x^{2} − ' + (a + b) + 'x = ' + a * b + '.';
+  }
+  return g10_q('idn1', 'Desarrolla y reduce: ' + O.s, O, A, W, e);
+});
+
+/* identidades con dos variables */
+genr('idn1', function () {
+  var a = ri(1, 4), b = ri(1, 4), s = Math.random() < 0.5 ? 1 : -1, v = ri(0, 1), O, A, W, e;
+  var L = g10_l2(a, s * b);
+  if (v === 0) {
+    O = g10_pr2([L], [2]);
+    A = g10_f2([a * a, 2 * s * a * b, b * b]);
+    W = [g10_f2([a * a, 0, b * b]), g10_f2([a * a, s * a * b, b * b]), g10_f2([a * a, -2 * s * a * b, b * b]), g10_f2([a * a, 2 * s * a * b, -b * b])];
+    e = 'Cuadrado del primero, doble producto 2·' + (a === 1 ? '' : a) + 'x·' + (b === 1 ? '' : b) + 'y y cuadrado del segundo.';
+  } else {
+    O = g10_pr2([g10_l2(a, b), g10_l2(a, -b)]);
+    A = g10_f2([a * a, 0, -b * b]);
+    W = [g10_f2([a * a, 0, b * b]), g10_f2([a * a, -2 * a * b, -b * b]), g10_f2([a, 0, -b]), g10_f2([a * a, 2 * a * b, -b * b])];
+    e = 'Suma por diferencia: (' + (a === 1 ? '' : a) + 'x)^{2} − (' + (b === 1 ? '' : b) + 'y)^{2}.';
+  }
+  return g10_q('idn1', 'Desarrolla: ' + O.s, O, A, W, e);
+});
+
+/* cálculo mental con identidades */
+genr('idn1', function () {
+  var base = pick([20, 30, 40, 50, 60, 70, 80, 90, 100]), d = ri(1, 3), s = Math.random() < 0.5 ? 1 : -1, n = base + s * d, b2 = base * base;
+  if (Math.random() < 0.6) {
+    var res = n * n;
+    return g10_qs('idn1', 'Calcula con una identidad notable: ' + n + '^{2} =', res,
+      [b2 + d * d, b2 + s * 2 * base * d, (base - s * d) * (base - s * d), 2 * n, b2 - d * d],
+      n + ' = ' + base + (s > 0 ? ' + ' : ' − ') + d + ' y (' + base + (s > 0 ? ' + ' : ' − ') + d + ')^{2} = ' + b2 + (s > 0 ? ' + ' : ' − ') + 2 * base * d + ' + ' + d * d + ' = ' + res + '.');
+  }
+  var m = base - d, p = base + d, res2 = p * m;
+  return g10_qs('idn1', 'Calcula con una identidad notable: ' + p + ' · ' + m + ' =', res2,
+    [b2 + d * d, b2, (base - d) * (base - d), b2 - 2 * d, b2 - 2 * base * d],
+    'Suma por diferencia: ' + base + '^{2} − ' + d + '^{2} = ' + b2 + ' − ' + d * d + ' = ' + res2 + '.');
+});
+
+/* cubos de binomios */
+genr('idn1', function () {
+  var a = ri(1, 3), s = Math.random() < 0.5 ? 1 : -1;
+  var O = g10_raw('(x ' + (s > 0 ? '+' : '−') + ' ' + a + ')^{3}', function (x) { return Math.pow(x + s * a, 3); });
+  var A = g10_P([1, 3 * s * a, 3 * a * a, s * a * a * a]);
+  return g10_q('idn1', 'Desarrolla: ' + O.s, O, A, [
+    g10_P([1, 0, 0, s * a * a * a]),
+    g10_P([1, 3 * s * a, 3 * a, s * a * a * a]),
+    g10_P([1, 3 * s * a, 3 * a * a, -s * a * a * a]),
+    g10_P([1, 2 * s * a, 2 * a * a, s * a * a * a])
+  ], '(x ' + (s > 0 ? '+' : '−') + ' ' + a + ')^{3} = x^{3} ' + (s > 0 ? '+' : '−') + ' 3·' + a + '·x^{2} + 3·' + a * a + '·x ' + (s > 0 ? '+' : '−') + ' ' + a * a * a + '.');
+});
+
+/* ================= IDN2: factorizar con identidades ================= */
+
+/* diferencia de cuadrados con coeficientes y dos variables */
+genr('idn2', function () {
+  var a = ri(1, 5), b = ri(1, 6), O, A, W, e;
+  if (Math.random() < 0.6) {
+    O = g10_f2([a * a, 0, -b * b]);
+    A = g10_pr2([g10_l2(a, b), g10_l2(a, -b)]);
+    W = [g10_pr2([g10_l2(a, -b)], [2]), g10_pr2([g10_l2(a * a, b * b), g10_l2(a * a, -b * b)]), g10_pr2([g10_l2(a, b)], [2]), g10_pr2([g10_l2(a, b * b), g10_l2(a, -b * b)])];
+    e = 'Diferencia de cuadrados: ' + g10_ab(a * a) + 'x^{2} = (' + g10_ab(a) + 'x)^{2} y ' + g10_ab(b * b) + 'y^{2} = (' + g10_ab(b) + 'y)^{2}.';
+    return g10_q('idn2', 'Factoriza: ' + O.s, O, A, W, e);
+  }
+  b = ri(2, 9); a = ri(2, 5);
+  O = g10_raw(b * b + ' − ' + a * a + 'x^{2}', function (x) { return b * b - a * a * x * x; });
+  A = g10_raw('(' + b + ' + ' + a + 'x)(' + b + ' − ' + a + 'x)', function (x) { return (b + a * x) * (b - a * x); });
+  W = [g10_raw('(' + a + 'x − ' + b + ')^{2}', function (x) { return Math.pow(a * x - b, 2); }),
+    g10_raw('(' + b + ' − ' + a + 'x)^{2}', function (x) { return Math.pow(b - a * x, 2); }),
+    g10_raw('(' + a + 'x + ' + b + ')(' + a + 'x − ' + b + ')', function (x) { return (a * x + b) * (a * x - b); }),
+    g10_raw('(' + b * b + ' + ' + a * a + 'x^{2})(1 − 1)', function (x) { return 0; })];
+  W.pop();
+  W.push(g10_raw('(' + b + ' + ' + a * a + 'x)(' + b + ' − ' + a * a + 'x)', function (x) { return (b + a * a * x) * (b - a * a * x); }));
+  return g10_q('idn2', 'Factoriza: ' + O.s, O, A, W, 'Diferencia de cuadrados: ' + b * b + ' = ' + b + '^{2} y ' + a * a + 'x^{2} = (' + a + 'x)^{2}.');
+});
+
+/* trinomio cuadrado perfecto con coeficiente */
+genr('idn2', function () {
+  var a = ri(2, 5), b = ri(1, 7), s = Math.random() < 0.5 ? 1 : -1;
+  if (gcd(a, b) !== 1) b = 1;
+  var O = g10_P([a * a, 2 * s * a * b, b * b]);
+  var A = g10_prod(1, [[[a, s * b], 2]]);
+  var W = [
+    g10_prod(1, [[[a, -s * b], 2]]),
+    g10_prod(1, [[[a * a, s * b * b], 2]]),
+    g10_prod(1, [[[a, s * 2 * b], 2]]),
+    g10_prod(1, [[[a, s * b], 1], [[a, -s * b], 1]])
+  ];
+  return g10_q('idn2', 'Factoriza: ' + O.s, O, A, W,
+    a * a + 'x^{2} = (' + a + 'x)^{2}, ' + b * b + ' = ' + b + '^{2} y el término central es 2·' + a + 'x·' + b + ' = ' + 2 * a * b + 'x: es (' + poly([a, s * b]) + ')^{2}.');
+});
+
+/* trinomio cuadrado perfecto con dos variables */
+genr('idn2', function () {
+  var a = ri(1, 3), b = ri(1, 4), s = Math.random() < 0.5 ? 1 : -1;
+  if (gcd(a, b) !== 1) b = 1;
+  var O = g10_f2([a * a, 2 * s * a * b, b * b]);
+  var L = g10_l2(a, s * b);
+  var A = g10_pr2([L], [2]);
+  var W = [g10_pr2([g10_l2(a, -s * b)], [2]), g10_pr2([g10_l2(a * a, s * b * b)], [2]), g10_pr2([g10_l2(a, s * b), g10_l2(a, -s * b)]), g10_pr2([g10_l2(a, s * 2 * b)], [2])];
+  return g10_q('idn2', 'Factoriza: ' + O.s, O, A, W,
+    'Primer término (' + (a === 1 ? '' : a) + 'x)^{2}, último (' + (b === 1 ? '' : b) + 'y)^{2} y término central 2·' + (a === 1 ? '' : a) + 'x·' + (b === 1 ? '' : b) + 'y: es un cuadrado perfecto.');
+});
+
+/* suma y diferencia de cubos */
+genr('idn2', function () {
+  var p = ri(1, 2), q = ri(1, 4), s = Math.random() < 0.5 ? 1 : -1;
+  if (gcd(p, q) !== 1) q = 1;
+  var O = g10_P([p * p * p, 0, 0, s * q * q * q]);
+  var A = g10_prod(1, [[[p, s * q], 1], [[p * p, -s * p * q, q * q], 1]]);
+  var W = [
+    g10_prod(1, [[[p, s * q], 3]]),
+    g10_prod(1, [[[p, s * q], 1], [[p * p, s * p * q, q * q], 1]]),
+    g10_prod(1, [[[p, s * q], 1], [[p * p, 0, q * q], 1]]),
+    g10_prod(1, [[[p, s * q], 1], [[p * p, -s * p * q, -q * q], 1]])
+  ];
+  return g10_q('idn2', 'Factoriza: ' + O.s, O, A, W,
+    (s > 0 ? 'Suma' : 'Diferencia') + ' de cubos: a^{3} ' + (s > 0 ? '+' : '−') + ' b^{3} = (a ' + (s > 0 ? '+' : '−') + ' b)(a^{2} ' + (s > 0 ? '−' : '+') + ' ab + b^{2}) con a = ' + (p === 1 ? 'x' : p + 'x') + ' y b = ' + q + '.');
+});
+
+/* qué número falta para un cuadrado perfecto */
+genr('idn2', function () {
+  var k = ri(1, 9), v = ri(0, 2), s = Math.random() < 0.5 ? 1 : -1;
+  if (v === 0) {
+    var b = 2 * k;
+    return g10_qs('idn2', 'Para que x^{2} ' + (s > 0 ? '+' : '−') + ' ' + b + 'x + □ sea un cuadrado perfecto, □ debe ser', k * k,
+      [2 * k, b * b, k, k * k + 1, 2 * b],
+      'Es (x ' + (s > 0 ? '+' : '−') + ' ' + k + ')^{2}: el término independiente es (' + b + ' : 2)^{2} = ' + k * k + '.');
+  }
+  if (v === 1) {
+    var a = ri(2, 5), c = a * k;
+    return g10_qs('idn2', 'Para que ' + a * a + 'x^{2} ' + (s > 0 ? '+' : '−') + ' ' + 2 * c + 'x + □ sea un cuadrado perfecto, □ debe ser', k * k,
+      [c * c, 2 * k, c, k * k + a, a * k * k],
+      'Es (' + a + 'x ' + (s > 0 ? '+' : '−') + ' ' + k + ')^{2}, porque 2·' + a + '·' + k + ' = ' + 2 * c + '; el último término es ' + k + '^{2} = ' + k * k + '.');
+  }
+  var m = ri(2, 9);
+  var tgt = m * m;
+  var ok = 2 * m;
+  return g10_qs('idn2', 'Si x^{2} + bx + ' + tgt + ' es un cuadrado perfecto con b > 0, entonces b =', ok,
+    [m, tgt, tgt + 1, 2 * tgt],
+    tgt + ' = ' + m + '^{2}, así que es (x + ' + m + ')^{2} y b = 2·' + m + ' = ' + ok + '.');
+});
+
+/* cálculo numérico usando factorización */
+genr('idn2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var m = ri(21, 79), d = ri(1, 10) * 2, n = m + d;
+    var res = n * n - m * m;
+    return g10_qs('idn2', 'Calcula con una identidad: ' + n + '^{2} − ' + m + '^{2} =', res,
+      [(n - m) * (n - m), n * n + m * m, n * m, (n + m) + (n - m)],
+      'Diferencia de cuadrados: (' + n + ' + ' + m + ')(' + n + ' − ' + m + ') = ' + (n + m) + ' · ' + (n - m) + ' = ' + res + '.');
+  }
+  if (v === 1) {
+    var b = ri(2, 9), t = ri(1, 9) * 10 + b;
+    var r1 = (t - b) * (t - b);
+    return g10_qs('idn2', 'Calcula x^{2} − ' + 2 * b + 'x + ' + b * b + ' para x = ' + t + '.', r1,
+      [t * t - b * b, t * t, (t + b) * (t + b), (t - b) * (t - b) + b * b],
+      'x^{2} − ' + 2 * b + 'x + ' + b * b + ' = (x − ' + b + ')^{2} = ' + (t - b) + '^{2} = ' + r1 + '.');
+  }
+  var c = ri(2, 9), x0 = ri(1, 9) * 10 + c;
+  var r2 = (x0 + c) * (x0 - c);
+  return g10_qs('idn2', 'Calcula x^{2} − ' + c * c + ' para x = ' + x0 + '.', r2,
+    [x0 * x0 + c * c, (x0 - c) * (x0 - c), x0 * x0 - c, x0 * x0 - 2 * c * x0],
+    'x^{2} − ' + c * c + ' = (x + ' + c + ')(x − ' + c + ') = ' + (x0 + c) + ' · ' + (x0 - c) + ' = ' + r2 + '.');
+});
+
+/* ================= FAC: factor común, agrupar, trinomios ================= */
+function g10_xs(e) { return e === 1 ? 'x' : 'x^{' + e + '}'; }
+function g10_c(k) { return k === 1 ? '' : String(k); }
+function g10_sg(s) { return s > 0 ? '+' : '−'; }
+
+/* 1. factor común numérico y literal en un binomio */
+genr('fac', function () {
+  var g = ri(2, 6), p = ri(1, 4), q = ri(1, 4), s = Math.random() < 0.5 ? 1 : -1, e = ri(1, 2);
+  if (gcd(p, q) !== 1) { p = 2; q = 3; }
+  var cs = e === 1 ? [g * p, s * g * q, 0] : [g * p, s * g * q, 0, 0];
+  var O = g10_P(cs), xe = [G10_X, e];
+  var A = g10_prod(g, [xe, [[p, s * q], 1]]);
+  var W = [
+    g10_prod(1, [xe, [[g * p, s * g * q], 1]]),
+    g10_prod(g, [[[p, s * q], 1]]),
+    g10_prod(g, [xe, [[p, -s * q], 1]]),
+    g10_prod(g, [[G10_X, 1], [[p, s * q], 1]]),
+    g10_prod(g, [xe, [[p, s], 1]])
+  ];
+  return g10_q('fac', 'Factoriza (saca el factor común mayor): ' + O.s, O, A, W,
+    'El factor común es ' + g + g10_xs(e) + ': ' + O.s + ' = ' + A.s + '.');
+});
+
+/* 2. PROBLEMA: factor común y luego trinomio */
+genr('fac', function () {
+  var k = ri(2, 4), rs = g10_dn(2, -6, 6), r = rs[0], t = rs[1], v = ri(0, 1);
+  var fl = v === 0 ? [[G10_X, 1], [g10_xp(-r), 1], [g10_xp(-t), 1]] : [[g10_xp(-r), 1], [g10_xp(-t), 1]];
+  var A = g10_prod(k, fl), O = g10_P(A.c);
+  var W = [
+    g10_prod(k, v === 0 ? [[G10_X, 1], [g10_xp(r), 1], [g10_xp(t), 1]] : [[g10_xp(r), 1], [g10_xp(t), 1]]),
+    g10_prod(1, fl),
+    g10_prod(k, v === 0 ? [[g10_xp(-r), 1], [g10_xp(-t), 1]] : [[g10_xp(-r), 2]]),
+    g10_prod(k, v === 0 ? [[G10_X, 1], [g10_xp(-r), 1], [g10_xp(t), 1]] : [[g10_xp(r), 1], [g10_xp(-t), 1]]),
+    g10_prod(k, (v === 0 ? [[G10_X, 1]] : []).concat([[g10_xp(-r), 1], [g10_xp(r + t), 1]]))
+  ];
+  return g10_pp(g10_q('fac', 'Factoriza completamente: ' + O.s, O, A, W,
+    'Primero el factor común ' + (v === 0 ? k + 'x' : k) + '; dentro queda x^{2} ' + (r + t > 0 ? '−' : '+') + ' ' + g10_ab(r + t) + 'x ' + (r * t > 0 ? '+' : '−') + ' ' + Math.abs(r * t) + ', que suma ' + mn(-(r + t)) + ' y multiplica ' + mn(r * t) + ': (x ' + g10_sg(-r) + ' ' + Math.abs(r) + ')(x ' + g10_sg(-t) + ' ' + Math.abs(t) + ').'));
+});
+
+/* 3. PROBLEMA: factor común y diferencia de cuadrados */
+genr('fac', function () {
+  var k = ri(1, 5), a = ri(1, 6), e = ri(0, 1) + 1, v = ri(0, 1);
+  if (k === 1 && e === 1) k = 2;
+  var X = G10_X;
+  var fl;
+  if (e === 2) fl = [[X, 1], [g10_xp(a), 1], [g10_xp(-a), 1]];
+  else fl = [[g10_xp(a), 1], [g10_xp(-a), 1]];
+  var A = g10_prod(k, fl), O = g10_P(A.c);
+  var W = [
+    g10_prod(k, (e === 2 ? [[X, 1]] : []).concat([[g10_xp(-a), 2]])),
+    g10_prod(1, fl),
+    g10_prod(1, (e === 2 ? [[X, 1]] : []).concat([[[k, k * a], 1], [[k, -k * a], 1]])),
+    g10_prod(k, (e === 2 ? [[X, 1]] : []).concat([[g10_xp(a * a), 1], [g10_xp(-a * a), 1]])),
+    g10_prod(k, (e === 2 ? [] : []).concat([[g10_xp(a), 1], [g10_xp(-a), 1]]))
+  ];
+  if (e === 2 && k === 1) W.push(g10_prod(1, [[X, 1], [[1, 0, -a], 1]]));
+  return g10_pp(g10_q('fac', 'Factoriza completamente: ' + O.s, O, A, W,
+    'Se saca factor común ' + (e === 2 ? g10_c(k) + 'x' : String(k)) + ' y queda ' + 'x^{2} − ' + a * a + ', que es diferencia de cuadrados: (x + ' + a + ')(x − ' + a + ').'));
+});
+
+/* 4. trinomio con coeficiente principal distinto de 1 */
+genr('fac', function () {
+  var p, r, q, t, c, ok = false, g = 0;
+  while (!ok && g++ < 200) {
+    p = ri(1, 3); r = ri(1, 3); q = nz(-5, 5); t = nz(-5, 5);
+    c = [p * r, p * t + q * r, q * t];
+    ok = (p > 1 || r > 1) && c[1] !== 0 && p * t !== q * r && gcd(gcd(c[0], c[1]), Math.abs(c[2])) === 1 && !(p === r && q === -t) && (p >= r);
+  }
+  var O = g10_P(c), A = g10_prod(1, [[[p, q], 1], [[r, t], 1]]);
+  var W = [
+    g10_prod(1, [[[p, t], 1], [[r, q], 1]]),
+    g10_prod(1, [[[p, -q], 1], [[r, -t], 1]]),
+    g10_prod(1, [[[p, q], 1], [[r, -t], 1]]),
+    g10_prod(1, [[g10_xp(q), 1], [g10_xp(t), 1]]),
+    g10_prod(1, [[[p, -t], 1], [[r, -q], 1]])
+  ];
+  return g10_q('fac', 'Factoriza: ' + O.s, O, A, W,
+    'Se parte ' + g10_cx(c[1], 'x') + ' en ' + g10_cx(p * t, 'x') + ' y ' + g10_cx(q * r, 'x') + ' (suman ' + mn(c[1]) + ' y multiplican ' + mn(c[0] * c[2]) + ') y se agrupa: ' + A.s + '.');
+});
+
+/* 5. factor común y trinomio cuadrado perfecto */
+genr('fac', function () {
+  var k = ri(2, 5), a = ri(1, 3), b = ri(1, 6), s = Math.random() < 0.5 ? 1 : -1;
+  if (a > 1 && gcd(a, b) !== 1) b = 1;
+  var A = g10_prod(k, [[[a, s * b], 2]]), O = g10_P(A.c);
+  var W = [
+    g10_prod(k, [[[a, -s * b], 2]]),
+    g10_prod(1, [[[k * a, s * k * b], 2]]),
+    g10_prod(k, [[[a, s * 2 * b], 2]]),
+    g10_prod(k, [[[a, s * b], 1], [[a, -s * b], 1]]),
+    g10_prod(k, [[[a * a, s * b * b], 2]])
+  ];
+  return g10_q('fac', 'Factoriza: ' + O.s, O, A, W,
+    'Factor común ' + k + ' y dentro queda ' + poly([a * a, 2 * s * a * b, b * b]) + ' = (' + poly([a, s * b]) + ')^{2}, un cuadrado perfecto.');
+});
+
+/* 6. factorizar por agrupación */
+genr('fac', function () {
+  if (Math.random() < 0.6) {
+    var a = nz(-5, 5), b = ri(1, 6);
+    var O = g10_P([1, a, b, a * b]);
+    var A = g10_prod(1, [[g10_xp(a), 1], [[1, 0, b], 1]]);
+    var W = [
+      g10_prod(1, [[g10_xp(-a), 1], [[1, 0, b], 1]]),
+      g10_prod(1, [[g10_xp(a), 1], [[1, 0, -b], 1]]),
+      g10_prod(1, [[[1, 0, a], 1], [g10_xp(b), 1]]),
+      g10_prod(1, [[g10_xp(a), 1], [g10_xp(b), 1]])
+    ];
+    return g10_q('fac', 'Factoriza por agrupación: ' + O.s, O, A, W,
+      'x^{3} ' + g10_sg(a) + ' ' + g10_ab(a) + 'x^{2} = x^{2}(x ' + g10_sg(a) + ' ' + Math.abs(a) + ') y ' + b + 'x ' + g10_sg(a) + ' ' + Math.abs(a * b) + ' = ' + b + '(x ' + g10_sg(a) + ' ' + Math.abs(a) + '): sale (x ' + g10_sg(a) + ' ' + Math.abs(a) + ')(x^{2} + ' + b + ').');
+  }
+  var m = ri(2, 6) * (Math.random() < 0.5 ? 1 : -1), n = ri(2, 6) * (Math.random() < 0.5 ? 1 : -1);
+  var term = function (k, v) { return (k < 0 ? ' − ' : ' + ') + Math.abs(k) + v; };
+  var O2 = g10_raw('xy' + term(m, 'x') + term(n, 'y') + term(m * n, ''), function (x, y) { return x * y + m * x + n * y + m * n; });
+  var A2 = g10_raw('(x ' + g10_sg(n) + ' ' + Math.abs(n) + ')(y ' + g10_sg(m) + ' ' + Math.abs(m) + ')', function (x, y) { return (x + n) * (y + m); });
+  var W2 = [
+    g10_raw('(x ' + g10_sg(m) + ' ' + Math.abs(m) + ')(y ' + g10_sg(n) + ' ' + Math.abs(n) + ')', function (x, y) { return (x + m) * (y + n); }),
+    g10_raw('(x ' + g10_sg(-n) + ' ' + Math.abs(n) + ')(y ' + g10_sg(-m) + ' ' + Math.abs(m) + ')', function (x, y) { return (x - n) * (y - m); }),
+    g10_raw('(x ' + g10_sg(n) + ' ' + Math.abs(n) + ')(y ' + g10_sg(-m) + ' ' + Math.abs(m) + ')', function (x, y) { return (x + n) * (y - m); }),
+    g10_raw('xy(' + 'x' + g10_sg(m) + Math.abs(m) + ')', function (x, y) { return x * y * (x + m); })
+  ];
+  W2.pop();
+  W2.push(g10_raw('(x ' + g10_sg(n) + ' ' + Math.abs(n) + ')(y ' + g10_sg(m * n > 0 ? 1 : -1) + ' ' + Math.abs(m * n) + ')', function (x, y) { return (x + n) * (y + (m * n > 0 ? 1 : -1) * Math.abs(m * n)); }));
+  return g10_q('fac', 'Factoriza por agrupación: ' + O2.s, O2, A2, W2,
+    'xy ' + g10_sg(n) + ' ' + Math.abs(n) + 'y = y(x ' + g10_sg(n) + ' ' + Math.abs(n) + ') y ' + Math.abs(m) + 'x ' + g10_sg(m * n) + ' ' + Math.abs(m * n) + ' = ' + (m < 0 ? '−' : '') + Math.abs(m) + '(x ' + g10_sg(n) + ' ' + Math.abs(n) + '): queda (x ' + g10_sg(n) + ' ' + Math.abs(n) + ')(y ' + g10_sg(m) + ' ' + Math.abs(m) + ').');
+});
+
+/* 7. factor común un binomio */
+genr('fac', function () {
+  var a = nz(-5, 5), p = ri(1, 4), q = nz(-5, 5), v = ri(0, 1);
+  var bn = '(' + poly([1, -a]) + ')';
+  var e1 = v === 0 ? g10_c(p) + 'x' + bn : g10_c(p) + 'x' + bn;
+  var qs = (q < 0 ? ' − ' : ' + ') + (Math.abs(q) === 1 ? '' : Math.abs(q)) + bn;
+  var O = g10_raw(e1 + qs, function (x) { return p * x * (x - a) + q * (x - a); });
+  var A = g10_prod(1, [[g10_xp(-a), 1], [[p, q], 1]]);
+  var W = [
+    g10_prod(1, [[g10_xp(-a), 1], [[p, -q], 1]]),
+    g10_prod(1, [[g10_xp(a), 1], [[p, q], 1]]),
+    g10_prod(1, [[[p, q], 1]]),
+    g10_prod(1, [[g10_xp(-a), 1], [[p, q * a], 1]]),
+    g10_prod(1, [[g10_xp(-a), 2], [[p, q], 1]])
+  ];
+  return g10_q('fac', 'Saca factor común el binomio: ' + O.s, O, A, W,
+    'El binomio ' + bn + ' está en los dos sumandos: queda ' + bn + '(' + poly([p, q]) + ').');
+});
+
+/* 8. ¿cuál es un factor? */
+function g10_isfac(c, p, q) { return Math.abs(g10_ev(c, -q / p)) < 1e-9; }
+genr('fac', function () {
+  var p, r, q, t, c, g = 0, ok = false;
+  while (!ok && g++ < 200) {
+    p = ri(1, 2); r = ri(1, 2); q = nz(-6, 6); t = nz(-6, 6);
+    c = [p * r, p * t + q * r, q * t];
+    ok = c[1] !== 0 && gcd(gcd(c[0], c[1]), Math.abs(c[2])) === 1 && !(p === r && q === t) && !(p === r && q === -t);
+  }
+  var cands = [[p, -q], [r, -t], [1, q], [1, t], [1, -q * t], [p, q + 1], [p * r, q], [1, c[1]], [r, t + 1], [p, t], [r, q]];
+  var A = g10_P([p, q]), ws = [];
+  cands.forEach(function (f) {
+    var s = poly([f[0], f[1]]);
+    if (!g10_isfac(c, f[0], f[1]) && s !== A.s && ws.indexOf(s) < 0) ws.push(s);
+  });
+  if (!g10_isfac(c, p, q)) throw new Error('g10 fac8: no es factor');
+  return g10_qs('fac', '¿Cuál de estos es un factor de ' + poly(c) + '?', A.s, ws,
+    poly(c) + ' = (' + poly([p, q]) + ')(' + poly([r, t]) + '), así que ' + poly([p, q]) + ' es uno de sus factores.');
+});
+
+/* 9. ¿qué igualdad es correcta? (barbaridades clásicas) */
+genr('fac', function () {
+  var a = ri(2, 6), b = ri(2, 5);
+  while (b === a) b = ri(2, 5);
+  var P2 = function (s) { return 'x^{2}' + (s ? ' + ' : ' − ') + 2 * a + 'x + ' + a * a; };
+  var mk2 = function (ls, lf, rs, rf, ok, ex) { return { l: g10_raw(ls, lf), r: g10_raw(rs, rf), ok: ok, ex: ex }; };
+  var T = [
+    mk2('x^{2} − ' + a * a, function (x) { return x * x - a * a; }, '(x + ' + a + ')(x − ' + a + ')', function (x) { return (x + a) * (x - a); }, 1, 'x^{2} − ' + a * a + ' es una diferencia de cuadrados.'),
+    mk2('x^{2} + ' + 2 * a + 'x + ' + a * a, function (x) { return x * x + 2 * a * x + a * a; }, '(x + ' + a + ')^{2}', function (x) { return Math.pow(x + a, 2); }, 1, 'Es el cuadrado de (x + ' + a + '): ' + a + '^{2} = ' + a * a + ' y 2·' + a + ' = ' + 2 * a + '.'),
+    mk2('x^{2} − ' + 2 * a + 'x + ' + a * a, function (x) { return x * x - 2 * a * x + a * a; }, '(x − ' + a + ')^{2}', function (x) { return Math.pow(x - a, 2); }, 1, 'Es el cuadrado de (x − ' + a + ').'),
+    mk2(a + 'x + ' + a + 'y', function (x, y) { return a * x + a * y; }, a + '(x + y)', function (x, y) { return a * (x + y); }, 1, 'Se saca factor común ' + a + '.'),
+    mk2('x^{2} + ' + (a + b) + 'x + ' + a * b, function (x) { return x * x + (a + b) * x + a * b; }, '(x + ' + a + ')(x + ' + b + ')', function (x) { return (x + a) * (x + b); }, 1, a + ' y ' + b + ' suman ' + (a + b) + ' y multiplican ' + a * b + '.')
+  ];
+  var F = [
+    mk2('x^{2} + ' + a * a, function (x) { return x * x + a * a; }, '(x + ' + a + ')^{2}', function (x) { return Math.pow(x + a, 2); }, 0),
+    mk2('x^{2} − ' + a * a, function (x) { return x * x - a * a; }, '(x − ' + a + ')^{2}', function (x) { return Math.pow(x - a, 2); }, 0),
+    mk2('x^{2} + ' + a * a, function (x) { return x * x + a * a; }, '(x + ' + a + ')(x − ' + a + ')', function (x) { return (x + a) * (x - a); }, 0),
+    mk2('x^{2} − ' + 2 * a + 'x + ' + a * a, function (x) { return x * x - 2 * a * x + a * a; }, '(x + ' + a + ')^{2}', function (x) { return Math.pow(x + a, 2); }, 0),
+    mk2(a + 'x + ' + a + 'y', function (x, y) { return a * x + a * y; }, a + 'xy', function (x, y) { return a * x * y; }, 0),
+    mk2('x^{2} + ' + (a + b) + 'x + ' + a * b, function (x) { return x * x + (a + b) * x + a * b; }, '(x + ' + (a + b) + ')(x + ' + a * b + ')', function (x) { return (x + a + b) * (x + a * b); }, 0),
+    mk2('x^{2} − ' + a * a, function (x) { return x * x - a * a; }, '(x − ' + a + ')(x − ' + a + ')', function (x) { return Math.pow(x - a, 2); }, 0)
+  ];
+  var t = pick(T), fs = shuffle(F.slice()).slice(0, 4);
+  var st = function (o) { return o.l.s + ' = ' + o.r.s; };
+  var okEq = function (o) { return g10_cmp(o.l, o.r).same; };
+  if (!okEq(t)) throw new Error('g10 fac9: verdadera falsa');
+  var ws = [];
+  fs.forEach(function (o) { if (!okEq(o)) ws.push(st(o)); });
+  return g10_qs('fac', '¿Cuál de estas igualdades es correcta?', st(t), ws, t.ex);
+});
+
+/* 10. PROBLEMA: factorización completa en varios pasos (x^4) */
+genr('fac', function () {
+  var O, A, W, e;
+  if (Math.random() < 0.5) {
+    var a = ri(1, 3);
+    var a2 = a * a;
+    O = g10_P([1, 0, 0, 0, -a2 * a2]);
+    A = g10_prod(1, [[[1, 0, a2], 1], [g10_xp(a), 1], [g10_xp(-a), 1]]);
+    W = [
+      g10_prod(1, [[[1, 0, a2], 1], [g10_xp(a), 2]]),
+      g10_prod(1, [[[1, 0, -a2], 2]]),
+      g10_prod(1, [[g10_xp(-a), 4]]),
+      g10_prod(1, [[[1, 0, a], 1], [g10_xp(a), 1], [g10_xp(-a), 1]]),
+      g10_prod(1, [[[1, 0, a2], 2]])
+    ];
+    e = 'x^{4} − ' + a2 * a2 + ' = (x^{2} + ' + a2 + ')(x^{2} − ' + a2 + ') y x^{2} − ' + a2 + ' vuelve a ser diferencia de cuadrados; x^{2} + ' + a2 + ' ya no se factoriza.';
+  } else {
+    var r = ri(1, 2), s = ri(r + 1, 3), r2 = r * r, s2 = s * s;
+    O = g10_P([1, 0, -(r2 + s2), 0, r2 * s2]);
+    A = g10_prod(1, [[g10_xp(r), 1], [g10_xp(-r), 1], [g10_xp(s), 1], [g10_xp(-s), 1]]);
+    W = [
+      g10_prod(1, [[g10_xp(r), 2], [g10_xp(-s), 2]]),
+      g10_prod(1, [[[1, 0, -r2], 1], [[1, 0, s2], 1]]),
+      g10_prod(1, [[g10_xp(r), 1], [g10_xp(-r), 1], [g10_xp(s), 2]]),
+      g10_prod(1, [[g10_xp(-r), 2], [g10_xp(-s), 2]])
+    ];
+    e = 'Con t = x^{2}: t^{2} − ' + (r2 + s2) + 't + ' + r2 * s2 + ' = (t − ' + r2 + ')(t − ' + s2 + '), y cada x^{2} − ' + r2 + ' o x^{2} − ' + s2 + ' es diferencia de cuadrados.';
+  }
+  return g10_pp(g10_q('fac', 'Factoriza completamente: ' + O.s, O, A, W, e));
+});
+
+/* 11. PROBLEMA: factor común y cuadrado perfecto */
+genr('fac', function () {
+  var k = pick([-2, -1, 2, 3, 4, 5]), a = ri(1, 5), s = Math.random() < 0.5 ? 1 : -1;
+  var X = G10_X;
+  var A = g10_prod(k, [[X, 1], [[1, s * a], 2]]), O = g10_P(A.c);
+  var W = [
+    g10_prod(k, [[X, 1], [[1, -s * a], 2]]),
+    g10_prod(k, [[X, 1], [[1, s * a], 1], [[1, -s * a], 1]]),
+    g10_prod(1, [[X, 1], [[k, s * k * a], 2]]),
+    g10_prod(k, [[[1, s * a], 2]]),
+    g10_prod(-k, [[X, 1], [[1, s * a], 2]])
+  ];
+  return g10_pp(g10_q('fac', 'Factoriza completamente: ' + O.s, O, A, W,
+    'Factor común ' + (k === 1 ? '' : k === -1 ? '−' : k) + 'x; dentro queda x^{2} ' + g10_sg(s) + ' ' + 2 * a + 'x + ' + a * a + ' = (x ' + g10_sg(s) + ' ' + a + ')^{2}.'));
+});
+
+/* 12. número que falta en una factorización */
+genr('fac', function () {
+  var v = ri(0, 2), rs = g10_dn(2, -6, 6), r = rs[0], t = rs[1];
+  if (r === -t) return g10_retry('fac');
+  var chk = g10_mul([1, -r], [1, -t]);
+  if (chk[1] !== -(r + t) || chk[2] !== r * t) throw new Error('g10 fac12');
+  var f = function (u) { return '(x ' + g10_sg(u) + ' ' + Math.abs(u) + ')'; };
+  var sm = -(r + t), pr = r * t;
+  if (v === 0) {
+    return g10_qs('fac', 'Si x^{2} ' + g10_sg(sm) + ' ' + Math.abs(sm) + 'x + k = (x ' + g10_sg(-r) + ' ' + Math.abs(r) + ')(x ' + g10_sg(-t) + ' ' + Math.abs(t) + '), entonces k vale', mn(pr),
+      [mn(-pr), mn(sm), mn(-sm), mn(r + t + pr)],
+      'k es el producto de los términos independientes: (' + mn(-r) + ')·(' + mn(-t) + ') = ' + mn(pr) + '.');
+  }
+  if (v === 1) {
+    return g10_qs('fac', 'Si x^{2} ' + (sm === 0 ? '' : g10_sg(sm) + ' ' + Math.abs(sm) + 'x ') + g10_sg(pr) + ' ' + Math.abs(pr) + ' = (x ' + g10_sg(-r) + ' ' + Math.abs(r) + ')(x + □), entonces □ vale', mn(-t),
+      [mn(t), mn(pr), mn(sm), mn(-pr)],
+      'El producto de los números es ' + mn(pr) + ' y uno es ' + mn(-r) + ', así que el otro es ' + mn(pr) + ' : ' + mn(-r) + ' = ' + mn(-t) + '.');
+  }
+  return g10_qs('fac', 'Si x^{2} + bx ' + g10_sg(pr) + ' ' + Math.abs(pr) + ' = (x ' + g10_sg(-r) + ' ' + Math.abs(r) + ')(x ' + g10_sg(-t) + ' ' + Math.abs(t) + '), entonces b vale', mn(sm),
+    [mn(-sm), mn(pr), mn(-pr), mn(r * t - r - t)],
+    'b es la suma de los términos independientes: ' + mn(-r) + ' + (' + mn(-t) + ') = ' + mn(sm) + '.');
+});
+
+/* 13. factor común con dos letras */
+genr('fac', function () {
+  var g = ri(2, 5), p = ri(1, 4), q = ri(1, 4), s = Math.random() < 0.5 ? 1 : -1;
+  if (gcd(p, q) !== 1) { p = 2; q = 3; }
+  var O = g10_raw(g * p + 'x^{2}y ' + g10_sg(s) + ' ' + g * q + 'xy^{2}', function (x, y) { return g * p * x * x * y + s * g * q * x * y * y; });
+  var A = g10_raw(g + 'xy(' + g10_l2(p, s * q).s + ')', function (x, y) { return g * x * y * (p * x + s * q * y); });
+  var W = [
+    g10_raw(g + 'xy(' + g10_l2(p, -s * q).s + ')', function (x, y) { return g * x * y * (p * x - s * q * y); }),
+    g10_raw(g + 'xy(' + g10_l2(q, s * p).s + ')', function (x, y) { return g * x * y * (q * x + s * p * y); }),
+    g10_raw(g + 'xy(' + poly([p, s * q]) + ')', function (x, y) { return g * x * y * (p * x + s * q); }),
+    g10_raw(g * p + 'xy(x ' + g10_sg(s) + ' ' + g * q / p + 'y)', function (x, y) { return g * p * x * y * (x + s * (g * q / p) * y); }),
+    g10_raw(g + 'x^{2}y^{2}(' + g10_l2(p, s * q).s + ')', function (x, y) { return g * x * x * y * y * (p * x + s * q * y); })
+  ];
+  W.splice(3, 1);
+  return g10_q('fac', 'Factoriza: ' + O.s, O, A, W,
+    'El factor común es ' + g + 'xy (número: ' + g + '; letras: la menor potencia de x y de y): ' + A.s + '.');
+});
+
+/* 14. PROBLEMA: diferencia de cuadrados con un binomio */
+genr('fac', function () {
+  if (Math.random() < 0.65) {
+    var a = nz(-5, 5), b = ri(1, 5);
+    var O = g10_raw('(x ' + g10_sg(a) + ' ' + Math.abs(a) + ')^{2} − ' + b * b, function (x) { return Math.pow(x + a, 2) - b * b; });
+    var A = g10_prod(1, [[g10_xp(a + b), 1], [g10_xp(a - b), 1]]);
+    var W = [
+      g10_prod(1, [[g10_xp(a - b), 2]]),
+      g10_prod(1, [[g10_xp(a), 1], [g10_xp(-b), 1]]),
+      g10_prod(1, [[g10_xp(a + b * b), 1], [g10_xp(a - b * b), 1]]),
+      g10_prod(1, [[g10_xp(a + b), 1], [g10_xp(-a + b), 1]])
+    ];
+    return g10_pp(g10_q('fac', 'Factoriza: ' + O.s, O, A, W,
+      'Diferencia de cuadrados A^{2} − ' + b + '^{2} con A = x ' + g10_sg(a) + ' ' + Math.abs(a) + ': (A + ' + b + ')(A − ' + b + ') = ' + A.s + '.'));
+  }
+  var c = ri(1, 5), pr = c * 2;
+  var O2 = g10_raw('x^{2} − ' + pr + 'x + ' + c * c + ' − y^{2}', function (x, y) { return x * x - pr * x + c * c - y * y; });
+  var A2 = g10_raw('(x − ' + c + ' + y)(x − ' + c + ' − y)', function (x, y) { return (x - c + y) * (x - c - y); });
+  var W2 = [
+    g10_raw('(x − ' + c + ' + y)^{2}', function (x, y) { return Math.pow(x - c + y, 2); }),
+    g10_raw('(x + ' + c + ' + y)(x + ' + c + ' − y)', function (x, y) { return (x + c + y) * (x + c - y); }),
+    g10_raw('(x − ' + c + ')(x − ' + c + ' − y^{2})', function (x, y) { return (x - c) * (x - c - y * y); }),
+    g10_raw('(x − ' + c + ')^{2}(1 − y)^{2}', function (x, y) { return Math.pow(x - c, 2) * Math.pow(1 - y, 2); })
+  ];
+  W2.pop();
+  W2.push(g10_raw('(x − ' + c + ' + y)(x + ' + c + ' − y)', function (x, y) { return (x - c + y) * (x + c - y); }));
+  return g10_pp(g10_q('fac', 'Factoriza: ' + O2.s, O2, A2, W2,
+    'x^{2} − ' + pr + 'x + ' + c * c + ' = (x − ' + c + ')^{2}, y queda (x − ' + c + ')^{2} − y^{2}: diferencia de cuadrados.'));
+});
+
+/* ================= FRA1: simplificar fracciones algebraicas ================= */
+function g10_xm(a) { return g10_P([1, a]); }
+
+/* 1. factor común numérico en numerador y denominador */
+genr('fra1', function () {
+  var g = ri(2, 4), p = ri(1, 5), q = ri(2, 7), m = nz(-6, 6);
+  if (gcd(p, q) !== 1 || p === q) { p = 2; q = 3; }
+  var N = g10_prod(g * p, [[g10_xp(m), 1]]), D = g10_prod(g * q, [[g10_xp(m), 1]]);
+  var O = g10_fr(g10_P(N.c), g10_P(D.c));
+  var A = g10_fr(g10_P([p]), g10_P([q]));
+  var W = [
+    g10_fr(g10_P([q]), g10_P([p])),
+    g10_fr(g10_P([g * p + m]), g10_P([g * q + m])),
+    g10_fr(g10_P([p]), g10_prod(q, [[g10_xp(m), 1]])),
+    g10_fr(g10_P([p, m]), g10_P([q, m])),
+    g10_fr(g10_P([g * p]), g10_P([g * q]))
+  ];
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'Se saca factor común: ' + N.s + ' y ' + D.s + '. Se cancelan ' + g + ' y (' + poly([1, m]) + ').');
+});
+
+/* 2. factor común x en numerador y denominador */
+genr('fra1', function () {
+  var ab = g10_dn(2, -7, 7), a = ab[0], b = ab[1];
+  var O = g10_fr(g10_P([1, a, 0]), g10_P([1, b, 0]));
+  var A = g10_fr(g10_xm(a), g10_xm(b));
+  var W = [
+    g10_fr(g10_P([a]), g10_P([b])),
+    g10_fr(g10_P([1, 0, a]), g10_P([1, 0, b])),
+    g10_fr(g10_xm(b), g10_xm(a)),
+    g10_fr(g10_xm(a), g10_P([b]))
+  ];
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'Se saca factor común x arriba y abajo: x(' + poly([1, a]) + ') entre x(' + poly([1, b]) + ') y se cancela x.');
+});
+
+/* 3. diferencia de cuadrados entre factor común */
+genr('fra1', function () {
+  var a = ri(2, 7), s = Math.random() < 0.5 ? 1 : -1;
+  var O = g10_fr(g10_P([1, 0, -a * a]), g10_P([1, s * a, 0]));
+  var A = g10_fr(g10_xm(-s * a), g10_P([1, 0]));
+  var W = [
+    g10_fr(g10_xm(s * a), g10_P([1, 0])),
+    g10_fr(g10_P([-a * a]), g10_P([s * a, 0])),
+    g10_fr(g10_xm(-s * a), g10_P([1])),
+    g10_fr(g10_xm(-s * a), g10_xm(s * a))
+  ];
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + ') y x^{2} ' + g10_sg(s) + ' ' + a + 'x = x(x ' + g10_sg(s) + ' ' + a + '). Se cancela (x ' + g10_sg(s) + ' ' + a + ').');
+});
+
+/* 4. trinomio entre trinomio con un factor común */
+genr('fra1', function () {
+  var abc = g10_dn(3, -6, 6), a = abc[0], b = abc[1], c = abc[2];
+  var N = g10_prod(1, [[g10_xp(a), 1], [g10_xp(b), 1]]), D = g10_prod(1, [[g10_xp(a), 1], [g10_xp(c), 1]]);
+  var O = g10_fr(g10_P(N.c), g10_P(D.c));
+  var A = g10_fr(g10_xm(b), g10_xm(c));
+  var W = [
+    g10_fr(g10_xm(a), g10_xm(c)),
+    g10_fr(g10_P([b]), g10_P([c])),
+    g10_fr(g10_xm(-b), g10_xm(-c)),
+    g10_fr(g10_xm(b), g10_P([c]))
+  ];
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'Numerador = ' + N.s + ' y denominador = ' + D.s + '. Se cancela el factor común (' + poly([1, a]) + ').');
+});
+
+/* 5. cambio de signo en un factor */
+genr('fra1', function () {
+  var a = ri(1, 7), v = ri(0, 3), k = ri(2, 5), O, A, W, e;
+  if (v === 0) {
+    O = g10_fr(g10_P([-k, k * a]), g10_xm(-a));
+    A = g10_P([-k]);
+    W = [g10_P([k]), g10_P([-1]), g10_P([1]), g10_P([-k, 0])];
+    e = k + a + ' ... ';
+    e = 'k − kx = −k(x − a): ' + g10_c(k) + '(' + a + ' − x) = −' + k + '(x − ' + a + '), así que el cociente vale −' + k + '.';
+    e = g10_c(k) + '(' + a + ' − x) = −' + k + '(x − ' + a + '); al cancelar (x − ' + a + ') queda −' + k + '.';
+  } else if (v === 1) {
+    O = g10_fr(g10_P([-1, a]), g10_P([1, 0, -a * a]));
+    A = g10_fr(g10_P([-1]), g10_xm(a));
+    W = [g10_fr(g10_P([1]), g10_xm(a)), g10_fr(g10_P([-1]), g10_xm(-a)), g10_fr(g10_P([1]), g10_xm(-a)), g10_P([-1])];
+    e = a + ' − x = −(x − ' + a + ') y x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + '): queda ⟨−1|x + ' + a + '⟩.';
+  } else if (v === 2) {
+    O = g10_fr(g10_P([1, -a]), g10_P([-1, 0, a * a]));
+    A = g10_fr(g10_P([-1]), g10_xm(a));
+    W = [g10_fr(g10_P([1]), g10_xm(a)), g10_fr(g10_P([-1]), g10_xm(-a)), g10_fr(g10_P([1]), g10_xm(-a)), g10_P([-1])];
+    e = a * a + ' − x^{2} = −(x + ' + a + ')(x − ' + a + '), así que al cancelar (x − ' + a + ') queda ⟨−1|x + ' + a + '⟩.';
+  } else {
+    O = g10_fr(g10_P([1, 0, -a * a]), g10_P([-1, a]));
+    A = g10_prod(-1, [[g10_xp(a), 1]]);
+    W = [g10_P([1, a]), g10_prod(-1, [[g10_xp(-a), 1]]), g10_P([1, -a]), g10_prod(-1, [[g10_xp(a), 2]])];
+    e = a + ' − x = −(x − ' + a + '); se cancela (x − ' + a + ') y queda −(x + ' + a + ').';
+  }
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W, e);
+});
+
+/* 6. cuadrado perfecto en el numerador */
+genr('fra1', function () {
+  var a = ri(1, 7), s = Math.random() < 0.5 ? 1 : -1, v = ri(0, 2), O, A, W, e;
+  var sq = [1, 2 * s * a, a * a], sqs = '(x ' + g10_sg(s) + ' ' + a + ')';
+  if (v === 0) {
+    O = g10_fr(g10_P(sq), g10_xm(s * a));
+    A = g10_xm(s * a);
+    W = [g10_xm(-s * a), g10_prod(1, [[g10_xp(s * a), 2]]), g10_P([1, a * a]), g10_P([1, 0, s * a])];
+    e = 'El numerador es el cuadrado ' + sqs + '^{2}; se cancela un factor ' + sqs + '.';
+  } else if (v === 1) {
+    O = g10_fr(g10_P(sq), g10_P([1, s * a, 0]));
+    A = g10_fr(g10_xm(s * a), g10_P([1, 0]));
+    W = [g10_fr(g10_xm(-s * a), g10_P([1, 0])), g10_fr(g10_P([s * 2 * a, a * a]), g10_P([s * a, 0])), g10_fr(g10_xm(s * a), g10_P([1])), g10_fr(g10_xm(s * a), g10_xm(s * a))];
+    W.pop();
+    e = sqs + '^{2} entre x' + sqs + ': se cancela un factor ' + sqs + ' y queda ⟨x ' + g10_sg(s) + ' ' + a + '|x⟩.';
+  } else {
+    O = g10_fr(g10_P(sq), g10_P([1, 0, -a * a]));
+    A = g10_fr(g10_xm(s * a), g10_xm(-s * a));
+    W = [g10_fr(g10_xm(-s * a), g10_xm(s * a)), g10_fr(g10_P([s * 2 * a, a * a]), g10_P([-a * a])), g10_fr(g10_xm(s * a), g10_xm(s * a)), g10_P([1])];
+    e = sqs + '^{2} entre (x + ' + a + ')(x − ' + a + '): se cancela ' + sqs + ' y queda ⟨x ' + g10_sg(s) + ' ' + a + '|x ' + g10_sg(-s) + ' ' + a + '⟩.';
+  }
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W, e);
+});
+
+/* 7. cúbico: factor común y diferencia de cuadrados */
+genr('fra1', function () {
+  var a = ri(2, 6), s = Math.random() < 0.5 ? 1 : -1;
+  var O = g10_fr(g10_P([1, 0, -a * a, 0]), g10_P([1, s * a, 0]));
+  var A = g10_xm(-s * a);
+  var W = [
+    g10_xm(s * a),
+    g10_prod(1, [[G10_X, 1], [g10_xp(-s * a), 1]]),
+    g10_P([1, 0, -a * a]),
+    g10_P([1, 0, -s * a])
+  ];
+  return g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'x^{3} − ' + a * a + 'x = x(x + ' + a + ')(x − ' + a + ') y x^{2} ' + g10_sg(s) + ' ' + a + 'x = x(x ' + g10_sg(s) + ' ' + a + '). Se cancelan x y (x ' + g10_sg(s) + ' ' + a + ').');
+});
+
+/* 8. PROBLEMA: factor común y diferencia de cuadrados con coeficientes */
+genr('fra1', function () {
+  var c = ri(1, 3), p = ri(1, 3), q = ri(2, 5), a = ri(1, 5), s = Math.random() < 0.5 ? 1 : -1;
+  if (gcd(p, q) !== 1) { p = 1; q = 3; }
+  var N = g10_prod(c * p, [[g10_xp(a), 1], [g10_xp(-a), 1]]), D = g10_prod(c * q, [[g10_xp(s * a), 1]]);
+  var O = g10_fr(g10_P(N.c), g10_P(D.c));
+  var num = function (u) { return p === 1 ? g10_P([1, u]) : g10_prod(p, [[g10_xp(u), 1]]); };
+  var A = g10_fr(num(-s * a), g10_P([q]));
+  var W = [
+    g10_fr(num(s * a), g10_P([q])),
+    g10_fr(num(-s * a), g10_P([1])),
+    g10_fr(g10_P([c * p, -s * c * p * a]), g10_P([q])),
+    g10_fr(g10_P([p * p * c, 0, -p * c * a * a]), g10_P([q]))
+  ];
+  W.splice(2, 1);
+  return g10_pp(g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'Numerador: ' + g10_c(c * p) + '(x^{2} − ' + a * a + ') = ' + N.s + '. Denominador: ' + D.s + '. Se cancelan ' + (c > 1 ? c + ' y ' : '') + '(x ' + g10_sg(s) + ' ' + a + ').'));
+});
+
+/* 9. ¿para qué valores no está definida? */
+function g10_set(a) {
+  var r = a.slice().sort(function (u, v) { return u - v; });
+  return r.map(function (z) { return 'x = ' + mn(z); }).join(' y ');
+}
+genr('fra1', function () {
+  var v = ri(0, 3), rs, D, num;
+  var nums = ['1', 'x + 1', '5', '2x', 'x − 3', '3'];
+  num = pick(nums);
+  if (v === 0) {
+    var a = ri(1, 7); rs = [a, -a]; D = g10_P([1, 0, -a * a]);
+  } else if (v === 1) {
+    rs = g10_dn(2, -6, 6); D = g10_prod(1, [[g10_xp(-rs[0]), 1], [g10_xp(-rs[1]), 1]]);
+  } else if (v === 2) {
+    var b = nz(-7, 7); rs = [0, -b]; D = g10_P([1, b, 0]);
+  } else {
+    var c = ri(1, 3), d = nz(-6, 6); rs = [-d / c]; D = g10_P([c, d]);
+    if (d % c !== 0) { c = 1; rs = [-d]; D = g10_P([1, d]); }
+  }
+  var den = D.s;
+  var correct = g10_set(rs);
+  /* independiente: ceros enteros del denominador en [-12, 12] */
+  var zs = [], i;
+  for (i = -12; i <= 12; i++) if (Math.abs(D.f(i)) < 1e-9) zs.push(i);
+  if (g10_set(zs) !== correct) throw new Error('g10 fra1_9: raíces');
+  var cands = [];
+  if (rs.length === 2) {
+    cands = [g10_set([-rs[0], -rs[1]]), g10_set([rs[0]]), g10_set([rs[1]]), g10_set([0, rs[0] + rs[1]]), g10_set([rs[0] * rs[1], 0])];
+    if (v === 0) cands = [g10_set([rs[0]]), g10_set([rs[0] * rs[0]]), g10_set([0, rs[0]]), g10_set([-rs[0] * rs[0]])];
+    if (v === 2) cands = [g10_set([0]), g10_set([rs[1]]), g10_set([-rs[1]]), g10_set([-rs[1], rs[1]])];
+  } else {
+    cands = [g10_set([-rs[0]]), g10_set([0]), g10_set([rs[0] + 1]), g10_set([-rs[0] + 1])];
+  }
+  var tx = num === '1' || num === '5' || num === '3' ? '' : '';
+  return g10_qs('fra1', '¿Para qué valores de x no está definida ⟨' + num + '|' + den + '⟩?', correct, cands,
+    'El denominador no puede valer 0: ' + den + ' = 0' + (rs.length === 2 ? ' da ' + g10_set(rs) + '.' : ' da ' + correct + '.'));
+});
+
+/* 10. ¿cuándo vale 0 la fracción? */
+genr('fra1', function () {
+  var v = ri(0, 1), O, ans, ws, ex;
+  if (v === 0) {
+    var ab;
+    do { ab = g10_dn(2, -6, 6); } while (ab[0] === -ab[1]);
+    var a = ab[0], b = ab[1];
+    var N = g10_prod(1, [[g10_xp(-a), 1], [g10_xp(b), 1]]);
+    O = g10_fr(g10_P(N.c), g10_xm(-a));
+    ans = [-b]; ws = [[a], [b], [a, -b], [-a]];
+    ex = 'Se anula el numerador (x ' + g10_sg(-a) + ' ' + Math.abs(a) + ')(x ' + g10_sg(b) + ' ' + Math.abs(b) + ') en x = ' + mn(a) + ' y x = ' + mn(-b) + ', pero x = ' + mn(a) + ' anula también el denominador: solo vale ' + g10_set(ans).replace('x = ', 'x = ') + '.';
+  } else {
+    var t = g10_dn(3, -6, 6), aa = t[0], bb = t[1], cc = t[2];
+    O = g10_fr(g10_xm(-aa), g10_prod(1, [[g10_xp(-bb), 1], [g10_xp(-cc), 1]]));
+    ans = [aa]; ws = [[bb], [bb, cc], [-aa], [0]];
+    ex = 'Una fracción vale 0 cuando el numerador es 0 y el denominador no: x ' + g10_sg(-aa) + ' ' + Math.abs(aa) + ' = 0 da x = ' + mn(aa) + '.';
+  }
+  var zero = function (x) { var o = O.f(x); return typeof o === 'number' && isFinite(o) && Math.abs(o) < 1e-12; };
+  if (!ans.every(zero)) throw new Error('g10 fra1_10: respuesta');
+  var cs = [];
+  ws.forEach(function (w) { if (!w.every(zero)) cs.push(g10_set(w)); });
+  return g10_qs('fra1', '¿Para qué valores de x vale 0 la fracción ' + O.s + '?', g10_set(ans), cs, ex);
+});
+
+/* 11. simplificar y evaluar */
+genr('fra1', function () {
+  var v = ri(0, 2), a = ri(1, 6), t, O, A, ws;
+  t = nz(-6, 8);
+  while (t === a || t === -a) t = nz(-6, 8);
+  if (v === 0) {
+    O = g10_fr(g10_P([1, 0, -a * a]), g10_xm(-a)); A = g10_xm(a);
+  } else if (v === 1) {
+    var b = nz(-6, 6);
+    while (b === a || b === -a) b = nz(-6, 6);
+    while (t === -b || t === a || t === -a) t = nz(-6, 8);
+    O = g10_fr(g10_P(g10_mul([1, a], [1, b])), g10_xm(b)); A = g10_xm(a);
+  } else {
+    O = g10_fr(g10_P([1, a, 0]), g10_P([1, 0])); A = g10_xm(a);
+  }
+  var res = O.f(t);
+  if (!g10_close(res, A.f(t))) throw new Error('g10 fra1_11');
+  var other = v === 0 ? t - a : v === 1 ? t - a : t * t + a;
+  var ws2 = [other, t * t - a * a, res + 1, -res, t + a * a, res - 1].filter(function (z) { return z !== res; });
+  return g10_qs('fra1', 'Simplifica ' + O.s + ' y calcula su valor para x = ' + mn(t) + '.', mn(res), ws2.map(mn),
+    'Se simplifica a ' + A.s + ' y para x = ' + mn(t) + ' vale ' + mn(res) + '.');
+});
+
+/* 12. PROBLEMA: dos cuadráticas (identidades notables) */
+genr('fra1', function () {
+  var a = ri(1, 7), u = pick([1, -1]), w = pick([1, -1]), v = ri(0, 3), N, D, A;
+  var sq = function (z) { return [1, 2 * z * a, a * a]; };
+  var df = [1, 0, -a * a];
+  if (v === 0) { N = df; D = sq(1); A = [[1, -a], [1, a]]; u = -1; w = 1; }
+  else if (v === 1) { N = df; D = sq(-1); A = [[1, a], [1, -a]]; u = 1; w = -1; }
+  else if (v === 2) { N = sq(1); D = df; A = [[1, a], [1, -a]]; u = 1; w = -1; }
+  else { N = sq(-1); D = df; A = [[1, -a], [1, a]]; u = -1; w = 1; }
+  var O = g10_fr(g10_P(N), g10_P(D));
+  var An = g10_P(A[0]), Ad = g10_P(A[1]);
+  var Af = g10_fr(An, Ad);
+  var W = [
+    g10_fr(Ad, An),
+    g10_fr(g10_P(N.slice(1)), g10_P(D.slice(1))),
+    g10_fr(g10_P([1, -A[0][1]]), g10_P([1, -A[1][1]])),
+    g10_fr(g10_P([A[0][1]]), g10_P([A[1][1]])),
+    g10_P([1])
+  ];
+  var ex = 'Se factoriza con identidades: x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + ') y ' + (v < 2 ? poly(sq(v === 0 ? 1 : -1)) + ' = (x ' + (v === 0 ? '+' : '−') + ' ' + a + ')^{2}' : poly(sq(v === 2 ? 1 : -1)) + ' = (x ' + (v === 2 ? '+' : '−') + ' ' + a + ')^{2}') + '. Se cancela un factor común.';
+  return g10_pp(g10_q('fra1', 'Simplifica: ' + O.s, O, Af, W, ex));
+});
+
+/* 13. PROBLEMA: trinomio entre diferencia de cuadrados */
+genr('fra1', function () {
+  var s = ri(1, 6), r = nz(-6, 6), e = pick([1, -1]);
+  while (r === s || r === -s) r = nz(-6, 6);
+  var N = g10_prod(1, [[g10_xp(-r), 1], [g10_xp(-e * s), 1]]);
+  var O = g10_fr(g10_P(N.c), g10_P([1, 0, -s * s]));
+  var A = g10_fr(g10_xm(-r), g10_xm(e * s));
+  var W = [
+    g10_fr(g10_xm(-r), g10_xm(-e * s)),
+    g10_fr(g10_xm(r), g10_xm(e * s)),
+    g10_fr(g10_P(N.c.slice(1)), g10_P([-s * s])),
+    g10_fr(g10_xm(e * s), g10_xm(-r))
+  ];
+  return g10_pp(g10_q('fra1', 'Simplifica: ' + O.s, O, A, W,
+    'Numerador: ' + N.s + ' (suman ' + mn(-(r + e * s)) + ' y multiplican ' + mn(r * e * s) + '). Denominador: (x + ' + s + ')(x − ' + s + '). Se cancela (x ' + g10_sg(-e * s) + ' ' + s + ').'));
+});
+
+/* 14. PROBLEMA: factor común, trinomio y cuadrados */
+genr('fra1', function () {
+  var v = ri(0, 2), O, A, W, ex;
+  if (v === 0) {
+    var a = ri(1, 6);
+    O = g10_fr(g10_P([1, 0, -a * a, 0]), g10_P([1, -2 * a, a * a]));
+    A = g10_fr(g10_prod(1, [[G10_X, 1], [g10_xp(a), 1]]), g10_xm(-a));
+    W = [
+      g10_fr(g10_prod(1, [[G10_X, 1], [g10_xp(-a), 1]]), g10_xm(a)),
+      g10_fr(g10_P([1, 0, -a * a, 0].slice(1)), g10_P([-2 * a, a * a])),
+      g10_fr(g10_prod(1, [[G10_X, 1], [g10_xp(a), 1]]), g10_P([1, a])),
+      g10_fr(g10_P([1, 0]), g10_P([1, a]))
+    ];
+    ex = 'x^{3} − ' + a * a + 'x = x(x + ' + a + ')(x − ' + a + ') y x^{2} − ' + 2 * a + 'x + ' + a * a + ' = (x − ' + a + ')^{2}. Se cancela un (x − ' + a + ').';
+  } else if (v === 1) {
+    var q = ri(2, 5), p = pick([1, 2, 3]), rs = g10_dn(2, -5, 5), r = rs[0], t = rs[1];
+    if (gcd(p, q) !== 1) { p = 1; q = 2; }
+    var g = ri(1, 3);
+    var N = g10_prod(g * p, [[g10_xp(-r), 1], [g10_xp(-t), 1]]), D = g10_prod(g * q, [[g10_xp(-r), 1]]);
+    O = g10_fr(g10_P(N.c), g10_P(D.c));
+    A = g10_fr(p === 1 ? g10_xm(-t) : g10_prod(p, [[g10_xp(-t), 1]]), g10_P([q]));
+    W = [
+      g10_fr(p === 1 ? g10_xm(t) : g10_prod(p, [[g10_xp(t), 1]]), g10_P([q])),
+      g10_fr(p === 1 ? g10_xm(-t) : g10_prod(p, [[g10_xp(-t), 1]]), g10_P([1])),
+      g10_fr(g10_P(N.c.slice(1)), g10_P(D.c.slice(1))),
+      g10_fr(g10_P([q]), p === 1 ? g10_xm(-t) : g10_prod(p, [[g10_xp(-t), 1]]))
+    ];
+    ex = 'Numerador: ' + N.s + '. Denominador: ' + D.s + '. Se cancelan ' + (g > 1 ? g + ' y ' : '') + '(x ' + g10_sg(-r) + ' ' + Math.abs(r) + ').';
+  } else {
+    var k = ri(2, 5), b = ri(1, 6);
+    O = g10_fr(g10_P([k, 0, -k * b * b]), g10_P([1, 2 * b, b * b]));
+    A = g10_fr(g10_prod(k, [[g10_xp(-b), 1]]), g10_xm(b));
+    W = [
+      g10_fr(g10_prod(k, [[g10_xp(b), 1]]), g10_xm(-b)),
+      g10_fr(g10_xm(-b), g10_xm(b)),
+      g10_fr(g10_P([k, 0, -k * b * b].slice(1)), g10_P([2 * b, b * b])),
+      g10_fr(g10_prod(k, [[g10_xp(-b), 1]]), g10_P([1]))
+    ];
+    ex = 'Numerador: ' + k + '(x^{2} − ' + b * b + ') = ' + k + '(x + ' + b + ')(x − ' + b + '). Denominador: (x + ' + b + ')^{2}. Se cancela un (x + ' + b + ').';
+  }
+  return g10_pp(g10_q('fra1', 'Simplifica: ' + O.s, O, A, W, ex));
+});
+
+/* ================= FRA2: operar fracciones algebraicas y mcm ================= */
+function g10_pdiv(n, d) {
+  var r = n.slice(), i, j;
+  for (i = 0; i + d.length <= r.length; i++) {
+    var q = r[i] / d[0];
+    for (j = 0; j < d.length; j++) r[i + j] -= q * d[j];
+  }
+  return r.slice(Math.max(0, r.length - d.length + 1));
+}
+function g10_divides(d, n) { return g10_pdiv(n, d).every(function (z) { return Math.abs(z) < 1e-9; }); }
+
+/* 1. suma o resta con denominadores lineales distintos */
+genr('fra2', function () {
+  var ab = g10_dn(2, -5, 5), a = ab[0], b = ab[1], p = ri(1, 3), q = ri(1, 3), sg = Math.random() < 0.5 ? 1 : -1;
+  var O = g10_op(g10_fr(g10_P([p]), g10_xm(a)), g10_fr(g10_P([q]), g10_xm(b)), sg > 0 ? '+' : '−');
+  var D = g10_prod(1, [[g10_xp(a), 1], [g10_xp(b), 1]]);
+  var num = [p + sg * q, p * b + sg * q * a];
+  if (num[0] === 0) { num = [p + sg * q + 0, num[1]]; }
+  var A = g10_fr(g10_P(num), D);
+  var W = [
+    g10_fr(g10_P([p + sg * q]), g10_P([2, a + b])),
+    g10_fr(g10_P([p + sg * q, p * a + sg * q * b]), D),
+    g10_fr(g10_P([p + sg * q, p * b - sg * q * a]), D),
+    g10_fr(g10_P([sg * p * q]), D),
+    g10_fr(g10_P([p + sg * q]), D)
+  ];
+  return g10_q('fra2', 'Calcula: ' + O.s, O, A, W,
+    'Denominador común (x ' + g10_sg(a) + ' ' + Math.abs(a) + ')(x ' + g10_sg(b) + ' ' + Math.abs(b) + '): ' + g10_c(p) + '(' + poly([1, b]) + ') ' + (sg > 0 ? '+' : '−') + ' ' + g10_c(q) + '(' + poly([1, a]) + ') = ' + A.s.slice(1).split('|')[0] + '.');
+});
+
+/* 2. resta con el mismo denominador (cuidado con el signo) */
+genr('fra2', function () {
+  var a1 = ri(1, 4), a2 = ri(1, 4), bs = g10_dn(2, -6, 6), b1 = bs[0], b2 = bs[1], c = nz(-5, 5);
+  var num = [a1 - a2, b1 - b2], n0 = g10_ev(num, -c);
+  if (Math.abs(n0) < 1e-9 || (num[0] === 0 && num[1] === 0)) return g10_retry('fra2');
+  var O = g10_op(g10_fr(g10_P([a1, b1]), g10_xm(c)), g10_fr(g10_P([a2, b2]), g10_xm(c)), '−');
+  var A = g10_fr(g10_P(num), g10_xm(c));
+  var W = [
+    g10_fr(g10_P([a1 - a2, b1 + b2]), g10_xm(c)),
+    g10_fr(g10_P([a1 + a2, b1 + b2]), g10_xm(c)),
+    g10_fr(g10_P(num), g10_prod(1, [[g10_xp(c), 2]])),
+    g10_fr(g10_P(num), g10_P([2, 2 * c])),
+    g10_fr(g10_P([a1 - a2, b1 - b2 + 0]), g10_P([1, 0]))
+  ];
+  return g10_q('fra2', 'Calcula y simplifica: ' + O.s, O, A, W,
+    'El denominador no cambia. En el numerador, el signo menos afecta a todo el segundo numerador: (' + poly([a1, b1]) + ') − (' + poly([a2, b2]) + ') = ' + g10_P(num).s + '.');
+});
+
+/* 3. producto de fracciones algebraicas */
+genr('fra2', function () {
+  var v = ri(0, 2), a = ri(1, 6), O, A, W, e;
+  if (v === 0) {
+    var t = g10_dn(3, -6, 6), p = t[0], b = t[1], c = t[2];
+    O = g10_op(g10_fr(g10_xm(p), g10_xm(-b)), g10_fr(g10_xm(-b), g10_xm(c)), '·');
+    A = g10_fr(g10_xm(p), g10_xm(c));
+    W = [g10_fr(g10_xm(p), g10_xm(-c)), g10_fr(g10_xm(-p), g10_xm(c)), g10_fr(g10_xm(c), g10_xm(p)), g10_fr(g10_P([p]), g10_P([c])), g10_fr(g10_xm(p), g10_P([1, 2 * -b + c]))];
+    e = 'Se multiplica numerador por numerador y denominador por denominador, y se cancela el factor común (x ' + g10_sg(-b) + ' ' + Math.abs(b) + ').';
+  } else if (v === 1) {
+    O = g10_op(g10_fr(g10_P([1, 0, -a * a]), g10_P([1, 0, 0])), g10_fr(g10_P([1, 0]), g10_xm(a)), '·');
+    A = g10_fr(g10_xm(-a), g10_P([1, 0]));
+    W = [g10_fr(g10_xm(a), g10_P([1, 0])), g10_fr(g10_xm(-a), g10_P([1, 0, 0])), g10_fr(g10_xm(-a), g10_P([1])), g10_fr(g10_P([-a * a]), g10_P([1, 0]))];
+    e = 'x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + '): se cancelan (x + ' + a + ') y una x.';
+  } else {
+    O = g10_op(g10_fr(g10_P([1, a, 0]), g10_xm(-a)), g10_fr(g10_xm(-a), g10_P([1, 0, 0])), '·');
+    A = g10_fr(g10_xm(a), g10_P([1, 0]));
+    W = [g10_fr(g10_xm(a), g10_P([1, 0, 0])), g10_fr(g10_P([a]), g10_P([1, 0])), g10_fr(g10_P([1]), g10_P([1, 0])), g10_fr(g10_xm(-a), g10_P([1, 0]))];
+    e = 'x^{2} + ' + a + 'x = x(x + ' + a + '): se cancelan (x − ' + a + ') y una x, y queda ⟨x + ' + a + '|x⟩.';
+  }
+  return g10_q('fra2', 'Calcula y simplifica: ' + O.s, O, A, W, e);
+});
+
+/* 4. división de fracciones algebraicas */
+genr('fra2', function () {
+  var v = ri(0, 2), a = ri(1, 6), O, A, W, e;
+  if (v === 0) {
+    var b = nz(-6, 6);
+    O = g10_op(g10_fr(g10_P([1, 0, -a * a]), g10_xm(b)), g10_fr(g10_xm(a), g10_xm(b)), '÷');
+    A = g10_xm(-a);
+    W = [g10_xm(a), g10_fr(g10_prod(1, [[g10_xp(a), 2], [g10_xp(-a), 1]]), g10_prod(1, [[g10_xp(b), 2]])), g10_fr(g10_xm(-a), g10_xm(b)), g10_P([1])];
+    e = 'Se multiplica por la inversa: ⟨x^{2} − ' + a * a + '|x ' + g10_sg(b) + ' ' + Math.abs(b) + '⟩ · ⟨x ' + g10_sg(b) + ' ' + Math.abs(b) + '|x + ' + a + '⟩ y se cancelan (x ' + g10_sg(b) + ' ' + Math.abs(b) + ') y (x + ' + a + ').';
+  } else if (v === 1) {
+    O = g10_op(g10_fr(g10_P([1, 0, -a * a]), g10_P([1, 0])), g10_fr(g10_xm(-a), g10_P([1, 0, 0])), '÷');
+    A = g10_prod(1, [[G10_X, 1], [g10_xp(a), 1]]);
+    W = [g10_fr(g10_xm(a), g10_P([1, 0])), g10_fr(g10_prod(1, [[g10_xp(a), 1], [g10_xp(-a), 2]]), g10_P([1, 0, 0, 0])), g10_xm(a), g10_prod(1, [[G10_X, 1], [g10_xp(-a), 1]])];
+    e = 'Se multiplica por la inversa: ⟨x^{2} − ' + a * a + '|x⟩ · ⟨x^{2}|x − ' + a + '⟩; se cancelan x y (x − ' + a + ') y queda x(x + ' + a + ').';
+  } else {
+    var k = ri(2, 6);
+    O = g10_op(g10_fr(g10_P([k, k * a]), g10_P([1, 0, 0])), g10_fr(g10_xm(a), g10_P([1, 0])), '÷');
+    A = g10_fr(g10_P([k]), g10_P([1, 0]));
+    W = [g10_fr(g10_P([k]), g10_P([1, 0, 0])), g10_fr(g10_P([k, 0]), g10_P([1])), g10_fr(g10_P([k, k * a]), g10_xm(a)), g10_fr(g10_P([k, 0, 0]), g10_P([1, 0]))];
+    e = 'Se multiplica por la inversa: ⟨' + poly([k, k * a]) + '|x^{2}⟩ · ⟨x|x + ' + a + '⟩; ' + poly([k, k * a]) + ' = ' + k + '(x + ' + a + ') y se cancelan (x + ' + a + ') y una x.';
+  }
+  return g10_q('fra2', 'Calcula y simplifica: ' + O.s, O, A, W, e);
+});
+
+/* 5. mcm de denominadores */
+genr('fra2', function () {
+  var v = ri(0, 4), a = ri(1, 6), X = G10_X, fa, fb, ka = 1, kb = 1, L, W, e;
+  var pr = function (k, f) { return g10_prod(k, f); };
+  if (v === 0) {
+    fa = [[g10_xp(a), 1], [g10_xp(-a), 1]]; fb = [[X, 1], [g10_xp(a), 1]];
+    L = pr(1, [[X, 1], [g10_xp(a), 1], [g10_xp(-a), 1]]);
+    W = [pr(1, [[X, 1], [g10_xp(a), 2], [g10_xp(-a), 1]]), pr(1, fa), pr(1, fb), pr(1, [[X, 1], [g10_xp(-a), 1]])];
+    e = 'x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + ') y x^{2} + ' + a + 'x = x(x + ' + a + '). El mcm toma x, (x + ' + a + ') y (x − ' + a + ').';
+  } else if (v === 1) {
+    var t = g10_dn(3, -5, 5), r = t[0], s1 = t[1], s2 = t[2];
+    fa = [[g10_xp(r), 1], [g10_xp(s1), 1]]; fb = [[g10_xp(r), 1], [g10_xp(s2), 1]];
+    L = pr(1, [[g10_xp(r), 1], [g10_xp(s1), 1], [g10_xp(s2), 1]]);
+    W = [pr(1, [[g10_xp(r), 2], [g10_xp(s1), 1], [g10_xp(s2), 1]]), pr(1, [[g10_xp(s1), 1], [g10_xp(s2), 1]]), pr(1, fa), pr(1, fb)];
+    e = 'Se factoriza cada trinomio: ' + pr(1, fa).s + ' y ' + pr(1, fb).s + '. El mcm toma el factor común una sola vez.';
+  } else if (v === 2) {
+    fa = [[g10_xp(-a), 2]]; fb = [[g10_xp(a), 1], [g10_xp(-a), 1]];
+    L = pr(1, [[g10_xp(-a), 2], [g10_xp(a), 1]]);
+    W = [pr(1, [[g10_xp(-a), 3], [g10_xp(a), 1]]), pr(1, fb), pr(1, fa), pr(1, [[g10_xp(-a), 2], [g10_xp(a), 2]])];
+    e = '(x − ' + a + ')^{2} y (x + ' + a + ')(x − ' + a + '): se toma cada factor con su mayor exponente.';
+  } else if (v === 3) {
+    fa = [[X, 1], [g10_xp(-a), 2]]; fb = [[X, 2], [g10_xp(-a), 1]];
+    L = pr(1, [[X, 2], [g10_xp(-a), 2]]);
+    W = [pr(1, [[X, 3], [g10_xp(-a), 3]]), pr(1, fa), pr(1, fb), pr(1, [[X, 2], [g10_xp(-a), 1]]), pr(1, [[X, 1], [g10_xp(-a), 2]])];
+    e = pr(1, fa).s + ' y ' + pr(1, fb).s + ': se toma cada factor con su mayor exponente, x^{2} y (x − ' + a + ')^{2}.';
+  } else {
+    fa = [[X, 1], [g10_xp(-a), 1]]; fb = [[X, 2]];
+    L = pr(1, [[X, 2], [g10_xp(-a), 1]]);
+    W = [pr(1, [[X, 1], [g10_xp(-a), 1]]), pr(1, [[X, 3], [g10_xp(-a), 1]]), pr(1, [[X, 2], [g10_xp(-a), 2]]), pr(1, [[X, 2]])];
+    e = 'x^{2} − ' + a + 'x = x(x − ' + a + ') y x^{2}. El mcm toma x^{2} y (x − ' + a + ').';
+  }
+  var A1 = pr(ka, fa), B1 = pr(kb, fb);
+  if (!g10_divides(A1.c, L.c) || !g10_divides(B1.c, L.c)) throw new Error('g10 fra2_5: no es múltiplo');
+  var ws = [];
+  W.forEach(function (w) { if (!(g10_divides(A1.c, w.c) && g10_divides(B1.c, w.c) && w.c.length <= L.c.length)) ws.push(w.s); });
+  return g10_qs('fra2', 'El mcm de ' + g10_P(A1.c).s + ' y ' + g10_P(B1.c).s + ' es', L.s, ws, e);
+});
+
+/* 6. PROBLEMA: suma/resta con mcm tras factorizar el denominador */
+genr('fra2', function () {
+  var a = ri(1, 6), p = ri(1, 3), q = nz(-5, 5), sg = Math.random() < 0.5 ? 1 : -1, O, num;
+  var D2 = g10_P([1, 0, -a * a]);
+  if (sg > 0) {
+    num = [p, p * a + q];
+    O = g10_op(g10_fr(g10_P([p]), g10_xm(-a)), g10_fr(g10_P([q]), D2), '+');
+  } else {
+    num = [-p, p * a + q];
+    O = g10_op(g10_fr(g10_P([q]), D2), g10_fr(g10_P([p]), g10_xm(-a)), '−');
+    num = [-p, q - p * a];
+  }
+  if (g10_ev(num, a) === 0 || g10_ev(num, -a) === 0) return g10_retry('fra2');
+  var A = g10_fr(g10_P(num), D2);
+  var W = [
+    g10_fr(g10_P([p + sg * q]), D2),
+    g10_fr(g10_P([sg * p, q]), D2),
+    g10_fr(g10_P([sg * p, sg * (-p * a) + q]), D2),
+    g10_fr(g10_P([sg * p, q + sg * p * a]), g10_xm(-a)),
+    g10_fr(g10_P([sg * p + q]), g10_P([1, 0, -a * a + 0 * 1]))
+  ];
+  if (sg < 0) W[0] = g10_fr(g10_P([p + q]), D2);
+  return g10_pp(g10_q('fra2', 'Calcula: ' + O.s, O, A, W,
+    'x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + '), así que el mcm es x^{2} − ' + a * a + '. La fracción ⟨' + p + '|x − ' + a + '⟩ se multiplica arriba y abajo por (x + ' + a + '): ' + (sg > 0 ? g10_c(p) + '(x + ' + a + ') + ' + mn(q) : mn(q) + ' − ' + g10_c(p) + '(x + ' + a + ')') + ' = ' + g10_P(num).s + '.'));
+});
+
+/* 7. PROBLEMA: sumar y simplificar */
+genr('fra2', function () {
+  var v = ri(0, 3), a = ri(1, 6), O, A, W, e;
+  if (v === 0) {
+    var t = nz(-5, 5);
+    if (t === -a * a) t = a * a + 1;
+    O = g10_op(g10_fr(g10_P([1, 0, t]), g10_xm(-a)), g10_fr(g10_P([a * a + t]), g10_xm(-a)), '−');
+    A = g10_xm(a);
+    W = [g10_xm(-a), g10_fr(g10_P([1, 0, -a * a]), g10_P([2, -2 * a])), g10_fr(g10_P([1, 0, -a * a]), g10_prod(1, [[g10_xp(-a), 2]])), g10_P([1, 0, -a * a - 2 * t])];
+    e = 'Mismo denominador: (x^{2} ' + g10_sg(t) + ' ' + Math.abs(t) + ') − (' + (a * a + t) + ') = x^{2} − ' + a * a + ' = (x + ' + a + ')(x − ' + a + '). Se cancela (x − ' + a + ') y queda x + ' + a + '.';
+  } else if (v === 1) {
+    O = g10_op(g10_fr(g10_P([2 * a]), g10_P([1, 0, -a * a])), g10_fr(g10_P([1]), g10_xm(a)), '+');
+    A = g10_fr(g10_P([1]), g10_xm(-a));
+    W = [g10_fr(g10_P([1]), g10_xm(a)), g10_fr(g10_P([2 * a + 1]), g10_P([1, 0, -a * a])), g10_fr(g10_P([2 * a + 1]), g10_P([1, 1, a - a * a])), g10_fr(g10_P([1]), g10_P([1, 0, -a * a]))];
+    e = 'Denominador común x^{2} − ' + a * a + ': ' + 2 * a + ' + (x − ' + a + ') = x + ' + a + '. Queda ⟨x + ' + a + '|(x + ' + a + ')(x − ' + a + ')⟩ = ⟨1|x − ' + a + '⟩.';
+  } else if (v === 2) {
+    O = g10_op(g10_fr(g10_P([1]), g10_xm(-a)), g10_fr(g10_P([2 * a]), g10_P([1, 0, -a * a])), '−');
+    A = g10_fr(g10_P([1]), g10_xm(a));
+    W = [g10_fr(g10_P([1]), g10_xm(-a)), g10_fr(g10_P([1 - 2 * a]), g10_P([1, 0, -a * a])), g10_fr(g10_P([1, 3 * a]), g10_P([1, 0, -a * a])), g10_fr(g10_P([-1]), g10_xm(a))];
+    e = 'Denominador común x^{2} − ' + a * a + ': (x + ' + a + ') − ' + 2 * a + ' = x − ' + a + '. Queda ⟨x − ' + a + '|(x + ' + a + ')(x − ' + a + ')⟩ = ⟨1|x + ' + a + '⟩.';
+  } else {
+    O = g10_op(g10_fr(g10_P([1, 0]), g10_xm(-a)), g10_fr(g10_P([a]), g10_P([-1, a])), '+');
+    A = g10_P([1]);
+    W = [g10_P([-1]), g10_fr(g10_xm(a), g10_xm(-a)), g10_fr(g10_P([1, a]), g10_P([1, 0])), g10_fr(g10_P([1, -a]), g10_P([1, a]))];
+    e = a + ' − x = −(x − ' + a + '), así que ⟨' + a + '|' + a + ' − x⟩ = −⟨' + a + '|x − ' + a + '⟩. Queda ⟨x − ' + a + '|x − ' + a + '⟩ = 1.';
+  }
+  return g10_pp(g10_q('fra2', 'Calcula y simplifica: ' + O.s, O, A, W, e));
+});
+
+/* 8. PROBLEMA: producto o división con factorización */
+genr('fra2', function () {
+  var v = ri(0, 2), a = ri(1, 6), b = nz(-6, 6), O, A, W, e;
+  if (v === 0) {
+    O = g10_op(g10_fr(g10_P([1, 0, -a * a]), g10_P([1, b, 0])), g10_fr(g10_xm(b), g10_xm(a)), '·');
+    A = g10_fr(g10_xm(-a), g10_P([1, 0]));
+    W = [g10_fr(g10_xm(a), g10_P([1, 0])), g10_fr(g10_xm(-a), g10_P([1, 0, 0])), g10_fr(g10_xm(-a), g10_P([1])), g10_fr(g10_P([-a]), g10_P([1, 0]))];
+    e = 'Se factoriza: (x + ' + a + ')(x − ' + a + ') entre x(x ' + g10_sg(b) + ' ' + Math.abs(b) + '), por (x ' + g10_sg(b) + ' ' + Math.abs(b) + ') entre (x + ' + a + '). Se cancelan (x + ' + a + ') y (x ' + g10_sg(b) + ' ' + Math.abs(b) + ').';
+  } else if (v === 1) {
+    O = g10_op(g10_fr(g10_P([1, 0, -a * a]), g10_P([1, 0, 0])), g10_fr(g10_xm(a), g10_P([1, 0])), '÷');
+    A = g10_fr(g10_xm(-a), g10_P([1, 0]));
+    W = [g10_fr(g10_xm(a), g10_P([1, 0])), g10_fr(g10_xm(-a), g10_P([1, 0, 0])), g10_fr(g10_prod(1, [[g10_xp(a), 2], [g10_xp(-a), 1]]), g10_P([1, 0, 0, 0])), g10_fr(g10_xm(-a), g10_P([1]))];
+    e = 'Se multiplica por la inversa: ⟨x^{2} − ' + a * a + '|x^{2}⟩ · ⟨x|x + ' + a + '⟩. Se cancelan (x + ' + a + ') y una x.';
+  } else {
+    O = g10_op(g10_fr(g10_P([1, -2 * a, a * a]), g10_P([1, 0, 0])), g10_fr(g10_P([1, 0]), g10_xm(-a)), '·');
+    A = g10_fr(g10_xm(-a), g10_P([1, 0]));
+    W = [g10_fr(g10_xm(a), g10_P([1, 0])), g10_fr(g10_xm(-a), g10_P([1, 0, 0])), g10_fr(g10_P([1, a * a]), g10_P([1, 0])), g10_fr(g10_P([-2 * a, a * a]), g10_P([1, 0]))];
+    e = 'x^{2} − ' + 2 * a + 'x + ' + a * a + ' = (x − ' + a + ')^{2}. Se cancelan un (x − ' + a + ') y una x, y queda ⟨x − ' + a + '|x⟩.';
+  }
+  return g10_pp(g10_q('fra2', 'Calcula y simplifica: ' + O.s, O, A, W, e));
+});
+/* gens11.js — Generadores: ecuaciones con radicales (eqr), con fracciones (eqf), sistemas lineales (sis1), no lineales (sis2) y con radicales/logaritmos (sis3). Incluye problemas de varios pasos (r.p = 1). */
+var G11_START = GENS.length;
+
+/* expresión lineal/polinómica: coeficientes y nombres ('' = término independiente) */
+function g11_E(c, v) {
+  var out = '', i, k, ab, body;
+  for (i = 0; i < c.length; i++) {
+    k = c[i];
+    if (k === 0) continue;
+    ab = Math.abs(k);
+    body = v[i] === '' ? String(ab) : (ab === 1 ? '' : String(ab)) + v[i];
+    if (out === '') out = (k < 0 ? '−' : '') + body;
+    else out += ' ' + (k < 0 ? '−' : '+') + ' ' + body;
+  }
+  return out === '' ? '0' : out;
+}
+function g11_xa(a) { return a === 0 ? 'x' : a > 0 ? 'x + ' + a : 'x − ' + (-a); }   /* x + a */
+function g11_sol(v) { return 'x = ' + mn(v); }
+function g11_fr(n, d) {
+  var g = gcd(n, d), s = (n < 0) !== (d < 0) ? '−' : '';
+  n = Math.abs(n) / g; d = Math.abs(d) / g;
+  return d === 1 ? s + n : s + '⟨' + n + '|' + d + '⟩';
+}
+function g11_solq(n, d) { return 'x = ' + g11_fr(n, d); }
+function g11_uniq(arr) {
+  var u = [];
+  arr.slice().sort(function (p, q) { return p - q; }).forEach(function (v) { if (u.indexOf(v) < 0) u.push(v); });
+  return u;
+}
+function g11_sols(arr) {
+  var u = g11_uniq(arr);
+  if (!u.length) return 'Ninguna solución';
+  return u.map(function (v) { return 'x = ' + mn(v); }).join(' y ');
+}
+function g11_ptn(p) { return '(' + p.map(mn).join(', ') + ')'; }
+function g11_cmp(p, q) { for (var i = 0; i < p.length; i++) if (p[i] !== q[i]) return p[i] - q[i]; return 0; }
+function g11_pts(list) {
+  var s = list.slice().sort(g11_cmp), out = [];
+  s.forEach(function (p) { if (!out.length || g11_cmp(out[out.length - 1], p) !== 0) out.push(p); });
+  return out.map(g11_ptn).join(' y ');
+}
+function g11_np(n, sing, plur) { return n + ' ' + (n === 1 ? sing : plur); }
+function g11_ok(v) { return typeof v === 'number' && isFinite(v) && Math.abs(v) < 1e-9; }
+function g11_isSol(f) {
+  var v = f.apply(null, Array.prototype.slice.call(arguments, 1)), i;
+  if (!(v instanceof Array)) v = [v];
+  for (i = 0; i < v.length; i++) if (!g11_ok(v[i])) return false;
+  return true;
+}
+
+/* una variable. sols: soluciones enteras; wr: incorrectas (número → "x = n", array → conjunto, string tal cual) */
+function g11_f1q(t, q, sols, wr, ex, f, p, o) {
+  o = o || {};
+  var a = o.ans !== undefined ? o.ans : g11_sols(sols), w = [];
+  wr.forEach(function (v) {
+    var s;
+    if (typeof v === 'number') { if (sols.indexOf(v) >= 0 || g11_ok(f(v))) return; s = g11_sol(v); }
+    else if (typeof v === 'string') s = v;
+    else s = g11_sols(v);
+    w.push(s);
+  });
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = { k: 'f1', f: f, sols: sols, lo: o.lo === undefined ? -60 : o.lo, hi: o.hi === undefined ? 60 : o.hi, def: o.ans === undefined ? 1 : 0, show: o.show };
+  return r;
+}
+/* sistemas: sols = lista de soluciones (pares o ternas); wr: [x,y] (par que no sea solución), [[..],[..]] (conjunto) o string */
+function g11_fix(r) {   /* guion ASCII usado como signo menos → − */
+  var f = function (x) { return String(x).replace(/(^|[\s(=;,⟨|{^])-(?=[\dx(])/g, '$1−').replace(/ \+ −/g, ' − ').replace(/ − −/g, ' + '); };
+  r.q = f(r.q); r.a = f(r.a); r.e = f(r.e); r.w = r.w.map(f);
+  return r;
+}
+function g11_sysq(t, q, sols, wr, ex, f, p, o) {
+  o = o || {};
+  var n = sols[0].length, a = o.ans !== undefined ? o.ans : g11_pts(sols), w = [];
+  wr.forEach(function (v) {
+    var s;
+    if (typeof v === 'string') s = v;
+    else if (v[0] instanceof Array) s = g11_pts(v);
+    else { if (g11_isSol.apply(null, [f].concat(v))) return; s = g11_ptn(v); }
+    w.push(s);
+  });
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = { k: 'sys', n: n, f: f, sols: sols, r: o.r, def: o.ans === undefined ? 1 : 0, show: o.show };
+  return r;
+}
+/* valor de una combinación de las incógnitas de un sistema */
+function g11_vq(t, q, val, wr, ex, f, g, p, o) {
+  o = o || {};
+  var a = o.ans !== undefined ? o.ans : mn(val), w = [];
+  wr.forEach(function (v) { if (typeof v === 'number') { if (Math.abs(v - val) < 1e-9) return; v = mn(v); } w.push(v); });
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = { k: 'sysval', n: o.n || 2, f: f, g: g, v: val, r: o.r };
+  return r;
+}
+function g11_nq(t, q, a, w, ex, p, c) {      /* sin comprobación por malla */
+  var r = g11_fix(mk(t, q, a, w, ex));
+  if (p) r.p = 1;
+  r._c = c || { k: 'none' };
+  return r;
+}
+
+/* ================= ECUACIONES CON RADICALES ================= */
+/* k√{x + a} = x − d  →  raíces r > e de x^2 − (2d + k^2)x + d^2 − k^2·a = 0; two = ambas válidas */
+function g11_rk(k, two) {
+  var i, r, e, t, d, m, a;
+  for (i = 0; i < 4000; i++) {
+    r = ri(-5, 11); e = ri(-6, 10);
+    if (r <= e) continue;
+    t = r + e - k * k;
+    if (t % 2 !== 0) continue;
+    d = t / 2; m = d * d - r * e;
+    if (m % (k * k) !== 0) continue;
+    a = m / (k * k);
+    if (Math.abs(a) > 12 || Math.abs(d) > 8) continue;
+    if ((e - d >= 0) !== !!two) continue;
+    return { k: k, a: a, d: d, r: r, e: e, valid: two ? [r, e] : [r] };
+  }
+  return g11_rk(1, true);
+}
+function g11_rkt(o) { return (o.k > 1 ? o.k : '') + '√{' + g11_xa(o.a) + '} = ' + (o.d === 0 ? 'x' : g11_xa(-o.d)); }
+function g11_rkf(o) { return function (x) { return o.k * Math.sqrt(x + o.a) - (x - o.d); }; }
+function g11_rke(o) {
+  var lhs = o.k === 1 ? g11_xa(o.a) : (o.k * o.k) + '(' + g11_xa(o.a) + ')';
+  var rhs = o.d === 0 ? 'x^{2}' : '(' + g11_xa(-o.d) + ')^{2}';
+  var s = 'Al elevar al cuadrado: ' + lhs + ' = ' + rhs + ', es decir ' + g11_E([1, -(o.r + o.e), o.r * o.e], ['x^{2}', 'x', '']) + ' = 0, con soluciones x = ' + mn(o.r) + ' y x = ' + mn(o.e) + '. ';
+  if (o.valid.length === 1) s += 'Al comprobar, con x = ' + mn(o.e) + ' el lado derecho vale ' + mn(o.e - o.d) + ' (negativo) y una raíz no puede serlo: solución falsa.';
+  else s += 'Al comprobar, las dos cumplen la ecuación original.';
+  return s;
+}
+
+/* 1. k√{x + a} + c = n */
+genr('eqr', function () {
+  var u = ri(1, 6), k = ri(2, 4), c = nz(-6, 6), a = ri(-6, 8), n = k * u + c, x0 = u * u - a;
+  var lhs = k + '√{' + g11_xa(a) + '}' + (c > 0 ? ' + ' + c : ' − ' + (-c));
+  return g11_f1q('eqr', 'Resuelve: ' + lhs + ' = ' + mn(n), [x0],
+    [u - a, (n - c) * (n - c) - a, u * u + a, n * n - a, x0 + 1],
+    'Aísla la raíz: ' + k + '√{' + g11_xa(a) + '} = ' + (n - c) + ', luego √{' + g11_xa(a) + '} = ' + u + '. Al elevar al cuadrado, ' + g11_xa(a) + ' = ' + u * u + ' y x = ' + mn(x0) + '.',
+    function (x) { return k * Math.sqrt(x + a) + c - n; }, 0);
+});
+
+/* 2. raíz cúbica */
+genr('eqr', function () {
+  var b = nz(-3, 4), a = ri(-6, 8), k = Math.random() < 0.5 ? 1 : ri(2, 3), x0 = b * b * b - a;
+  var lhs = (k > 1 ? k : '') + '√[3]{' + g11_xa(a) + '}';
+  return g11_f1q('eqr', 'Resuelve: ' + lhs + ' = ' + mn(k * b), [x0],
+    [b * b - a, 3 * b - a, b * b * b + a, x0 + 1, k * b - a],
+    (k > 1 ? 'Divide entre ' + k + ': √[3]{' + g11_xa(a) + '} = ' + mn(b) + '. ' : '') + 'Se eleva al cubo (el signo se conserva): ' + g11_xa(a) + ' = ' + mn(b * b * b) + ', así que x = ' + mn(x0) + '.',
+    function (x) { return k * Math.cbrt(x + a) - k * b; }, 0, { lo: -150, hi: 150 });
+});
+
+/* 3. (problema) una solución válida y una falsa */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 3), false);
+  return g11_f1q('eqr', 'Resuelve ' + g11_rkt(o) + ' y da la solución válida.', o.valid,
+    [o.e, [o.r, o.e], -o.r, o.r + 1, o.d, -o.e], g11_rke(o), g11_rkf(o), 1);
+});
+
+/* 4. (problema) ¿cuántas soluciones? */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 3), Math.random() < 0.4), c = o.valid.length;
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Tres soluciones'];
+  return g11_f1q('eqr', '¿Cuántas soluciones tiene la ecuación ' + g11_rkt(o) + '?', o.valid,
+    lab, g11_rke(o), g11_rkf(o), 1, { ans: lab[c], show: function (F) { return lab[F.length]; } });
+});
+
+/* 5. (problema) suma de las soluciones */
+genr('eqr', function () {
+  if (Math.random() < 0.45) {
+    var m = ri(1, 6), x0 = ri(m + 1, m + 6), n = x0 * x0 - m * m;
+    return g11_f1q('eqr', '¿Cuál es la suma de las soluciones de √{x^{2} − ' + n + '} = ' + m + '?', [-x0, x0],
+      [String(x0), String(2 * x0), String(m), String(-x0), String(x0 * x0)],
+      'Al elevar al cuadrado: x^{2} − ' + n + ' = ' + m * m + ', luego x^{2} = ' + x0 * x0 + ' y x = ±' + x0 + '. Las dos valen y suman 0.',
+      function (x) { return Math.sqrt(x * x - n) - m; }, 1, { ans: '0', show: function (F) { return mn(F.reduce(function (s, v) { return s + v; }, 0)); } });
+  }
+  var o = g11_rk(ri(1, 3), Math.random() < 0.5), S = o.valid.reduce(function (s, v) { return s + v; }, 0);
+  var wr = o.valid.length === 2 ? [o.r, o.e, o.r - o.e, o.r * o.e] : [o.r + o.e, o.e, o.r - o.e, -o.r];
+  return g11_f1q('eqr', '¿Cuál es la suma de las soluciones válidas de ' + g11_rkt(o) + '?', o.valid,
+    wr.map(function (v) { return mn(v); }), g11_rke(o) + ' Suma de las válidas: ' + mn(S) + '.', g11_rkf(o), 1,
+    { ans: mn(S), show: function (F) { return mn(F.reduce(function (s, v) { return s + v; }, 0)); } });
+});
+
+/* 6. (problema) dos radicales */
+genr('eqr', function () {
+  var u = ri(1, 5), v, x0 = ri(0, 6), minus;
+  do { v = ri(1, 5); } while (v === u);
+  minus = Math.random() < 0.35;
+  if (minus && u < v) { var tt = u; u = v; v = tt; }
+  var a = u * u - x0, b = v * v - x0, c = minus ? u - v : u + v;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} ' + (minus ? '−' : '+') + ' √{' + g11_xa(b) + '} = ' + c, [x0],
+    [x0 + 1, x0 - 1, c * c - a - b, u * u, v * v, -x0, c],
+    'Se aísla una raíz y se eleva al cuadrado, luego se repite con la otra raíz que queda. Resulta x = ' + x0 + '. Comprobación: √{' + u * u + '} ' + (minus ? '−' : '+') + ' √{' + v * v + '} = ' + u + (minus ? ' − ' : ' + ') + v + ' = ' + c + '.',
+    function (x) { return Math.sqrt(x + a) + (minus ? -1 : 1) * Math.sqrt(x + b) - c; }, 1);
+});
+
+/* 7. (problema) resolver k√{x + a} = x − d (una o dos válidas) */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 3), Math.random() < 0.45);
+  return g11_f1q('eqr', 'Resuelve: ' + g11_rkt(o), o.valid,
+    [[o.r, o.e], o.r, o.e, [-o.r, -o.e], [o.r + 1, o.e + 1], -o.r], g11_rke(o), g11_rkf(o), 1);
+});
+
+/* 8. ¿cuál de estos valores es solución? */
+genr('eqr', function () {
+  var o = g11_rk(ri(1, 2), false);
+  return g11_f1q('eqr', '¿Cuál de estos valores de x es solución de ' + g11_rkt(o) + '?', o.valid,
+    [o.e, o.d, -o.r, o.r + 1, o.r - 1], 'Sustituye: con x = ' + mn(o.r) + ' ambos lados valen ' + mn(o.r - o.d) + '. El otro valor que sale al elevar al cuadrado, x = ' + mn(o.e) + ', da un lado derecho negativo.',
+    g11_rkf(o), 0, { ans: g11_sol(o.r), show: function (F) { return g11_sol(F[0]); } });
+});
+
+/* 9. dominio de la raíz */
+genr('eqr', function () {
+  var a = nz(-8, 8);
+  if (Math.random() < 0.5) {
+    return g11_nq('eqr', '¿Para qué valores de x existe √{' + g11_xa(a) + '}?', 'x ≥ ' + mn(-a),
+      ['x ≤ ' + mn(-a), 'x > ' + mn(-a), 'x ≥ ' + mn(a), 'x ≤ ' + mn(a)],
+      'El radicando no puede ser negativo: ' + g11_xa(a) + ' ≥ 0, es decir x ≥ ' + mn(-a) + '.', 0,
+      { k: 'dom', f: function (x) { return Math.sqrt(x + a); }, ok: function (x) { return x >= -a; } });
+  }
+  return g11_nq('eqr', '¿Para qué valores de x existe √{' + mn(a) + ' − x}?', 'x ≤ ' + mn(a),
+    ['x ≥ ' + mn(a), 'x < ' + mn(a), 'x ≤ ' + mn(-a), 'x ≥ ' + mn(-a)],
+    'Hace falta ' + mn(a) + ' − x ≥ 0, es decir x ≤ ' + mn(a) + '.', 0,
+    { k: 'dom', f: function (x) { return Math.sqrt(a - x); }, ok: function (x) { return x <= a; } });
+});
+
+/* 10. dos raíces iguales */
+genr('eqr', function () {
+  var b = ri(2, 4), a, x0 = nz(-4, 6), c;
+  do { a = ri(-5, 8); } while (x0 + a <= 0);
+  c = x0 + a - b * x0;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} = √{' + g11_E([b, c], ['x', '']) + '}', [x0],
+    [-x0, x0 + 1, x0 - 1, c - a, a - c],
+    'Dos raíces iguales con el mismo índice: se igualan los radicandos, ' + g11_xa(a) + ' = ' + g11_E([b, c], ['x', '']) + ', y sale x = ' + mn(x0) + '. Ambos radicandos valen ' + (x0 + a) + ' > 0.',
+    function (x) { return Math.sqrt(x + a) - Math.sqrt(b * x + c); }, 0);
+});
+
+/* 11. qué se obtiene al elevar al cuadrado */
+genr('eqr', function () {
+  var k = ri(1, 3), d = ri(1, 6), a = nz(-6, 8), K = k * k;
+  var lhsK = K === 1 ? g11_xa(a) : K + '(' + g11_xa(a) + ')';
+  var orig = (k > 1 ? k : '') + '√{' + g11_xa(a) + '} = ' + g11_xa(-d);
+  var right = g11_E([1, -2 * d, d * d], ['x^{2}', 'x', '']);
+  var wrs = ['x^{2} + ' + d * d, 'x^{2} − ' + d * d, g11_E([1, -d, d * d], ['x^{2}', 'x', '']), g11_E([1, 2 * d, d * d], ['x^{2}', 'x', ''])].map(function (s) { return lhsK + ' = ' + s; });
+  if (k > 1) wrs.push(k + '(' + g11_xa(a) + ') = ' + right);
+  return g11_nq('eqr', 'Al elevar al cuadrado los dos lados de ' + orig + ' se obtiene', lhsK + ' = ' + right, wrs,
+    'Se eleva al cuadrado cada lado completo: ' + (k > 1 ? '(' + k + '√{...})^{2} = ' + K + '(' + g11_xa(a) + '), y ' : '') + '(' + g11_xa(-d) + ')^{2} = ' + right + ' (cuadrado de una diferencia).', 0);
+});
+
+/* 12. √{ax + b} = c */
+genr('eqr', function () {
+  var a = ri(2, 5), c = ri(1, 6), x0 = nz(-5, 8), b = c * c - a * x0;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_E([a, b], ['x', '']) + '} = ' + c, [x0],
+    [g11_solq(c - b, a), g11_solq(c * c + b, a), -x0, g11_solq(c * c - b, 1), x0 + 1],
+    'Se eleva al cuadrado: ' + g11_E([a, b], ['x', '']) + ' = ' + c * c + ', luego ' + a + 'x = ' + (c * c - b) + ' y x = ' + mn(x0) + '.',
+    function (x) { return Math.sqrt(a * x + b) - c; }, 0);
+});
+
+/* 13. raíz igual a un número negativo / aislada */
+genr('eqr', function () {
+  var a = ri(-6, 8), m = ri(1, 6), v = ri(0, 2), f, ex, ans, sols, wr;
+  if (v === 0) {
+    f = function (x) { return Math.sqrt(x + a) + m; };
+    return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} = −' + m, [],
+      [m * m - a, -m * m - a, m - a, -m - a], 'Una raíz cuadrada nunca es negativa, así que no hay solución. (Al elevar al cuadrado saldría x = ' + mn(m * m - a) + ', que no cumple la ecuación original.)', f, 0);
+  }
+  if (v === 1) {
+    var n = ri(0, m - 1);
+    return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} + ' + m + ' = ' + n, [],
+      [(n - m) * (n - m) - a, (m - n) * (m - n) - a, n * n - a, m * m - a],
+      'Al aislar la raíz: √{' + g11_xa(a) + '} = ' + mn(n - m) + ', negativo. No existe ningún x que lo cumpla.',
+      function (x) { return Math.sqrt(x + a) + m - n; }, 0);
+  }
+  var n2 = m + ri(1, 5), x0 = (n2 - m) * (n2 - m) - a;
+  return g11_f1q('eqr', 'Resuelve: √{' + g11_xa(a) + '} + ' + m + ' = ' + n2, [x0],
+    ['Ninguna solución', n2 * n2 - a, (n2 + m) * (n2 + m) - a, n2 - m - a],
+    'Aislamos: √{' + g11_xa(a) + '} = ' + (n2 - m) + ', positivo. Al elevar al cuadrado: ' + g11_xa(a) + ' = ' + (n2 - m) * (n2 - m) + ' y x = ' + mn(x0) + '.',
+    function (x) { return Math.sqrt(x + a) + m - n2; }, 0);
+});
+
+/* 14. (problema) el cuadrado: área x + a y lado x − d */
+genr('eqr', function () {
+  var o = g11_rk(1, false), side = o.r - o.d;
+  if (Math.random() < 0.5) {
+    return g11_f1q('eqr', 'El área de un cuadrado es (' + g11_xa(o.a) + ') cm² y su lado mide ' + (o.d === 0 ? 'x' : '(' + g11_xa(-o.d) + ')') + ' cm, con x un número real. ¿Cuánto mide el lado?', o.valid,
+      [(o.e - o.d) + ' cm', o.r + ' cm', (o.r + o.d) + ' cm', (side + 1) + ' cm', (side * side) + ' cm'].map(function (s) { return s.replace('-', '−'); }),
+      'El área es el lado al cuadrado: ' + g11_xa(o.a) + ' = (' + (o.d === 0 ? 'x' : g11_xa(-o.d)) + ')^{2}, o sea ' + g11_E([1, -(o.r + o.e), o.r * o.e], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(o.r) + ' y x = ' + mn(o.e) + '. Con x = ' + mn(o.e) + ' el lado sería negativo; con x = ' + mn(o.r) + ' mide ' + side + ' cm.',
+      g11_rkf(o), 1, { ans: side + ' cm', show: function (F) { return (F[0] - o.d) + ' cm'; } });
+  }
+  return g11_f1q('eqr', 'Un número x cumple que la raíz cuadrada de ' + g11_xa(o.a) + ' es igual a ' + (o.d === 0 ? 'x' : g11_xa(-o.d)) + '. ¿De qué número se trata?', o.valid,
+    [o.e, o.d, -o.r, o.r + 1, o.r - 1].map(function (v) { return v; }).filter(function (v) { return true; }).map(function (v) { return g11_sol(v); }).map(function (s) { return s.replace('x = ', ''); }),
+    g11_rke(o), g11_rkf(o), 1, { ans: String(mn(o.r)), show: function (F) { return mn(F[0]); } });
+});
+
+/* ================= ECUACIONES CON FRACCIONES ================= */
+function g11_ft(n, den, first) { return (n < 0 ? (first ? '−' : ' − ') : (first ? '' : ' + ')) + '⟨' + Math.abs(n) + '|' + den + '⟩'; }
+function g11_lcm(a, b) { return a * b / gcd(a, b); }
+function g11_sum(F) { return F.reduce(function (s, v) { return s + v; }, 0); }
+/* ⟨A|x⟩ + ⟨B|x + m⟩ = 1 con raíces r > e */
+function g11_ab() {
+  var i, r, e, m, A, B;
+  for (i = 0; i < 6000; i++) {
+    r = nz(-7, 7); e = nz(-7, 7); m = nz(-4, 4);
+    if (r <= e || r === -m || e === -m) continue;
+    if ((r * e) % m !== 0) continue;
+    A = -(r * e) / m; B = r + e + m - A;
+    if (A === 0 || B === 0 || Math.abs(A) > 12 || Math.abs(B) > 12) continue;
+    return { A: A, B: B, m: m, r: r, e: e };
+  }
+  return { A: 6, B: -2, m: 1, r: 2, e: -3 };
+}
+function g11_abt(o) { return g11_ft(o.A, 'x', true) + g11_ft(o.B, g11_xa(o.m), false) + ' = 1'; }
+function g11_abe(o) {
+  var s = 'Se multiplica por x(' + g11_xa(o.m) + '): ' + g11_E([o.A], ['']) + '(' + g11_xa(o.m) + ') + ' + '(' + o.B + ')x = x(' + g11_xa(o.m) + '), que da ' + g11_E([1, -(o.r + o.e), o.r * o.e], ['x^{2}', 'x', '']) + ' = 0 y x = ' + mn(o.r) + ', x = ' + mn(o.e) + '. Ninguna anula un denominador.';
+  return s;
+}
+function g11_abf(o) { return function (x) { return o.A / x + o.B / (x + o.m) - 1; }; }
+/* ⟨A|x⟩ = x + c con raíces r > e */
+function g11_rc() {
+  var r, e;
+  do { r = nz(-7, 7); e = nz(-7, 7); } while (r <= e);
+  return { r: r, e: e, c: -(r + e), A: -r * e };
+}
+var G11_TUB = null, G11_CIC = null;
+function g11_tub() {
+  if (!G11_TUB) { G11_TUB = []; var x0, a, num, den; for (x0 = 2; x0 <= 14; x0++) for (a = 1; a <= 8; a++) { num = x0 * (x0 + a); den = 2 * x0 + a; if (num % den === 0) G11_TUB.push([x0, a, num / den]); } }
+  return pick(G11_TUB);
+}
+function g11_cic() {
+  if (!G11_CIC) { G11_CIC = []; var v, a, t, d; for (v = 4; v <= 30; v++) for (a = 1; a <= 10; a++) for (t = 1; t <= 2; t++) { d = t * v * (v + a) / a; if (d === Math.floor(d) && d >= 20 && d <= 240) G11_CIC.push([v, a, t, d]); } }
+  return pick(G11_CIC);
+}
+
+/* 1. ⟨a|x⟩ + ⟨b|x⟩ = número */
+genr('eqf', function () {
+  var x0 = nz(-8, 8), a = ri(1, 6), b = ri(1, 6), rhs = g11_fr(a + b, x0);
+  return g11_f1q('eqf', 'Resuelve: ⟨' + a + '|x⟩ + ⟨' + b + '|x⟩ = ' + rhs, [x0],
+    [-x0, x0 + 1, a + b, g11_solq(1, x0), 2 * x0, x0 - 1],
+    'Las dos fracciones tienen el mismo denominador: ⟨' + (a + b) + '|x⟩ = ' + rhs + '. Por tanto x = ' + mn(x0) + '.',
+    function (x) { return a / x + b / x - (a + b) / x0; }, 0);
+});
+
+/* 2. ⟨x + a|x − b⟩ = k */
+genr('eqf', function () {
+  var k = ri(2, 4), b, x0, a;
+  do { b = nz(-5, 5); x0 = nz(-6, 8); } while (x0 === b);
+  a = k * (x0 - b) - x0;
+  return g11_f1q('eqf', 'Resuelve: ⟨' + g11_xa(a) + '|' + g11_xa(-b) + '⟩ = ' + k, [x0],
+    [-x0, b, g11_solq(a - k * b, k - 1), x0 + 1, x0 - 1],
+    'Con x ≠ ' + b + ', se multiplica por ' + g11_xa(-b) + ': ' + g11_xa(a) + ' = ' + k + '(' + g11_xa(-b) + '). Despejando, x = ' + mn(x0) + ', que no anula el denominador.',
+    function (x) { return (x + a) / (x - b) - k; }, 0);
+});
+
+/* 3. (problema) solución falsa que anula el denominador */
+genr('eqf', function () {
+  var s = nz(-5, 6), t = Math.random() < 0.15 ? s : ri(-5, 6), a = ri(-4, 4), b = a + s + t, c = -s * t;
+  var eq = '⟨' + g11_E([1, a], ['x^{2}', 'x']) + '|' + g11_xa(-s) + '⟩ = ' + '⟨' + g11_E([b, c], ['x', '']) + '|' + g11_xa(-s) + '⟩';
+  var sols = t === s ? [] : [t];
+  var f = function (x) { return (x * x + a * x) / (x - s) - (b * x + c) / (x - s); };
+  var ex = 'Con x ≠ ' + s + ' se igualan los numeradores: ' + g11_E([1, a], ['x^{2}', 'x']) + ' = ' + g11_E([b, c], ['x', '']) + ', es decir ' + g11_E([1, -(s + t), s * t], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(s) + ' y x = ' + mn(t) + '. ';
+  ex += t === s ? 'Pero x = ' + mn(s) + ' anula el denominador, así que no hay solución.' : 'x = ' + mn(s) + ' anula el denominador y es solución falsa; solo vale x = ' + mn(t) + '.';
+  if (Math.random() < 0.5) {
+    return g11_f1q('eqf', 'Resuelve: ' + eq, sols, [s, [s, t], -t, t + 1, a, -s], ex, f, 1);
+  }
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Infinitas soluciones'];
+  return g11_f1q('eqf', '¿Cuántas soluciones tiene la ecuación ' + eq + '?', sols, lab, ex, f, 1, { ans: lab[sols.length], show: function (F) { return lab[F.length]; } });
+});
+
+/* 4. (problema) ⟨A|x⟩ + ⟨B|x + m⟩ = 1: soluciones, suma o producto */
+genr('eqf', function () {
+  var o = g11_ab(), v = ri(0, 2), f = g11_abf(o);
+  if (v === 0) return g11_f1q('eqf', 'Resuelve: ' + g11_abt(o), [o.r, o.e], [[-o.r, -o.e], o.r, o.e, [o.r + 1, o.e + 1], [-o.r, o.e]], g11_abe(o), f, 1);
+  if (v === 1) return g11_f1q('eqf', '¿Cuál es la suma de las soluciones de ' + g11_abt(o) + '?', [o.r, o.e],
+    [o.r * o.e, o.r - o.e, -(o.r + o.e), o.r, o.A + o.B].map(function (z) { return mn(z); }), g11_abe(o) + ' Suma: ' + mn(o.r + o.e) + '.', f, 1,
+    { ans: mn(o.r + o.e), show: function (F) { return mn(g11_sum(F)); } });
+  return g11_f1q('eqf', '¿Cuál es el producto de las soluciones de ' + g11_abt(o) + '?', [o.r, o.e],
+    [o.r + o.e, o.r - o.e, -(o.r * o.e), o.A * o.m, o.A * o.B].map(function (z) { return mn(z); }), g11_abe(o) + ' Producto: ' + mn(o.r * o.e) + '.', f, 1,
+    { ans: mn(o.r * o.e), show: function (F) { return mn(F[0] * F[1]); } });
+});
+
+/* 5. (problema) ⟨A|x⟩ = x + c */
+genr('eqf', function () {
+  var o = g11_rc(), v = ri(0, 3), eq = '⟨' + o.A + '|x⟩ = ' + (o.c === 0 ? 'x' : g11_xa(o.c));
+  var f = function (x) { return o.A / x - (x + o.c); };
+  var ex = 'Multiplicando por x: ' + mn(o.A) + ' = x(' + (o.c === 0 ? 'x' : g11_xa(o.c)) + '), es decir ' + g11_E([1, o.c, -o.A], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(o.r) + ' y x = ' + mn(o.e) + '. Ninguna es 0.';
+  if (v === 0) return g11_f1q('eqf', 'Resuelve: ' + eq, [o.r, o.e], [[-o.r, -o.e], o.r, o.e, [o.r + 1, o.e + 1], [o.r, -o.e]], ex, f, 1);
+  if (v === 1) return g11_f1q('eqf', '¿Cuál es la suma de las soluciones de ' + eq + '?', [o.r, o.e],
+    [o.c, o.A, o.r - o.e, o.r * o.e].map(function (z) { return mn(z); }), ex + ' Suma: ' + mn(o.r + o.e) + '.', f, 1,
+    { ans: mn(o.r + o.e), show: function (F) { return mn(g11_sum(F)); } });
+  if (v === 2) return g11_f1q('eqf', '¿Cuál es el producto de las soluciones de ' + eq + '?', [o.r, o.e],
+    [o.A, o.r + o.e, o.c, o.r - o.e].map(function (z) { return mn(z); }), ex + ' Producto: ' + mn(o.r * o.e) + '.', f, 1,
+    { ans: mn(o.r * o.e), show: function (F) { return mn(F[0] * F[1]); } });
+  return g11_f1q('eqf', '¿Cuál es la mayor solución de ' + eq + '?', [o.r, o.e],
+    [o.e, -o.r, o.r + 1, o.A].map(function (z) { return mn(z); }), ex + ' La mayor es ' + mn(o.r) + '.', f, 1,
+    { ans: mn(o.r), show: function (F) { return mn(F[F.length - 1]); } });
+});
+
+/* 6. (problema) dos grifos */
+genr('eqf', function () {
+  var q = g11_tub(), x0 = q[0], a = q[1], T = q[2];
+  return g11_f1q('eqf', 'Un grifo tarda x horas en llenar un depósito y otro, más lento, tarda ' + g11_xa(a) + ' horas. Abiertos a la vez lo llenan en ' + g11_np(T, 'hora', 'horas') + '. ¿Cuánto tarda el grifo rápido él solo?', [x0],
+    [(x0 + a) + ' horas', T + ' horas', (2 * T) + ' horas', (x0 + 1) + ' horas', a + ' horas', (x0 - 1) + ' horas'],
+    'En una hora llenan ⟨1|x⟩ + ⟨1|' + g11_xa(a) + '⟩ = ⟨1|' + T + '⟩ del depósito. Multiplicando por ' + T + 'x(' + g11_xa(a) + ') sale ' + g11_E([1, a - 2 * T, -a * T], ['x^{2}', 'x', '']) + ' = 0, cuya única raíz positiva es x = ' + x0 + '.',
+    function (x) { return 1 / x + 1 / (x + a) - 1 / T; }, 1, { lo: 1, hi: 60, ans: x0 + ' horas', show: function (F) { return F[0] + ' horas'; } });
+});
+
+/* 7. (problema) ciclista */
+genr('eqf', function () {
+  var q = g11_cic(), v0 = q[0], a = q[1], t = q[2], d = q[3];
+  var wr = [(v0 + a) + ' km/h', a + ' km/h', Math.round(d / t) + ' km/h', (v0 + 1) + ' km/h', (v0 - 1) + ' km/h'];
+  return g11_f1q('eqf', 'Un ciclista recorre ' + d + ' km a velocidad constante. Si fuese ' + a + ' km/h más rápido, tardaría ' + g11_np(t, 'hora', 'horas') + ' menos. ¿A qué velocidad va?', [v0],
+    wr, 'Con x km/h: ⟨' + d + '|x⟩ − ⟨' + d + '|' + g11_xa(a) + '⟩ = ' + t + '. Multiplicando por x(' + g11_xa(a) + ') sale ' + g11_E([t, t * a, -d * a], ['x^{2}', 'x', '']) + ' = 0, con una única raíz positiva: x = ' + v0 + '.',
+    function (x) { return d / x - d / (x + a) - t; }, 1, { lo: 1, hi: 60, ans: v0 + ' km/h', show: function (F) { return F[0] + ' km/h'; } });
+});
+
+/* 8. valores excluidos */
+genr('eqf', function () {
+  var p, q, a = ri(1, 6), b = ri(1, 6);
+  do { p = ri(1, 6); q = ri(1, 6); } while (p === -q || p === q);
+  return g11_nq('eqf', '¿Qué valores de x hay que excluir al resolver ⟨' + a + '|' + g11_xa(-p) + '⟩ + ⟨' + b + '|' + g11_xa(q) + '⟩ = 1?',
+    'x ≠ ' + p + ' y x ≠ ' + mn(-q), ['x ≠ ' + mn(-p) + ' y x ≠ ' + q, 'x ≠ ' + p + ' y x ≠ ' + q, 'x ≠ 0', 'x ≠ ' + mn(-p) + ' y x ≠ ' + mn(-q)],
+    'Cada denominador no puede ser 0: ' + g11_xa(-p) + ' = 0 da x = ' + p + ' y ' + g11_xa(q) + ' = 0 da x = ' + mn(-q) + '.', 0,
+    { k: 'dom', f: function (x) { return a / (x - p) + b / (x + q); }, ok: function (x) { return x !== p && x !== -q; } });
+});
+
+/* 9. paso de quitar denominadores */
+genr('eqf', function () {
+  var a, b, m = ri(1, 5), c = ri(2, 5);
+  do { a = ri(1, 6); b = ri(1, 6); } while (a === b);
+  var cf = function (n, s) { return n === 1 ? s : n + s; };
+  var xm = '(' + g11_xa(m) + ')', A1 = a === 1 ? xm : a + xm, B1 = b === 1 ? xm : b + xm;
+  var ok = A1 + ' + ' + cf(b, 'x') + ' = ' + cf(c, 'x') + xm;
+  return g11_nq('eqf', 'Al multiplicar ⟨' + a + '|x⟩ + ⟨' + b + '|' + g11_xa(m) + '⟩ = ' + c + ' por el m.c.m. de los denominadores, x(' + g11_xa(m) + '), se obtiene',
+    ok, [
+      A1 + ' + ' + cf(b, 'x') + ' = ' + c,
+      a + ' + ' + b + ' = ' + c + 'x' + xm,
+      cf(a, 'x') + ' + ' + B1 + ' = ' + c + 'x' + xm,
+      A1 + ' + ' + B1 + ' = ' + c + 'x' + xm
+    ],
+    'Cada término se multiplica por x(' + g11_xa(m) + '): ⟨' + a + '|x⟩ pasa a ' + A1 + ', ⟨' + b + '|' + g11_xa(m) + '⟩ pasa a ' + cf(b, 'x') + ', y el ' + c + ' del segundo miembro pasa a ' + c + 'x' + xm + '.', 0);
+});
+
+/* 10. denominadores numéricos */
+genr('eqf', function () {
+  var m = ri(2, 6), n, x0 = nz(-8, 10), a = nz(-5, 5), b = nz(-5, 5);
+  do { n = ri(2, 6); } while (n === m);
+  var rhs = g11_fr((x0 + a) * n + (x0 - b) * m, m * n), L = g11_lcm(m, n);
+  return g11_f1q('eqf', 'Resuelve: ⟨' + g11_xa(a) + '|' + m + '⟩ + ⟨' + g11_xa(-b) + '|' + n + '⟩ = ' + rhs, [x0],
+    [-x0, x0 + 1, x0 - 1, x0 + a, 2 * x0], 'Se multiplica por el m.c.m. ' + L + ' para quitar denominadores y se despeja: x = ' + mn(x0) + '.',
+    function (x) { return (x + a) / m + (x - b) / n - ((x0 + a) / m + (x0 - b) / n); }, 0);
+});
+
+/* 11. ⟨x + a|x⟩ = ⟨b|x⟩ + c */
+genr('eqf', function () {
+  var c = pick([2, 3, -1, -2]), x0 = nz(-6, 8), a = nz(-6, 6), b = a + x0 * (1 - c);
+  var eq = '⟨' + g11_xa(a) + '|x⟩ = ' + (b === 0 ? String(c) : g11_ft(b, 'x', true) + (c > 0 ? ' + ' + c : ' − ' + (-c)));
+  return g11_f1q('eqf', 'Resuelve: ' + eq, [x0],
+    [-x0, g11_solq(b - a, 1 + c), x0 + 1, x0 - 1, c],
+    'Con x ≠ 0 se multiplica por x: ' + g11_xa(a) + ' = ' + g11_E([b, c], ['', 'x']) + '. Entonces ' + g11_E([1 - c], ['x']) + ' = ' + mn(b - a) + ' y x = ' + mn(x0) + '.',
+    function (x) { return (x + a) / x - (b / x + c); }, 0);
+});
+
+/* 12. ¿cuántas soluciones? ninguna / infinitas */
+genr('eqf', function () {
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Infinitas soluciones'];
+  if (Math.random() < 0.6) {
+    var a = nz(-6, 6), b;
+    do { b = nz(-4, 6); } while (a + b === 0);
+    return g11_f1q('eqf', '¿Cuántas soluciones tiene ⟨' + g11_xa(b) + '|' + g11_xa(-a) + '⟩ = ⟨' + (a + b) + '|' + g11_xa(-a) + '⟩?', [], lab,
+      'Con x ≠ ' + a + ' se igualan los numeradores: ' + g11_xa(b) + ' = ' + (a + b) + ' da x = ' + a + ', que anula el denominador. No hay solución.',
+      function (x) { return (x + b) / (x - a) - (a + b) / (x - a); }, 0, { ans: lab[0], show: function (F) { return lab[F.length]; } });
+  }
+  var c = ri(2, 7);
+  return g11_nq('eqf', '¿Cuántas soluciones tiene ⟨' + g11_E([1, -c * c], ['x^{2}', '']) + '|' + g11_xa(-c) + '⟩ = ' + g11_xa(c) + '?', lab[3], lab.slice(0, 3),
+    'Como x^{2} − ' + c * c + ' = (x − ' + c + ')(x + ' + c + '), la fracción se simplifica a x + ' + c + ' para todo x ≠ ' + c + ': infinitas soluciones.', 0,
+    { k: 'ident', f: function (x) { return (x * x - c * c) / (x - c) - (x + c); } });
+});
+
+/* 13. (problema) un número y su inverso */
+genr('eqf', function () {
+  var s1 = Math.random() < 0.5 ? 1 : -1, r, e, k, S, p;
+  do { r = ri(1, 7); e = ri(1, 7); } while (r === e);
+  r *= s1; e *= s1;
+  if (r < e) { var tmp = r; r = e; e = tmp; }
+  k = r * e; S = r + e;
+  var kk = k === 1 ? 'su inverso' : k + ' veces su inverso';
+  return g11_f1q('eqf', 'La suma de un número y ' + kk + ' es ' + mn(S) + '. ¿Qué números cumplen esta condición?', [r, e],
+    [[-r, -e], r, e, [r + 1, e + 1], [r, -e]],
+    'Con x el número: x + ⟨' + k + '|x⟩ = ' + mn(S) + '. Multiplicando por x: ' + g11_E([1, -S, k], ['x^{2}', 'x', '']) + ' = 0, con soluciones x = ' + mn(r) + ' y x = ' + mn(e) + '.',
+    function (x) { return x + k / x - S; }, 1);
+});
+
+/* 14. (problema) inversos de dos consecutivos */
+genr('eqf', function () {
+  var x0 = ri(1, 9), rhs = g11_fr(2 * x0 + 1, x0 * (x0 + 1));
+  return g11_f1q('eqf', 'La suma de los inversos de dos números naturales consecutivos es ' + rhs + '. ¿Cuál es el menor de los dos?', [x0],
+    [x0 + 1, x0 - 1, 2 * x0 + 1, x0 * (x0 + 1), -x0 - 1].map(function (v) { return mn(v); }),
+    'Con x y x + 1: ⟨1|x⟩ + ⟨1|x + 1⟩ = ⟨2x + 1|x(x + 1)⟩ = ' + rhs + '. Al resolver la ecuación de 2.º grado, la única raíz natural es x = ' + x0 + ' (comprobación: ⟨1|' + x0 + '⟩ + ⟨1|' + (x0 + 1) + '⟩ = ' + rhs + ').',
+    function (x) { return 1 / x + 1 / (x + 1) - (2 * x0 + 1) / (x0 * (x0 + 1)); }, 1, { lo: 1, hi: 60, ans: String(x0), show: function (F) { return String(F[0]); } });
+});
+
+/* ================= SISTEMAS LINEALES ================= */
+function g11_L(a, b, c) { return g11_E([a, b], ['x', 'y']) + ' = ' + mn(c); }
+function g11_pw(x0, y0) { return [[y0, x0], [x0, -y0], [-x0, y0], [x0 + 1, y0], [x0, y0 + 1], [-x0, -y0], [x0 - 1, y0 + 1]]; }
+function g11_pr(n) { return n < 0 ? '(' + mn(n) + ')' : String(n); }
+function g11_ck(a, b, e, x0, y0) { return g11_pr(a) + '·' + g11_pr(x0) + ' + ' + g11_pr(b) + '·' + g11_pr(y0) + ' = ' + mn(e); }
+
+/* 1. (problema) sustitución */
+genr('sis1', function () {
+  var x0, y0, a, b, c, d, e, flip = Math.random() < 0.5, det;
+  do {
+    x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-3, 3); c = nz(-4, 5); d = nz(-4, 5);
+    det = flip ? c * a + d : c + d * a;
+  } while (x0 === y0 || x0 === -y0 || det === 0);
+  b = flip ? x0 - a * y0 : y0 - a * x0;
+  e = c * x0 + d * y0;
+  var eq1 = flip ? 'x = ' + g11_E([a, b], ['y', '']) : 'y = ' + g11_E([a, b], ['x', '']);
+  return g11_sysq('sis1', 'Resuelve por sustitución: ' + eq1 + ' ; ' + g11_L(c, d, e), [[x0, y0]], g11_pw(x0, y0),
+    'Se sustituye ' + eq1 + ' en la 2.ª ecuación y queda una ecuación con una sola incógnita. Resulta x = ' + mn(x0) + ' e y = ' + mn(y0) + '. Comprobación en la 2.ª: ' + g11_ck(c, d, e, x0, y0) + '.',
+    function (x, y) { return [flip ? x - a * y - b : y - a * x - b, c * x + d * y - e]; }, 1);
+});
+
+/* 2. (problema) igualación */
+genr('sis1', function () {
+  var x0, y0, a, c, b, d;
+  do { x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-4, 4); c = nz(-4, 4); } while (a === c || x0 === y0 || x0 === -y0);
+  b = y0 - a * x0; d = y0 - c * x0;
+  return g11_sysq('sis1', 'Resuelve por igualación: y = ' + g11_E([a, b], ['x', '']) + ' ; y = ' + g11_E([c, d], ['x', '']), [[x0, y0]], g11_pw(x0, y0),
+    'Se igualan las dos expresiones de y: ' + g11_E([a, b], ['x', '']) + ' = ' + g11_E([c, d], ['x', '']) + '. Sale x = ' + mn(x0) + ' y, sustituyendo, y = ' + mn(y0) + '.',
+    function (x, y) { return [y - a * x - b, y - c * x - d]; }, 1);
+});
+
+/* 3. (problema) reducción */
+genr('sis1', function () {
+  var x0, y0, a, b, c, d;
+  do { x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-4, 5); b = nz(-4, 5); c = nz(-4, 5); d = nz(-4, 5); } while (x0 === y0 || x0 === -y0 || a * d - b * c === 0 || Math.abs(a) === Math.abs(c));
+  var e = a * x0 + b * y0, f = c * x0 + d * y0;
+  return g11_sysq('sis1', 'Resuelve por reducción: ' + g11_L(a, b, e) + ' ; ' + g11_L(c, d, f), [[x0, y0]], g11_pw(x0, y0),
+    'Se multiplican las ecuaciones por números adecuados para que una incógnita tenga coeficientes opuestos y al sumar desaparezca. Resulta x = ' + mn(x0) + ' e y = ' + mn(y0) + '.',
+    function (x, y) { return [a * x + b * y - e, c * x + d * y - f]; }, 1);
+});
+
+/* 4. (problema) valor de x + y, x − y... sin resolver */
+genr('sis1', function () {
+  var x0, y0, a, b;
+  do { x0 = ri(1, 8); y0 = ri(1, 8); a = ri(1, 6); b = ri(1, 6); } while (x0 === y0 || a === b);
+  var e = a * x0 + b * y0, f = b * x0 + a * y0, plus = Math.random() < 0.5;
+  var val = plus ? x0 + y0 : x0 - y0, lab = plus ? 'x + y' : 'x − y';
+  return g11_vq('sis1', 'Si ' + g11_L(a, b, e) + ' y ' + g11_L(b, a, f) + ', ¿cuánto vale ' + lab + '?', val,
+    plus ? [e + f, x0 * y0, x0 - y0, val + 1, val - 1] : [e - f, x0 * y0, x0 + y0, val + 1, val - 1],
+    plus ? 'Sumando las dos ecuaciones: ' + (a + b) + 'x + ' + (a + b) + 'y = ' + (e + f) + ', así que x + y = ' + val + '.'
+         : 'Restando la 2.ª de la 1.ª: ' + g11_E([a - b, b - a], ['x', 'y']) + ' = ' + mn(e - f) + ', y dividiendo entre ' + mn(a - b) + ' queda x − y = ' + mn(val) + '.',
+    function (x, y) { return [a * x + b * y - e, b * x + a * y - f]; }, function (x, y) { return plus ? x + y : x - y; }, 1);
+});
+
+/* 5. (problema) edades */
+genr('sis1', function () {
+  var m, k, past = Math.random() < 0.4, x0, y0, S;
+  do {
+    m = ri(2, 4); k = ri(1, 6);
+    y0 = past ? ri(k + 1, k + 10) : ri(3, 12);
+    x0 = past ? m * (y0 - k) + k : m * (y0 + k) - k;
+  } while (x0 - y0 < 15 || x0 > 75);
+  S = x0 + y0;
+  var w = ['', '', 'el doble', 'el triple', 'el cuádruple'][m];
+  var askSon = Math.random() < 0.5, ans = (askSon ? y0 : x0) + ' años', oth = (askSon ? x0 : y0);
+  var txt = 'La suma de las edades de un padre y su hijo es ' + S + ' años. ' + (past ? 'Hace ' + g11_np(k, 'año', 'años') + ', el padre tenía ' + w + ' de la edad del hijo.' : 'Dentro de ' + g11_np(k, 'año', 'años') + ', el padre tendrá ' + w + ' de la edad del hijo.') + ' ¿Qué edad tiene ahora ' + (askSon ? 'el hijo' : 'el padre') + '?';
+  var tgt = askSon ? y0 : x0;
+  return g11_sysq('sis1', txt, [[x0, y0]],
+    [oth + ' años', (tgt + k) + ' años', (tgt - k) + ' años', (tgt + 1) + ' años', S + ' años', (tgt * 2) + ' años'].map(function (z) { return z.replace('-', '−'); }),
+    'Con x la edad del padre e y la del hijo: x + y = ' + S + ' y x ' + (past ? '− ' : '+ ') + k + ' = ' + m + '(y ' + (past ? '− ' : '+ ') + k + '). Resolviendo: padre ' + x0 + ' años, hijo ' + y0 + ' años.',
+    function (x, y) { return [x + y - S, past ? (x - k) - m * (y - k) : (x + k) - m * (y + k)]; }, 1,
+    { r: [0, 90], ans: ans, show: function (F) { return F[0][askSon ? 1 : 0] + ' años'; } });
+});
+
+/* 6. (problema) precios */
+genr('sis1', function () {
+  var it = pick([['bolígrafos', 'bolígrafo', 'cuadernos', 'cuaderno'], ['bocadillos', 'bocadillo', 'refrescos', 'refresco'], ['entradas de adulto', 'entrada de adulto', 'entradas infantiles', 'entrada infantil'], ['camisetas', 'camiseta', 'gorras', 'gorra'], ['kilos de manzanas', 'kilo de manzanas', 'kilos de peras', 'kilo de peras']]);
+  var x0, y0, a, b, c, d;
+  do { x0 = ri(1, 9); y0 = ri(1, 9); a = ri(1, 5); b = ri(1, 5); c = ri(1, 5); d = ri(1, 5); } while (x0 === y0 || a * d - b * c === 0);
+  var P = a * x0 + b * y0, Q = c * x0 + d * y0, askB = Math.random() < 0.5, v = askB ? y0 : x0, o = askB ? x0 : y0;
+  var nm = askB ? it[3] : it[1];
+  var plu = function (n, i) { return n === 1 ? it[i + 1] : it[i]; };
+  var txt = 'Por ' + a + ' ' + plu(a, 0) + ' y ' + b + ' ' + plu(b, 2) + ' se pagan ' + P + ' €, y por ' + c + ' ' + plu(c, 0) + ' y ' + d + ' ' + plu(d, 2) + ', ' + Q + ' €. ¿Cuánto cuesta cada ' + (askB ? it[3].replace(/^kilo de /, 'kilo de ') : it[1]) + '?';
+  return g11_sysq('sis1', txt, [[x0, y0]], [o + ' €', (v + 1) + ' €', (v + 2) + ' €', (P - Q) + ' €', Math.abs(v - o) + ' €', (v * 2) + ' €'].map(function (z) { return z.replace('-', '−'); }),
+    'Con x e y los precios de cada artículo: ' + g11_L(a, b, P) + ' y ' + g11_L(c, d, Q) + '. Resolviendo, x = ' + x0 + ' € e y = ' + y0 + ' €.',
+    function (x, y) { return [a * x + b * y - P, c * x + d * y - Q]; }, 1, { r: [0, 15], ans: v + ' €', show: function (F) { return F[0][askB ? 1 : 0] + ' €'; } });
+});
+
+/* 7. (problema) mezclas */
+genr('sis1', function () {
+  var it = pick(['café', 'té', 'almendras', 'pienso']), x0, y0, pa, pb, M, c, i;
+  for (i = 0; i < 500; i++) {
+    x0 = ri(1, 9); y0 = ri(1, 9); pa = ri(3, 10); pb = pa + ri(1, 6); M = x0 + y0;
+    if (x0 !== y0 && (pa * x0 + pb * y0) % M === 0) break;
+  }
+  c = (pa * x0 + pb * y0) / M;
+  var cheap = Math.random() < 0.5, v = cheap ? x0 : y0, o = cheap ? y0 : x0;
+  return g11_sysq('sis1', 'Se mezclan ' + it + ' de ' + pa + ' €/kg con ' + it + ' de ' + pb + ' €/kg para obtener ' + M + ' kg de mezcla a ' + c + ' €/kg. ¿Cuántos kg se usan del ' + (cheap ? 'más barato' : 'más caro') + '?', [[x0, y0]],
+    [o + ' kg', (v + 1) + ' kg', (v - 1) + ' kg', (M / 2) + ' kg', c + ' kg', M + ' kg'].filter(function (s) { return s.indexOf('-') < 0 && s !== '0 kg'; }),
+    'Con x kg del barato e y kg del caro: x + y = ' + M + ' y ' + pa + 'x + ' + pb + 'y = ' + c * M + ' (importe total). Resolviendo, x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [x + y - M, pa * x + pb * y - c * M]; }, 1, { r: [0, 30], ans: v + ' kg', show: function (F) { return F[0][cheap ? 0 : 1] + ' kg'; } });
+});
+
+/* 8. (problema) tres incógnitas sencillas */
+genr('sis1', function () {
+  var x0, y0, z0, v = ri(0, 2);
+  do { x0 = ri(1, 9); y0 = ri(1, 9); z0 = ri(1, 9); } while (x0 === y0 || y0 === z0 || x0 === z0);
+  var eqs, f, ex;
+  if (v === 0) {
+    var S = x0 + y0 + z0, A = x0 + y0, B = y0 + z0;
+    eqs = 'x + y + z = ' + S + ' ; x + y = ' + A + ' ; y + z = ' + B;
+    f = function (x, y, z) { return [x + y + z - S, x + y - A, y + z - B]; };
+    ex = 'Restando x + y = ' + A + ' a la 1.ª: z = ' + z0 + '. Restando y + z = ' + B + ': x = ' + x0 + '. Entonces y = ' + A + ' − ' + x0 + ' = ' + y0 + '.';
+  } else if (v === 1) {
+    var A1 = x0 + y0, B1 = y0 + z0, C1 = x0 + z0;
+    eqs = 'x + y = ' + A1 + ' ; y + z = ' + B1 + ' ; x + z = ' + C1;
+    f = function (x, y, z) { return [x + y - A1, y + z - B1, x + z - C1]; };
+    ex = 'Sumando las tres: 2(x + y + z) = ' + 2 * (x0 + y0 + z0) + ', así que x + y + z = ' + (x0 + y0 + z0) + '. Restando cada ecuación: z = ' + z0 + ', x = ' + x0 + ', y = ' + y0 + '.';
+  } else {
+    var S2 = x0 + y0 + z0, d1 = x0 - y0, d2 = y0 - z0;
+    eqs = 'x − y = ' + mn(d1) + ' ; y − z = ' + mn(d2) + ' ; x + y + z = ' + S2;
+    f = function (x, y, z) { return [x - y - d1, y - z - d2, x + y + z - S2]; };
+    ex = 'Se expresan x e y en función de z: y = ' + g11_E([1, d2], ['z', '']) + ', x = ' + g11_E([1, d1], ['y', '']) + '. Al sustituir en la 3.ª: ' + g11_E([3, 2 * d2 + d1], ['z', '']) + ' = ' + S2 + ', de donde z = ' + z0 + ', y = ' + y0 + ' y x = ' + x0 + '.';
+  }
+  var P3 = [[y0, x0, z0], [x0, z0, y0], [z0, y0, x0], [y0, z0, x0], [z0, x0, y0], [x0 + 1, y0, z0]];
+  return g11_sysq('sis1', 'Resuelve el sistema: ' + eqs, [[x0, y0, z0]], P3, ex, f, 1, { r: [-12, 12] });
+});
+
+/* 9. (problema) monedas y billetes */
+genr('sis1', function () {
+  var den = pick([['monedas', 1, 2], ['monedas', 1, 2], ['billetes', 5, 10], ['billetes', 10, 20], ['billetes', 5, 20], ['monedas', 2, 5]]);
+  var x0, y0;
+  do { x0 = ri(3, 15); y0 = ri(3, 15); } while (x0 === y0);
+  var N = x0 + y0, M = den[1] * x0 + den[2] * y0, askB = Math.random() < 0.6, v = askB ? y0 : x0, o = askB ? x0 : y0, dv = askB ? den[2] : den[1];
+  return g11_sysq('sis1', 'En una caja hay ' + N + ' ' + den[0] + ', unas de ' + den[1] + ' € y otras de ' + den[2] + ' €, que suman ' + M + ' €. ¿Cuántas ' + den[0] + ' de ' + dv + ' € hay?', [[x0, y0]],
+    [String(o), String(v + 1), String(v - 1), String(N), String(Math.round(M / dv)), String(v + 2)].filter(function (s) { return s.indexOf('-') < 0; }),
+    'Con x las de ' + den[1] + ' € e y las de ' + den[2] + ' €: x + y = ' + N + ' y ' + den[1] + 'x + ' + den[2] + 'y = ' + M + '. Resolviendo, x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [x + y - N, den[1] * x + den[2] * y - M]; }, 1, { r: [0, 40], ans: String(v), show: function (F) { return String(F[0][askB ? 1 : 0]); } });
+});
+
+/* 10. clasificar un sistema */
+genr('sis1', function () {
+  var v = ri(0, 2), a, b, c, d, e, f, k, ans, ex;
+  a = nz(-5, 5); b = nz(-5, 5); e = nz(-8, 8);
+  if (v === 0) {
+    do { c = nz(-5, 5); d = nz(-5, 5); } while (a * d - b * c === 0);
+    f = nz(-8, 8); ans = 'Compatible determinado'; ex = 'Los coeficientes no son proporcionales (' + a + '·' + g11_pr(d) + ' ≠ ' + g11_pr(b) + '·' + g11_pr(c) + '): las rectas se cortan en un punto.';
+  } else {
+    k = pick([2, 3, -1, -2]); c = k * a; d = k * b;
+    if (v === 1) { f = k * e; ans = 'Compatible indeterminado'; ex = 'La 2.ª ecuación es la 1.ª multiplicada por ' + mn(k) + ': son la misma recta y hay infinitas soluciones.'; }
+    else { f = k * e + nz(-5, 5); ans = 'Incompatible'; ex = 'Los coeficientes de x e y son proporcionales (factor ' + mn(k) + ') pero los términos independientes no: rectas paralelas, sin solución.'; }
+  }
+  var lab = ['Compatible determinado', 'Compatible indeterminado', 'Incompatible', 'Compatible con dos soluciones'];
+  return g11_nq('sis1', '¿Cómo es el sistema ' + g11_L(a, b, e) + ' ; ' + g11_L(c, d, f) + '?', ans, lab, ex, 0, { k: 'cls', a: a, b: b, c: c, d: d, e: e, f: f, ans: ans });
+});
+
+/* 11. despejar una incógnita */
+genr('sis1', function () {
+  var a = ri(2, 6), c = ri(3, 12), b = ri(2, 6);
+  if (Math.random() < 0.5) {
+    return g11_nq('sis1', 'Al despejar y en ' + a + 'x + y = ' + c + ' se obtiene', 'y = ' + g11_E([c, -a], ['', 'x']),
+      ['y = ' + g11_E([a, -c], ['x', '']), 'y = ' + g11_E([c, a], ['', 'x']), 'y = ' + g11_E([a, c], ['x', '']), 'y = ' + g11_E([-c, a], ['', 'x'])],
+      'Se pasa ' + a + 'x al otro lado cambiando de signo: y = ' + c + ' − ' + a + 'x.', 0);
+  }
+  return g11_nq('sis1', 'Al despejar x en x − ' + b + 'y = ' + c + ' se obtiene', 'x = ' + g11_E([b, c], ['y', '']),
+    ['x = ' + g11_E([b, -c], ['y', '']), 'x = ' + g11_E([-b, c], ['y', '']), 'x = ' + g11_E([c, -b], ['', 'y']), 'x = ' + g11_E([-b, -c], ['y', ''])],
+    'Se pasa −' + b + 'y al otro lado como +' + b + 'y: x = ' + b + 'y + ' + c + '.', 0);
+});
+
+/* 12. cómo eliminar x */
+genr('sis1', function () {
+  var a, c, b = nz(-5, 5), d = nz(-5, 5), e = nz(-9, 9), f = nz(-9, 9);
+  do { a = ri(1, 6); c = ri(1, 6); } while (a === c || gcd(a, c) !== 1);
+  return g11_nq('sis1', 'Para eliminar x sumando las ecuaciones ' + g11_L(a, b, e) + ' y ' + g11_L(c, d, f) + ', hay que multiplicar',
+    'La 1.ª por ' + c + ' y la 2.ª por −' + a,
+    ['La 1.ª por ' + a + ' y la 2.ª por ' + c, 'La 1.ª por ' + c + ' y la 2.ª por ' + a, 'La 1.ª por −' + c + ' y la 2.ª por −' + a, 'La 1.ª por ' + a + ' y la 2.ª por −' + c],
+    'Para que los términos en x se anulen al sumar deben quedar ' + a * c + 'x y −' + a * c + 'x: la 1.ª se multiplica por ' + c + ' y la 2.ª por −' + a + '.', 0);
+});
+
+/* 13. ¿cuál de estas parejas es solución? */
+genr('sis1', function () {
+  var x0, y0, a, b, c, d;
+  do { x0 = nz(-5, 7); y0 = nz(-5, 7); a = nz(-4, 5); b = nz(-4, 5); c = nz(-4, 5); d = nz(-4, 5); } while (a * d - b * c === 0);
+  var e = a * x0 + b * y0, f = c * x0 + d * y0;
+  return g11_sysq('sis1', '¿Cuál de estas parejas (x, y) es solución del sistema ' + g11_L(a, b, e) + ' ; ' + g11_L(c, d, f) + '?', [[x0, y0]],
+    [[x0 + b, y0 - a], [x0 - b, y0 + a], [x0 + 2 * b, y0 - 2 * a], [y0, x0]],
+    'Una solución debe cumplir las dos ecuaciones. Sustituyendo ' + g11_ptn([x0, y0]) + ': ' + g11_ck(a, b, e, x0, y0) + ' y ' + g11_ck(c, d, f, x0, y0) + '. Las demás solo cumplen la 1.ª o ninguna.',
+    function (x, y) { return [a * x + b * y - e, c * x + d * y - f]; }, 0, { ans: g11_ptn([x0, y0]) });
+});
+
+/* 14. resultado de sumar dos ecuaciones */
+genr('sis1', function () {
+  var a, d, b = ri(1, 5), c = nz(-9, 9), f = nz(-9, 9);
+  do { a = nz(-5, 5); d = nz(-5, 5); } while (a + d === 0 || a === d || a === -d);
+  return g11_nq('sis1', 'Al sumar las ecuaciones ' + g11_L(a, b, c) + ' y ' + g11_E([d, -b], ['x', 'y']) + ' = ' + mn(f) + ' se obtiene', g11_E([a + d], ['x']) + ' = ' + mn(c + f),
+    [g11_E([a + d], ['x']) + ' = ' + mn(c - f), g11_E([a - d], ['x']) + ' = ' + mn(c + f), g11_E([a + d, 2 * b], ['x', 'y']) + ' = ' + mn(c + f), g11_E([a - d], ['x']) + ' = ' + mn(c - f)],
+    'Los términos en y se anulan (' + b + 'y − ' + b + 'y = 0). Se suman los coeficientes de x (' + mn(a) + ' + ' + g11_pr(d) + ') y los segundos miembros (' + mn(c) + ' + ' + g11_pr(f) + ').', 0);
+});
+
+/* ================= SISTEMAS NO LINEALES ================= */
+var G11_CIRC = null;
+function g11_circ() {
+  if (!G11_CIRC) {
+    G11_CIRC = [];
+    [25, 50, 65, 85, 100, 125, 130, 169].forEach(function (N) {
+      var pts = [], x, y;
+      for (x = -13; x <= 13; x++) for (y = -13; y <= 13; y++) if (x * x + y * y === N) pts.push([x, y]);
+      G11_CIRC.push({ N: N, pts: pts });
+    });
+  }
+  return pick(G11_CIRC);
+}
+function g11_neg(s) { return s.replace(/-/g, '−'); }
+
+/* 1. (problema) x − y = D ; xy = P */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = nz(-6, 6); y0 = nz(-6, 6); } while (x0 === y0 || x0 === -y0);
+  var D = x0 - y0, P = x0 * y0;
+  return g11_sysq('sis2', 'Resuelve el sistema: x − y = ' + mn(D) + ' ; xy = ' + mn(P), [[x0, y0], [-y0, -x0]],
+    [[[x0, y0]], [[x0, y0], [y0, x0]], [[-x0, -y0], [y0, x0]], [[x0, -y0], [-x0, y0]]],
+    'De la 1.ª, x = y + ' + mn(D) + '. En la 2.ª: y(y + ' + mn(D) + ') = ' + mn(P) + ', es decir ' + g11_E([1, D, -P], ['y^{2}', 'y', '']) + ' = 0, con y = ' + mn(y0) + ' o y = ' + mn(-x0) + '. Cada y da su x: ' + g11_ptn([x0, y0]) + ' y ' + g11_ptn([-y0, -x0]) + '.',
+    function (x, y) { return [x - y - D, x * y - P]; }, 1, { r: [-40, 40] });
+});
+
+/* 2. (problema) recta y circunferencia con ordenada y = x + m */
+genr('sis2', function () {
+  var x0, m;
+  do { x0 = ri(-4, 5); m = nz(-3, 3); } while (2 * x0 === -m);
+  var y0 = x0 + m, N = x0 * x0 + y0 * y0, x1 = -m - x0, y1 = -x0;
+  return g11_sysq('sis2', 'Resuelve el sistema: x^{2} + y^{2} = ' + N + ' ; y = ' + g11_xa(m), [[x0, y0], [x1, y1]],
+    [[[x0, y0]], [[x0, y0], [-x0, -y0]], [[x0, y0], [y0, x0]], [[x0, -y0], [x1, -y1]]],
+    'Se sustituye y = ' + g11_xa(m) + ': x^{2} + (' + g11_xa(m) + ')^{2} = ' + N + ', que da ' + g11_E([2, 2 * m, m * m - N], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(x0) + ' y x = ' + mn(x1) + '. Soluciones: ' + g11_ptn([x0, y0]) + ' y ' + g11_ptn([x1, y1]) + '.',
+    function (x, y) { return [x * x + y * y - N, y - x - m]; }, 1, { r: [-40, 40] });
+});
+
+/* 3. (problema) parábola y recta */
+genr('sis2', function () {
+  var r, e, b = ri(-3, 3), c = ri(-4, 4);
+  do { r = ri(-4, 4); e = ri(-4, 4); } while (r === e);
+  var m = b + r + e, n = c - r * e;
+  var S = [[r, m * r + n], [e, m * e + n]];
+  return g11_sysq('sis2', 'Resuelve el sistema: y = ' + g11_E([1, b, c], ['x^{2}', 'x', '']) + ' ; y = ' + g11_E([m, n], ['x', '']), S,
+    [[S[0]], [[r, m * r + n], [e, m * r + n]], [[m * r + n, r], [m * e + n, e]], [[-r, m * r + n], [-e, m * e + n]]],
+    'Se igualan las dos expresiones de y: ' + g11_E([1, b, c], ['x^{2}', 'x', '']) + ' = ' + g11_E([m, n], ['x', '']) + ', es decir ' + g11_E([1, -(r + e), r * e], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(r) + ' y x = ' + mn(e) + '. Se calcula cada y con la recta.',
+    function (x, y) { return [y - (x * x + b * x + c), y - (m * x + n)]; }, 1, { r: [-60, 60] });
+});
+
+/* 4. (problema) x² + y² = N ; xy = P con x, y positivos */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = ri(1, 7); y0 = ri(1, 8); } while (x0 >= y0);
+  var N = x0 * x0 + y0 * y0, P = x0 * y0, s = x0 + y0;
+  return g11_sysq('sis2', 'Con x > 0 e y > 0, resuelve: x^{2} + y^{2} = ' + N + ' ; xy = ' + P, [[x0, y0], [y0, x0]],
+    [[[x0, y0]], [[x0, y0], [-x0, -y0]], [[x0, y0], [P, 1]], [[N, P], [P, N]]],
+    '(x + y)^{2} = x^{2} + y^{2} + 2xy = ' + N + ' + ' + 2 * P + ' = ' + s * s + ', y como son positivos x + y = ' + s + '. Con x + y = ' + s + ' y xy = ' + P + ' salen ' + g11_ptn([x0, y0]) + ' y ' + g11_ptn([y0, x0]) + '.',
+    function (x, y) { return [x * x + y * y - N, x * y - P]; }, 1, { r: [1, 40] });
+});
+
+/* 5. (problema) rectángulo */
+genr('sis2', function () {
+  var x0, y0;
+  if (Math.random() < 0.5) {
+    do { x0 = ri(2, 9); y0 = ri(3, 14); } while (x0 >= y0);
+    var S = x0 + y0, P = x0 * y0, big = Math.random() < 0.5, v = big ? y0 : x0, o = big ? x0 : y0;
+    return g11_sysq('sis2', 'Un rectángulo tiene ' + 2 * S + ' cm de perímetro y ' + P + ' cm² de área. ¿Cuánto mide su lado ' + (big ? 'mayor' : 'menor') + '?', [[x0, y0], [y0, x0]],
+      [o + ' cm', (v + 1) + ' cm', S + ' cm', (v - 1) + ' cm', P + ' cm'].map(g11_neg),
+      'Con lados x e y: x + y = ' + S + ' (semiperímetro) y xy = ' + P + '. Son las raíces de t^{2} − ' + S + 't + ' + P + ' = 0, es decir ' + x0 + ' y ' + y0 + '.',
+      function (x, y) { return [x + y - S, x * y - P]; }, 1, { r: [1, 40], ans: v + ' cm', show: function (F) { return (big ? F[1][0] : F[0][0]) + ' cm'; } });
+  }
+  var T = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15]]), small = Math.random() < 0.5;
+  var S2 = T[0] + T[1], D = T[2], v2 = small ? T[0] : T[1], o2 = small ? T[1] : T[0];
+  return g11_sysq('sis2', 'Un rectángulo tiene ' + 2 * S2 + ' cm de perímetro y ' + D + ' cm de diagonal. ¿Cuánto mide su lado ' + (small ? 'menor' : 'mayor') + '?', [[T[0], T[1]], [T[1], T[0]]],
+    [o2 + ' cm', (v2 + 1) + ' cm', D + ' cm', S2 + ' cm', (v2 - 1) + ' cm'].map(g11_neg),
+    'Con lados x e y: x + y = ' + S2 + ' y x^{2} + y^{2} = ' + D * D + ' (Pitágoras). Entonces xy = ((' + S2 + ')^{2} − ' + D * D + ')/2 = ' + T[0] * T[1] + ' y los lados son ' + T[0] + ' y ' + T[1] + '.',
+    function (x, y) { return [x + y - S2, x * x + y * y - D * D]; }, 1, { r: [1, 40], ans: v2 + ' cm', show: function (F) { return (small ? F[0][0] : F[1][0]) + ' cm'; } });
+});
+
+/* 6. (problema) x² − y² = N ; x + y = S */
+genr('sis2', function () {
+  var x0, y0, S;
+  do { x0 = nz(-6, 8); y0 = nz(-6, 8); S = x0 + y0; } while (x0 === y0 || S === 0);
+  var N = (x0 - y0) * S;
+  return g11_sysq('sis2', 'Resuelve el sistema: x^{2} − y^{2} = ' + mn(N) + ' ; x + y = ' + mn(S), [[x0, y0]], g11_pw(x0, y0),
+    'x^{2} − y^{2} = (x − y)(x + y), así que ' + mn(S) + '(x − y) = ' + mn(N) + ' y x − y = ' + mn(x0 - y0) + '. Con x + y = ' + mn(S) + ' sale x = ' + mn(x0) + ' e y = ' + mn(y0) + '.',
+    function (x, y) { return [x * x - y * y - N, x + y - S]; }, 1);
+});
+
+/* 7. parábola cortada por una recta horizontal */
+genr('sis2', function () {
+  var k = ri(1, 5), a = ri(-5, 5), b = k * k + a;
+  return g11_sysq('sis2', 'Resuelve el sistema: y = ' + g11_E([1, a], ['x^{2}', '']) + ' ; y = ' + mn(b), [[k, b], [-k, b]],
+    [[[k, b]], [[b, k], [b, -k]], [[k, b], [k, -b]], [[k * k, b], [-k * k, b]]],
+    'Se igualan: ' + g11_E([1, a], ['x^{2}', '']) + ' = ' + mn(b) + ', luego x^{2} = ' + k * k + ' y x = ±' + k + '. En los dos casos y = ' + mn(b) + '.',
+    function (x, y) { return [y - (x * x + a), y - b]; }, 0, { r: [-40, 40] });
+});
+
+/* 8. (problema) recta y circunferencia con puntos de coordenadas enteras */
+genr('sis2', function () {
+  var C = g11_circ(), i = ri(0, C.pts.length - 1), j;
+  do { j = ri(0, C.pts.length - 1); } while (j === i);
+  var P1 = C.pts[i], P2 = C.pts[j];
+  var a = P2[1] - P1[1], b = -(P2[0] - P1[0]), g = gcd(gcd(a, b), a * P1[0] + b * P1[1]);
+  var c = a * P1[0] + b * P1[1];
+  a /= g; b /= g; c /= g;
+  if (a < 0 || (a === 0 && b < 0)) { a = -a; b = -b; c = -c; }
+  return g11_sysq('sis2', 'Resuelve el sistema: x^{2} + y^{2} = ' + C.N + ' ; ' + g11_L(a, b, c), [P1, P2],
+    [[P1], [P2], [[-P1[0], -P1[1]], [-P2[0], -P2[1]]], [[P1[1], P1[0]], [P2[1], P2[0]]]],
+    'Se despeja una incógnita de la recta y se sustituye en la circunferencia; queda una ecuación de 2.º grado con dos raíces. Los puntos de corte son ' + g11_ptn(P1) + ' y ' + g11_ptn(P2) + ', que cumplen las dos ecuaciones.',
+    function (x, y) { return [x * x + y * y - C.N, a * x + b * y - c]; }, 1, { r: [-15, 15] });
+});
+
+/* 9. ¿cuántas soluciones? recta y circunferencia */
+genr('sis2', function () {
+  var v = ri(0, 2), m, N, j;
+  if (v === 1) { j = ri(1, 4); m = Math.random() < 0.5 ? 2 * j : -2 * j; N = 2 * j * j; }
+  else { m = nz(-6, 6); N = v === 0 ? ri(Math.floor(m * m / 2) + 1, Math.floor(m * m / 2) + 12) : ri(1, Math.max(1, Math.ceil(m * m / 2) - 1)); }
+  var disc = 8 * N - 4 * m * m, cnt = disc > 0 ? 2 : disc === 0 ? 1 : 0;
+  var lab = ['Ninguna solución', 'Una solución', 'Dos soluciones', 'Cuatro soluciones'], ans = lab[cnt];
+  return g11_nq('sis2', '¿Cuántas soluciones tiene el sistema x^{2} + y^{2} = ' + N + ' ; y = ' + g11_xa(m) + '?', ans, lab,
+    'Al sustituir queda ' + g11_E([2, 2 * m, m * m - N], ['x^{2}', 'x', '']) + ' = 0, con Δ = (' + mn(2 * m) + ')^{2} − 8(' + mn(m * m - N) + ') = ' + mn(disc) + (disc > 0 ? ' > 0: dos soluciones.' : disc === 0 ? ' = 0: una solución (recta tangente).' : ' < 0: ninguna solución.'), 0,
+    { k: 'cnt', g: function (x) { return x * x + (x + m) * (x + m) - N; }, n: cnt });
+});
+
+/* 10. valor de una combinación sin resolver el sistema */
+genr('sis2', function () {
+  var x0, y0, v = ri(0, 4);
+  do { x0 = nz(-6, 7); y0 = nz(-6, 7); } while (x0 === y0 || x0 === -y0);
+  var S = x0 + y0, D = x0 - y0, P = x0 * y0, N = x0 * x0 + y0 * y0;
+  if (v === 0) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y xy = ' + mn(P) + ', ¿cuánto vale x^{2} + y^{2}?', N, [S * S, S * S + 2 * P, S * S - P, S * S - 4 * P, 2 * P],
+    'x^{2} + y^{2} = (x + y)^{2} − 2xy = ' + S * S + ' − (' + mn(2 * P) + ') = ' + N + '.', function (x, y) { return [x + y - S, x * y - P]; }, function (x, y) { return x * x + y * y; }, 0);
+  if (v === 1) return g11_vq('sis2', 'Si x − y = ' + mn(D) + ' y xy = ' + mn(P) + ', ¿cuánto vale x^{2} + y^{2}?', N, [D * D, D * D - 2 * P, D * D + P, D * D - P, 2 * P],
+    'x^{2} + y^{2} = (x − y)^{2} + 2xy = ' + D * D + ' + (' + mn(2 * P) + ') = ' + N + '.', function (x, y) { return [x - y - D, x * y - P]; }, function (x, y) { return x * x + y * y; }, 0);
+  if (v === 2) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y x − y = ' + mn(D) + ', ¿cuánto vale x^{2} − y^{2}?', S * D, [S + D, S - D, S * S - D * D, S * S + D * D, 2 * S * D],
+    'x^{2} − y^{2} = (x + y)(x − y) = ' + g11_pr(S) + '·' + g11_pr(D) + ' = ' + mn(S * D) + '.', function (x, y) { return [x + y - S, x - y - D]; }, function (x, y) { return x * x - y * y; }, 0);
+  if (v === 3) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y xy = ' + mn(P) + ', ¿cuánto vale ⟨1|x⟩ + ⟨1|y⟩?', S / P, [g11_fr(-S, P), g11_fr(P, S), mn(S * P), mn(S + P), g11_fr(S, P + 1)],
+    '⟨1|x⟩ + ⟨1|y⟩ = ⟨x + y|xy⟩ = ⟨' + mn(S) + '|' + mn(P) + '⟩.', function (x, y) { return [x + y - S, x * y - P]; }, function (x, y) { return 1 / x + 1 / y; }, 0, { ans: g11_fr(S, P) });
+  return g11_vq('sis2', 'Si x^{2} + y^{2} = ' + N + ' y xy = ' + mn(P) + ', ¿cuánto vale (x + y)^{2}?', N + 2 * P, [N, N - 2 * P, N + P, 2 * N + P, N * P],
+    '(x + y)^{2} = x^{2} + y^{2} + 2xy = ' + N + ' + (' + mn(2 * P) + ') = ' + mn(N + 2 * P) + '.', function (x, y) { return [x * x + y * y - N, x * y - P]; }, function (x, y) { return (x + y) * (x + y); }, 0);
+});
+
+/* 11. producto xy a partir de otras dos condiciones */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = nz(-6, 7); y0 = nz(-6, 7); } while (x0 === y0 || x0 === -y0);
+  var S = x0 + y0, D = x0 - y0, P = x0 * y0, N = x0 * x0 + y0 * y0;
+  if (Math.random() < 0.5) return g11_vq('sis2', 'Si x + y = ' + mn(S) + ' y x^{2} + y^{2} = ' + N + ', ¿cuánto vale xy?', P, [N - S * S, S * S - N, (S * S - N) / 2 + 1, S * N, 2 * P].map(function (z) { return z; }),
+    '(x + y)^{2} = x^{2} + y^{2} + 2xy, así que ' + S * S + ' = ' + N + ' + 2xy y xy = ' + mn(P) + '.', function (x, y) { return [x + y - S, x * x + y * y - N]; }, function (x, y) { return x * y; }, 0);
+  return g11_vq('sis2', 'Si x − y = ' + mn(D) + ' y x^{2} + y^{2} = ' + N + ', ¿cuánto vale xy?', P, [N - D * D, D * D - N, (N + D * D) / 2, 2 * P, -P],
+    '(x − y)^{2} = x^{2} + y^{2} − 2xy, así que ' + D * D + ' = ' + N + ' − 2xy y xy = ' + mn(P) + '.', function (x, y) { return [x - y - D, x * x + y * y - N]; }, function (x, y) { return x * y; }, 0);
+});
+
+/* 12. (problema) x + y = S ; x² + y² = N */
+genr('sis2', function () {
+  var x0, y0;
+  do { x0 = ri(-6, 6); y0 = ri(-5, 8); } while (x0 >= y0 || x0 + y0 === 0);
+  var S = x0 + y0, N = x0 * x0 + y0 * y0, P = x0 * y0;
+  return g11_sysq('sis2', 'Resuelve el sistema: x + y = ' + mn(S) + ' ; x^{2} + y^{2} = ' + N, [[x0, y0], [y0, x0]],
+    [[[x0, y0]], [[-x0, -y0], [-y0, -x0]], [[x0, y0], [-y0, -x0]], [[x0, -y0], [y0, -x0]]],
+    'Se despeja y = ' + g11_E([-1, S], ['x', '']) + ' y se sustituye: ' + g11_E([2, -2 * S, S * S - N], ['x^{2}', 'x', '']) + ' = 0, es decir ' + g11_E([1, -S, P], ['x^{2}', 'x', '']) + ' = 0, con x = ' + mn(x0) + ' y x = ' + mn(y0) + '.',
+    function (x, y) { return [x + y - S, x * x + y * y - N]; }, 1, { r: [-30, 30] });
+});
+
+/* 13. sustituir en una ecuación de 2.º grado */
+genr('sis2', function () {
+  var a = pick([-3, -2, -1, 1, 2, 3]), b = nz(-4, 4), yy = g11_E([a, b], ['x', '']);
+  if (Math.random() < 0.55) {
+    var N = ri(5, 30);
+    return g11_nq('sis2', 'Al sustituir y = ' + yy + ' en x^{2} + y^{2} = ' + N + ' y pasar todo al primer miembro se obtiene', g11_E([1 + a * a, 2 * a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0',
+      [g11_E([1 + a * a, 0, b * b - N], ['x^{2}', 'x', '']) + ' = 0', g11_E([1 + a * a, a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0', g11_E([1 + a * a, -2 * a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0', g11_E([a * a, 2 * a * b, b * b - N], ['x^{2}', 'x', '']) + ' = 0'],
+      '(' + yy + ')^{2} = ' + g11_E([a * a, 2 * a * b, b * b], ['x^{2}', 'x', '']) + ' (cuadrado de un binomio, con doble producto). Sumando x^{2} y restando ' + N + ' sale la ecuación.', 0);
+  }
+  var P = nz(-12, 12);
+  return g11_nq('sis2', 'Al sustituir y = ' + yy + ' en xy = ' + mn(P) + ' y pasar todo al primer miembro se obtiene', g11_E([a, b, -P], ['x^{2}', 'x', '']) + ' = 0',
+    [g11_E([a, b, P], ['x^{2}', 'x', '']) + ' = 0', g11_E([a, -b, -P], ['x^{2}', 'x', '']) + ' = 0', g11_E([1, b, -P], ['x^{2}', 'x', '']) + ' = 0', g11_E([b, -P], ['x', '']) + ' = 0'],
+    'x(' + yy + ') = ' + g11_E([a, b], ['x^{2}', 'x']) + ', y al pasar ' + mn(P) + ' al primer miembro queda ' + g11_E([a, b, -P], ['x^{2}', 'x', '']) + ' = 0.', 0);
+});
+
+/* 14. suma o producto de las abscisas de las soluciones */
+genr('sis2', function () {
+  var r, e, b = ri(-3, 3), c = ri(-4, 4);
+  do { r = ri(-4, 4); e = ri(-4, 4); } while (r === e);
+  var m = b + r + e, n = c - r * e, sum = Math.random() < 0.5;
+  var f = function (x, y) { return [y - (x * x + b * x + c), y - (m * x + n)]; };
+  var sys = 'y = ' + g11_E([1, b, c], ['x^{2}', 'x', '']) + ' ; y = ' + g11_E([m, n], ['x', '']);
+  var ex = 'Al igualar: ' + g11_E([1, -(r + e), r * e], ['x^{2}', 'x', '']) + ' = 0. Por Cardano, la suma de sus raíces es ' + mn(r + e) + ' y su producto ' + mn(r * e) + '.';
+  var v = sum ? r + e : r * e;
+  var wr = sum ? [r * e, -(r + e), r - e, m, c - n].filter(function (z) { return z !== v; }) : [r + e, -(r * e), r - e, c, n];
+  var r1 = g11_vq('sis2', '¿Cuánto vale ' + (sum ? 'la suma' : 'el producto') + ' de los valores de x de las soluciones del sistema ' + sys + '?', v, wr, ex, f, function (x, y) { return x; }, 0);
+  r1._c = { k: 'sysall', f: f, h: function (S) { return sum ? S.reduce(function (s, p) { return s + p[0]; }, 0) : S.reduce(function (s, p) { return s * p[0]; }, 1); }, v: v, r: [-60, 60] };
+  return r1;
+});
+
+/* ================= SISTEMAS CON RADICALES, LOGARITMOS Y EXPONENCIALES ================= */
+function g11_lg(b) { return function (x) { return Math.log(x) / Math.log(b); }; }
+function g11_lgt(b) { return b === 10 ? 'log' : 'log_{' + b + '}'; }
+
+/* 1. (problema) log_b x + log_b y = n ; x + y = S */
+genr('sis3', function () {
+  var b = pick([2, 2, 3, 5]), mx = b === 2 ? 5 : b === 3 ? 3 : 2, i, j;
+  do { i = ri(0, mx); j = ri(0, mx); } while (i >= j);
+  var x0 = Math.pow(b, i), y0 = Math.pow(b, j), n = i + j, S = x0 + y0, L = g11_lg(b), T = g11_lgt(b);
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + T + ' x + ' + T + ' y = ' + n + ' ; x + y = ' + S, [[x0, y0], [y0, x0]],
+    [[[x0, y0]], [[S - 1, 1], [1, S - 1]], [[i, j], [j, i]], [[x0, -y0], [-y0, x0]], [[b * n, S - b * n], [S - b * n, b * n]]],
+    T + ' x + ' + T + ' y = ' + T + '(xy) = ' + n + ' significa xy = ' + b + '^{' + n + '} = ' + Math.pow(b, n) + '. Con x + y = ' + S + ', x e y son las raíces de t^{2} − ' + S + 't + ' + Math.pow(b, n) + ' = 0: ' + x0 + ' y ' + y0 + ' (ambas positivas, valen).',
+    function (x, y) { return [L(x) + L(y) - n, x + y - S]; }, 1, { r: [1, 100] });
+});
+
+/* 2. (problema) log_b x − log_b y = k ; x + y = S */
+genr('sis3', function () {
+  var b = pick([10, 2, 3]), k = ri(1, 2), y0 = ri(1, 8), q = Math.pow(b, k), x0 = q * y0, S = x0 + y0, L = g11_lg(b), T = g11_lgt(b);
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + T + ' x − ' + T + ' y = ' + k + ' ; x + y = ' + S, [[x0, y0]],
+    [[y0, x0], [S - k, k], [x0, -y0], [S - q, q], [x0 + 1, y0 - 1]],
+    T + ' x − ' + T + ' y = ' + T + '(⟨x|y⟩) = ' + k + ' significa x = ' + q + 'y. Entonces ' + q + 'y + y = ' + S + ' y y = ' + y0 + ', x = ' + x0 + '.',
+    function (x, y) { return [L(x) - L(y) - k, x + y - S]; }, 1, { r: [1, 150] });
+});
+
+/* 3. (problema) log_b(x + y) = n ; x − y = d */
+genr('sis3', function () {
+  var q = pick([[2, 2], [2, 3], [2, 4], [3, 2], [3, 3], [5, 1], [5, 2], [10, 1]]), b = q[0], n = q[1], T = Math.pow(b, n), d, x0, y0, tries = 0;
+  do { d = nz(-T + 2, T - 2); tries++; } while (((T + d) % 2 !== 0) && tries < 200);
+  x0 = (T + d) / 2; y0 = (T - d) / 2;
+  var ex = g11_lgt(b);
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + ex + '(x + y) = ' + n + ' ; x − y = ' + mn(d), [[x0, y0]],
+    [[y0, x0], [T, d], [n + d, n - d], [x0, -y0], [(n + d) / 2, (n - d) / 2]],
+    ex + '(x + y) = ' + n + ' significa x + y = ' + b + '^{' + n + '} = ' + T + '. Sumando con x − y = ' + mn(d) + ': 2x = ' + (T + d) + ', x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [Math.log(x + y) / Math.log(b) - n, x - y - d]; }, 1, { r: [-5, 40] });
+});
+
+/* 4. (problema) c^x + c^y = S ; x + y = n */
+genr('sis3', function () {
+  var c = pick([2, 2, 3]), a, b, mx = c === 2 ? 5 : 3;
+  do { a = ri(0, mx); b = ri(0, mx); } while (a >= b);
+  var S = Math.pow(c, a) + Math.pow(c, b), n = a + b;
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + c + '^{x} + ' + c + '^{y} = ' + S + ' ; x + y = ' + n, [[a, b], [b, a]],
+    [[[a, b]], [[Math.pow(c, a), Math.pow(c, b)], [Math.pow(c, b), Math.pow(c, a)]], [[S - n, n], [n, S - n]], [[-a, -b], [-b, -a]]],
+    'Si u = ' + c + '^{x} y v = ' + c + '^{y}, entonces u + v = ' + S + ' y uv = ' + c + '^{x + y} = ' + Math.pow(c, n) + ', así que u y v son ' + Math.pow(c, a) + ' y ' + Math.pow(c, b) + '. Por tanto x e y valen ' + a + ' y ' + b + ' (en cualquier orden).',
+    function (x, y) { return [Math.pow(c, x) + Math.pow(c, y) - S, x + y - n]; }, 1, { r: [-10, 15] });
+});
+
+/* 5. (problema) b^x · B^y = b^m ; x − y = d */
+genr('sis3', function () {
+  var q = pick([[2, 4, 2], [2, 8, 3], [3, 9, 2], [3, 27, 3], [2, 4, 2]]), b = q[0], B = q[1], k = q[2], x0, y0;
+  do { x0 = ri(-4, 5); y0 = ri(-4, 5); } while (x0 === y0);
+  var m = x0 + k * y0, d = x0 - y0;
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + b + '^{x} · ' + B + '^{y} = ' + b + '^{' + mn(m) + '} ; x − y = ' + mn(d), [[x0, y0]],
+    [[y0, x0], [m - d, d], [x0, -y0], [-x0, -y0], [x0 + 1, y0 + 1]],
+    'Como ' + B + ' = ' + b + '^{' + k + '}, ' + B + '^{y} = ' + b + '^{' + k + 'y} y queda x + ' + k + 'y = ' + mn(m) + '. Restando x − y = ' + mn(d) + ': ' + (k + 1) + 'y = ' + mn(m - d) + ', luego y = ' + mn(y0) + ' y x = ' + mn(x0) + '.',
+    function (x, y) { return [Math.pow(b, x) * Math.pow(B, y) / Math.pow(b, m) - 1, x - y - d]; }, 1, { r: [-12, 12] });
+});
+
+/* 6. (problema) √x + √y = S ; x + y = T */
+genr('sis3', function () {
+  var u, v;
+  do { u = ri(1, 6); v = ri(1, 6); } while (u >= v);
+  var S = u + v, T = u * u + v * v;
+  return g11_sysq('sis3', 'Resuelve el sistema: √{x} + √{y} = ' + S + ' ; x + y = ' + T, [[u * u, v * v], [v * v, u * u]],
+    [[[u * u, v * v]], [[u, v], [v, u]], [[S, T - S], [T - S, S]], [[u * u, -v * v], [-v * v, u * u]]],
+    'Con a = √{x} y b = √{y}: a + b = ' + S + ' y a^{2} + b^{2} = ' + T + ', luego 2ab = ' + S * S + ' − ' + T + ' = ' + 2 * u * v + ' y ab = ' + u * v + '. Entonces a, b son ' + u + ' y ' + v + ', y x, y valen ' + u * u + ' y ' + v * v + '.',
+    function (x, y) { return [Math.sqrt(x) + Math.sqrt(y) - S, x + y - T]; }, 1, { r: [0, 80] });
+});
+
+/* 7. (problema) √{x + y} = a ; x − y = d */
+genr('sis3', function () {
+  var a = ri(2, 6), T = a * a, d, x0, y0, tries = 0;
+  do { d = nz(-T + 2, T - 2); tries++; } while (((T + d) % 2 !== 0) && tries < 200);
+  x0 = (T + d) / 2; y0 = (T - d) / 2;
+  return g11_sysq('sis3', 'Resuelve el sistema: √{x + y} = ' + a + ' ; x − y = ' + mn(d), [[x0, y0]],
+    [[y0, x0], [a, d], [T, d], [x0, -y0], [(a + d) / 2, (a - d) / 2]].filter(function (p) { return p[0] === Math.floor(p[0]) && p[1] === Math.floor(p[1]); }),
+    'Elevando al cuadrado, x + y = ' + T + '. Sumando con x − y = ' + mn(d) + ': 2x = ' + (T + d) + ', x = ' + x0 + ' e y = ' + y0 + '. Comprobación: √{' + (x0 + y0) + '} = ' + a + '.',
+    function (x, y) { return [Math.sqrt(x + y) - a, x - y - d]; }, 1, { r: [-40, 40] });
+});
+
+/* 8. (problema) y = √{x + a} ; x − y = d  (una solución falsa) */
+genr('sis3', function () {
+  var y0 = ri(2, 5), d = nz(-4, 6), x0 = y0 + d, a = y0 * y0 - x0, y1 = 1 - y0, x1 = y1 + d;
+  return g11_sysq('sis3', 'Resuelve el sistema: y = √{' + g11_xa(a) + '} ; x − y = ' + mn(d), [[x0, y0]],
+    [[[x0, y0], [x1, y1]], [x1, y1], [y0, x0], [x0, -y0], [x0 + 1, y0 + 1]],
+    'De la 2.ª, x = y + ' + mn(d) + '. En la 1.ª: y = √{' + g11_E([1, d + a], ['y', '']) + '}; al elevar al cuadrado, ' + g11_E([1, -1, -(d + a)], ['y^{2}', 'y', '']) + ' = 0, con y = ' + y0 + ' e y = ' + y1 + '. Como una raíz no es negativa, y = ' + y1 + ' es falsa. Solución: ' + g11_ptn([x0, y0]) + '.',
+    function (x, y) { return [y - Math.sqrt(x + a), x - y - d]; }, 1, { r: [-40, 40] });
+});
+
+/* 9. (problema) log x + log y = log P ; x − y = D (solo vale una solución) */
+genr('sis3', function () {
+  var x0, y0;
+  do { x0 = ri(1, 9); y0 = ri(1, 9); } while (x0 === y0);
+  var P = x0 * y0, D = x0 - y0;
+  return g11_sysq('sis3', 'Resuelve el sistema: log x + log y = log ' + P + ' ; x − y = ' + mn(D), [[x0, y0]],
+    [[[x0, y0], [-y0, -x0]], [-y0, -x0], [y0, x0], [P, 1], [x0, -y0]],
+    'log x + log y = log(xy), así que xy = ' + P + '. Con x = y + ' + mn(D) + ': ' + g11_E([1, D, -P], ['y^{2}', 'y', '']) + ' = 0, con y = ' + y0 + ' o y = ' + mn(-x0) + '. El valor negativo no vale (el logaritmo exige x, y > 0). Solución: ' + g11_ptn([x0, y0]) + '.',
+    function (x, y) { return [Math.log(x) + Math.log(y) - Math.log(P), x - y - D]; }, 1, { r: [-40, 40] });
+});
+
+/* 10. valor de x + y o xy con dos logaritmos */
+genr('sis3', function () {
+  var q = [[2, 5], [3, 3], [5, 3], [10, 2]], p1 = pick(q), p2 = pick(q), b1 = p1[0], b2 = p2[0], n1 = ri(1, p1[1]), n2 = ri(1, p2[1]);
+  var x0 = Math.pow(b1, n1), y0 = Math.pow(b2, n2), sum = Math.random() < 0.5, v = sum ? x0 + y0 : x0 * y0;
+  var wr = sum ? [n1 + n2, x0 * y0, b1 * n1 + b2 * n2, v + 1] : [x0 + y0, n1 * n2, n1 + n2, v + 1];
+  return g11_vq('sis3', 'Si ' + g11_lgt(b1) + ' x = ' + n1 + ' y ' + g11_lgt(b2) + ' y = ' + n2 + ', ¿cuánto vale ' + (sum ? 'x + y' : 'xy') + '?', v, wr,
+    g11_lgt(b1) + ' x = ' + n1 + ' da x = ' + b1 + '^{' + n1 + '} = ' + x0 + ' y ' + g11_lgt(b2) + ' y = ' + n2 + ' da y = ' + b2 + '^{' + n2 + '} = ' + y0 + '. Por tanto ' + (sum ? 'x + y' : 'xy') + ' = ' + v + '.',
+    function (x, y) { return [g11_lg(b1)(x) - n1, g11_lg(b2)(y) - n2]; }, function (x, y) { return sum ? x + y : x * y; }, 0, { r: [1, 130] });
+});
+
+/* 11. exponenciales con bases distintas */
+genr('sis3', function () {
+  var b = pick([2, 3]), k = ri(2, 3), B = Math.pow(b, k), x0 = ri(1, 5), y0 = k * x0, S = x0 + y0;
+  return g11_sysq('sis3', 'Resuelve el sistema: ' + B + '^{x} = ' + b + '^{y} ; x + y = ' + S, [[x0, y0]],
+    [[y0, x0], [S - k, k], [x0, S - x0 + 1], [S / 2, S / 2].map(function (z) { return Math.round(z); }), [x0 + 1, y0 - 1]],
+    'Como ' + B + ' = ' + b + '^{' + k + '}, ' + B + '^{x} = ' + b + '^{' + k + 'x}, luego y = ' + k + 'x. Entonces x + ' + k + 'x = ' + S + ', x = ' + x0 + ' e y = ' + y0 + '.',
+    function (x, y) { return [Math.pow(B, x) / Math.pow(b, y) - 1, x + y - S]; }, 0, { r: [-10, 30] });
+});
+
+/* 12. condiciones de existencia */
+genr('sis3', function () {
+  var a = ri(1, 6), k = ri(1, 3), v = ri(0, 3), q, ans, wr, ex;
+  if (v === 0) { q = 'log x + log(y − ' + a + ') = ' + k; ans = 'x > 0 e y > ' + a; wr = ['x ≥ 0 e y ≥ ' + a, 'x > 0 e y < ' + a, 'x > ' + a + ' e y > 0', 'x > 0 e y > ' + mn(-a)]; ex = 'Los argumentos de los logaritmos deben ser positivos: x > 0 e y − ' + a + ' > 0.'; }
+  else if (v === 1) { q = 'log(x + ' + a + ') − log y = ' + k; ans = 'x > ' + mn(-a) + ' e y > 0'; wr = ['x > ' + a + ' e y > 0', 'x ≥ ' + mn(-a) + ' e y ≥ 0', 'x < ' + mn(-a) + ' e y > 0', 'x > ' + mn(-a) + ' e y < 0']; ex = 'Hace falta x + ' + a + ' > 0 e y > 0.'; }
+  else if (v === 2) { q = '√{x} + log y = ' + k; ans = 'x ≥ 0 e y > 0'; wr = ['x > 0 e y > 0', 'x ≥ 0 e y ≥ 0', 'x ≤ 0 e y > 0', 'x ≥ 0 e y < 0']; ex = 'La raíz admite el radicando 0 (x ≥ 0), pero el argumento del logaritmo debe ser estrictamente positivo (y > 0).'; }
+  else { q = '√{x − ' + a + '} + log_{2} y = ' + k; ans = 'x ≥ ' + a + ' e y > 0'; wr = ['x > ' + a + ' e y > 0', 'x ≥ ' + mn(-a) + ' e y > 0', 'x ≥ ' + a + ' e y ≥ 0', 'x ≤ ' + a + ' e y > 0']; ex = 'Radicando no negativo: x − ' + a + ' ≥ 0; argumento del logaritmo positivo: y > 0.'; }
+  return g11_nq('sis3', 'Para que tenga sentido ' + q + ', hay que exigir', ans, wr, ex, 0);
+});
+
+/* 13. (problema) √x + √y = S ; x − y = D */
+genr('sis3', function () {
+  var u, v;
+  do { u = ri(2, 7); v = ri(1, 6); } while (u <= v);
+  var S = u + v, D = u * u - v * v;
+  return g11_sysq('sis3', 'Resuelve el sistema: √{x} + √{y} = ' + S + ' ; x − y = ' + D, [[u * u, v * v]],
+    [[u, v], [v * v, u * u], [S, D], [u * u, -v * v], [u * u + 1, v * v + 1]],
+    'x − y = (√{x} − √{y})(√{x} + √{y}), así que √{x} − √{y} = ' + D + '/' + S + ' = ' + (u - v) + '. Sumando con √{x} + √{y} = ' + S + ': √{x} = ' + u + ' y √{y} = ' + v + '. Entonces x = ' + u * u + ' e y = ' + v * v + '.',
+    function (x, y) { return [Math.sqrt(x) + Math.sqrt(y) - S, x - y - D]; }, 1, { r: [0, 100] });
+});
+
+/* 14. propiedades de los logaritmos con dos datos */
+genr('sis3', function () {
+  var a = nz(-3, 4), b = nz(-3, 4), v = ri(0, 5), q, ans, wr;
+  if (v === 0) { q = 'log(xy)'; ans = a + b; wr = [a * b, a - b, 2 * (a + b), a + b + 1]; }
+  else if (v === 1) { q = 'log(⟨x|y⟩)'; ans = a - b; wr = [a + b, ((a !== 0 && b !== 0 && a % b === 0) ? a / b : a * b), b - a, a * b]; }
+  else if (v === 2) { q = 'log(x^{2}y)'; ans = 2 * a + b; wr = [a * a + b, 2 * (a + b), a + b, 2 * a * b]; }
+  else if (v === 3) { q = 'log(xy^{2})'; ans = a + 2 * b; wr = [a + b * b, 2 * (a + b), a + b, 2 * a * b]; }
+  else if (v === 4) { q = 'log(⟨x^{2}|y⟩)'; ans = 2 * a - b; wr = [a * a - b, 2 * (a - b), a - b, 2 * a + b]; }
+  else { q = 'log(x^{3}y)'; ans = 3 * a + b; wr = [a * a * a + b, 3 * (a + b), a + b, 3 * a * b]; }
+  return g11_nq('sis3', 'Si log x = ' + mn(a) + ' y log y = ' + mn(b) + ', entonces ' + q + ' =', mn(ans), wr.map(mn),
+    'Se usan las propiedades: el logaritmo de un producto es la suma, el de un cociente la resta y el de una potencia multiplica por el exponente. Resulta ' + mn(ans) + '.', 0);
+});
+/* Generadores 12: pol1, pol2, pol3, seg1, seg2, seg3, ine, dom */
+var G12_START = GENS.length;
+function g12_chk(c, m) { if (!c) throw new Error('g12 ' + m); }
+function g12_ev(c, x) { var v = 0; for (var i = 0; i < c.length; i++) v = v * x + c[i]; return v; }
+function g12_mul(a, b) {
+  var r = [], i, j;
+  for (i = 0; i < a.length + b.length - 1; i++) r.push(0);
+  for (i = 0; i < a.length; i++) for (j = 0; j < b.length; j++) r[i + j] += a[i] * b[j];
+  return r;
+}
+function g12_eq(a, b) { if (a.length !== b.length) return false; for (var i = 0; i < a.length; i++) if (a[i] !== b[i]) return false; return true; }
+function g12_rf(c, a) { var q = [c[0]], i; for (i = 1; i < c.length; i++) q.push(c[i] + q[i - 1] * a); return { q: q.slice(0, q.length - 1), r: q[q.length - 1] }; }
+function g12_t(n, s) { if (n === 0) return ''; return (n < 0 ? ' − ' : ' + ') + (Math.abs(n) === 1 && s ? '' : Math.abs(n)) + s; }
+function g12_lin(a, b) { return (a === 1 ? '' : a === -1 ? '−' : mn(a)) + 'x' + g12_t(b, ''); }
+function g12_lf(a, b) { return '(' + g12_lin(a, b) + ')'; }
+function g12_P(r) { r.p = 1; return r; }
+function g12_iv(l, u, lc, uc) { return (lc ? '[' : '(') + l + ', ' + u + (uc ? ']' : ')'); }
+function g12_ivl(l, lc) { return '(−∞, ' + l + (lc ? ']' : ')'); }
+function g12_ivr(u, uc) { return (uc ? '[' : '(') + u + ', +∞)'; }
+/* factores (x − r)^m a partir de [[r, m], ...] y constante k */
+function g12_fs(ro, k) {
+  var s = (k && k !== 1 ? k : '');
+  ro.forEach(function (z) { s += bin(z[0]) + (z[1] > 1 ? '^{' + z[1] + '}' : ''); });
+  return s;
+}
+function g12_ex(ro, k) {
+  var c = [k || 1];
+  ro.forEach(function (z) { for (var i = 0; i < z[1]; i++) c = g12_mul(c, [1, -z[0]]); });
+  return c;
+}
+function g12_nr(v, lo, hi, n) { /* n valores distintos, no nulos, de [lo,hi] */
+  var s = [];
+  while (s.length < n) { var x = nz(lo, hi); if (s.indexOf(x) < 0) s.push(x); }
+  return s;
+}
+
+/* ===== pol1 ===== */
+genr('pol1', function () {      /* resto = P(a) con coeficiente director distinto de 1 */
+  var a = nz(-4, 4), k = pick([2, 3, -2, -1, 2]), deg = pick([3, 4]), c = [k], i;
+  for (i = 1; i <= deg; i++) c.push(i === 2 && Math.random() < 0.4 ? 0 : nz(-5, 5));
+  var v = g12_ev(c, a), w = 0;
+  for (i = 0; i <= deg; i++) w += c[i] * Math.pow(a, deg - i);
+  g12_chk(v === w, 'pol1a');
+  var vn = g12_ev(c, -a);
+  return mk('pol1', 'Resto de dividir ' + poly(c) + ' entre ' + bin(a), mn(v),
+    [mn(vn), mn(c[deg]), mn(v + a), mn(v - k), mn(v + 1)],
+    'Teorema del resto: P(' + mn(a) + ') = ' + mn(v) + '. Se evalúa en el número que anula el divisor.');
+});
+genr('pol1', function () {      /* hallar k */
+  var a = nz(-3, 3), k = nz(-4, 4), p = nz(-5, 5), tgt = Math.random() < 0.5 ? 0 : nz(-6, 6);
+  var c0 = tgt - (a * a * a + k * a * a + p * a);
+  g12_chk(g12_ev([1, k, p, c0], a) === tgt, 'pol1b');
+  var P = 'x^{3} + kx^{2}' + g12_t(p, 'x') + g12_t(c0, '');
+  var q = tgt === 0 ? 'Halla k para que P(x) = ' + P + ' sea divisible entre ' + bin(a)
+    : 'Halla k para que el resto de dividir P(x) = ' + P + ' entre ' + bin(a) + ' sea ' + mn(tgt);
+  return mk('pol1', q, 'k = ' + mn(k), ['k = ' + mn(-k), 'k = ' + mn(k + 1), 'k = ' + mn(k - 1), 'k = ' + mn(2 * k)],
+    'Se impone P(' + mn(a) + ') = ' + mn(tgt) + ': ' + mn(a * a * a + p * a + c0) + g12_t(a * a, 'k') + ' = ' + mn(tgt) + ', luego k = ' + mn(k) + '.');
+});
+genr('pol1', function () {      /* resto de una división larga entre x^2 + px + q */
+  var p = ri(-3, 3), q = nz(-4, 4), c0 = pick([1, 1, 2]), s = nz(-4, 4), u = nz(-5, 5), v = nz(-5, 5);
+  var d = [1, p, q], c = [c0, s], D = g12_mul(d, c);
+  D[2] += u; D[3] += v;
+  [-2, 0, 1, 3].forEach(function (x) { g12_chk(g12_ev(D, x) === g12_ev(d, x) * g12_ev(c, x) + u * x + v, 'pol1c'); });
+  var dv = poly(d);
+  if (Math.random() < 0.5) {
+    return mk('pol1', 'Resto de dividir ' + poly(D) + ' entre ' + dv, poly([u, v]),
+      [poly([-u, v]), poly([u, -v]), poly([v, u]), poly([u, v + 1])],
+      'Se divide hasta que el resto tenga grado menor que 2: D = (' + dv + ')(' + poly(c) + ') + (' + poly([u, v]) + ').');
+  }
+  return mk('pol1', 'Cociente de dividir ' + poly(D) + ' entre ' + dv, poly(c),
+    [poly([c0, -s]), poly([c0, s + 1]), poly([c0, s - 1]), poly([c0, s + u])],
+    'Cociente ' + poly(c) + ' y resto ' + poly([u, v]) + ', porque (' + dv + ')(' + poly(c) + ') + (' + poly([u, v]) + ') da el dividendo.');
+});
+genr('pol1', function () {      /* teorema del factor */
+  var r = g12_nr(0, -5, 5, 3), P = g12_ex([[r[0], 1], [r[1], 1], [r[2], 1]]);
+  var j = ri(0, 2), ok = r[j], cand = [-ok, -r[(j + 1) % 3], -r[(j + 2) % 3], 6, -6, 1, 2], w = [], i;
+  for (i = 0; i < cand.length && w.length < 3; i++) {
+    if (cand[i] !== 0 && r.indexOf(cand[i]) < 0 && w.indexOf(cand[i]) < 0) { g12_chk(g12_ev(P, cand[i]) !== 0, 'pol1d'); w.push(cand[i]); }
+  }
+  g12_chk(g12_ev(P, ok) === 0, 'pol1d2');
+  return mk('pol1', '¿Cuál de estos binomios es factor de ' + poly(P) + '?', bin(ok), w.map(bin),
+    'P(' + mn(ok) + ') = 0, así que ' + bin(ok) + ' es factor (teorema del factor).');
+});
+genr('pol1', function () {      /* PROBLEMA: dos restos conocidos, hallar a y b */
+  var A = nz(-4, 4), B = nz(-4, 4), c = nz(-6, 6), s = shuffle([1, 2, -1, -2, 3]), a1 = s[0], a2 = s[1];
+  var R1 = g12_ev([1, A, B, c], a1), R2 = g12_ev([1, A, B, c], a2);
+  var S1 = R1 - a1 * a1 * a1 - c, S2 = R2 - a2 * a2 * a2 - c, den = a1 * a1 * a2 - a2 * a2 * a1;
+  g12_chk((S1 * a2 - S2 * a1) === A * den && (a1 * a1 * S2 - a2 * a2 * S1) === B * den, 'pol1P1');
+  var f = function (x, y) { return 'a = ' + mn(x) + ', b = ' + mn(y); };
+  return g12_P(mk('pol1', 'Sea P(x) = x^{3} + ax^{2} + bx' + g12_t(c, '') + '. Al dividir P(x) entre ' + bin(a1) + ' el resto es ' + mn(R1) +
+    ' y al dividirlo entre ' + bin(a2) + ' el resto es ' + mn(R2) + '. Calcula a y b.', f(A, B),
+    [f(B, A), f(-A, -B), f(A, -B), f(-A, B)],
+    'Teorema del resto: P(' + mn(a1) + ') = ' + mn(R1) + ' y P(' + mn(a2) + ') = ' + mn(R2) + '. Son dos ecuaciones lineales en a y b, con solución a = ' + mn(A) + ', b = ' + mn(B) + '.'));
+});
+genr('pol1', function () {      /* PROBLEMA: P(b) a partir de cociente y resto */
+  var a = nz(-3, 3), p = nz(-3, 3), q = nz(-4, 4), r = nz(-6, 6), b;
+  do { b = ri(-3, 3); } while (b === a);
+  var C = [1, p, q], P = g12_mul([1, -a], C);
+  P[3] += r;
+  var Cb = g12_ev(C, b), val = g12_ev(P, b);
+  g12_chk(val === (b - a) * Cb + r, 'pol1P2');
+  return g12_P(mk('pol1', 'Al dividir P(x) entre ' + bin(a) + ' se obtiene de cociente ' + poly(C) + ' y de resto ' + mn(r) + '. Calcula P(' + mn(b) + ').',
+    mn(val), [mn((b + a) * Cb + r), mn((b - a) * Cb), mn((b - a) * Cb - r), mn(Cb + r)],
+    'P(x) = ' + bin(a) + '·(' + poly(C) + ')' + g12_t(r, '') + '. Para x = ' + mn(b) + ': ' + mn(b - a) + '·(' + mn(Cb) + ')' + g12_t(r, '') + ' = ' + mn(val) + '.'));
+});
+
+function g12_rw(lists, k, P) {    /* cadenas de factorizaciones cuyo desarrollo NO coincide con P */
+  var out = [];
+  lists.forEach(function (l) { if (!g12_eq(g12_ex(l, k), P)) out.push(g12_fs(l, k)); });
+  return out;
+}
+function g12_row(c) { return c.map(mn).join(', '); }
+
+/* ===== pol2 ===== */
+genr('pol2', function () {      /* cociente con un coeficiente 0 */
+  var a = nz(-3, 3), z = ri(1, 3), c = [1, nz(-4, 4), nz(-4, 4), nz(-5, 5), nz(-6, 6)], i;
+  c[z] = 0;
+  var d = g12_rf(c, a), full = g12_mul([1, -a], d.q);
+  full[full.length - 1] += d.r;
+  g12_chk(g12_eq(full, c), 'pol2a');
+  var nozero = c.filter(function (x, j) { return j !== z; }), bad = g12_rf(nozero, a).q.slice();
+  var qa = d.q.slice(); qa[qa.length - 1] += 1;
+  return mk('pol2', 'Cociente de dividir ' + poly(c) + ' entre ' + bin(a) + ' por Ruffini:', poly(d.q),
+    [poly(g12_rf(c, -a).q), poly(bad), poly(qa), poly([1, d.q[1] - 1, d.q[2], d.q[3]])],
+    'En la fila de Ruffini hay que poner un 0 para el término que falta: ' + g12_row(c) + '. El cociente es ' + poly(d.q) + ' y el resto ' + mn(d.r) + '.');
+});
+genr('pol2', function () {      /* fila inferior */
+  var a = nz(-4, 4), k = pick([1, 2, 3, -1, -2]), c = [k, nz(-5, 5), nz(-5, 5), nz(-6, 6)], i;
+  if (Math.random() < 0.4) c.push(nz(-6, 6));
+  var d = g12_rf(c, a), row = d.q.concat([d.r]);
+  g12_chk(g12_ev(c, a) === d.r, 'pol2b');
+  var r2 = row.slice(); r2[r2.length - 1] = d.r === 0 ? 1 : -d.r;
+  var add = [c[0]]; for (i = 1; i < c.length; i++) add.push(c[i] + add[i - 1] + a);
+  var r4 = row.slice(); r4[1] = r4[1] - 1;
+  return mk('pol2', 'Al dividir ' + poly(c) + ' entre ' + bin(a) + ' con Ruffini, la fila inferior (con el resto al final) es', g12_row(row),
+    [g12_row(g12_rf(c, -a).q.concat([g12_rf(c, -a).r])), g12_row(r2), g12_row(add), g12_row(r4)],
+    'Se baja ' + mn(c[0]) + ' y cada número se multiplica por ' + mn(a) + ' y se suma al siguiente coeficiente. El último número, ' + mn(d.r) + ', es el resto.');
+});
+genr('pol2', function () {      /* división exacta con coeficiente director distinto de 1 */
+  var a = nz(-4, 4), k = pick([2, 3, -2]), p = nz(-4, 4), q = nz(-5, 5);
+  var P = g12_mul([1, -a], [k, p, q]), d = g12_rf(P, a);
+  g12_chk(d.r === 0 && g12_eq(d.q, [k, p, q]), 'pol2c');
+  return mk('pol2', 'La división exacta de ' + poly(P) + ' entre ' + bin(a) + ' por Ruffini da de cociente', poly([k, p, q]),
+    [poly(g12_rf(P, -a).q), poly([1, p, q]), poly([k, -p, q]), poly([k, p, -q])],
+    'Se baja ' + mn(k) + ' y se opera con a = ' + mn(a) + ': salen ' + mn(k) + ', ' + mn(p) + ' y ' + mn(q) + ', con resto 0. El primer coeficiente no se cambia.');
+});
+genr('pol2', function () {      /* reconstruir la factorización desde la fila */
+  var a = nz(-4, 4), p = nz(-4, 4), q = nz(-5, 5), P = g12_mul([1, -a], [1, p, q]), d = g12_rf(P, a);
+  g12_chk(d.r === 0 && g12_eq(d.q, [1, p, q]), 'pol2d');
+  var g = function (u, v, w) { return bin(u) + '(' + poly([1, v, w]) + ')'; };
+  return mk('pol2', 'Al dividir ' + poly(P) + ' entre ' + bin(a) + ' con Ruffini sale la fila 1, ' + mn(p) + ', ' + mn(q) + ', 0. Entonces P(x) =', g(a, p, q),
+    [g(-a, p, q), g(a, -p, q), g(a, p, -q), g(-a, -p, q)],
+    'Resto 0: ' + bin(a) + ' es factor, y el cociente tiene como coeficientes 1, ' + mn(p) + ' y ' + mn(q) + ': P(x) = ' + g(a, p, q) + '.');
+});
+genr('pol2', function () {      /* PROBLEMA: dos Ruffini seguidas con dos raíces */
+  var r = g12_nr(0, -3, 3, 2), a = r[0], b = r[1], p = nz(-3, 3), q = nz(-4, 4);
+  var P = g12_mul(g12_mul([1, -a], [1, -b]), [1, p, q]);
+  var d1 = g12_rf(P, a), d2 = g12_rf(d1.q, b);
+  g12_chk(d1.r === 0 && d2.r === 0 && g12_eq(d2.q, [1, p, q]), 'pol2P1');
+  var bw = g12_rf(g12_rf(P, -a).q, -b).q;
+  return g12_P(mk('pol2', 'Se divide ' + poly(P) + ' entre ' + bin(a) + ' con Ruffini y el cociente se divide entre ' + bin(b) + ' con Ruffini otra vez. ¿Cuál es el cociente final?',
+    poly([1, p, q]), [poly(bw), poly(d1.q), poly([1, -p, q]), poly([1, p, -q])],
+    'Primera división (a = ' + mn(a) + '): cociente ' + poly(d1.q) + ', resto 0. Segunda (a = ' + mn(b) + '): cociente ' + poly([1, p, q]) + ', resto 0.'));
+});
+genr('pol2', function () {      /* PROBLEMA: raíz doble */
+  var r = g12_nr(0, -4, 4, 2), a = r[0], s = r[1], k = pick([1, 2, 3]);
+  var P = g12_ex([[a, 2], [s, 1]], k), d1 = g12_rf(P, a), d2 = g12_rf(d1.q, a);
+  g12_chk(d1.r === 0 && d2.r === 0 && g12_eq(d2.q, [k, -k * s]), 'pol2P2');
+  var pre = k === 1 ? 'El polinomio ' : 'El polinomio ';
+  return g12_P(mk('pol2', pre + poly(P) + ' es divisible dos veces seguidas entre ' + bin(a) + '. Tras aplicar Ruffini dos veces con a = ' + mn(a) + ', el cociente final es',
+    poly([k, -k * s]), [poly([k, k * s]), poly([k, -s]), poly([k, -k * a]), poly([k, k * a])],
+    'Primera Ruffini: cociente ' + poly(d1.q) + '. Segunda: cociente ' + poly(d2.q) + ' y resto 0.'));
+});
+
+/* ===== pol3 ===== */
+genr('pol3', function () {      /* factor común y trinomio */
+  var r = g12_nr(0, -6, 6, 2), r1 = r[0], r2 = r[1], k = pick([2, 3, 4, 5]), cub = Math.random() < 0.4;
+  var Q = g12_ex([[r1, 1], [r2, 1]], 1), P, ans, wr = [];
+  var lists = [[[-r1, 1], [-r2, 1]], [[r1, 1], [-r2, 1]], [[-r1, 1], [r2, 1]]];
+  if (cub) {
+    P = Q.concat([0]);
+    ans = 'x' + g12_fs([[r1, 1], [r2, 1]]);
+    g12_chk(g12_eq(g12_mul([1, 0], Q), P), 'pol3a');
+    lists.forEach(function (l) { if (!g12_eq(g12_ex(l, 1), Q)) wr.push('x' + g12_fs(l)); });
+    wr.push(g12_fs([[r1, 1], [r2, 1]]));
+  } else {
+    P = Q.map(function (z) { return z * k; });
+    ans = g12_fs([[r1, 1], [r2, 1]], k);
+    g12_chk(g12_eq(g12_ex([[r1, 1], [r2, 1]], k), P), 'pol3a2');
+    wr = g12_rw(lists, k, P).concat([g12_fs([[r1, 1], [r2, 1]])]);
+  }
+  return mk('pol3', 'Factoriza ' + poly(P), ans, wr,
+    cub ? 'Factor común x: x(' + poly(Q) + '), y el trinomio tiene raíces ' + mn(r1) + ' y ' + mn(r2) + '.'
+      : 'Factor común ' + k + ': ' + k + '(' + poly(Q) + '), y el trinomio tiene raíces ' + mn(r1) + ' y ' + mn(r2) + '.');
+});
+genr('pol3', function () {      /* identidades notables */
+  var v = ri(0, 2), a, b, k, P, ans, wr;
+  if (v === 0) {
+    do { a = ri(2, 5); b = ri(1, 7); } while (gcd(a, b) !== 1);
+    P = [a * a, 0, -b * b];
+    ans = g12_lf(a, b) + g12_lf(a, -b);
+    wr = [g12_lf(a, -b) + '^{2}', g12_lf(a, b) + '^{2}', g12_lf(a * a, b * b) + g12_lf(a * a, -b * b), g12_lf(a, b * b) + g12_lf(a, -b * b)];
+    g12_chk(g12_eq(g12_mul([a, b], [a, -b]), P), 'pol3b0');
+    g12_chk(!g12_eq(g12_mul([a * a, b * b], [a * a, -b * b]), P), 'pol3b0w');
+    return mk('pol3', 'Factoriza ' + poly(P), ans, wr, 'Diferencia de cuadrados: (' + a + 'x)^{2} − ' + b + '^{2} = (' + a + 'x + ' + b + ')(' + a + 'x − ' + b + ').');
+  }
+  if (v === 1) {
+    k = ri(2, 3);
+    P = [1, 0, 0, 0, -Math.pow(k, 4)];
+    var Q = poly([1, 0, k * k]);
+    ans = '(' + Q + ')' + bin(k) + bin(-k);
+    wr = ['(' + Q + ')' + bin(k) + '^{2}', '(' + Q + ')' + bin(-k) + '^{2}', '(' + poly([1, 0, -k * k]) + ')^{2}', '(' + poly([1, 0, -k * k]) + ')(' + poly([1, 0, k]) + ')'];
+    g12_chk(g12_eq(g12_mul(g12_mul([1, 0, k * k], [1, k]), [1, -k]), P), 'pol3b1');
+    return mk('pol3', 'Factoriza completamente ' + poly(P), ans, wr,
+      'x^{4} − ' + Math.pow(k, 4) + ' = (x^{2} + ' + k * k + ')(x^{2} − ' + k * k + ') y x^{2} − ' + k * k + ' = (x + ' + k + ')(x − ' + k + '). El factor x^{2} + ' + k * k + ' ya no se puede descomponer.');
+  }
+  k = ri(2, 4);
+  var sg = Math.random() < 0.5 ? 1 : -1;    /* x^3 + sg k^3 */
+  P = [1, 0, 0, sg * k * k * k];
+  var s = sg * k, ok = [1, -s, k * k];
+  g12_chk(g12_eq(g12_mul([1, s], ok), P), 'pol3b2');
+  var f = function (u, m, w) { return bin(u) + '(' + poly([1, m, w]) + ')'; };
+  return mk('pol3', 'Factoriza ' + poly(P), f(-s, -s, k * k), [f(s, -s, k * k), f(-s, s, k * k), f(-s, -s, -k * k), bin(-s) + '^{3}'],
+    (sg > 0 ? 'Suma' : 'Diferencia') + ' de cubos: x^{3} ' + (sg > 0 ? '+ ' : '− ') + k * k * k + ' = ' + bin(-s) + '(' + poly(ok) + ').');
+});
+genr('pol3', function () {      /* trinomio con coeficiente director distinto de 1 */
+  var m, n, p, q, P, A, W = [];
+  do { m = ri(1, 3); n = ri(1, 3); p = nz(-4, 4); q = nz(-4, 4); } while (m === 1 && n === 1 || gcd(m, p) !== 1 || gcd(n, q) !== 1 || p * n + q * m === 0);
+  P = g12_mul([m, p], [n, q]);
+  A = g12_lf(m, p) + g12_lf(n, q);
+  [[[m, -p], [n, -q]], [[m, p], [n, -q]], [[m, q], [n, p]], [[m, -q], [n, -p]]].forEach(function (z) {
+    if (!g12_eq(g12_mul(z[0], z[1]), P)) W.push(g12_lf(z[0][0], z[0][1]) + g12_lf(z[1][0], z[1][1]));
+  });
+  return mk('pol3', 'Factoriza ' + poly(P), A, W,
+    'Se buscan dos binomios cuyo producto dé ' + poly(P) + ': ' + A + '. Se comprueba desarrollando: ' + poly(g12_mul([m, p], [n, q])) + '.');
+});
+genr('pol3', function () {      /* cúbico con una raíz entera y un factor sin raíces reales */
+  var r = nz(-4, 4), p, q;
+  do { p = ri(-3, 3); q = ri(1, 6); } while (p * p - 4 * q >= 0);
+  var P = g12_mul([1, -r], [1, p, q]), g = function (u, m, w) { return bin(u) + '(' + poly([1, m, w]) + ')'; };
+  g12_chk(g12_ev(P, r) === 0 && p * p - 4 * q < 0, 'pol3d');
+  return mk('pol3', 'Factoriza en ℝ ' + poly(P) + ' (una raíz es ' + mn(r) + ')', g(r, p, q), [g(-r, p, q), g(r, -p, q), g(r, p, -q), g(-r, -p, q)],
+    'Ruffini con a = ' + mn(r) + ' da cociente ' + poly([1, p, q]) + ', que tiene Δ = ' + mn(p * p - 4 * q) + ' < 0 y no se descompone más.');
+});
+genr('pol3', function () {      /* PROBLEMA: bicuadrada factorizada */
+  var p = ri(1, 3), q = p + ri(1, 2), P = [1, 0, -(p * p + q * q), 0, p * p * q * q];
+  var ro = [[-q, 1], [-p, 1], [p, 1], [q, 1]];
+  g12_chk(g12_eq(g12_ex(ro), P), 'pol3P1');
+  var wr = g12_rw([[[-q * q, 1], [-p * p, 1], [p * p, 1], [q * q, 1]], [[-q, 2], [p, 2]], [[-q, 1], [-p, 1], [p, 2]], [[p, 2], [q, 2]], [[-q, 1], [-p, 1], [p, 1], [q * q, 1]]], 1, P);
+  return g12_P(mk('pol3', 'Factoriza completamente ' + poly(P), g12_fs(ro), wr,
+    'Con t = x^{2}: t^{2} − ' + (p * p + q * q) + 't + ' + p * p * q * q + ' = (t − ' + p * p + ')(t − ' + q * q + '). Entonces x^{2} = ' + p * p + ' o x^{2} = ' + q * q + ', con raíces ±' + p + ' y ±' + q + '.'));
+});
+genr('pol3', function () {      /* PROBLEMA: raíz doble */
+  var r = g12_nr(0, -4, 4, 2), a = r[0], b = r[1], ro = [[a, 2], [b, 1]], P = g12_ex(ro);
+  g12_chk(g12_ev(P, a) === 0 && g12_ev(g12_rf(P, a).q, a) === 0, 'pol3P2');
+  var wr = g12_rw([[[a, 1], [b, 2]], [[-a, 2], [b, 1]], [[a, 2], [-b, 1]], [[-a, 2], [-b, 1]], [[-a, 1], [-b, 2]]], 1, P);
+  return g12_P(mk('pol3', 'Factoriza ' + poly(P) + ' sabiendo que ' + mn(a) + ' es una raíz doble', g12_fs(ro), wr,
+    'Ruffini dos veces con a = ' + mn(a) + ' deja el cociente ' + poly(g12_rf(g12_rf(P, a).q, a).q) + '. Por tanto P(x) = ' + g12_fs(ro) + '.'));
+});
+
+function g12_s2(a, b) { var s = [a, b].sort(function (x, y) { return x - y; }); return 'x = ' + mn(s[0]) + ' y x = ' + mn(s[1]); }
+function g12_s3(r) { var s = r.slice().sort(function (x, y) { return x - y; }); return 'x = ' + mn(s[0]) + ', x = ' + mn(s[1]) + ' y x = ' + mn(s[2]); }
+function g12_near(a, b) { return Math.abs(a - b) < 1e-9; }
+
+/* ===== seg1 ===== */
+genr('seg1', function () {      /* discriminante con la ecuación sin ordenar */
+  var a = pick([1, 2, 3, -1, -2]), b = nz(-6, 6), d = nz(-6, 6), c = -d;
+  var D = b * b - 4 * a * c;
+  g12_chk(D === b * b + 4 * a * d, 'seg1a');
+  var L = poly([a, b, 0]);
+  return mk('seg1', 'Discriminante de ' + L + ' = ' + mn(d), mn(D),
+    [mn(b * b - 4 * a * d), mn(b * b + 4 * d), mn(4 * a * d - b * b), mn(b * b + 2 * a * d)],
+    'Primero se pasa todo a un lado: ' + poly([a, b, c]) + ' = 0. Δ = (' + mn(b) + ')^{2} − 4·(' + mn(a) + ')·(' + mn(c) + ') = ' + mn(D) + '.');
+});
+genr('seg1', function () {      /* valor del parámetro */
+  var v = ri(0, 2);
+  if (v === 0) {
+    var h = ri(1, 4), b = 2 * h * pick([1, -1]), k = h * h;
+    g12_chk(b * b - 4 * k === 0, 'seg1b0');
+    return mk('seg1', '¿Para qué valor de k tiene una única solución ' + poly([1, b, 0]) + ' + k = 0?', 'k = ' + k,
+      ['k = ' + mn(-k), 'k = ' + b * b, 'k = ' + mn(b * b / 2), 'k = ' + mn(b)],
+      'Hace falta Δ = 0: ' + mn(b) + '^{2} − 4k = 0, luego k = ' + b * b + '/4 = ' + k + '.');
+  }
+  if (v === 1) {
+    var m = ri(1, 5), c = m * m, kk = 2 * m;
+    g12_chk(kk * kk - 4 * c === 0, 'seg1b1');
+    return mk('seg1', 'Si x^{2} + kx + ' + c + ' = 0 tiene una solución doble, entonces', 'k = ±' + kk,
+      ['k = ±' + m, 'k = ±' + (kk + 1), 'k = ±' + (c + 1), 'k = ±' + c],
+      'Δ = k^{2} − 4·' + c + ' = 0 da k^{2} = ' + 4 * c + ', así que k = ±' + kk + '.');
+  }
+  var b2 = 2 * ri(1, 4) * pick([1, -1]), kc = b2 * b2 / 4;
+  g12_chk(b2 * b2 - 4 * (kc + 1) < 0 && b2 * b2 - 4 * kc === 0, 'seg1b2');
+  return mk('seg1', '¿Para qué valores de k no tiene soluciones reales ' + poly([1, b2, 0]) + ' + k = 0?', 'k > ' + kc,
+    ['k < ' + kc, 'k ≥ ' + kc, 'k > ' + b2 * b2, 'k < ' + mn(-kc)],
+    'Sin soluciones reales: Δ = ' + b2 * b2 + ' − 4k < 0, es decir, k > ' + kc + '.');
+});
+genr('seg1', function () {      /* fórmula con resultado irracional */
+  var m = ri(1, 4), d = pick([2, 3, 5, 6, 7, 10, 11]), c = m * m - d, p = poly([1, 2 * m, c]);
+  [1, -1].forEach(function (sg) { g12_chk(Math.abs(g12_ev([1, 2 * m, c], -m + sg * Math.sqrt(d))) < 1e-9, 'seg1c'); });
+  var f = function (s, r) { return 'x = ' + (s === 0 ? '' : mn(s)) + ' ± √{' + r + '}'; };
+  return mk('seg1', 'Las soluciones de ' + p + ' = 0 son', f(-m, d),
+    [f(m, d), f(-m, 4 * d), f(-m, m * m + c > 0 && m * m + c !== d ? m * m + c : d + 1), 'x = ' + mn(-m) + ' ± ' + d],
+    'Δ = ' + (4 * m * m) + ' − 4·(' + mn(c) + ') = ' + 4 * d + '. x = ⟨' + mn(-2 * m) + ' ± √{' + 4 * d + '}|2⟩ = ' + mn(-m) + ' ± √{' + d + '}.');
+});
+genr('seg1', function () {      /* Δ y número de soluciones */
+  var a, b, c, D, z = Math.random() < 0.3;
+  do {
+    a = pick([1, 2, 3, -1, -2]); b = nz(-6, 6); c = nz(-6, 6);
+    if (z) { b = 2 * a * ri(1, 3) * pick([1, -1]); c = b * b / (4 * a); }
+    D = b * b - 4 * a * c;
+  } while (!z && D === 0);
+  if (z) g12_chk(D === 0 && Number.isInteger(c), 'seg1d0');
+  var cl = function (x) { return x < 0 ? 'ninguna solución' : x === 0 ? 'una solución' : 'dos soluciones'; };
+  var fm = function (x, y) { return 'Δ = ' + mn(x) + ', ' + cl(y); };
+  var D2 = b * b + 4 * a * c, D3 = 4 * a * c - b * b;
+  var all = ['ninguna solución', 'una solución', 'dos soluciones'], ok = cl(D), others = all.filter(function (t) { return t !== ok; });
+  return mk('seg1', 'Calcula Δ y decide cuántas soluciones reales tiene ' + poly([a, b, c]) + ' = 0', fm(D, D),
+    [ 'Δ = ' + mn(D) + ', ' + others[0], 'Δ = ' + mn(D) + ', ' + others[1], fm(D2, D2), fm(D3, D3)].filter(function (s) { return s !== fm(D, D); }),
+    'Δ = (' + mn(b) + ')^{2} − 4·(' + mn(a) + ')·(' + mn(c) + ') = ' + mn(D) + (D < 0 ? ' < 0: ninguna solución real.' : D === 0 ? ' = 0: una solución doble.' : ' > 0: dos soluciones reales.'));
+});
+genr('seg1', function () {      /* PROBLEMA: m para solución única */
+  var h = ri(1, 4), c = pick([1, 2, 3, 4, 5, 6, -1, -2, -3, -4, 9, -9].filter(function (z) { return (h * h) % Math.abs(z) === 0; }));
+  var m = h * h / c, b = 2 * h;
+  g12_chk(b * b - 4 * m * c === 0 && m !== 0, 'seg1P1');
+  return g12_P(mk('seg1', 'Halla m para que mx^{2} + ' + b + 'x' + g12_t(c, '') + ' = 0 tenga una única solución', 'm = ' + mn(m),
+    ['m = ' + mn(-m), 'm = ' + mn(b * b / c), 'm = ' + mn(2 * h * h / c), 'm = ' + mn(m + 1)],
+    'Δ = ' + b + '^{2} − 4·m·(' + mn(c) + ') = 0 da ' + mn(4 * c) + 'm = ' + b * b + ', es decir, m = ' + mn(m) + '.'));
+});
+genr('seg1', function () {      /* PROBLEMA: valores de k con dos soluciones */
+  var m = ri(1, 4), c = m * m;
+  var ok = function (k) { return k * k - 4 * c > 0; };
+  for (var x = -10; x <= 10; x += 0.05) {
+    var inside = Math.abs(x) > 2 * m;
+    g12_chk(ok(x) === inside || Math.abs(Math.abs(x) - 2 * m) < 1e-9, 'seg1P2');
+  }
+  var A = '(−∞, ' + mn(-2 * m) + ') ∪ (' + 2 * m + ', +∞)';
+  return g12_P(mk('seg1', '¿Para qué valores de k tiene dos soluciones reales distintas x^{2} + kx + ' + c + ' = 0?', A,
+    ['(' + mn(-2 * m) + ', ' + 2 * m + ')', '(−∞, ' + mn(-m) + ') ∪ (' + m + ', +∞)', '(' + 2 * m + ', +∞)', '(−∞, ' + mn(-2 * m) + '] ∪ [' + 2 * m + ', +∞)'],
+    'Hace falta Δ = k^{2} − ' + 4 * c + ' > 0, o sea k^{2} > ' + 4 * c + ', que equivale a |k| > ' + 2 * m + '.'));
+});
+
+/* ===== seg2 ===== */
+genr('seg2', function () {      /* (x + u)(x + v) = w */
+  var r = g12_nr(0, -6, 6, 2), r1 = r[0], r2 = r[1], u, v;
+  do { u = nz(-6, 6); v = -(r1 + r2) - u; } while (v === 0);
+  var w = u * v - r1 * r2;
+  [r1, r2].forEach(function (x) { g12_chk((x + u) * (x + v) === w, 'seg2a'); });
+  return mk('seg2', '(' + xp(u) + ')(' + xp(v) + ') = ' + mn(w) + ' tiene soluciones', g12_s2(r1, r2),
+    [g12_s2(-r1, -r2), g12_s2(w - u, w - v), g12_s2(r1, -r2), g12_s2(-u, -v)],
+    'Se desarrolla y se pasa todo a un lado: ' + poly([1, u + v, u * v - w]) + ' = 0, que da x = ' + mn(r1) + ' y x = ' + mn(r2) + '. No se puede igualar cada factor a ' + mn(w) + '.');
+});
+genr('seg2', function () {      /* x(x + a) = b(x + a) */
+  var a = nz(-6, 6), b;
+  do { b = nz(-6, 6); } while (b === -a);
+  var rhs = (b === 1 ? '' : b === -1 ? '−' : mn(b)) + '(x ' + (a < 0 ? '− ' + (-a) : '+ ' + a) + ')';
+  [b, -a].forEach(function (x) { g12_chk(x * (x + a) === b * (x + a), 'seg2b'); });
+  return mk('seg2', 'x(x ' + (a < 0 ? '− ' + (-a) : '+ ' + a) + ') = ' + rhs + ' tiene soluciones', g12_s2(b, -a),
+    ['Solo x = ' + mn(b), g12_s2(-b, a), g12_s2(b, a), g12_s2(-b, -a)],
+    'Se pasa todo a un lado y se saca factor común: ' + bin(-a) + bin(b) + ' = 0. Dividir entre ' + bin(-a) + ' haría perder la solución x = ' + mn(-a) + '.');
+});
+genr('seg2', function () {      /* ecuación con x en el denominador */
+  var r = g12_nr(0, -5, 5, 2), r1 = r[0], r2 = r[1], M = r1 + r2, K = r1 * r2;
+  if (M === 0) { r1 = 2; r2 = 3; M = 5; K = 6; }
+  [r1, r2].forEach(function (x) { g12_chk(g12_near(x + K / x, M), 'seg2c'); });
+  var e = 'x ' + (K < 0 ? '− ' : '+ ') + '⟨' + Math.abs(K) + '|x⟩ = ' + mn(M);
+  return mk('seg2', e + ' tiene soluciones', g12_s2(r1, r2), [g12_s2(-r1, -r2), g12_s2(r1, -r2), g12_s2(M, K), g12_s2(-M, K)],
+    'Se multiplica por x: ' + poly([1, -M, K]) + ' = 0. Suman ' + mn(M) + ' y multiplican ' + mn(K) + ': x = ' + mn(r1) + ' y x = ' + mn(r2) + '. Ninguna es 0.');
+});
+genr('seg2', function () {      /* (x + a)^2 = k^2 */
+  var a = nz(-6, 6), k = ri(1, 7), r1 = -a + k, r2 = -a - k;
+  [r1, r2].forEach(function (x) { g12_chk((x + a) * (x + a) === k * k, 'seg2d'); });
+  return mk('seg2', '(' + xp(a) + ')^{2} = ' + k * k + ' tiene soluciones', g12_s2(r1, r2),
+    ['Solo x = ' + mn(r1), g12_s2(-a + k * k, -a - k * k), g12_s2(a + k, a - k), g12_s2(-a, k)],
+    'x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + ' = ±' + k + ', así que x = ' + mn(-a) + ' ± ' + k + ': ' + mn(r1) + ' y ' + mn(r2) + '.');
+});
+genr('seg2', function () {      /* PROBLEMA: rectángulo con perímetro y área */
+  var u = ri(2, 9), v = u + ri(1, 6), S = u * v, Pm = 2 * (u + v);
+  var f = function (x, y) { return x + ' cm y ' + y + ' cm'; };
+  var cand = [[v + 1, u - 1], [u + 1, v + 1], [u - 1, v - 1], [S / 2, 2], [u, v + 2], [u + 2, v - 2]];
+  var w = cand.filter(function (z) { return z[0] > 0 && z[1] > 0 && !(z[0] * z[1] === S && z[0] + z[1] === u + v); }).map(function (z) { return f(z[0], z[1]); });
+  g12_chk(u * v === S && 2 * (u + v) === Pm, 'seg2P1');
+  return g12_P(mk('seg2', 'Un rectángulo tiene ' + Pm + ' cm de perímetro y ' + S + ' cm^{2} de área. Sus lados miden', f(u, v), w,
+    'Si un lado es x, el otro es ' + (u + v) + ' − x y x(' + (u + v) + ' − x) = ' + S + ', es decir, x^{2} − ' + (u + v) + 'x + ' + S + ' = 0, con soluciones ' + u + ' y ' + v + '.'));
+});
+genr('seg2', function () {      /* PROBLEMA: dos números con diferencia y producto */
+  var u = ri(2, 9), d = ri(1, 5), v = u + d, S = u * v;
+  var f = function (x, y) { return x + ' y ' + y; };
+  var cand = [[-u, -v], [u, v + d], [u + 1, v + 1], [u - 1, v - 1], [S - d, S], [u, u + 2 * d]];
+  var w = cand.filter(function (z) { return !(z[0] > 0 && z[1] > 0 && z[1] - z[0] === d && z[0] * z[1] === S); }).map(function (z) { return f(z[0] < 0 ? mn(z[0]) : z[0], z[1] < 0 ? mn(z[1]) : z[1]); });
+  return g12_P(mk('seg2', 'Dos números positivos se diferencian en ' + d + ' unidades y su producto es ' + S + '. Los números son', f(u, v), w,
+    'Si el menor es x: x(x + ' + d + ') = ' + S + ', o sea x^{2} + ' + d + 'x − ' + S + ' = 0. Sale x = ' + u + ' (la otra solución, ' + mn(-v) + ', es negativa) y el otro número es ' + v + '.'));
+});
+
+/* ===== seg3 ===== */
+genr('seg3', function () {      /* bicuadrada con una t negativa */
+  var p = ri(2, 4), q;
+  do { q = ri(1, 3); } while (q === p);
+  var A = poly([1, 0, q * q - p * p, 0, -p * p * q * q]);
+  g12_chk(g12_ev([1, 0, q * q - p * p, 0, -p * p * q * q], p) === 0 && g12_ev([1, 0, q * q - p * p, 0, -p * p * q * q], -p) === 0, 'seg3a');
+  return mk('seg3', A + ' = 0 tiene soluciones reales', 'x = ±' + p,
+    ['x = ±' + p + ' y x = ±' + q, 'x = ' + p * p, 'x = ±' + p * p, 'No tiene solución'],
+    'Con t = x^{2}: (t − ' + p * p + ')(t + ' + q * q + ') = 0. Solo t = ' + p * p + ' sirve, porque x^{2} = ' + mn(-q * q) + ' es imposible. Entonces x = ±' + p + '.');
+});
+genr('seg3', function () {      /* número de soluciones de una bicuadrada */
+  var t1, t2;
+  do { t1 = ri(-6, 9); t2 = ri(-6, 9); } while (t1 === t2);
+  var P = [1, -(t1 + t2), t1 * t2], P4 = [1, 0, -(t1 + t2), 0, t1 * t2], cnt = 0, cand = [];
+  [t1, t2].forEach(function (t) { if (t > 0) { cnt += 2; cand.push(Math.sqrt(t), -Math.sqrt(t)); } else if (t === 0) { cnt += 1; cand.push(0); } });
+  cand.forEach(function (x) { g12_chk(Math.abs(g12_ev(P4, x)) < 1e-9, 'seg3b'); });
+  var names = ['ninguna solución real', '1 solución real', '2 soluciones reales', '3 soluciones reales', '4 soluciones reales'], ok = names[cnt];
+  var wr = names.filter(function (n) { return n !== ok; });
+  return mk('seg3', '¿Cuántas soluciones reales tiene ' + poly(P4) + ' = 0?', ok, shuffle(wr).slice(0, 4),
+    'Con t = x^{2}: t = ' + mn(t1) + ' y t = ' + mn(t2) + '. Cada t > 0 da dos valores de x, t = 0 da uno solo y t < 0 no da ninguno: en total ' + cnt + '.');
+});
+genr('seg3', function () {      /* cúbica con una única raíz real entera */
+  var r = nz(-4, 4), p, q;
+  do { p = ri(-3, 3); q = ri(1, 6); } while (p * p - 4 * q >= 0);
+  var P = g12_mul([1, -r], [1, p, q]);
+  g12_chk(g12_ev(P, r) === 0, 'seg3c');
+  return mk('seg3', poly(P) + ' = 0 tiene como única solución real', 'x = ' + mn(r),
+    ['x = ' + mn(-r), 'x = ' + mn(r) + ' y x = ' + mn(-r), 'x = ' + mn(q), 'x = ' + mn(-q)],
+    'Ruffini con a = ' + mn(r) + ' da (x ' + (r < 0 ? '+ ' + (-r) : '− ' + r) + ')(' + poly([1, p, q]) + '). El segundo factor tiene Δ = ' + mn(p * p - 4 * q) + ' < 0 y no da más soluciones reales.');
+});
+genr('seg3', function () {      /* cúbica con factor común x */
+  var r = g12_nr(0, -6, 6, 2), P;
+  if (Math.random() < 0.5) {
+    P = g12_mul([1, 0], g12_mul([1, -r[0]], [1, -r[1]]));
+    return mk('seg3', poly(P) + ' = 0 tiene soluciones', g12_s3([0, r[0], r[1]]),
+      [g12_s2(r[0], r[1]), g12_s3([0, -r[0], -r[1]]), g12_s3([0, r[0], -r[1]]), g12_s3([1, r[0], r[1]])],
+      'Factor común x: x(' + poly(g12_mul([1, -r[0]], [1, -r[1]])) + ') = 0. Dividir entre x perdería la solución x = 0.');
+  }
+  var m = Math.abs(r[0]);
+  P = [1, 0, -m * m, 0];
+  return mk('seg3', poly(P) + ' = 0 tiene soluciones', g12_s3([0, m, -m]),
+    [g12_s2(m, -m), g12_s3([0, m * m, -m * m]), g12_s2(0, m), g12_s3([1, m, -m])],
+    'x(x^{2} − ' + m * m + ') = 0: x = 0 y x^{2} = ' + m * m + ', que da x = ' + m + ' y x = ' + mn(-m) + '.');
+});
+genr('seg3', function () {      /* PROBLEMA: rectángulo con diagonal y área */
+  var u = ri(1, 6), v = u + ri(1, 4), D2 = u * u + v * v, A = u * v;
+  var dg = Math.sqrt(D2), diag = Number.isInteger(dg) ? String(dg) : '√{' + D2 + '}';
+  var f = function (x, y) { return x + ' cm y ' + y + ' cm'; };
+  g12_chk(u * u + v * v === D2 && u * v === A, 'seg3P1');
+  var cand = [[u * u, v * v], [u + 1, v - 1], [u, v + 1], [u + 1, v + 1], [A, 1], [u - 1, v]];
+  var w = cand.filter(function (z) { return z[0] > 0 && z[1] > 0 && !(z[0] * z[1] === A && z[0] * z[0] + z[1] * z[1] === D2); }).map(function (z) { return f(z[0], z[1]); });
+  return g12_P(mk('seg3', 'Un rectángulo tiene ' + A + ' cm^{2} de área y su diagonal mide ' + diag + ' cm. Sus lados miden', f(u, v), w,
+    'Con lados x e y: x^{2} + y^{2} = ' + D2 + ' y xy = ' + A + '. Sustituyendo y = ' + A + '/x sale x^{4} − ' + D2 + 'x^{2} + ' + A * A + ' = 0, con t = x^{2} = ' + u * u + ' o ' + v * v + '. Los lados son ' + u + ' y ' + v + '.'));
+});
+genr('seg3', function () {      /* PROBLEMA: caja con volumen conocido */
+  var a = ri(1, 3), b = a + ri(1, 3), r = ri(1, 4), V = r * (r + a) * (r + b);
+  g12_chk(g12_ev([1, a + b, a * b, -V], r) === 0, 'seg3P2');
+  var w = [r + 1, r - 1, r + a, V / ((r + a) * (r + b)) + 2].filter(function (z) { return z > 0 && z !== r && z * (z + a) * (z + b) !== V; });
+  return g12_P(mk('seg3', 'Una caja tiene por dimensiones x, x + ' + a + ' y x + ' + b + ' (en cm) y su volumen es ' + V + ' cm^{3}. El valor de x es', r + ' cm', w.map(function (z) { return z + ' cm'; }).concat([(r + 2) + ' cm', (r + 3) + ' cm']),
+    'x(x + ' + a + ')(x + ' + b + ') = ' + V + ' da ' + poly([1, a + b, a * b, -V]) + ' = 0. Por Ruffini, x = ' + r + ' es solución y las otras raíces no son positivas.'));
+});
+
+function g12_cmp(op, l, r) { return op === '<' ? l < r : op === '>' ? l > r : op === '≤' ? l <= r : l >= r; }
+function g12_flip(op) { return { '<': '>', '>': '<', '≤': '≥', '≥': '≤' }[op]; }
+function g12_cl(op) { return { '<': '≤', '>': '≥', '≤': '<', '≥': '>' }[op]; }
+function g12_grid(f, msg) { for (var i = -300; i <= 300; i++) f(i / 20, i); }
+function g12_abs() {            /* |ax + b| = c con soluciones enteras x1 < x2 */
+  var a, x1, x2, b, c;
+  do { a = pick([2, 3, 4]); x1 = ri(-7, 6); x2 = x1 + ri(1, 8); b = -a * (x1 + x2) / 2; } while ((a * (x1 + x2)) % 2 !== 0 || b === 0 || x2 > 8);
+  c = a * (x2 - x1) / 2;
+  g12_chk(Number.isInteger(b) && Number.isInteger(c) && g12_near(Math.abs(a * x1 + b), c) && g12_near(Math.abs(a * x2 + b), c), 'abs');
+  return { a: a, b: b, c: c, x1: x1, x2: x2 };
+}
+
+/* ===== ine ===== */
+genr('ine', function () {       /* lineal con paréntesis o fracción */
+  var op = pick(['<', '>', '≤', '≥']), x0, a, k, m, ans, q, wr, f, e;
+  if (Math.random() < 0.6) {
+    do { k = pick([2, 3, 4, -2, -3, -4]); a = nz(-5, 5); x0 = nz(-5, 5); } while (x0 + a === 0);
+    m = k * (x0 + a);
+    var op2 = k > 0 ? op : g12_flip(op);
+    g12_grid(function (x) { g12_chk(g12_cmp(op, k * (x + a), m) === g12_cmp(op2, x, x0), 'ineA'); });
+    f = function (o, v) { return 'x ' + o + ' ' + mn(v); };
+    q = mn(k) + '(' + xp(a) + ') ' + op + ' ' + mn(m) + ', entonces';
+    e = 'Se divide entre ' + mn(k) + (k < 0 ? ' (negativo: se invierte el signo)' : '') + ': x ' + (a < 0 ? '− ' : '+ ') + Math.abs(a) + ' ' + op2 + ' ' + mn(m / k) + ', luego x ' + op2 + ' ' + mn(x0) + '.';
+    return mk('ine', q, f(op2, x0), [f(g12_flip(op2), x0), f(op2, x0 + a), f(op2, x0 + 2 * a), f(g12_cl(op2), x0)], e);
+  }
+  var kk = pick([2, 3, 4, 5]), c = nz(-4, 4);
+  a = nz(-6, 6);
+  var v = a - c * kk, opx = g12_flip(op);
+  g12_grid(function (x) { g12_chk(g12_cmp(op, (a - x) / kk, c) === g12_cmp(opx, x, v), 'ineA2'); });
+  f = function (o, w) { return 'x ' + o + ' ' + mn(w); };
+  return mk('ine', '⟨' + mn(a) + ' − x|' + kk + '⟩ ' + op + ' ' + mn(c) + ', entonces', f(opx, v),
+    [f(op, v), f(opx, a + c * kk), f(op, a + c * kk), f(opx, c * kk - a)],
+    'Se multiplica por ' + kk + ' (positivo): ' + mn(a) + ' − x ' + op + ' ' + mn(c * kk) + '. Al pasar −x a la derecha, x ' + opx + ' ' + mn(v) + '.');
+});
+genr('ine', function () {       /* ecuación con valor absoluto */
+  var d = g12_abs();
+  var lh = '|' + g12_lin(d.a, d.b) + '| = ' + d.c;
+  var sa = g12_s2(d.x1, d.x2);
+  return mk('ine', lh + ' tiene soluciones', sa,
+    ['Solo x = ' + mn(d.x2), g12_s2(-d.x1, -d.x2), g12_s2(d.c - d.b, -d.c - d.b), g12_s2(d.x1, -d.x2)],
+    g12_lin(d.a, d.b) + ' = ' + d.c + ' o ' + g12_lin(d.a, d.b) + ' = ' + mn(-d.c) + '. Dividiendo entre ' + d.a + ' salen x = ' + mn(d.x2) + ' y x = ' + mn(d.x1) + '.');
+});
+genr('ine', function () {       /* desigualdad con valor absoluto y coeficiente */
+  var d = g12_abs(), op = pick(['<', '≤', '>', '≥']), strict = op === '<' || op === '>', inside = op === '<' || op === '≤';
+  var cl = !strict;
+  var sol = function (lo, hi, ins, c2) { return ins ? g12_iv(mn(lo), mn(hi), c2, c2) : g12_ivl(mn(lo), c2) + ' ∪ ' + g12_ivr(mn(hi), c2); };
+  g12_grid(function (x) {
+    var cond = g12_cmp(op, Math.abs(d.a * x + d.b), d.c), inS = inside ? (cl ? x >= d.x1 && x <= d.x2 : x > d.x1 && x < d.x2) : (cl ? x <= d.x1 || x >= d.x2 : x < d.x1 || x > d.x2);
+    g12_chk(cond === inS, 'ineC');
+  });
+  return mk('ine', 'Si |' + g12_lin(d.a, d.b) + '| ' + op + ' ' + d.c + ', la solución es', sol(d.x1, d.x2, inside, cl),
+    [sol(d.x1, d.x2, !inside, cl), sol(d.x1, d.x2, inside, !cl), sol(-d.c - d.b, d.c - d.b, inside, cl), sol(-d.x2, -d.x1, inside, cl)],
+    'Se plantea ' + (inside ? '−' + d.c + ' ' + (strict ? '<' : '≤') + ' ' + g12_lin(d.a, d.b) + ' ' + (strict ? '<' : '≤') + ' ' + d.c : g12_lin(d.a, d.b) + ' ' + op + ' ' + d.c + ' o ' + g12_lin(d.a, d.b) + ' ' + g12_flip(op) + ' ' + mn(-d.c)) + ' y se divide entre ' + d.a + ' (positivo): los extremos son ' + mn(d.x1) + ' y ' + mn(d.x2) + '.');
+});
+genr('ine', function () {       /* parábola con coeficiente director distinto de 1 */
+  var r = g12_nr(0, -6, 6, 2).sort(function (x, y) { return x - y; }), r1 = r[0], r2 = r[1], a = pick([-1, -1, -2, 2, 3]), op = pick(['<', '≤', '>', '≥']);
+  var P = g12_mul([a], [1, -(r1 + r2), r1 * r2]), strict = op === '<' || op === '>', cl = !strict;
+  var between = (op === '<' || op === '≤') === (a < 0) ? false : true;
+  between = ((op === '<' || op === '≤') && a > 0) || ((op === '>' || op === '≥') && a < 0);
+  g12_grid(function (x) {
+    var cond = g12_cmp(op, g12_ev(P, x), 0), inS = between ? (cl ? x >= r1 && x <= r2 : x > r1 && x < r2) : (cl ? x <= r1 || x >= r2 : x < r1 || x > r2);
+    g12_chk(cond === inS, 'ineD');
+  });
+  var sol = function (lo, hi, bt, c2) { return bt ? g12_iv(mn(lo), mn(hi), c2, c2) : g12_ivl(mn(lo), c2) + ' ∪ ' + g12_ivr(mn(hi), c2); };
+  return mk('ine', 'Si ' + poly(P) + ' ' + op + ' 0, la solución es', sol(r1, r2, between, cl),
+    [sol(r1, r2, !between, cl), sol(r1, r2, between, !cl), sol(-r2, -r1, between, cl), sol(r1, r2, !between, !cl)],
+    'Las raíces son ' + mn(r1) + ' y ' + mn(r2) + '. La parábola abre hacia ' + (a > 0 ? 'arriba' : 'abajo') + ', así que ' + (between ? 'la solución está entre las raíces' : 'la solución está fuera de las raíces') + (strict ? ' sin incluirlas.' : ' incluyéndolas.'));
+});
+genr('ine', function () {       /* PROBLEMA: comparar dos tarifas */
+  var d, t, p1, p2, f2, f1, nm = pick([['A', 'B'], ['la empresa A', 'la empresa B']]);
+  p1 = ri(1, 3); d = ri(1, 3); p2 = p1 + d; t = ri(2, 10); f2 = ri(0, 5); f1 = f2 + t * d;
+  for (var x = 0; x <= 40; x++) g12_chk((f1 + p1 * x < f2 + p2 * x) === (x > t), 'ineP1');
+  return g12_P(mk('ine', 'Una empresa de alquiler cobra ' + f1 + ' € fijos más ' + p1 + ' € por km, y otra cobra ' + f2 + ' € fijos más ' + p2 + ' € por km. ¿Para qué distancia x (en km) sale más barata la primera?',
+    'x > ' + t, ['x < ' + t, 'x ≥ ' + t, 'x > ' + (f1 - f2 + 1 === t ? t + 2 : f1 - f2 + 1), 'x > ' + fs(f1 - f2, p1 + p2)],
+    'Primera más barata: ' + f1 + ' + ' + p1 + 'x < ' + f2 + ' + ' + p2 + 'x, es decir, ' + (f1 - f2) + ' < ' + d + 'x, luego x > ' + t + '. Con x = ' + t + ' cuestan lo mismo.'));
+});
+genr('ine', function () {       /* PROBLEMA: valor absoluto y cuadrática a la vez */
+  var m = pick([-1, 0, 0, 1]), H = ri(4, 6), L = m - H, U = m + H;
+  var r = g12_nr(0, L + 1, U - 1, 2).sort(function (x, y) { return x - y; }), r1 = r[0], r2 = r[1], op = pick(['>', '≥']), strict = op === '>';
+  var P = [1, -(r1 + r2), r1 * r2];
+  g12_grid(function (x) {
+    var cond = Math.abs(x - m) <= H && g12_cmp(op, g12_ev(P, x), 0);
+    var inS = x >= L && x <= U && (strict ? (x < r1 || x > r2) : (x <= r1 || x >= r2));
+    g12_chk(cond === inS, 'ineP2');
+  });
+  var sol = function (c2, lc, uc) { return (lc ? '[' : '(') + mn(L) + ', ' + mn(r1) + (c2 ? ']' : ')') + ' ∪ ' + (c2 ? '[' : '(') + mn(r2) + ', ' + mn(U) + (uc ? ']' : ')'); };
+  var abs = m === 0 ? '|x|' : '|' + xm(m) + '|';
+  return g12_P(mk('ine', 'Los x que cumplen a la vez ' + abs + ' ≤ ' + H + ' y ' + poly(P) + ' ' + op + ' 0 son', sol(!strict, true, true),
+    [sol(strict, true, true), sol(!strict, false, false), g12_iv(mn(r1), mn(r2), !strict, !strict), g12_iv(mn(L), mn(U), true, true)],
+    abs + ' ≤ ' + H + ' da [' + mn(L) + ', ' + mn(U) + ']. Además ' + poly(P) + ' ' + op + ' 0 se cumple fuera de las raíces ' + mn(r1) + ' y ' + mn(r2) + '. Se intersecan las dos condiciones.'));
+});
+
+/* ===== dom ===== */
+function g12_dm(L, lc, exc) {   /* [L, +∞) menos puntos */
+  return (lc ? '[' : '(') + L + ', +∞)' + (exc.length ? ' − {' + exc.join(', ') + '}' : '');
+}
+function g12_arg(a, b) { return a < 0 && b !== 0 ? mn(b) + ' − ' + (a === -1 ? '' : -a) + 'x' : g12_lin(a, b); }
+genr('dom', function () {       /* cociente con denominador cuadrático */
+  var v = ri(0, 2);
+  if (v < 2) {
+    var r = g12_nr(0, -6, 6, 2).sort(function (x, y) { return x - y; }), r1 = r[0], r2 = r[1], k = nz(-5, 5);
+    var den = poly([1, -(r1 + r2), r1 * r2]), num = v === 0 ? '1' : 'x ' + (k < 0 ? '− ' + (-k) : '+ ' + k);
+    g12_grid(function (x) { var ok = Math.abs(g12_ev([1, -(r1 + r2), r1 * r2], x)) > 1e-12; g12_chk(ok === (x !== r1 && x !== r2), 'domA'); });
+    var set = function (z) { return 'ℝ − {' + z.map(mn).join(', ') + '}'; };
+    var w = [set([-r2, -r1]), set([r1]), set([r2]), set([r1 + r2])];
+    if (v === 1 && r.indexOf(-k) < 0) w.push(set([r1, r2, -k]));
+    return mk('dom', 'Dominio de f(x) = ⟨' + num + '|' + den + '⟩', set([r1, r2]), w,
+      'El denominador se anula si ' + den + ' = 0, es decir, en x = ' + mn(r1) + ' y x = ' + mn(r2) + '. El numerador no influye.');
+  }
+  var b = ri(-3, 3), c = ri(3, 8);
+  while (b * b - 4 * c >= 0) c++;
+  g12_grid(function (x) { g12_chk(g12_ev([1, b, c], x) > 0, 'domA2'); });
+  return mk('dom', 'Dominio de f(x) = ⟨x|' + poly([1, b, c]) + '⟩', 'ℝ', ['ℝ − {0}', 'ℝ − {' + mn(-c) + '}', 'ℝ − {' + mn(b) + '}', '(0, +∞)'],
+    'Δ = ' + mn(b * b - 4 * c) + ' < 0, así que el denominador nunca vale 0 y el dominio es todo ℝ.');
+});
+genr('dom', function () {       /* raíz o logaritmo de una expresión lineal con coeficiente */
+  var a = pick([2, 3, 4, -2, -3, -4]), b = nz(-9, 9), isL = Math.random() < 0.5, t = -b / a, ts = fs(-b, a);
+  var wrap = function (s) { return isL ? 'ln(' + s + ')' : '√{' + s + '}'; };
+  g12_grid(function (x) { var u = a * x + b; g12_chk((isL ? u > 1e-12 : u >= -1e-12) === (a > 0 ? (isL ? x > t + 1e-12 : x >= t - 1e-12) : (isL ? x < t - 1e-12 : x <= t + 1e-12)), 'domB'); });
+  var one = function (right, closed, th) { return right ? (closed ? '[' : '(') + th + ', +∞)' : '(−∞, ' + th + (closed ? ']' : ')'); };
+  var cl = !isL, right = a > 0;
+  return mk('dom', 'Dominio de f(x) = ' + wrap(g12_arg(a, b)), one(right, cl, ts),
+    [one(!right, cl, ts), one(right, !cl, ts), one(right, cl, mn(-b)), one(!right, cl, fs(b, a))],
+    (isL ? 'Hace falta ' : 'Hace falta ') + g12_lin(a, b) + (isL ? ' > 0' : ' ≥ 0') + '. Se despeja x dividiendo entre ' + mn(a) + (a < 0 ? ' (negativo: cambia el sentido)' : '') + ': x ' + (right ? (isL ? '>' : '≥') : (isL ? '<' : '≤')) + ' ' + ts + '.');
+});
+genr('dom', function () {       /* raíz o logaritmo de una parábola */
+  var r = g12_nr(0, -6, 6, 2).sort(function (x, y) { return x - y; }), r1 = r[0], r2 = r[1], s = pick([1, 1, -1]), isL = Math.random() < 0.4;
+  var P = g12_mul([s], [1, -(r1 + r2), r1 * r2]), cl = !isL, outside = s > 0;
+  g12_grid(function (x) {
+    var u = g12_ev(P, x), ok = isL ? u > 0 : u >= 0, inS = outside ? (cl ? x <= r1 || x >= r2 : x < r1 || x > r2) : (cl ? x >= r1 && x <= r2 : x > r1 && x < r2);
+    g12_chk(ok === inS, 'domC');
+  });
+  var sol = function (out, c2) { return out ? g12_ivl(mn(r1), c2) + ' ∪ ' + g12_ivr(mn(r2), c2) : g12_iv(mn(r1), mn(r2), c2, c2); };
+  return mk('dom', 'Dominio de f(x) = ' + (isL ? 'ln(' + poly(P) + ')' : '√{' + poly(P) + '}'), sol(outside, cl),
+    [sol(!outside, cl), sol(outside, !cl), 'ℝ − {' + mn(r1) + ', ' + mn(r2) + '}', sol(!outside, !cl)],
+    'Hace falta ' + poly(P) + (isL ? ' > 0' : ' ≥ 0') + '. Las raíces son ' + mn(r1) + ' y ' + mn(r2) + ' y la parábola abre hacia ' + (s > 0 ? 'arriba' : 'abajo') + ', así que se cumple ' + (outside ? 'fuera' : 'entre') + ' de ellas.');
+});
+genr('dom', function () {       /* cociente con raíz o logaritmo en el numerador, o raíz en el denominador */
+  var v = ri(0, 2), a = nz(-5, 5), b;
+  if (v === 2) {
+    g12_grid(function (x) { g12_chk((a - x > 1e-12) === (x < a), 'domD2'); });
+    return mk('dom', 'Dominio de f(x) = ⟨1|√{' + mn(a) + ' − x}⟩', '(−∞, ' + mn(a) + ')', ['(−∞, ' + mn(a) + ']', '[' + mn(a) + ', +∞)', 'ℝ − {' + mn(a) + '}'],
+      'La raíz está en el denominador: ' + mn(a) + ' − x ≥ 0 y además no puede valer 0, así que ' + mn(a) + ' − x > 0, es decir, x < ' + mn(a) + '.');
+  }
+  do { b = nz(-5, 8); } while (b <= -a);
+  var isL = v === 1, lft = isL ? a : -a;
+  var arg = isL ? 'ln(' + xm(a) + ')' : '√{' + xp(a) + '}';
+  if (isL) { do { b = nz(-5, 8); } while (b <= a); }
+  g12_grid(function (x) { var okn = isL ? x - a > 1e-12 : x + a >= -1e-12; g12_chk((okn && Math.abs(x - b) > 1e-12) === (x > (isL ? a : -a) - (isL ? 0 : 1e-9) && x !== b && (isL ? x > a : x >= -a)), 'domD'); });
+  var L = mn(isL ? a : -a), c = !isL;
+  return mk('dom', 'Dominio de f(x) = ⟨' + arg + '|' + xm(b) + '⟩', g12_dm(L, c, [mn(b)]),
+    [g12_dm(L, !c, [mn(b)]), g12_dm(L, c, []), g12_dm(L, c, [mn(-b)]), 'ℝ − {' + mn(b) + '}'],
+    (isL ? 'El logaritmo pide x ' + (a < 0 ? '+ ' + (-a) : '− ' + a) + ' > 0, o sea x > ' + mn(a) : 'La raíz pide x ' + (a < 0 ? '− ' + (-a) : '+ ' + a) + ' ≥ 0, o sea x ≥ ' + mn(-a)) + '; además x ≠ ' + mn(b) + ', que sí está en ese intervalo.');
+});
+genr('dom', function () {       /* PROBLEMA: suma de una raíz y una raíz en el denominador */
+  var a = nz(-5, 5), b;
+  do { b = nz(-6, 6); } while (b <= -a);
+  g12_grid(function (x) { g12_chk((x + a >= -1e-12 && b - x > 1e-12) === (x >= -a && x < b), 'domP1'); });
+  var S = function (l, r) { return '[' + mn(-a) + ', ' + mn(b) + ']'; };
+  return g12_P(mk('dom', 'Dominio de f(x) = √{' + xp(a) + '} + ⟨1|√{' + mn(b) + ' − x}⟩', '[' + mn(-a) + ', ' + mn(b) + ')',
+    ['[' + mn(-a) + ', ' + mn(b) + ']', '(' + mn(-a) + ', ' + mn(b) + ')', '(' + mn(-a) + ', ' + mn(b) + ']', '[' + mn(-a) + ', +∞)'],
+    'Primer sumando: x ' + (a < 0 ? '− ' + (-a) : '+ ' + a) + ' ≥ 0, es decir, x ≥ ' + mn(-a) + '. Segundo: ' + mn(b) + ' − x > 0 (está en el denominador), es decir, x < ' + mn(b) + '. Se cumplen a la vez en [' + mn(-a) + ', ' + mn(b) + ').'));
+});
+genr('dom', function () {       /* PROBLEMA: raíz en el numerador y x^2 − k^2 en el denominador */
+  var a = nz(-3, 4), k = ri(1, 4), L = -a, exc = [], z;
+  g12_grid(function (x) { g12_chk((x + a >= -1e-12 && Math.abs(x * x - k * k) > 1e-12) === (x >= L && x !== k && x !== -k), 'domP2'); });
+  [-k, k].forEach(function (zz) { if (zz > L) exc.push(zz); });
+  var nd = function (ex0) { var ex = [], c2 = true; ex0.forEach(function (zz) { if (zz > L) ex.push(zz); else if (zz === L) c2 = false; }); return g12_dm(mn(L), c2, ex.map(mn)); };
+  var ans = nd([-k, k]);
+  var all = [nd([]), nd([k]), nd([-k]), 'ℝ − {' + mn(-k) + ', ' + mn(k) + '}'];
+  return g12_P(mk('dom', 'Dominio de f(x) = ⟨√{' + xp(a) + '}|' + poly([1, 0, -k * k]) + '⟩', ans, all,
+    'Raíz: x ≥ ' + mn(L) + '. Denominador: x^{2} − ' + k * k + ' = 0 en x = ' + mn(-k) + ' y x = ' + k + '. Solo hay que quitar los que están en [' + mn(L) + ', +∞).'));
+});
+/* Generadores 13: tri1-tri4 y num1-num6 (plantillas nuevas, con problemas de varios pasos marcados r.p = 1) */
+var G13_START = GENS.length;
+
+/* ---------- utilidades ---------- */
+function g13_chk(c, m) { if (!c) throw new Error('g13 verify: ' + m); }
+function g13_near(a, b) { return Math.abs(a - b) <= 1e-9 * Math.max(1, Math.abs(a), Math.abs(b)); }
+function g13_rad(d) { return d * Math.PI / 180; }
+function g13_p(r) { r.p = 1; return r; }
+/* como mk, pero sin relleno numérico: si faltan incorrectas devuelve w vacío y genr reintenta */
+function g13_mk(t, q, a, w, e) {
+  var seen = {}, out = [];
+  a = String(a); seen[a] = 1;
+  w.forEach(function (x) { x = String(x); if (!seen[x]) { seen[x] = 1; out.push(x); } });
+  return { t: t, q: q, a: a, w: out.length >= 3 ? out.slice(0, 3) : [], e: e };
+}
+function g13_n(x, k) { var f = Math.pow(10, k === undefined ? 2 : k); return mn(String(Math.round(x * f) / f).replace('.', ',')); }
+function g13_pr(n) { return n < 0 ? '(' + mn(n) + ')' : String(n); }
+function g13_dd(z) { return g13_n(z) + (z === 1 ? ' día' : ' días'); }
+function g13_pi(n, d) {
+  if (n === 0) return '0';
+  var g = gcd(n, d), s = (n < 0) !== (d < 0) ? '−' : '';
+  n = Math.abs(n) / g; d = Math.abs(d) / g;
+  var top = (n === 1 ? '' : n) + 'π';
+  return d === 1 ? s + top : s + '⟨' + top + '|' + d + '⟩';
+}
+function g13_fq(n, d) {   /* fracción sin simplificar, para enunciados */
+  return (n < 0 ? '−' : '') + '⟨' + Math.abs(n) + '|' + d + '⟩';
+}
+function g13_pe(t) {
+  var m = t.match(/^(\d*)√\{(\d+)\}$/);
+  if (m) return (m[1] === '' ? 1 : +m[1]) * Math.sqrt(+m[2]);
+  m = t.match(/^(\d*)π$/);
+  if (m) return (m[1] === '' ? 1 : +m[1]) * Math.PI;
+  g13_chk(/^\d+$/.test(t), 'parse ' + t);
+  return +t;
+}
+function g13_parse(s) {
+  s = String(s).replace(/\s/g, '');
+  var sg = 1;
+  if (s.charAt(0) === '−') { sg = -1; s = s.slice(1); }
+  var m = s.match(/^⟨(.*)\|(.*)⟩$/), num = s, den = '1';
+  if (m) { num = m[1]; den = m[2]; }
+  return sg * g13_pe(num) / g13_pe(den);
+}
+/* racionales [n, d] */
+function g13_q(n, d) { if (d < 0) { n = -n; d = -d; } var g = gcd(n, d) || 1; return [n / g, d / g]; }
+function g13_qa(a, b) { return g13_q(a[0] * b[1] + b[0] * a[1], a[1] * b[1]); }
+function g13_qs(a, b) { return g13_q(a[0] * b[1] - b[0] * a[1], a[1] * b[1]); }
+function g13_qm(a, b) { return g13_q(a[0] * b[0], a[1] * b[1]); }
+function g13_qd(a, b) { return g13_q(a[0] * b[1], a[1] * b[0]); }
+function g13_qf(a) { return fs(a[0], a[1]); }
+function g13_qv(a) { return a[0] / a[1]; }
+function g13_qe(a) { return g13_fq(a[0], a[1]); }   /* para enunciado (nunca entero) */
+/* dinero en céntimos */
+function g13_eur(c) {
+  var neg = c < 0, a = Math.abs(c), e = Math.floor(a / 100), r = a % 100;
+  return (neg ? '−' : '') + e + (r ? ',' + (r < 10 ? '0' + r : r) : '') + ' €';
+}
+/* notación científica: valor N·10^e10, N entero positivo */
+function g13_scm(m, E) { return m + ' · 10^{' + mn(E) + '}'; }
+function g13_sci(N, e10) {
+  var s = String(N), E = e10 + s.length - 1, t = s.replace(/0+$/, '');
+  return g13_scm(t.charAt(0) + (t.length > 1 ? ',' + t.slice(1) : ''), E);
+}
+function g13_mt(M) { return M % 10 === 0 ? String(M / 10) : Math.floor(M / 10) + ',' + (M % 10); }   /* M décimas */
+function g13_num(x, k) {   /* entero x escalado 10^k → texto con coma, sin ceros finales */
+  var s = String(Math.abs(x)); while (s.length <= k) s = '0' + s;
+  var ip = s.slice(0, s.length - k), fp = s.slice(s.length - k).replace(/0+$/, '');
+  return (x < 0 ? '−' : '') + ip + (fp ? ',' + fp : '');
+}
+var g13_QN = ['1.er cuadrante', '2.º cuadrante', '3.er cuadrante', '4.º cuadrante'];
+
+/* valores exactos [n, d, r] = (n/d)·√r */
+var g13_SN = { 0: [0, 1, 1], 30: [1, 2, 1], 45: [1, 2, 2], 60: [1, 2, 3], 90: [1, 1, 1] };
+var g13_CS = { 0: [1, 1, 1], 30: [1, 2, 3], 45: [1, 2, 2], 60: [1, 2, 1], 90: [0, 1, 1] };
+var g13_TG = { 0: [0, 1, 1], 30: [1, 3, 3], 45: [1, 1, 1], 60: [1, 1, 3] };
+function g13_ev(fn, a) { return (fn === 'sen' ? g13_SN : fn === 'cos' ? g13_CS : g13_TG)[a]; }
+function g13_red(v) {
+  if (v[0] === 0) return [0, 1, 1];
+  var g = gcd(v[0], v[1]); return [v[0] / g, v[1] / g, v[2]];
+}
+function g13_mul(u, v) {
+  var n = u[0] * v[0], d = u[1] * v[1], r = u[2] * v[2];
+  if (r === 4) { r = 1; n *= 2; } else if (r === 9) { r = 1; n *= 3; }
+  return g13_red([n, d, r]);
+}
+function g13_ex(v) {
+  v = g13_red(v);
+  if (v[0] === 0) return '0';
+  if (v[2] === 1) return fs(v[0], v[1]);
+  var t = (v[0] === 1 ? '' : v[0]) + '√{' + v[2] + '}';
+  return v[1] === 1 ? t : '⟨' + t + '|' + v[1] + '⟩';
+}
+function g13_val(v) { return v[0] / v[1] * Math.sqrt(v[2]); }
+function g13_fnum(fn, a) {
+  var x = g13_rad(a);
+  return fn === 'sen' ? Math.sin(x) : fn === 'cos' ? Math.cos(x) : Math.tan(x);
+}
+function g13_exok(fn, a) {   /* texto exacto verificado contra Math */
+  var s = g13_ex(g13_ev(fn, a));
+  g13_chk(g13_near(g13_parse(s), g13_fnum(fn, a)), fn + ' ' + a);
+  return s;
+}
+
+/* ============================== tri1: Valores notables ============================== */
+
+/* sen²/cos² combinados y productos de valores notables */
+genr('tri1', function () {
+  var i, j;
+  if (Math.random() < 0.5) {
+    var A = pick([0, 30, 45, 60, 90]), B = pick([0, 30, 45, 60, 90]), op = pick([1, -1]);
+    var f1 = pick(['sen', 'cos']), f2 = pick(['sen', 'cos']);
+    var sw = function (f) { return f === 'sen' ? 'cos' : 'sen'; };
+    var calc = function (g1, g2) {
+      var s1 = g13_mul(g13_ev(g1, A), g13_ev(g1, A)), s2 = g13_mul(g13_ev(g2, B), g13_ev(g2, B));
+      return g13_q(s1[0] * s2[1] + op * s2[0] * s1[1], s1[1] * s2[1]);
+    };
+    var ans = calc(f1, f2);
+    var num = Math.pow(g13_fnum(f1, A), 2) + op * Math.pow(g13_fnum(f2, B), 2);
+    g13_chk(g13_near(g13_qv(ans), num), 'tri1 sq');
+    var w = [calc(sw(f1), sw(f2)), calc(sw(f1), f2), calc(f1, sw(f2))].map(g13_qf);
+    w.push(g13_qf(g13_qa(ans, [1, 4])), g13_qf(g13_qs(ans, [1, 2])), g13_qf(g13_qa(ans, [1, 2])));
+    return g13_mk('tri1', f1 + '^{2} ' + A + '° ' + (op > 0 ? '+' : '−') + ' ' + f2 + '^{2} ' + B + '° =', g13_qf(ans), w,
+      f1 + ' ' + A + '° = ' + g13_ex(g13_ev(f1, A)) + ' y ' + f2 + ' ' + B + '° = ' + g13_ex(g13_ev(f2, B)) + '. Se elevan al cuadrado y se ' + (op > 0 ? 'suman' : 'restan') + ': ' + g13_qf(ans) + '.');
+  }
+  var fa = pick(['sen', 'cos', 'tg']), fb = pick(['sen', 'cos', 'tg']), a = pick([30, 45, 60]), b = pick([30, 45, 60]);
+  var prod = g13_mul(g13_ev(fa, a), g13_ev(fb, b)), ps = g13_ex(prod);
+  g13_chk(g13_near(g13_parse(ps), g13_fnum(fa, a) * g13_fnum(fb, b)), 'tri1 prod');
+  var alts = [];
+  ['sen', 'cos', 'tg'].forEach(function (x) { ['sen', 'cos', 'tg'].forEach(function (y) { alts.push(g13_ex(g13_mul(g13_ev(x, a), g13_ev(y, b)))); }); });
+  alts = shuffle(alts.filter(function (s, k, arr) { return s !== ps && arr.indexOf(s) === k; }));
+  return g13_mk('tri1', fa + ' ' + a + '° · ' + fb + ' ' + b + '° =', ps, alts,
+    fa + ' ' + a + '° = ' + g13_ex(g13_ev(fa, a)) + ' y ' + fb + ' ' + b + '° = ' + g13_ex(g13_ev(fb, b)) + '; su producto es ' + ps + '.');
+});
+
+/* ángulo agudo a partir de su razón trigonométrica */
+genr('tri1', function () {
+  var fn = pick(['sen', 'cos', 'tg']), x = pick([30, 45, 60]);
+  var v = g13_exok(fn, x);
+  var w = [(90 - x) + '°'].concat(shuffle([0, 30, 45, 60, 90].filter(function (z) { return z !== x && z !== 90 - x; })).map(function (z) { return z + '°'; }));
+  var ok = [0, 30, 45, 60, 90].filter(function (z) { return z !== x && (fn !== 'tg' || z !== 90) && g13_near(g13_fnum(fn, z), g13_fnum(fn, x)); });
+  g13_chk(ok.length === 0, 'tri1 inv unica');
+  return g13_mk('tri1', 'Si x es un ángulo agudo y ' + fn + ' x = ' + v + ', entonces x =', x + '°', w,
+    'Valor notable: ' + fn + ' ' + x + '° = ' + v + (x === 45 ? '.' : '. Ojo, ' + fn + ' ' + (90 - x) + '° vale ' + g13_ex(g13_ev(fn, 90 - x)) + '.'));
+});
+
+/* ordenar tres razones notables */
+genr('tri1', function () {
+  var pool = [], it, tries = 0;
+  ['sen', 'cos', 'tg'].forEach(function (f) { [30, 45, 60].forEach(function (a) { pool.push({ f: f, a: a, v: g13_fnum(f, a), s: f + ' ' + a + '°' }); }); });
+  var tr;
+  do {
+    tr = shuffle(pool.slice()).slice(0, 3);
+    tries++;
+  } while (tries < 200 && (Math.abs(tr[0].v - tr[1].v) < 1e-9 || Math.abs(tr[0].v - tr[2].v) < 1e-9 || Math.abs(tr[1].v - tr[2].v) < 1e-9));
+  g13_chk(tries < 200, 'tri1 orden');
+  var st = tr.slice().sort(function (x, y) { return x.v - y.v; });
+  var j = function (a) { return a.map(function (z) { return z.s; }).join(' < '); };
+  var perms = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]].map(function (p) { return j(p.map(function (k) { return st[k]; })); });
+  var ans = perms[0];
+  g13_chk(st[0].v < st[1].v && st[1].v < st[2].v, 'tri1 orden asc');
+  return g13_mk('tri1', 'Ordena de menor a mayor: ' + tr.map(function (z) { return z.s; }).join(', '), ans, shuffle(perms.slice(1)),
+    'Valores: ' + st.map(function (z) { return z.s + ' ≈ ' + g13_n(z.v, 3); }).join(', ') + '.');
+});
+
+/* problemas con ángulos notables: cometa (varios pasos) y escalera */
+genr('tri1', function () {
+  var k = ri(2, 9), L = 2 * k;
+  if (Math.random() < 0.55) {
+    var h0 = ri(1, 2), A = pick([30, 60]);
+    var hn = L * Math.sin(g13_rad(A)) + h0;
+    var ans, w;
+    if (A === 30) {
+      g13_chk(g13_near(hn, k + h0), 'cometa30');
+      ans = (k + h0) + ' m';
+      w = ['(' + g5_rt(k, 3) + ' + ' + h0 + ') m', k + ' m', (L + h0) + ' m', g5_rt(k, 3) + ' m'];
+    } else {
+      g13_chk(g13_near(hn, k * Math.sqrt(3) + h0), 'cometa60');
+      ans = '(' + g5_rt(k, 3) + ' + ' + h0 + ') m';
+      w = [(k + h0) + ' m', g5_rt(k, 3) + ' m', (L + h0) + ' m', '(' + g5_rt(L, 3) + ' + ' + h0 + ') m'];
+    }
+    return g13_p(g13_mk('tri1', 'La cuerda de una cometa mide ' + L + ' m, está tensa y forma ' + A + '° con la horizontal. La persona la sujeta a ' + h0 + ' m del suelo. ¿A qué altura sobre el suelo está la cometa?', ans, w,
+      'La altura sobre la mano es ' + L + ' · sen ' + A + '° = ' + (A === 30 ? L + ' · ⟨1|2⟩ = ' + k : L + ' · ⟨√{3}|2⟩ = ' + g5_rt(k, 3)) + ' m; hay que sumar los ' + h0 + ' m de la mano.'));
+  }
+  var B = pick([30, 45, 60]), rr = B === 30 ? g5_rt(k, 3) : B === 45 ? g5_rt(k, 2) : String(k);
+  var hh = B === 30 ? String(k) : B === 45 ? g5_rt(k, 2) : g5_rt(k, 3);
+  var dn = L * Math.cos(g13_rad(B)), dv = B === 30 ? k * Math.sqrt(3) : B === 45 ? k * Math.sqrt(2) : k;
+  g13_chk(g13_near(dn, dv), 'escalera');
+  var wr = shuffle([g5_rt(k, 2), g5_rt(k, 3), String(k), String(L), g5_rt(L, 3)].filter(function (s) { return s !== rr; }));
+  return g13_mk('tri1', 'Una escalera de ' + L + ' m se apoya en una pared formando ' + B + '° con el suelo. ¿A qué distancia de la pared está su pie?', rr + ' m', wr.map(function (s) { return s + ' m'; }),
+    'La distancia es el cateto adyacente: ' + L + ' · cos ' + B + '° = ' + L + ' · ' + g13_ex(g13_ev('cos', B)) + ' = ' + rr + ' m.');
+});
+
+/* geometría con 30°, 45° y 60° */
+genr('tri1', function () {
+  var k = ri(2, 8), v = ri(0, 2);
+  if (v === 0) {
+    g13_chk(g13_near(2 * k * Math.sin(g13_rad(60)), k * Math.sqrt(3)), 'equilatero');
+    return g13_mk('tri1', 'Un triángulo equilátero tiene lado ' + 2 * k + ' cm. Su altura mide', g5_rt(k, 3) + ' cm',
+      [g5_rt(k, 2) + ' cm', String(k) + ' cm', g5_rt(2 * k, 3) + ' cm', g5_rt(k, 3) + ' cm^{2}'],
+      'La altura es lado · sen 60° = ' + 2 * k + ' · ⟨√{3}|2⟩ = ' + g5_rt(k, 3) + ' cm.');
+  }
+  if (v === 1) {
+    var t = pick([30, 45, 60]), a2 = 4 * k * k;
+    var ar = t === 30 ? String(2 * k * k) : t === 45 ? g5_rt(2 * k * k, 2) : g5_rt(2 * k * k, 3);
+    var arn = a2 * Math.sin(g13_rad(t));
+    g13_chk(g13_near(arn, t === 30 ? 2 * k * k : t === 45 ? 2 * k * k * Math.sqrt(2) : 2 * k * k * Math.sqrt(3)), 'rombo');
+    var sn = g13_ex(g13_ev('sen', t));
+    var wr = [];
+    if (t === 30) wr = [g5_rt(2 * k * k, 3), String(k * k), String(4 * k * k), g5_rt(k * k, 3)];
+    else if (t === 45) wr = [String(2 * k * k), g5_rt(k * k, 2), String(4 * k * k), g5_rt(4 * k * k, 2)];
+    else wr = [String(2 * k * k), g5_rt(k * k, 3), String(4 * k * k), g5_rt(4 * k * k, 3)];
+    return g13_p(g13_mk('tri1', 'Un rombo tiene lados de ' + 2 * k + ' cm y un ángulo de ' + t + '°. Su área (lado · lado · seno del ángulo) es', ar + ' cm^{2}',
+      wr.map(function (s) { return s + ' cm^{2}'; }),
+      'Área = ' + 2 * k + ' · ' + 2 * k + ' · sen ' + t + '° = ' + a2 + ' · ' + sn + ' = ' + ar + ' cm^{2}.'));
+  }
+  g13_chk(g13_near(2 * k * Math.cos(g13_rad(45)), k * Math.sqrt(2)), 'diag');
+  return g13_mk('tri1', 'La diagonal de un cuadrado mide ' + 2 * k + ' cm. Su lado mide', g5_rt(k, 2) + ' cm',
+    [String(k) + ' cm', g5_rt(k, 3) + ' cm', g5_rt(2 * k, 2) + ' cm', String(2 * k) + ' cm'],
+    'El lado es la diagonal · cos 45° = ' + 2 * k + ' · ⟨√{2}|2⟩ = ' + g5_rt(k, 2) + ' cm.');
+});
+
+/* ============================== tri2: Radianes y cuadrantes ============================== */
+
+function g13_quadIdx(th) { var x = Math.cos(th), y = Math.sin(th); return y > 0 ? (x > 0 ? 0 : 1) : (x < 0 ? 2 : 3); }
+
+/* cuadrante de un ángulo en radianes */
+genr('tri2', function () {
+  var q = pick([3, 4, 6]), p, v = ri(0, 2), idx, txt;
+  do { p = ri(1, 2 * q - 1); } while ((2 * p) % q === 0);
+  if (v === 0) {
+    idx = Math.floor(2 * p / q); txt = g13_pi(p, q);
+    g13_chk(idx === g13_quadIdx(p / q * Math.PI), 'q0');
+  } else if (v === 1) {
+    p += 2 * q; idx = Math.floor(2 * p / q) % 4; txt = g13_pi(p, q);
+    g13_chk(idx === g13_quadIdx(p / q * Math.PI), 'q1');
+  } else {
+    idx = (((Math.floor(-2 * p / q)) % 4) + 4) % 4; txt = g13_pi(-p, q);
+    g13_chk(idx === g13_quadIdx(-p / q * Math.PI), 'q2');
+  }
+  var deg = Math.round(p * 180 / q) * (v === 2 ? -1 : 1);
+  return g13_mk('tri2', 'El ángulo ' + txt + ' rad está en el', g13_QN[idx], g13_QN.filter(function (_, i) { return i !== idx; }),
+    txt + ' rad equivale a ' + mn(deg) + '°' + (v === 0 ? '' : ', que da el mismo punto que ' + (((deg % 360) + 360) % 360) + '°') + '. Ese ángulo está en el ' + g13_QN[idx] + '.');
+});
+
+/* ángulos coterminales */
+genr('tri2', function () {
+  if (Math.random() < 0.5) {
+    var th, ans;
+    do { th = Math.random() < 0.5 ? ri(361, 1100) : -ri(10, 760); ans = ((th % 360) + 360) % 360; } while (ans === 0 || ans % 90 === 0 && Math.random() < 0.5);
+    g13_chk(g13_near(Math.cos(g13_rad(th)), Math.cos(g13_rad(ans))) && g13_near(Math.sin(g13_rad(th)), Math.sin(g13_rad(ans))), 'cotermin');
+    var cands = [(ans + 180) % 360, 360 - ans, (ans + 270) % 360, th % 180 < 0 ? th % 180 + 180 : th % 180, Math.abs(th) % 360];
+    var w = cands.filter(function (z) { return z !== ans && z > 0 && z < 360; }).map(function (z) { return z + '°'; });
+    var kv = (th - ans) / 360;
+    return g13_mk('tri2', 'El ángulo ' + mn(th) + '° da el mismo punto de la circunferencia que un ángulo entre 0° y 360° de', ans + '°', w,
+      'Se ' + (kv > 0 ? 'restan ' + kv : 'suman ' + (-kv)) + ' vuelta(s) de 360°: ' + mn(th) + '° ' + (kv > 0 ? '−' : '+') + ' ' + Math.abs(kv) + ' · 360° = ' + ans + '°.');
+  }
+  var q = pick([3, 4, 6]), p, m;
+  do { p = Math.random() < 0.5 ? ri(2 * q + 1, 5 * q) : -ri(1, 4 * q); m = ((p % (2 * q)) + 2 * q) % (2 * q); } while (m === 0 || m === q);
+  var x = p / q * Math.PI, y = m / q * Math.PI;
+  g13_chk(g13_near(Math.cos(x), Math.cos(y)) && g13_near(Math.sin(x), Math.sin(y)), 'cotermin rad');
+  var wr = [(m + q) % (2 * q), 2 * q - m, ((p % q) + q) % q, Math.abs(p) % (2 * q)].filter(function (z) { return z !== m && z > 0; }).map(function (z) { return g13_pi(z, q) + ' rad'; });
+  return g13_mk('tri2', 'El ángulo ' + g13_pi(p, q) + ' rad coincide con uno entre 0 y 2π rad igual a', g13_pi(m, q) + ' rad', wr,
+    'Se suman o restan vueltas de 2π hasta caer entre 0 y 2π: ' + g13_pi(p, q) + ' ' + (p > 0 ? '−' : '+') + ' ' + Math.abs(Math.round((p - m) / (2 * q))) + ' · 2π = ' + g13_pi(m, q) + '.');
+});
+
+/* longitud de arco y ángulo en radianes */
+genr('tri2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var d = pick([30, 45, 60, 90, 120, 150, 180, 270]), r = ri(2, 12);
+    var ans = g13_pi(d * r, 180);
+    g13_chk(g13_near(g13_parse(ans), d / 360 * 2 * Math.PI * r), 'arco deg');
+    return g13_mk('tri2', 'En una circunferencia de radio ' + r + ' cm, un ángulo central de ' + d + '° abarca un arco de longitud', ans + ' cm',
+      [g13_pi(d * r, 360) + ' cm', g13_pi(d * r * r, 360) + ' cm', g13_pi(2 * d * r, 180) + ' cm', g13_pi(d * r, 90) + ' cm'],
+      'Longitud = ⟨' + d + '|360⟩ · 2π · ' + r + ' = ' + ans + ' cm.');
+  }
+  if (v === 1) {
+    var k = pick([2, 3, 4, 6]), r2 = ri(3, 12), ans2 = g13_pi(r2, k);
+    g13_chk(g13_near(g13_parse(ans2), Math.PI / k * r2), 'arco rad');
+    return g13_mk('tri2', 'Un arco de ⟨π|' + k + '⟩ rad en una circunferencia de radio ' + r2 + ' cm mide', ans2 + ' cm',
+      [g13_pi(2 * r2, k) + ' cm', g13_pi(r2, 2 * k) + ' cm', g13_pi(r2 * r2, 2 * k) + ' cm', g13_pi(r2 * k, 1) + ' cm'],
+      'Longitud = ángulo (rad) · radio = ⟨π|' + k + '⟩ · ' + r2 + ' = ' + ans2 + ' cm.');
+  }
+  var rr, th = pick([[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [3, 4], [5, 4], [2, 1], [3, 1], [1, 6], [5, 6]]);
+  do { rr = ri(2, 12); } while ((rr * th[0]) % th[1] !== 0);
+  var s = rr * th[0] / th[1], ans3 = fs(th[0], th[1]);
+  g13_chk(g13_near(s / rr, th[0] / th[1]), 'arco inv');
+  return g13_mk('tri2', 'Un arco de ' + s + ' cm en una circunferencia de radio ' + rr + ' cm corresponde a un ángulo de', ans3 + ' rad',
+    [fs(rr, s) + ' rad', fs(s * rr, 1) + ' rad', fs(s, rr + 1) + ' rad', fs(s, 2 * rr) + ' rad'],
+    'ángulo (rad) = arco : radio = ' + s + ' : ' + rr + ' = ' + ans3 + ' rad.');
+});
+
+/* qué expresión es positiva o negativa */
+genr('tri2', function () {
+  var want = pick([1, -1]), items, cnt, seen, fn, th, tries = 0;
+  var qs = { sen: [1, 1, -1, -1], cos: [1, -1, -1, 1], tg: [1, -1, 1, -1] };
+  do {
+    items = []; seen = {};
+    while (items.length < 4) {
+      fn = pick(['sen', 'cos', 'tg']); th = ri(1, 359);
+      if (th % 90 === 0 || seen[fn + th]) continue;
+      seen[fn + th] = 1;
+      var val = g13_fnum(fn, th), sgn = val > 0 ? 1 : -1;
+      g13_chk(Math.abs(val) > 1e-6, 'signo cero');
+      g13_chk(sgn === qs[fn][Math.floor(th / 90)], 'signo cuadrante');
+      items.push({ s: fn + ' ' + th + '°', sg: sgn, fn: fn, th: th });
+    }
+    cnt = items.filter(function (z) { return z.sg === want; });
+    tries++;
+  } while (cnt.length !== 1 && tries < 500);
+  g13_chk(cnt.length === 1, 'signo uno');
+  var c = cnt[0], qi = Math.floor(c.th / 90);
+  return g13_mk('tri2', pick(['¿Cuál de estas expresiones es ', 'Entre estas expresiones, ¿cuál es ', 'Con los ángulos en grados, ¿cuál de estas es ']) + (want > 0 ? 'positiva' : 'negativa') + '?', c.s,
+    items.filter(function (z) { return z !== c; }).map(function (z) { return z.s; }),
+    c.th + '° está en el ' + g13_QN[qi] + ', donde ' + c.fn + ' es ' + (want > 0 ? 'positivo' : 'negativo') + '; en las otras tres expresiones el signo es el contrario.');
+});
+
+/* problemas: reloj y sector circular */
+genr('tri2', function () {
+  if (Math.random() < 0.5) {
+    var h = ri(1, 11), t = 60 * h + 30;
+    var hand = 0.5 * t, mnh = 6 * (t % 60), df = Math.abs(hand - mnh);
+    var ang = Math.min(df, 360 - df);
+    g13_chk(g13_near(ang, Math.min(Math.abs(30 * h + 15 - 180), 360 - Math.abs(30 * h + 15 - 180))), 'reloj');
+    var inRad = Math.random() < 0.5;
+    var f = function (a) { return inRad ? g13_pi(a, 180) + ' rad' : a + '°'; };
+    var cand = [30 * h, Math.abs(30 * h - 180), 360 - ang, ang + 15, ang - 15].map(function (z) { return Math.min(z, 360 - z) === z ? z : 360 - z; });
+    cand = cand.concat([360 - ang]);
+    var w = cand.filter(function (z) { return z !== ang && z > 0; }).map(f);
+    return g13_p(g13_mk('tri2', '¿Qué ángulo forman las agujas de un reloj a las ' + h + ':30 (ángulo menor, en ' + (inRad ? 'radianes' : 'grados') + ')?', f(ang), w,
+      'El minutero está en 180° y la aguja horaria en ' + h + ' · 30° + 15° = ' + (30 * h + 15) + '°. La diferencia es ' + Math.abs(30 * h + 15 - 180) + '°' + (ang !== Math.abs(30 * h + 15 - 180) ? ' y el ángulo menor es ' + ang + '°' : '') + (inRad ? ', es decir, ' + g13_pi(ang, 180) + ' rad.' : '.')));
+  }
+  var k = pick([2, 3, 4, 6]), r = ri(2, 12);
+  var ans = g13_pi(r * r, 2 * k);
+  g13_chk(g13_near(g13_parse(ans), (Math.PI / k) / (2 * Math.PI) * Math.PI * r * r), 'sector');
+  return g13_p(g13_mk('tri2', 'Un sector circular de radio ' + r + ' cm tiene un ángulo de ⟨π|' + k + '⟩ rad. Su área es', ans + ' cm^{2}',
+    [g13_pi(r * r, k) + ' cm^{2}', g13_pi(r, k) + ' cm^{2}', g13_pi(r * r, 1) + ' cm^{2}', g13_pi(r * r, 4 * k) + ' cm^{2}'],
+    'Área = ½ · r^{2} · ángulo = ½ · ' + r * r + ' · ⟨π|' + k + '⟩ = ' + ans + ' cm^{2}.'));
+});
+
+/* ============================== tri3: Identidades y fórmulas ============================== */
+
+var g13_TRI = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29]];
+
+/* ángulo doble en el 1.er cuadrante */
+genr('tri3', function () {
+  var T = pick(g13_TRI), u = T[0], v = T[1], c = T[2];
+  if (Math.random() < 0.5) { var tmp = u; u = v; v = tmp; }
+  var x = Math.asin(u / c), f = pick(['sen', 'cos', 'tg']), ans, w, num;
+  if (f === 'sen') {
+    ans = fs(2 * u * v, c * c); num = Math.sin(2 * x);
+    w = [fs(2 * u, c), fs(2 * u * v, c), fs(u * v, c * c), fs(v * v - u * u, c * c)];
+  } else if (f === 'cos') {
+    ans = fs(v * v - u * u, c * c); num = Math.cos(2 * x);
+    w = [fs(u * u - v * v, c * c), '1', fs(2 * v, c), fs(2 * u * v, c * c)];
+  } else {
+    ans = fs(2 * u * v, v * v - u * u); num = Math.tan(2 * x);
+    w = [fs(2 * u, v), fs(v * v - u * u, 2 * u * v), fs(2 * u * v, c * c), fs(2 * u * v, u * u - v * v)];
+  }
+  g13_chk(g13_near(g13_parse(ans), num), 'doble ' + f);
+  var ex = f === 'sen' ? 'sen 2x = 2 · sen x · cos x = 2 · ' + u + '/' + c + ' · ' + v + '/' + c + ' = ' + ans + '.'
+    : f === 'cos' ? 'cos 2x = cos^{2}x − sen^{2}x = ' + v * v + '/' + c * c + ' − ' + u * u + '/' + c * c + ' = ' + ans + '.'
+    : 'tg 2x = sen 2x : cos 2x = ' + fs(2 * u * v, c * c) + ' : ' + fs(v * v - u * u, c * c) + ' = ' + ans + '.';
+  return g13_mk('tri3', 'Si sen x = ⟨' + u + '|' + c + '⟩ y cos x = ⟨' + v + '|' + c + '⟩, entonces ' + f + ' 2x =', ans, w, ex);
+});
+
+/* fórmulas de suma y diferencia de ángulos */
+genr('tri3', function () {
+  var kind = ri(0, 3), S, a, b, expr, fn, angle;
+  if (kind < 2) {
+    S = pick([30, 45, 60, 90]);
+    a = 5 * ri(1, S / 5 - 1); b = S - a;
+    angle = S;
+  } else {
+    S = pick([30, 45, 60]);
+    b = 5 * ri(1, 8); a = S + b;
+    angle = S;
+  }
+  if (kind === 0) { expr = 'sen ' + a + '° · cos ' + b + '° + cos ' + a + '° · sen ' + b + '°'; fn = 'sen'; }
+  else if (kind === 1) { expr = 'cos ' + a + '° · cos ' + b + '° − sen ' + a + '° · sen ' + b + '°'; fn = 'cos'; }
+  else if (kind === 2) { expr = 'sen ' + a + '° · cos ' + b + '° − cos ' + a + '° · sen ' + b + '°'; fn = 'sen'; }
+  else { expr = 'cos ' + a + '° · cos ' + b + '° + sen ' + a + '° · sen ' + b + '°'; fn = 'cos'; }
+  var sa = g13_rad(a), sb = g13_rad(b);
+  var numv = kind === 0 ? Math.sin(sa) * Math.cos(sb) + Math.cos(sa) * Math.sin(sb)
+    : kind === 1 ? Math.cos(sa) * Math.cos(sb) - Math.sin(sa) * Math.sin(sb)
+    : kind === 2 ? Math.sin(sa) * Math.cos(sb) - Math.cos(sa) * Math.sin(sb)
+    : Math.cos(sa) * Math.cos(sb) + Math.sin(sa) * Math.sin(sb);
+  var ans = trig(fn, angle);
+  g13_chk(g13_near(g13_parse(ans), numv), 'suma ang');
+  var other = fn === 'sen' ? 'cos' : 'sen';
+  var pool = [];
+  [0, 30, 45, 60, 90].forEach(function (z) { pool.push(trig('sen', z), trig('cos', z)); });
+  var w = [trig(other, angle)].concat(shuffle(pool.filter(function (s, i, ar) { return ar.indexOf(s) === i; })));
+  w = w.filter(function (s) { return s !== ans; });
+  var nm = kind < 2 ? fn + '(' + a + '° + ' + b + '°)' : fn + '(' + a + '° − ' + b + '°)';
+  return g13_mk('tri3', expr + ' =', ans, w,
+    'Es la fórmula de ' + nm + ' = ' + fn + ' ' + angle + '° = ' + ans + '.');
+});
+
+/* simplificar expresiones trigonométricas */
+var g13_SIMP = [
+  { q: function (k) { return k + ' − ' + k + ' cos^{2}x'; }, f: function (x, k) { return k - k * Math.pow(Math.cos(x), 2); },
+    a: function (k) { return k + ' sen^{2}x'; }, af: function (x, k) { return k * Math.pow(Math.sin(x), 2); },
+    w: [[function (k) { return k + ' cos^{2}x'; }, function (x, k) { return k * Math.pow(Math.cos(x), 2); }], [function (k) { return k + ' sen x'; }, function (x, k) { return k * Math.sin(x); }], [function (k) { return String(k); }, function (x, k) { return k; }], [function (k) { return '−' + k + ' sen^{2}x'; }, function (x, k) { return -k * Math.pow(Math.sin(x), 2); }]],
+    e: function (k) { return 'Se saca factor común: ' + k + '(1 − cos^{2}x) = ' + k + ' sen^{2}x.'; } },
+  { q: function (k) { return k + ' sen^{2}x + ' + k + ' cos^{2}x'; }, f: function (x, k) { return k * Math.pow(Math.sin(x), 2) + k * Math.pow(Math.cos(x), 2); },
+    a: function (k) { return String(k); }, af: function (x, k) { return k; },
+    w: [[function (k) { return String(k * k); }, function (x, k) { return k * k; }], [function (k) { return String(2 * k); }, function (x, k) { return 2 * k; }], [function (k) { return String(k + 1); }, function (x, k) { return k + 1; }], [function (k) { return k + ' sen x cos x'; }, function (x, k) { return k * Math.sin(x) * Math.cos(x); }]],
+    e: function (k) { return 'Factor común: ' + k + '(sen^{2}x + cos^{2}x) = ' + k + ' · 1 = ' + k + '.'; } },
+  { q: function () { return '⟨sen x|tg x⟩'; }, f: function (x) { return Math.sin(x) / Math.tan(x); },
+    a: function () { return 'cos x'; }, af: function (x) { return Math.cos(x); },
+    w: [[function () { return 'sen x'; }, function (x) { return Math.sin(x); }], [function () { return 'tg x'; }, function (x) { return Math.tan(x); }], [function () { return '⟨1|cos x⟩'; }, function (x) { return 1 / Math.cos(x); }]],
+    e: function () { return 'Como tg x = sen x / cos x, queda sen x · cos x / sen x = cos x.'; } },
+  { q: function () { return 'tg x · cos x'; }, f: function (x) { return Math.tan(x) * Math.cos(x); },
+    a: function () { return 'sen x'; }, af: function (x) { return Math.sin(x); },
+    w: [[function () { return 'cos x'; }, function (x) { return Math.cos(x); }], [function () { return 'tg x'; }, function (x) { return Math.tan(x); }], [function () { return '⟨1|sen x⟩'; }, function (x) { return 1 / Math.sin(x); }]],
+    e: function () { return 'tg x · cos x = (sen x / cos x) · cos x = sen x.'; } },
+  { q: function () { return '1 + tg^{2}x'; }, f: function (x) { return 1 + Math.pow(Math.tan(x), 2); },
+    a: function () { return '⟨1|cos^{2}x⟩'; }, af: function (x) { return 1 / Math.pow(Math.cos(x), 2); },
+    w: [[function () { return '⟨1|sen^{2}x⟩'; }, function (x) { return 1 / Math.pow(Math.sin(x), 2); }], [function () { return 'sen^{2}x'; }, function (x) { return Math.pow(Math.sin(x), 2); }], [function () { return 'cos^{2}x'; }, function (x) { return Math.pow(Math.cos(x), 2); }]],
+    e: function () { return '1 + sen^{2}x/cos^{2}x = (cos^{2}x + sen^{2}x)/cos^{2}x = 1/cos^{2}x.'; } },
+  { q: function () { return '(sen x + cos x)^{2} − 2 sen x cos x'; }, f: function (x) { return Math.pow(Math.sin(x) + Math.cos(x), 2) - 2 * Math.sin(x) * Math.cos(x); },
+    a: function () { return '1'; }, af: function () { return 1; },
+    w: [[function () { return '0'; }, function () { return 0; }], [function () { return '2 sen x cos x'; }, function (x) { return 2 * Math.sin(x) * Math.cos(x); }], [function () { return '1 + 2 sen x cos x'; }, function (x) { return 1 + 2 * Math.sin(x) * Math.cos(x); }]],
+    e: function () { return 'Se desarrolla: sen^{2}x + 2 sen x cos x + cos^{2}x − 2 sen x cos x = sen^{2}x + cos^{2}x = 1.'; } },
+  { q: function () { return '⟨1 − cos^{2}x|sen x⟩'; }, f: function (x) { return (1 - Math.pow(Math.cos(x), 2)) / Math.sin(x); },
+    a: function () { return 'sen x'; }, af: function (x) { return Math.sin(x); },
+    w: [[function () { return 'cos x'; }, function (x) { return Math.cos(x); }], [function () { return '⟨1|sen x⟩'; }, function (x) { return 1 / Math.sin(x); }], [function () { return 'tg x'; }, function (x) { return Math.tan(x); }]],
+    e: function () { return '1 − cos^{2}x = sen^{2}x, y sen^{2}x / sen x = sen x.'; } },
+  { q: function () { return '⟨sen^{2}x|1 − cos x⟩'; }, f: function (x) { return Math.pow(Math.sin(x), 2) / (1 - Math.cos(x)); },
+    a: function () { return '1 + cos x'; }, af: function (x) { return 1 + Math.cos(x); },
+    w: [[function () { return '1 − cos x'; }, function (x) { return 1 - Math.cos(x); }], [function () { return 'sen x'; }, function (x) { return Math.sin(x); }], [function () { return 'cos x'; }, function (x) { return Math.cos(x); }]],
+    e: function () { return 'sen^{2}x = 1 − cos^{2}x = (1 − cos x)(1 + cos x); se simplifica el factor 1 − cos x.'; } }
+];
+genr('tri3', function () {
+  var it = pick(g13_SIMP), k = ri(2, 9), xs = [0.3, 0.7, 1.1], i, j;
+  for (i = 0; i < xs.length; i++) g13_chk(g13_near(it.f(xs[i], k), it.af(xs[i], k)), 'simp ' + it.q(k));
+  var w = it.w.map(function (p) {
+    var diff = false; for (j = 0; j < xs.length; j++) if (!g13_near(p[1](xs[j], k), it.af(xs[j], k))) diff = true;
+    g13_chk(diff, 'simp wrong ' + p[0](k));
+    return p[0](k);
+  });
+  return g13_mk('tri3', 'Simplifica: ' + it.q(k) + ' =', it.a(k), shuffle(w), it.e(k));
+});
+
+/* de la tangente al seno y al coseno (cualquier cuadrante) y ángulo doble con signo */
+genr('tri3', function () {
+  var T = pick(g13_TRI), u = T[0], v = T[1], c = T[2];
+  if (Math.random() < 0.5) { var tmp = u; u = v; v = tmp; }
+  var q = ri(0, 3), sx = q < 2 ? 1 : -1, cx = (q === 0 || q === 3) ? 1 : -1;
+  var x = Math.atan2(sx * u, cx * v);
+  g13_chk(g13_quadIdx(x) === q, 'tg cuad');
+  var tgs = sx * cx, f = pick(['sen', 'cos']), ans, w;
+  if (f === 'sen') {
+    ans = fs(sx * u, c); g13_chk(g13_near(g13_parse(ans), Math.sin(x)), 'sen');
+    w = [fs(-sx * u, c), fs(sx * v, c), fs(cx * v, c), fs(c, sx * u)];
+  } else {
+    ans = fs(cx * v, c); g13_chk(g13_near(g13_parse(ans), Math.cos(x)), 'cos');
+    w = [fs(-cx * v, c), fs(cx * u, c), fs(sx * u, c), fs(c, cx * v)];
+  }
+  g13_chk(g13_near(Math.tan(x), tgs * u / v), 'tg val');
+  return g13_mk('tri3', 'Si tg x = ' + (tgs < 0 ? '−' : '') + '⟨' + u + '|' + v + '⟩ y x está en el ' + g13_QN[q] + ', entonces ' + f + ' x =', ans, w,
+    'La hipotenusa es √{' + u * u + ' + ' + v * v + '} = ' + c + '. En el ' + g13_QN[q] + ' el seno es ' + (sx > 0 ? 'positivo' : 'negativo') + ' y el coseno ' + (cx > 0 ? 'positivo' : 'negativo') + '.');
+});
+
+/* problema: ángulo doble con signo según el cuadrante */
+genr('tri3', function () {
+  var T = pick(g13_TRI), u = T[0], v = T[1], c = T[2];
+  if (Math.random() < 0.5) { var tmp = u; u = v; v = tmp; }
+  var q = ri(1, 3), sx = q < 2 ? 1 : -1, cx = (q === 0 || q === 3) ? 1 : -1, s = sx * cx;
+  var x = Math.atan2(sx * u, cx * v), g = pick(['sen', 'cos']), f = pick(['sen', 'cos', 'tg']);
+  var given = g === 'sen' ? fs(sx * u, c) : fs(cx * v, c);
+  var ans, w, num;
+  if (f === 'sen') {
+    ans = fs(2 * s * u * v, c * c); num = Math.sin(2 * x);
+    w = [fs(-2 * s * u * v, c * c), fs(2 * sx * u, c), fs(s * u * v, c * c), fs(2 * s * u * v, c)];
+  } else if (f === 'cos') {
+    ans = fs(v * v - u * u, c * c); num = Math.cos(2 * x);
+    w = [fs(u * u - v * v, c * c), '1', fs(2 * v * v, c * c), fs(2 * cx * v, c)];
+  } else {
+    ans = fs(2 * s * u * v, v * v - u * u); num = Math.tan(2 * x);
+    w = [fs(-2 * s * u * v, v * v - u * u), fs(2 * s * u * v, c * c), fs(v * v - u * u, 2 * s * u * v), fs(2 * s * u, v)];
+  }
+  g13_chk(g13_near(g13_parse(ans), num), 'doble cuad ' + f);
+  g13_chk(g13_near(g === 'sen' ? Math.sin(x) : Math.cos(x), g13_parse(given)), 'dado');
+  return g13_p(g13_mk('tri3', 'Si ' + g + ' x = ' + given + ' y x está en el ' + g13_QN[q] + ', entonces ' + f + ' 2x =', ans, w,
+    'Primero se halla la otra razón con sen^{2}x + cos^{2}x = 1: sen x = ' + fs(sx * u, c) + ' y cos x = ' + fs(cx * v, c) + ' (signos del ' + g13_QN[q] + '). Después se aplica la fórmula del ángulo doble: ' + f + ' 2x = ' + ans + '.'));
+});
+
+/* ============================== tri4: Resolución de triángulos ============================== */
+
+/* [A, B, múltiplo de k para a, coef de b, radicando]: b = a·sen B / sen A = coef·k·√r */
+var g13_SL = [[30, 45, 1, 1, 2], [30, 60, 1, 1, 3], [45, 30, 2, 1, 2], [60, 30, 3, 1, 3], [60, 45, 3, 1, 6], [45, 60, 2, 1, 6], [30, 90, 1, 2, 1], [90, 30, 2, 1, 1]];
+function g13_slans(e, k) {
+  var a = e[2] * k, b = a * Math.sin(g13_rad(e[1])) / Math.sin(g13_rad(e[0]));
+  g13_chk(g13_near(b, e[3] * k * Math.sqrt(e[4])), 'seno ' + e);
+  return g5_rt(e[3] * k, e[4]);
+}
+function g13_slwr(e, k, ans) {
+  return shuffle([g5_rt(k, 2), g5_rt(k, 3), g5_rt(k, 6), g5_rt(2 * k, 1), g5_rt(2 * k, 3), g5_rt(2 * k, 2), String(3 * k), g5_rt(3 * k, 2)].filter(function (s) { return s !== ans; }));
+}
+var g13_CLC = {};
+function g13_cl(C) {   /* ternas (a, b, c) con ángulo C entre a y b y lados enteros */
+  if (g13_CLC[C]) return g13_CLC[C];
+  var out = [];
+  for (var a = 2; a <= 20; a++) for (var b = a + 1; b <= 20; b++) {
+    var c2 = a * a + b * b - 2 * a * b * Math.cos(g13_rad(C)), c = Math.round(Math.sqrt(c2));
+    if (Math.abs(c2 - c * c) < 1e-7 && c > 0) out.push([a, b, c]);
+  }
+  g13_CLC[C] = out; return out;
+}
+function g13_sq(n) { var r = Math.round(Math.sqrt(n)); return r * r === n ? String(r) : '√{' + n + '}'; }
+
+/* teorema del seno con ángulos notables y suma de ángulos */
+genr('tri4', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var e = pick(g13_SL), k = ri(2, 9), ans = g13_slans(e, k);
+    return g13_mk('tri4', 'En un triángulo ABC se tiene A = ' + e[0] + '°, B = ' + e[1] + '° y a = ' + e[2] * k + ' cm. El lado b mide', ans + ' cm',
+      g13_slwr(e, k, ans).map(function (s) { return s + ' cm'; }),
+      'Teorema del seno: b = a · sen B / sen A = ' + e[2] * k + ' · ' + g13_ex(g13_ev('sen', e[1])) + ' : ' + g13_ex(g13_ev('sen', e[0])) + ' = ' + ans + ' cm.');
+  }
+  if (v === 1) {
+    var A = ri(25, 80), B = ri(25, 80), C = 180 - A - B;
+    g13_chk(C > 0 && A + B + C === 180, 'suma 180');
+    return g13_mk('tri4', 'Dos ángulos de un triángulo miden ' + A + '° y ' + B + '°. El tercero mide', C + '°',
+      [(180 - A) + '°', (360 - A - B) + '°', (90 - A + B > 0 ? Math.abs(90 - A - B) : 10) + '°', (C + 10) + '°', (C - 10 > 0 ? C - 10 : C + 20) + '°'],
+      'Los ángulos de un triángulo suman 180°: 180° − ' + A + '° − ' + B + '° = ' + C + '°.');
+  }
+  var ap = 2 * ri(15, 40), base = (180 - ap) / 2;
+  g13_chk(ap + 2 * base === 180, 'isosceles');
+  return g13_mk('tri4', 'Un triángulo isósceles tiene un ángulo desigual de ' + ap + '°. Cada uno de los ángulos iguales mide', base + '°',
+    [(180 - ap) + '°', (90 - base) + '°', (360 - ap) / 2 + '°', ap + '°', (base + 10) + '°'],
+    'Los otros dos ángulos suman 180° − ' + ap + '° = ' + (180 - ap) + '° y son iguales: ' + base + '° cada uno.');
+});
+
+/* teorema del coseno: lado o ángulo */
+genr('tri4', function () {
+  var C = pick([60, 120]), t = pick(g13_cl(C)), a = t[0], b = t[1], c = t[2];
+  if (Math.random() < 0.5) { var tt = a; a = b; b = tt; }
+  var sg = C === 60 ? -1 : 1;
+  g13_chk(a * a + b * b + sg * a * b === c * c, 'coseno lado');
+  if (Math.random() < 0.55) {
+    var other = a * a + b * b - sg * a * b;
+    var w = ['√{' + (a * a + b * b) + '} cm', g13_sq(other) + ' cm', (a + b) + ' cm', Math.abs(a - b) + ' cm', String(c + 1) + ' cm'];
+    return g13_mk('tri4', 'En un triángulo, dos lados miden ' + a + ' cm y ' + b + ' cm y forman un ángulo de ' + C + '°. El tercer lado mide', c + ' cm', w,
+      'c^{2} = ' + a + '^{2} + ' + b + '^{2} − 2 · ' + a + ' · ' + b + ' · cos ' + C + '° = ' + (a * a + b * b) + ' ' + (sg < 0 ? '−' : '+') + ' ' + a * b + ' = ' + c * c + ', luego c = ' + c + ' cm.');
+  }
+  var cosC = (a * a + b * b - c * c) / (2 * a * b);
+  g13_chk(g13_near(cosC, Math.cos(g13_rad(C))), 'coseno angulo');
+  var wr = [180 - C, 30, 90, 45, 150].filter(function (z) { return z !== C; }).map(function (z) { return z + '°'; });
+  return g13_mk('tri4', 'Un triángulo tiene lados de ' + a + ' cm, ' + b + ' cm y ' + c + ' cm. El ángulo opuesto al lado de ' + c + ' cm mide', C + '°', wr,
+    'cos C = (' + a * a + ' + ' + b * b + ' − ' + c * c + ') / (2 · ' + a + ' · ' + b + ') = ' + fs(a * a + b * b - c * c, 2 * a * b) + ', y ese coseno corresponde a ' + C + '°.');
+});
+
+/* razones de un triángulo rectángulo con ternas pitagóricas */
+genr('tri4', function () {
+  var T = pick(g13_TRI), k = T[2] > 20 ? 1 : ri(1, 2), a = T[0] * k, b = T[1] * k, h = T[2] * k;
+  if (Math.random() < 0.5) { var tmp = a; a = b; b = tmp; }
+  var al = Math.atan2(a, b), f = pick(['sen', 'cos', 'tg']);
+  var all = { sen: fs(a, h), cos: fs(b, h), tg: fs(a, b) };
+  var num = f === 'sen' ? Math.sin(al) : f === 'cos' ? Math.cos(al) : Math.tan(al);
+  g13_chk(g13_near(g13_parse(all[f]), num), 'ratios');
+  var poolw = [fs(a, h), fs(b, h), fs(a, b), fs(b, a), fs(h, a), fs(h, b)].filter(function (s) { return s !== all[f]; });
+  poolw = poolw.filter(function (s, i, ar) { return ar.indexOf(s) === i; });
+  return g13_mk('tri4', 'Un triángulo rectángulo tiene catetos de ' + a + ' cm y ' + b + ' cm. Si α es el ángulo opuesto al cateto de ' + a + ' cm, ' + f + ' α =', all[f], shuffle(poolw),
+    'La hipotenusa mide ' + h + ' cm. ' + (f === 'sen' ? 'sen α = opuesto/hipotenusa = ' + a + '/' + h : f === 'cos' ? 'cos α = adyacente/hipotenusa = ' + b + '/' + h : 'tg α = opuesto/adyacente = ' + a + '/' + b) + ' = ' + all[f] + '.');
+});
+
+/* problema: teorema del seno hallando antes el tercer ángulo */
+genr('tri4', function () {
+  var e = pick(g13_SL), k = ri(2, 9), ans = g13_slans(e, k), C = 180 - e[0] - e[1];
+  g13_chk(C > 0, 'C pos');
+  return g13_p(g13_mk('tri4', 'En un triángulo ABC se tiene A = ' + e[0] + '°, C = ' + C + '° y a = ' + e[2] * k + ' cm. El lado b mide', ans + ' cm',
+    g13_slwr(e, k, ans).map(function (s) { return s + ' cm'; }),
+    'B = 180° − ' + e[0] + '° − ' + C + '° = ' + e[1] + '°. Teorema del seno: b = a · sen B / sen A = ' + e[2] * k + ' · ' + g13_ex(g13_ev('sen', e[1])) + ' : ' + g13_ex(g13_ev('sen', e[0])) + ' = ' + ans + ' cm.'));
+});
+
+var g13_HR = null;
+function g13_heron() {
+  if (g13_HR) return g13_HR;
+  g13_HR = [];
+  for (var a = 3; a <= 25; a++) for (var b = a; b <= 25; b++) for (var c = b; c <= 25; c++) {
+    if (a + b <= c) continue;
+    var s16 = (a + b + c) * (-a + b + c) * (a - b + c) * (a + b - c), r = Math.round(Math.sqrt(s16));
+    if (r * r !== s16 || r % 4 !== 0) continue;
+    if (a === b && b === c) continue;
+    g13_HR.push([a, b, c, r / 4]);
+  }
+  return g13_HR;
+}
+
+/* problemas: distancia entre barcos (coseno) y fórmula de Herón */
+genr('tri4', function () {
+  if (Math.random() < 0.5) {
+    var C = pick([60, 120]), t = pick(g13_cl(C)), a = t[0], b = t[1], c = t[2], sg = C === 60 ? -1 : 1;
+    g13_chk(Math.abs(Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(g13_rad(C))) - c) < 1e-9, 'barcos');
+    var other = a * a + b * b - sg * a * b;
+    return g13_p(g13_mk('tri4', 'Dos barcos salen a la vez de un puerto con rumbos que forman ' + C + '°. Uno ha recorrido ' + a + ' km y el otro ' + b + ' km. ¿A qué distancia están entre sí?', c + ' km',
+      ['√{' + (a * a + b * b) + '} km', g13_sq(other) + ' km', (a + b) + ' km', Math.abs(b - a) + ' km', (c + 2) + ' km'],
+      'Teorema del coseno: d^{2} = ' + a + '^{2} + ' + b + '^{2} − 2 · ' + a + ' · ' + b + ' · cos ' + C + '° = ' + c * c + ', así que d = ' + c + ' km.'));
+  }
+  var H = pick(g13_heron()), x = H[0], y = H[1], z = H[2], A = H[3], s = (x + y + z) / 2;
+  g13_chk(g13_near(Math.sqrt(s * (s - x) * (s - y) * (s - z)), A), 'heron');
+  var sides = shuffle([x, y, z]);
+  var ex = 'Semiperímetro s = ' + g13_n(s) + '; área = √{' + g13_n(s) + ' · ' + g13_n(s - x) + ' · ' + g13_n(s - y) + ' · ' + g13_n(s - z) + '} = ' + A + ' cm^{2}.';
+  var hs = z, hv = 2 * A / hs;
+  if (Math.random() < 0.5 || hv % 1 !== 0) {
+    return g13_p(g13_mk('tri4', 'Un triángulo tiene lados de ' + sides[0] + ' cm, ' + sides[1] + ' cm y ' + sides[2] + ' cm. Su área (fórmula de Herón) es', A + ' cm^{2}',
+      [(2 * A) + ' cm^{2}', g13_n(A / 2) + ' cm^{2}', g13_n(s) + ' cm^{2}', (x + y + z) + ' cm^{2}'], ex));
+  }
+  return g13_p(g13_mk('tri4', 'Un triángulo tiene lados de ' + x + ' cm, ' + y + ' cm y ' + z + ' cm. Su altura sobre el lado de ' + hs + ' cm mide', g13_n(hv) + ' cm',
+    [A + ' cm', g13_n(A / hs) + ' cm', g13_n(2 * A / x) + ' cm', g13_n(s) + ' cm'],
+    ex + ' Como área = base · altura / 2, la altura es 2 · ' + A + ' : ' + hs + ' = ' + g13_n(hv) + ' cm.'));
+});
+
+/* ============================== num1: Enteros, jerarquía y divisibilidad ============================== */
+
+function g13_fac(n) {   /* [[p, e], ...] */
+  var out = [], p;
+  for (p = 2; p * p <= n; p++) { var e = 0; while (n % p === 0) { n /= p; e++; } if (e) out.push([p, e]); }
+  if (n > 1) out.push([n, 1]);
+  return out;
+}
+function g13_facs(f) { return f.map(function (x) { return x[1] === 1 ? String(x[0]) : x[0] + '^{' + x[1] + '}'; }).join(' · '); }
+
+/* criterios de divisibilidad */
+genr('num1', function () {
+  if (Math.random() < 0.6) {
+    var d = pick([3, 4, 6, 8, 9, 11]), good = d * ri(Math.ceil(100 / d), Math.floor(999 / d)), n, bad = [], tries = 0;
+    var trap = function (x) {
+      if (x % d === 0) return false;
+      if (d === 4) return x % 2 === 0;
+      if (d === 6) return x % 2 === 0 || x % 3 === 0;
+      if (d === 8) return x % 4 === 0;
+      if (d === 9) return x % 3 === 0;
+      return true;
+    };
+    while (bad.length < 3 && tries < 2000) { n = ri(100, 999); tries++; if (trap(n) && bad.indexOf(n) < 0 && n !== good) bad.push(n); }
+    g13_chk(good % d === 0 && bad.every(function (x) { return x % d !== 0; }), 'divisibilidad');
+    var crit = { 3: 'La suma de sus cifras debe ser múltiplo de 3', 4: 'Sus dos últimas cifras deben formar un múltiplo de 4', 6: 'Debe ser par y tener la suma de cifras múltiplo de 3', 8: 'Sus tres últimas cifras deben formar un múltiplo de 8', 9: 'La suma de sus cifras debe ser múltiplo de 9', 11: 'La suma de cifras en posiciones pares menos la de las impares debe ser múltiplo de 11' };
+    return g13_mk('num1', '¿Cuál de estos números es múltiplo de ' + d + '?', String(good), bad.map(String),
+      crit[d] + '. ' + good + ' = ' + d + ' · ' + good / d + '.');
+  }
+  var a, b, pos = ri(0, 2), s;
+  do { a = ri(1, 9); b = ri(1, 9); } while ((a + b) % 9 === 0);
+  var dig = (9 - (a + b) % 9) % 9;
+  var mkn = function (x) { return pos === 0 ? '' + x + a + b : pos === 1 ? '' + a + x + b : '' + a + b + x; };
+  var shown = pos === 0 ? 'x' + a + b : pos === 1 ? a + 'x' + b : '' + a + b + 'x';
+  g13_chk(+mkn(dig) % 9 === 0 && dig > 0, 'cifra 9');
+  var wr = []; for (s = 0; s <= 9; s++) if (s !== dig && +mkn(s) % 9 !== 0) wr.push(s);
+  var sm = (a + b) % 9;
+  wr = shuffle(wr.filter(function (z) { return z !== sm; })).slice(0, 2).concat(sm !== dig && +mkn(sm) % 9 !== 0 ? [sm] : []);
+  wr = wr.concat([(dig + 3) % 9 === dig ? 1 : (dig + 3) % 9]);
+  wr.forEach(function (z) { g13_chk(+mkn(z) % 9 !== 0, 'cifra mala'); });
+  return g13_mk('num1', 'Si x es una cifra, ¿qué valor de x hace que ' + shown + ' sea múltiplo de 9?', String(dig), wr.map(String),
+    'La suma de las cifras debe ser múltiplo de 9: ' + a + ' + ' + b + ' + ' + dig + ' = ' + (a + b + dig) + '.');
+});
+
+/* descomposición en factores primos */
+genr('num1', function () {
+  var P = shuffle([2, 3, 5, 7]).slice(0, ri(2, 3)).sort(function (x, y) { return x - y; }), n, f, tries = 0;
+  do { f = P.map(function (p) { return [p, ri(1, p === 2 ? 4 : p === 3 ? 3 : 2)]; }); n = f.reduce(function (s, x) { return s * Math.pow(x[0], x[1]); }, 1); tries++; } while ((n > 600 || n < 20) && tries < 500);
+  g13_chk(JSON.stringify(g13_fac(n)) === JSON.stringify(f), 'factores');
+  if (Math.random() < 0.6) {
+    var ans = g13_facs(f), w = [];
+    f.forEach(function (x, i) {
+      var g = f.map(function (y) { return y.slice(); }); g[i][1] += 1; w.push(g);
+      if (x[1] > 1) { var h = f.map(function (y) { return y.slice(); }); h[i][1] -= 1; w.push(h); }
+    });
+    if (f.length > 1) { var sw = f.map(function (y) { return y.slice(); }); var t = sw[0][1]; sw[0][1] = sw[1][1]; sw[1][1] = t; w.push(sw); }
+    w = w.filter(function (g) { return g.reduce(function (s, x) { return s * Math.pow(x[0], x[1]); }, 1) !== n; }).map(g13_facs);
+    return g13_mk('num1', 'La descomposición en factores primos de ' + n + ' es', ans, shuffle(w),
+      'Se divide entre primos sucesivos hasta llegar a 1: ' + n + ' = ' + ans + '.');
+  }
+  var txt = g13_facs(f), v = f.map(function (x) { return x[0] * x[1]; }).reduce(function (s, y) { return s * y; }, 1);
+  var sum = f.reduce(function (s, x) { return s * (x[0] * x[1]); }, 1), sp = f.reduce(function (s, x) { return s * x[0]; }, 1);
+  return g13_mk('num1', 'El número ' + txt + ' es igual a', String(n), [String(sum), String(sp * f.reduce(function (s, x) { return s + x[1]; }, 0)), String(n + sp), String(n - sp)],
+    'Se calculan las potencias y se multiplican: ' + txt + ' = ' + n + '.');
+});
+
+/* número de divisores y múltiplos */
+genr('num1', function () {
+  if (Math.random() < 0.65) {
+    var P = shuffle([2, 3, 5, 7]).slice(0, ri(1, 3)).sort(function (x, y) { return x - y; }), f, n, tries = 0;
+    do { f = P.map(function (p) { return [p, ri(1, p === 2 ? 5 : p === 3 ? 3 : 2)]; }); n = f.reduce(function (s, x) { return s * Math.pow(x[0], x[1]); }, 1); tries++; } while ((n > 400 || n < 12) && tries < 500);
+    var cnt = 0, i; for (i = 1; i <= n; i++) if (n % i === 0) cnt++;
+    var prod = f.reduce(function (s, x) { return s * (x[1] + 1); }, 1);
+    g13_chk(cnt === prod, 'divisores');
+    var se = f.reduce(function (s, x) { return s + x[1]; }, 0), pe = f.reduce(function (s, x) { return s * x[1]; }, 1), sp1 = f.reduce(function (s, x) { return s + x[1] + 1; }, 0);
+    return g13_mk('num1', '¿Cuántos divisores positivos tiene ' + n + '?', String(cnt), [se, pe, sp1, cnt + 2, cnt - 1, f.length + 1].map(String),
+      n + ' = ' + g13_facs(f) + '. Se suma 1 a cada exponente y se multiplica: ' + f.map(function (x) { return '(' + x[1] + ' + 1)'; }).join(' · ') + ' = ' + cnt + '.');
+  }
+  var m = ri(3, 12), N = ri(40, 200), c = 0, j;
+  for (j = 1; j <= N; j++) if (j % m === 0) c++;
+  g13_chk(c === Math.floor(N / m), 'multiplos');
+  return g13_mk('num1', '¿Cuántos múltiplos de ' + m + ' hay entre 1 y ' + N + ' (ambos incluidos)?', String(c), [c + 1, c - 1, N - m, m * c + 1, Math.ceil(N / m) + (N % m === 0 ? 1 : 0)].map(String),
+    'Se divide ' + N + ' : ' + m + ' = ' + g13_n(N / m) + ' y se toma la parte entera: ' + c + '.');
+});
+
+/* jerarquía: división y producto, corchetes y potencias de negativos */
+genr('num1', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var B = ri(2, 9), q = ri(2, 9), A = B * q, C = ri(2, 9), D = ri(1, 9), s = pick([1, -1]);
+    var ans = q * C + s * D;
+    g13_chk(A / B * C + s * D === ans, 'divprod');
+    var w = [A / (B * C) % 1 === 0 ? A / (B * C) + s * D : q + C + s * D, q + C + s * D, q * C - s * D, q * (C + s * D), A / B + C * s * D, q * C];
+    return g13_mk('num1', A + ' : ' + B + ' · ' + C + (s > 0 ? ' + ' : ' − ') + D + ' =', mn(ans), w.map(mn),
+      'Multiplicaciones y divisiones de izquierda a derecha: ' + A + ' : ' + B + ' = ' + q + ', luego ' + q + ' · ' + C + ' = ' + q * C + '; al final ' + (s > 0 ? 'se suma ' : 'se resta ') + D + '.');
+  }
+  if (v === 1) {
+    var a = ri(2, 15), b = ri(2, 15), c = ri(2, 15), d = ri(2, 15);
+    var val = a - (b - (c - d));
+    g13_chk(val === a - b + c - d, 'corchetes');
+    return g13_mk('num1', a + ' − [' + b + ' − (' + c + ' − ' + d + ')] =', mn(val), [a - b - c - d, a - b + c + d, a + b - c + d, a - b - (c - d), a - b + c - d + 2].map(mn),
+      'Se resuelve el paréntesis: ' + c + ' − ' + d + ' = ' + mn(c - d) + '. Después el corchete: ' + b + ' − ' + g13_pr(c - d) + ' = ' + mn(b - c + d) + ', y al final ' + a + ' − ' + g13_pr(b - c + d) + ' = ' + mn(val) + '.');
+  }
+  var x = ri(2, 4), y = ri(2, 4), n = ri(2, 3), m = ri(2, 3);
+  var r = Math.pow(-x, n) - Math.pow(-y, m);
+  g13_chk(r === (n % 2 ? -1 : 1) * Math.pow(x, n) - (m % 2 ? -1 : 1) * Math.pow(y, m), 'potneg');
+  var w2 = [Math.pow(x, n) - Math.pow(y, m), -Math.pow(x, n) - Math.pow(y, m), Math.pow(x, n) + Math.pow(y, m), Math.pow(-x, n) + Math.pow(-y, m), -x * n - Math.pow(-y, m), r + 2];
+  return g13_mk('num1', '(−' + x + ')^{' + n + '} − (−' + y + ')^{' + m + '} =', mn(r), w2.map(mn),
+    '(−' + x + ')^{' + n + '} = ' + mn(Math.pow(-x, n)) + ' (exponente ' + (n % 2 ? 'impar' : 'par') + ') y (−' + y + ')^{' + m + '} = ' + mn(Math.pow(-y, m)) + '. Entonces ' + mn(Math.pow(-x, n)) + ' − ' + g13_pr(Math.pow(-y, m)) + ' = ' + mn(r) + '.');
+});
+
+/* problemas: temperaturas, autobuses (mcm) y baldosas (mcd) */
+function g13_hm(min) { var h = Math.floor(min / 60), m = min % 60; return h + ':' + (m < 10 ? '0' + m : m) + ' h'; }
+genr('num1', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var t0 = -ri(2, 9), r1 = ri(2, 5), h1 = ri(2, 6), r2 = ri(2, 6), h2 = ri(2, 5);
+    var t = t0, i; for (i = 0; i < h1; i++) t += r1; for (i = 0; i < h2; i++) t -= r2;
+    var ans = t0 + r1 * h1 - r2 * h2; g13_chk(t === ans, 'temp');
+    var w = [t0 + r1 * h1 + r2 * h2, t0 - r1 * h1 - r2 * h2, t0 + r1 - r2, (t0 + r1 * h1) - r2, t0 + (r1 - r2) * h1];
+    return g13_p(g13_mk('num1', 'A las 8 h la temperatura es de ' + mn(t0) + ' °C. Sube ' + r1 + ' °C cada hora durante ' + h1 + ' horas y después baja ' + r2 + ' °C cada hora durante ' + h2 + ' horas. ¿Cuál es la temperatura final?', mn(ans) + ' °C', w.map(function (z) { return mn(z) + ' °C'; }),
+      'Sube ' + r1 + ' · ' + h1 + ' = ' + r1 * h1 + ' °C y baja ' + r2 + ' · ' + h2 + ' = ' + r2 * h2 + ' °C: ' + mn(t0) + ' + ' + r1 * h1 + ' − ' + r2 * h2 + ' = ' + mn(ans) + ' °C.'));
+  }
+  if (v === 1) {
+    var a, b, l, g;
+    do { a = ri(6, 30); b = ri(6, 30); l = lcm(a, b); g = gcd(a, b); } while (a >= b || l < 24 || l === a * b || a * b > 600 || b % a === 0);
+    var st = 0; while (true) { st++; if (st % a === 0 && st % b === 0) break; }
+    g13_chk(st === l, 'mcm sim');
+    var base = 8 * 60;
+    return g13_p(g13_mk('num1', 'Dos autobuses salen juntos de una parada a las 8:00 h. Uno pasa cada ' + a + ' minutos y el otro cada ' + b + ' minutos. ¿A qué hora vuelven a coincidir?', g13_hm(base + l),
+      [g13_hm(base + g), g13_hm(base + a * b), g13_hm(base + a + b), g13_hm(base + l + g)],
+      'Coinciden cada mcm(' + a + ', ' + b + ') = ' + l + ' minutos. ' + g13_hm(base) + ' + ' + l + ' min = ' + g13_hm(base + l) + '.'));
+  }
+  var g2, p, q2, A2, B2;
+  do { g2 = ri(2, 8); p = ri(2, 9); q2 = ri(2, 9); } while (gcd(p, q2) !== 1 || p === q2 || p === 1 || q2 === 1 || g2 * p > 120);
+  A2 = g2 * p; B2 = g2 * q2;
+  var best = 0, sz; for (sz = 1; sz <= Math.min(A2, B2); sz++) if (A2 % sz === 0 && B2 % sz === 0) best = sz;
+  g13_chk(best === g2, 'mcd sim');
+  var ans2 = p * q2;
+  return g13_p(g13_mk('num1', 'Un suelo rectangular de ' + A2 + ' dm × ' + B2 + ' dm se cubre con baldosas cuadradas enteras, lo más grandes posible y sin cortar. ¿Cuántas baldosas hacen falta?', String(ans2),
+    [String(g2), String(A2 * B2 / g2), String(p + q2), String(A2 * B2), String(ans2 + g2)],
+    'El lado máximo es mcd(' + A2 + ', ' + B2 + ') = ' + g2 + ' dm. Caben ' + A2 + ' : ' + g2 + ' = ' + p + ' y ' + B2 + ' : ' + g2 + ' = ' + q2 + ' baldosas por lado: ' + p + ' · ' + q2 + ' = ' + ans2 + '.'));
+});
+
+/* ============================== num2: Fracciones ============================== */
+
+/* fracción de una cantidad y problema inverso */
+genr('num2', function () {
+  var b = ri(2, 9), a = ri(1, b - 1);
+  if (gcd(a, b) !== 1) a = 1;
+  if (Math.random() < 0.55) {
+    var N = b * ri(2, 9), ans = a * N / b;
+    g13_chk(g13_near(ans, N * (a / b)), 'fraccion de');
+    var w = [N / b, a * N, N * b / a, N - ans, ans + a].map(g13_n);
+    return g13_mk('num2', 'Los ' + g13_fq(a, b) + ' de ' + N + ' son', String(ans), w,
+      'Se divide entre ' + b + ' y se multiplica por ' + a + ': ' + N + ' : ' + b + ' = ' + N / b + ' y ' + N / b + ' · ' + a + ' = ' + ans + '.');
+  }
+  var M = a * ri(2, 9), num = M * b / a;
+  g13_chk(g13_near(num * (a / b), M), 'fraccion inversa');
+  var w2 = [M * a / b, M + b - a, M * a, M * b, num + a].map(g13_n);
+  return g13_mk('num2', 'Si los ' + g13_fq(a, b) + ' de un número son ' + M + ', el número es', String(num), w2,
+    'Una parte (⟨1|' + b + '⟩) vale ' + M + ' : ' + a + ' = ' + M / a + ', y el número entero tiene ' + b + ' partes: ' + M / a + ' · ' + b + ' = ' + num + '.');
+});
+
+/* ordenar y comparar fracciones */
+genr('num2', function () {
+  var fr = [], seen = {}, i;
+  var cnt = Math.random() < 0.6 ? 3 : 4;
+  while (fr.length < cnt) {
+    var d = ri(2, 9), n = ri(1, 2 * d - 1);
+    if (gcd(n, d) !== 1 || n === d) continue;
+    var key = n / d; if (seen[key]) continue; seen[key] = 1; fr.push([n, d]);
+  }
+  var L = 1; fr.forEach(function (f) { L = lcm(L, f[1]); });
+  var sorted = fr.slice().sort(function (x, y) { return x[0] * L / x[1] - y[0] * L / y[1]; });
+  for (i = 0; i + 1 < sorted.length; i++) g13_chk(sorted[i][0] / sorted[i][1] < sorted[i + 1][0] / sorted[i + 1][1], 'orden fr');
+  var f2 = function (a) { return a.map(function (x) { return g13_fq(x[0], x[1]); }); };
+  if (cnt === 3) {
+    var perms = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]].map(function (p) { return p.map(function (k) { return g13_fq(sorted[k][0], sorted[k][1]); }).join(' < '); });
+    return g13_mk('num2', 'Ordena de menor a mayor: ' + f2(shuffle(fr.slice())).join(', '), perms[0], shuffle(perms.slice(1)),
+      'Con denominador común ' + L + ': ' + sorted.map(function (x) { return x[0] * L / x[1] + '/' + L; }).join(', ') + ' (ya de menor a mayor).');
+  }
+  var big = sorted[sorted.length - 1];
+  return g13_mk('num2', '¿Cuál es la mayor de estas fracciones: ' + f2(shuffle(fr.slice())).join(', ') + '?', g13_fq(big[0], big[1]), f2(sorted.slice(0, 3)),
+    'Con denominador común ' + L + ': ' + sorted.map(function (x) { return x[0] * L / x[1] + '/' + L; }).join(', ') + '. La mayor es ' + big[0] + '/' + big[1] + '.');
+});
+
+/* operaciones combinadas con fracciones */
+genr('num2', function () {
+  var mf = function () { var d = ri(2, 6), n = ri(1, 5); while (n === d) n = ri(1, 5); return [n, d]; };
+  var f1 = mf(), f2 = mf(), f3 = mf(), s = pick([1, -1]);
+  var t = function (x) { return g13_fq(x[0], x[1]); };
+  var op = function (a, b) { return s > 0 ? g13_qa(a, b) : g13_qs(a, b); };
+  if (Math.random() < 0.5) {
+    var ans = op(g13_q(f1[0], f1[1]), g13_qm(g13_q(f2[0], f2[1]), g13_q(f3[0], f3[1])));
+    var num = f1[0] / f1[1] + s * (f2[0] / f2[1]) * (f3[0] / f3[1]);
+    g13_chk(g13_near(g13_qv(ans), num), 'comb 1');
+    var a1 = g13_q(f1[0], f1[1]), a2 = g13_q(f2[0], f2[1]), a3 = g13_q(f3[0], f3[1]);
+    var w = [g13_qm(op(a1, a2), a3), op(g13_qm(a1, a2), a3), op(a1, g13_qd(a2, a3)), g13_qm(op(a1, a3), a2), g13_q(-ans[0], ans[1])].map(g13_qf);
+    return g13_mk('num2', t(f1) + (s > 0 ? ' + ' : ' − ') + t(f2) + ' · ' + t(f3) + ' =', g13_qf(ans), w,
+      'Primero se multiplica: ' + t(f2) + ' · ' + t(f3) + ' = ' + g13_qf(g13_qm(a2, a3)) + '. Después se ' + (s > 0 ? 'suma' : 'resta') + ' a ' + t(f1) + ': ' + g13_qf(ans) + '.');
+  }
+  var b1 = g13_q(f1[0], f1[1]), b2 = g13_q(f2[0], f2[1]), b3 = g13_q(f3[0], f3[1]);
+  var ans2 = g13_qd(g13_qs(b1, b2), b3);
+  g13_chk(g13_near(g13_qv(ans2), (f1[0] / f1[1] - f2[0] / f2[1]) / (f3[0] / f3[1])), 'comb 2');
+  var w2 = [g13_qs(b1, g13_qd(b2, b3)), g13_qm(g13_qs(b1, b2), b3), g13_qd(g13_qs(b2, b1), b3), g13_qs(b1, g13_qm(b2, b3)), g13_qd(b3, g13_qs(b1, b2))];
+  w2 = w2.filter(function (z) { return z[1] !== 0; }).map(g13_qf);
+  return g13_mk('num2', '(' + t(f1) + ' − ' + t(f2) + ') : ' + t(f3) + ' =', g13_qf(ans2), w2,
+    'Primero el paréntesis: ' + g13_qf(g13_qs(b1, b2)) + '. Dividir entre ' + t(f3) + ' es multiplicar por ' + g13_qf(g13_q(f3[1], f3[0])) + ' y da ' + g13_qf(ans2) + '.');
+});
+
+/* potencias de fracciones */
+genr('num2', function () {
+  var b = ri(2, 5), a = ri(1, 4);
+  while (a === b || gcd(a, b) !== 1) { a = ri(1, 4); b = ri(2, 5); }
+  var n = ri(2, 3), v = ri(0, 2);
+  if (v === 0 || v === 2) {
+    var neg = v === 2, sg = neg && n % 2 === 1 ? -1 : 1;
+    var ans = fs(sg * Math.pow(a, n), Math.pow(b, n));
+    g13_chk(g13_near(g13_parse(ans), Math.pow(neg ? -a / b : a / b, n)), 'pot frac');
+    var w = [fs(a * n, b * n), fs(Math.pow(a, n), b), fs(-sg * Math.pow(a, n), Math.pow(b, n)), fs(a * n, b), fs(Math.pow(a, n), b * n)];
+    if (neg && n % 2 === 0) w.unshift('−' + fs(Math.pow(a, n), Math.pow(b, n)));
+    return g13_mk('num2', '(' + (neg ? '−' : '') + g13_fq(a, b) + ')^{' + n + '} =', ans, w,
+      'Se eleva numerador y denominador: ' + (neg ? '(−' + a + ')^{' + n + '} = ' + mn(sg * Math.pow(a, n)) : a + '^{' + n + '} = ' + Math.pow(a, n)) + ' y ' + b + '^{' + n + '} = ' + Math.pow(b, n) + '.');
+  }
+  var ans2 = fs(Math.pow(b, n), Math.pow(a, n));
+  g13_chk(g13_near(g13_parse(ans2), Math.pow(a / b, -n)), 'pot neg');
+  return g13_mk('num2', '(' + g13_fq(a, b) + ')^{−' + n + '} =', ans2,
+    [fs(Math.pow(a, n), Math.pow(b, n)), fs(b, Math.pow(a, n)), fs(Math.pow(b, n), a), '−' + fs(Math.pow(a, n), Math.pow(b, n)), fs(b * n, a * n)],
+    'El exponente negativo invierte la fracción: (' + a + '/' + b + ')^{−' + n + '} = (' + b + '/' + a + ')^{' + n + '} = ' + ans2 + '.');
+});
+
+/* problemas con fracciones */
+genr('num2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var a, b;
+    do { a = ri(2, 6); b = ri(2, 6); } while (a === b || 1 / a + 1 / b >= 1);
+    var rest = g13_qs([1, 1], g13_qa([1, a], [1, b]));
+    g13_chk(g13_near(g13_qv(rest), 1 - 1 / a - 1 / b), 'gastos');
+    var sp = g13_qa([1, a], [1, b]);
+    var w = [g13_qf(sp), fs(1, a + b), fs(1, a * b), fs(a + b, a * b + 1), g13_qf(g13_qs([1, 1], [2, a + b]))];
+    return g13_p(g13_mk('num2', 'Una familia gasta ⟨1|' + a + '⟩ de sus ingresos en alquiler y ⟨1|' + b + '⟩ en comida. ¿Qué fracción de los ingresos le queda?', g13_qf(rest), w,
+      'Gasta ⟨1|' + a + '⟩ + ⟨1|' + b + '⟩ = ' + g13_qf(sp) + '. Le queda 1 − ' + g13_qf(sp) + ' = ' + g13_qf(rest) + '.'));
+  }
+  if (v === 1) {
+    var q = pick([3, 4, 5, 6]), p = ri(1, q - 1), s = pick([2, 3, 4, 5]), r = ri(1, s - 1), L, rem, mar, left, guard = 0;
+    if (gcd(p, q) !== 1) p = 1;
+    if (gcd(r, s) !== 1) r = 1;
+    do { L = 10 * ri(2, 40); rem = L - L * p / q; mar = rem * r / s; guard++; } while ((L * p % q !== 0 || rem * r % s !== 0) && guard < 5000);
+    g13_chk(L * p % q === 0 && rem * r % s === 0, 'deposito int');
+    left = rem - mar;
+    var chk = L; chk = chk - chk * p / q; chk = chk - chk * r / s;
+    g13_chk(g13_near(chk, left), 'deposito');
+    var w2 = [L - L * p / q - L * r / s, rem, mar, L * p / q, left + mar / 2].filter(function (z) { return z > 0 && z !== left; });
+    return g13_p(g13_mk('num2', 'De un depósito de ' + L + ' litros se gastan ⟨' + p + '|' + q + '⟩ el lunes y ⟨' + r + '|' + s + '⟩ de lo que queda el martes. ¿Cuántos litros quedan?', left + ' L', w2.map(function (z) { return g13_n(z) + ' L'; }),
+      'El lunes se gastan ' + L * p / q + ' L y quedan ' + rem + ' L. El martes se gastan ⟨' + r + '|' + s + '⟩ de ' + rem + ' = ' + mar + ' L. Quedan ' + rem + ' − ' + mar + ' = ' + left + ' L.'));
+  }
+  var h1, h2;
+  do { h1 = ri(2, 12); h2 = ri(2, 12); } while (h1 >= h2 || gcd(h1, h2) === h1 && false);
+  var tm = g13_q(h1 * h2, h1 + h2);
+  g13_chk(g13_near(g13_qv(tm), 1 / (1 / h1 + 1 / h2)), 'grifos');
+  return g13_p(g13_mk('num2', 'Un grifo llena un depósito en ' + h1 + ' horas y otro en ' + h2 + ' horas. Abiertos a la vez, ¿cuánto tardan en llenarlo?', g13_qf(tm) + ' h',
+    [fs(h1 + h2, 2) + ' h', (h1 + h2) + ' h', fs(h1 + h2, h1 * h2) + ' h', fs(Math.abs(h2 - h1), 1) + ' h', fs(h1 * h2, h2 - h1) + ' h'],
+    'En una hora llenan ⟨1|' + h1 + '⟩ + ⟨1|' + h2 + '⟩ = ' + g13_qf(g13_qa([1, h1], [1, h2])) + ' del depósito, así que tardan la inversa: ' + g13_qf(tm) + ' h.'));
+});
+
+/* ============================== num3: Decimales y notación científica ============================== */
+
+/* fracción generatriz */
+genr('num3', function () {
+  var v = ri(0, 3), txt, ans, ev;
+  if (v === 0) {
+    var d = ri(1, 8);
+    txt = '0,' + d + d + d + '…'; ans = fs(d, 9); ev = d / 9;
+    var w0 = [fs(d, 10), fs(d, 99), fs(d, 90), fs(10 * d, 99)];
+    g13_chk(g13_near(g13_parse(ans), ev) && g13_near(ev, +('0.' + new Array(30).join(String(d)))), 'gen 0');
+    return g13_mk('num3', 'La fracción generatriz de ' + txt + ' (periodo ' + d + ') es', ans, w0, 'Un periodo de una cifra se divide entre 9: ' + d + '/9 = ' + ans + '.');
+  }
+  if (v === 1) {
+    var ab = ri(1, 98); while (ab % 11 === 0) ab = ri(1, 98);
+    var s2 = (ab < 10 ? '0' : '') + ab;
+    ans = fs(ab, 99); ev = ab / 99;
+    g13_chk(g13_near(g13_parse(ans), +('0.' + new Array(20).join(s2))), 'gen 1');
+    return g13_mk('num3', 'La fracción generatriz de 0,' + s2 + s2 + '… (periodo ' + s2 + ') es', ans, [fs(ab, 100), fs(ab, 90), fs(ab, 999), fs(ab, 9)],
+      'Un periodo de dos cifras se divide entre 99: ' + ab + '/99 = ' + ans + '.');
+  }
+  if (v === 2) {
+    var a = ri(1, 9), b = ri(1, 8);
+    while (a === b) b = ri(1, 8);
+    ans = fs(9 * a + b, 90);
+    g13_chk(g13_near(g13_parse(ans), +('0.' + a + new Array(30).join(String(b)))), 'gen 2');
+    return g13_mk('num3', 'La fracción generatriz de 0,' + a + b + b + b + '… (solo se repite el ' + b + ') es', ans, [fs(10 * a + b, 90), fs(10 * a + b, 99), fs(10 * a + b, 100), fs(9 * a + b, 99)],
+      'Se resta la parte no periódica: (' + a + b + ' − ' + a + ') / 90 = ' + (9 * a + b) + '/90 = ' + ans + '.');
+  }
+  var n = ri(1, 9), c = ri(1, 8);
+  ans = fs(9 * n + c, 9);
+  g13_chk(g13_near(g13_parse(ans), +(n + '.' + new Array(30).join(String(c)))), 'gen 3');
+  return g13_mk('num3', 'El número ' + n + ',' + c + c + c + '… (periodo ' + c + ') es igual a', ans, [fs(10 * n + c, 10), fs(n * 9 + c, 10), fs(10 * n + c, 9), fs(n + c, 9)],
+    n + ' + ' + c + '/9 = ' + (9 * n + c) + '/9 = ' + ans + '.');
+});
+
+/* redondeo y truncamiento */
+function g13_fix(z, k) {   /* entero z escalado 10^k, con exactamente k decimales */
+  var s = String(Math.abs(z)); while (s.length <= k) s = '0' + s;
+  return (z < 0 ? '−' : '') + (k === 0 ? s : s.slice(0, s.length - k) + ',' + s.slice(s.length - k));
+}
+genr('num3', function () {
+  var W = ri(1, 99), dec, x, k = ri(0, 3), f = Math.pow(10, 4 - k), tries = 0;
+  do { dec = ri(1, 9999); x = W * 10000 + dec; tries++; } while ((dec % 10 === 0 || (x % f) * 2 === f) && tries < 500);
+  var trunc = Math.random() < 0.4;
+  var dn = Math.floor(x / f), rd = Math.floor((x + f / 2) / f);
+  var r = trunc ? dn : rd;
+  var ref = trunc ? Math.floor(x / 10000 * Math.pow(10, k) + 1e-9) : Math.round(x / 10000 * Math.pow(10, k));
+  g13_chk(r === ref, 'redondeo');
+  var nm = ['las unidades', 'las décimas', 'las centésimas', 'las milésimas'][k];
+  var ans = g13_fix(r, k), w = [g13_fix(trunc ? rd : dn, k), g13_fix(dn + 1, k)];
+  if (k > 0) w.push(g13_fix(dn - 1, k));
+  if (k < 3) w.push(g13_fix(Math.floor((x + Math.floor(f / 10) / 2) / Math.floor(f / 10)), k + 1));
+  if (k > 0) w.push(g13_fix(Math.floor((x + f * 5) / (f * 10)), k - 1));
+  return g13_mk('num3', (trunc ? 'Trunca ' : 'Redondea ') + g13_fix(x, 4) + ' a ' + nm + ':', ans, w.filter(function (z) { return z !== ans; }),
+    trunc ? 'Truncar es cortar las cifras sobrantes sin modificar la última que se conserva: ' + ans + '.'
+      : 'Se mira la cifra siguiente a ' + nm + ': si es 5 o más, la última cifra sube; si no, se queda: ' + ans + '.');
+});
+
+/* cociente y suma en notación científica */
+genr('num3', function () {
+  var v = ri(0, 2), a, b, e;
+  if (v === 0) {
+    var M2, q;
+    do { M2 = ri(11, 49); q = ri(2, 9); } while (M2 % 10 === 0 || M2 * q > 99);
+    do { a = ri(-5, 8); b = ri(-5, 8); } while (a === 0 || b === 0 || a === b);
+    var M1 = M2 * q;
+    g13_chk(g13_near((M1 / 10 * Math.pow(10, a)) / (M2 / 10 * Math.pow(10, b)), q * Math.pow(10, a - b)), 'sci div');
+    return g13_mk('num3', '(' + g13_scm(g13_mt(M1), a) + ') : (' + g13_scm(g13_mt(M2), b) + ') =', g13_scm(String(q), a - b),
+      [g13_scm(String(q), a + b), g13_scm(String(q), b - a), g13_scm(String(q + 1), a - b), g13_scm(String(q), a - b + 1)],
+      'Se dividen las mantisas (' + g13_mt(M1) + ' : ' + g13_mt(M2) + ' = ' + q + ') y se restan los exponentes (' + mn(a) + ' − ' + (b < 0 ? '(' + mn(b) + ')' : b) + ' = ' + mn(a - b) + ').');
+  }
+  e = ri(-5, 8);
+  if (v === 1) {
+    var N1 = ri(10, 99), N2 = ri(10, 99);
+    if (N1 + N2 < 100 && Math.random() < 0.5) { N1 = ri(50, 99); N2 = ri(50, 99); }
+    var N = N1 + N2;
+    g13_chk(g13_near((N1 / 10 + N2 / 10) * Math.pow(10, e), g13_parse2(g13_sci(N, e - 1))), 'sci suma');
+    return g13_mk('num3', '(' + g13_scm(g13_mt(N1), e) + ') + (' + g13_scm(g13_mt(N2), e) + ') =', g13_sci(N, e - 1),
+      [g13_scm(g13_mt(N), e), g13_sci(N, e), g13_sci(N, e - 2), g13_sci(N, 2 * e - 1)],
+      'Con el mismo exponente se suman las mantisas: ' + g13_mt(N1) + ' + ' + g13_mt(N2) + ' = ' + g13_mt(N) + (N >= 100 ? ', y como pasa de 10 hay que normalizar: ' : '. Queda ') + g13_sci(N, e - 1) + '.');
+  }
+  var kk = ri(1, 2), M1b = ri(10, 99), M2b = ri(10, 99), Nb = M1b * Math.pow(10, kk) + M2b;
+  g13_chk(g13_near(M1b / 10 * Math.pow(10, e) + M2b / 10 * Math.pow(10, e - kk), g13_parse2(g13_sci(Nb, e - 1 - kk))), 'sci suma dist');
+  return g13_mk('num3', '(' + g13_scm(g13_mt(M1b), e) + ') + (' + g13_scm(g13_mt(M2b), e - kk) + ') =', g13_sci(Nb, e - 1 - kk),
+    [g13_sci(M1b + M2b, e - 1), g13_sci(M1b + M2b, e - 1 - kk), g13_sci(Nb, e - kk), g13_sci(Nb, e - 2 - kk)],
+    'Se pasa el segundo sumando al exponente ' + mn(e) + ': ' + g13_mt(M2b) + ' · 10^{' + mn(e - kk) + '} = ' + g13_num(M2b, 1 + kk) + ' · 10^{' + mn(e) + '}. Se suma: ' + g13_sci(Nb, e - 1 - kk) + '.');
+});
+function g13_parse2(s) {   /* 'm · 10^{E}' → número */
+  var m = s.match(/^(\d+(?:,\d+)?) · 10\^\{(−?\d+)\}$/);
+  g13_chk(!!m, 'sci parse ' + s);
+  return parseFloat(m[1].replace(',', '.')) * Math.pow(10, parseInt(m[2].replace('−', '-'), 10));
+}
+
+/* comparar decimales */
+genr('num3', function () {
+  var v = ri(0, 2), i;
+  if (v === 0) {
+    var L = ri(100, 998), lo = L / 100, hi = (L + 1) / 100;
+    var good = g13_fix(L * 10 + 5, 3), t = function (n3, k) { return g13_fix(n3, k); };
+    g13_chk(L * 10 < L * 10 + 5 && L * 10 + 5 < (L + 1) * 10, 'entre');
+    return g13_mk('num3', '¿Cuál de estos números está entre ' + t(L, 2) + ' y ' + t(L + 1, 2) + '?', good,
+      [t((L + 1) * 10 + 5, 3), t(L * 10 - 5, 3), t(L, 2), t(L + 1, 2), t((L + 1) * 10 + 1, 3)].filter(function (s) { return s !== good; }),
+      'En milésimas: ' + t(L, 2) + ' = ' + t(L * 10, 3) + ' y ' + t(L + 1, 2) + ' = ' + t((L + 1) * 10, 3) + ', y ' + good + ' queda en medio.');
+  }
+  var vals = [], seen = {};
+  while (vals.length < 4) { var z = ri(100, 900); if (seen[z]) continue; seen[z] = 1; vals.push(z); }
+  var tx = function (z) { return g13_num(z, 3); };
+  var sorted = vals.slice().sort(function (x, y) { return x - y; });
+  var want = v === 1 ? sorted[3] : sorted[0];
+  for (i = 0; i < 3; i++) g13_chk(sorted[i] < sorted[i + 1], 'dec orden');
+  return g13_mk('num3', '¿Cuál es el número ' + (v === 1 ? 'mayor' : 'menor') + ': ' + vals.map(tx).join('; ') + '?', tx(want), vals.filter(function (z) { return z !== want; }).map(tx),
+    'Se comparan cifra a cifra con las mismas cifras decimales (milésimas): ' + vals.map(function (z) { return g13_num(z, 3); }).join('; ') + '. El ' + (v === 1 ? 'mayor' : 'menor') + ' es ' + tx(want) + '.');
+});
+
+/* problemas: señal de radio, células y bombilla */
+genr('num3', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var t = ri(3, 40), N = 18 * t;
+    var ref = 3e5 * 60 * t;
+    var ans = g13_sci(N, 6);
+    g13_chk(g13_near(g13_parse2(ans), ref), 'senal');
+    return g13_p(g13_mk('num3', 'Una señal de radio viaja a ' + g13_scm('3', 5) + ' km/s y tarda ' + t + ' minutos en llegar de una sonda a la Tierra. ¿A qué distancia está la sonda?', ans + ' km',
+      [g13_sci(3 * t, 5) + ' km', g13_sci(N, 7) + ' km', g13_sci(N, 5) + ' km', g13_sci(N, 4) + ' km'].map(function (s) { return s; }),
+      'Los ' + t + ' min son ' + 60 * t + ' s. Distancia = ' + g13_scm('3', 5) + ' · ' + 60 * t + ' = ' + N * 10 + ' · 10^{5} = ' + ans + ' km.'));
+  }
+  if (v === 1) {
+    var a = pick([2, 4, 5, 8]), b = ri(1, 9), cnt = b * 1000 / a;
+    var ans2 = g13_sci(cnt, 0);
+    g13_chk(g13_near(g13_parse2(ans2), (b * 1e-2) / (a * 1e-5)), 'celulas');
+    return g13_p(g13_mk('num3', 'Una célula mide ' + g13_scm(String(a), -5) + ' m. ¿Cuántas células colocadas en fila ocupan ' + b + ' cm?', ans2,
+      [g13_sci(cnt, 1), g13_sci(cnt, -1), g13_sci(b * 100000 / a, 0), g13_sci(b * a * 1000, 0)].filter(function (s) { return s !== ans2; }),
+      'Se pasan ' + b + ' cm a metros: ' + b + ' · 10^{−2} m. Entonces ' + b + ' · 10^{−2} : (' + a + ' · 10^{−5}) = (' + b + ' : ' + a + ') · 10^{3} = ' + ans2 + ' células.'));
+  }
+  var P, h, pr, days = 30, tot;
+  do { P = ri(4, 12) * 1; h = ri(2, 8); pr = ri(10, 30); tot = P * h * days * pr; } while (tot % 100 !== 0);
+  var cost = tot / 10000;
+  g13_chk(g13_near(cost, (P / 100) * h * days * (pr / 100)), 'bombilla');
+  var c100 = Math.round(tot / 100);
+  var w = [c100 / 30 * 1, (P / 100) * days * pr / 100, c100 * 10, c100 / 10];
+  var fm = function (c) { return g13_num(Math.round(c), 0) + ' €'; };
+  var eur = function (cents) { return g13_eur(Math.round(cents)); };
+  return g13_p(g13_mk('num3', 'Una lámpara de 0,' + (P < 10 ? '0' + P : P) + ' kW está encendida ' + h + ' horas al día durante ' + days + ' días. Si el kWh cuesta 0,' + pr + ' €, ¿cuánto cuesta?', eur(c100),
+    [eur(c100 / days), eur((P * days * pr) / 100), eur(c100 * 10), eur(c100 / 10)],
+    'Energía: 0,' + (P < 10 ? '0' + P : P) + ' · ' + h + ' · ' + days + ' = ' + g13_n(P / 100 * h * days) + ' kWh. Coste: ' + g13_n(P / 100 * h * days) + ' · 0,' + pr + ' = ' + eur(c100) + '.'));
+});
+
+/* ============================== num4: Proporcionalidad y porcentajes ============================== */
+
+/* porcentaje inverso: precio original */
+genr('num4', function () {
+  var p, s, O, F, tries = 0;
+  do { p = pick([10, 20, 25, 30, 40, 50]); s = pick([1, -1]); O = 20 * ri(2, 25); F = O * (100 + s * p) / 100; tries++; } while ((F % 1 !== 0 || F <= 0 || (s < 0 && p >= 50)) && tries < 500);
+  g13_chk(F % 1 === 0 && g13_near(F * 100 / (100 + s * p), O), 'pct inv');
+  var w = [F * (100 - s * p) / 100, F - s * p, F + s * p, F * 100 / (100 - s * p), O + (s > 0 ? p : -p)];
+  var what = pick(['un abrigo', 'una bicicleta', 'un móvil', 'una mesa']);
+  return g13_mk('num4', 'Tras ' + (s > 0 ? 'una subida' : 'un descuento') + ' del ' + p + ' %, ' + what + ' cuesta ' + F + ' €. ¿Cuánto costaba antes?', O + ' €',
+    w.map(function (z) { return g13_n(z) + ' €'; }),
+    'El precio final es el ' + (100 + s * p) + ' % del original: original = ' + F + ' : ' + g13_n((100 + s * p) / 100) + ' = ' + O + ' €.');
+});
+
+/* variación porcentual entre dos valores */
+genr('num4', function () {
+  var old, pc, nw, tries = 0;
+  do { old = pick([20, 25, 40, 50, 60, 80, 100, 120, 200, 250]); pc = pick([10, 20, 25, 30, 40, 50, 60, 75, 5, 15]) * pick([1, -1]); nw = old * (100 + pc) / 100; tries++; } while ((nw % 1 !== 0 || nw <= 0) && tries < 500);
+  var f = function (p) { return (p > 0 ? '+' : '−') + g13_n(Math.abs(p)) + ' %'; };
+  var calc = (nw - old) / old * 100;
+  g13_chk(g13_near(calc, pc), 'variacion');
+  var ctx = pick(['alumnos', 'euros', 'socios', 'habitantes']);
+  var w = [f(Math.round(Math.abs(nw - old) / nw * 1000) / 10 * (pc > 0 ? 1 : -1)), f(-pc), f(Math.abs(nw - old) * (pc > 0 ? 1 : -1)), f(pc * 2), f(pc + 5)];
+  return g13_mk('num4', 'El número de ' + ctx + ' pasa de ' + old + ' a ' + nw + '. La variación porcentual es', f(pc), w,
+    'Variación = (' + nw + ' − ' + old + ') : ' + old + ' = ' + g13_n((nw - old) / old) + ', es decir, ' + f(pc) + ' respecto al valor inicial.');
+});
+
+/* repartos proporcionales directos e inversos */
+genr('num4', function () {
+  if (Math.random() < 0.6) {
+    var n = pick([2, 3]), parts = [], i;
+    while (parts.length < n) { var x = ri(1, 6); if (parts.indexOf(x) < 0) parts.push(x); }
+    var S = parts.reduce(function (s, x) { return s + x; }, 0), k = ri(2, 12), T = S * k;
+    var big = Math.max.apply(null, parts), small = Math.min.apply(null, parts);
+    var ask = pick([big, small]), ans = ask * k;
+    g13_chk(g13_near(T * ask / S, ans), 'reparto');
+    var w = [T / n, k, T - ans, ans + k, ask * T / n].map(g13_n);
+    var nm = ['Ana', 'Luis', 'Marta'];
+    return g13_mk('num4', 'Se reparten ' + T + ' € de forma directamente proporcional a ' + parts.join(', ') + '. ¿Cuánto recibe la parte ' + (ask === big ? 'mayor' : 'menor') + '?', ans + ' €', w.map(function (z) { return z + ' €'; }),
+      'Hay ' + parts.join(' + ') + ' = ' + S + ' partes; cada una vale ' + T + ' : ' + S + ' = ' + k + ' €. La parte ' + (ask === big ? 'mayor' : 'menor') + ' tiene ' + ask + ' partes: ' + ans + ' €.');
+  }
+  var a, b;
+  do { a = ri(2, 9); b = ri(2, 9); } while (a >= b || gcd(a, b) !== 1);
+  var kk = ri(2, 12), T2 = (a + b) * kk, ans2 = b * kk;
+  g13_chk(g13_near(T2 * (1 / a) / (1 / a + 1 / b), ans2), 'reparto inverso');
+  return g13_mk('num4', 'Se reparten ' + T2 + ' € entre dos hermanos de ' + a + ' y ' + b + ' años de forma inversamente proporcional a sus edades. ¿Cuánto recibe el de ' + a + ' años?', ans2 + ' €',
+    [(a * kk) + ' €', g13_n(T2 / 2) + ' €', (T2 - ans2 + kk) + ' €', (a * b * kk) + ' €'],
+    'Inversamente proporcional a ' + a + ' y ' + b + ' es directamente proporcional a ' + b + ' y ' + a + ': ' + (a + b) + ' partes de ' + kk + ' €. El de ' + a + ' años recibe ' + b + ' partes: ' + ans2 + ' €.');
+});
+
+/* regla de tres compuesta */
+genr('num4', function () {
+  if (Math.random() < 0.5) {
+    var m1 = ri(2, 6), h1 = ri(2, 6), m2 = ri(2, 9), h2 = ri(2, 9), k = ri(2, 9);
+    if (m1 === m2 && h1 === h2) m2++;
+    var P = k * m1 * h1, ans = k * m2 * h2;
+    g13_chk(g13_near(P * (m2 / m1) * (h2 / h1), ans), 'compuesta dir');
+    var w = [P * m2 / m1, P * h2 / h1, k * (m2 + h2), P + (m2 - m1) * k, P * m2 * h2 / (m1 + h1)].map(g13_n);
+    return g13_p(g13_mk('num4', m1 + ' máquinas fabrican ' + P + ' piezas en ' + h1 + ' horas. ¿Cuántas piezas fabrican ' + m2 + ' máquinas en ' + h2 + ' horas?', String(ans), w,
+      'Cada máquina hace ' + P + ' : ' + m1 + ' : ' + h1 + ' = ' + k + ' piezas por hora. Entonces ' + k + ' · ' + m2 + ' · ' + h2 + ' = ' + ans + ' piezas.'));
+  }
+  var o1, d1, g1, o2, g2, d2, tries = 0;
+  do { o1 = ri(2, 10); d1 = ri(2, 12); g1 = ri(4, 10); o2 = ri(2, 12); g2 = ri(4, 10); tries++; d2 = o1 * d1 * g1 / (o2 * g2); } while ((d2 % 1 !== 0 || d2 === d1 || o2 === o1 || g2 === g1) && tries < 20000);
+  g13_chk(g13_near(d1 * (o1 / o2) * (g1 / g2), d2), 'compuesta inv');
+  var w2 = [o1 * d1 / o2, d1 * o2 / o1, d1 * o2 * g2 / (o1 * g1), d1 * g2 / g1, d1 * o1 * g1 / o2].map(g13_dd);
+  return g13_p(g13_mk('num4', o1 + ' obreros trabajando ' + g1 + ' horas al día terminan una obra en ' + d1 + ' días. ¿Cuántos días tardarán ' + o2 + ' obreros trabajando ' + g2 + ' horas al día?', g13_dd(d2), w2,
+    'Son magnitudes inversas: la obra necesita ' + o1 + ' · ' + g1 + ' · ' + d1 + ' = ' + o1 * g1 * d1 + ' horas de obrero, y ' + o1 * g1 * d1 + ' : (' + o2 + ' · ' + g2 + ') = ' + d2 + ' días.'));
+});
+
+/* problemas: interés compuesto, IVA y rebaja, compuesto frente a simple */
+genr('num4', function () {
+  var v = ri(0, 2), C, r, n, tries = 0, cents, i, y;
+  if (v === 0 || v === 2) {
+    do {
+      C = pick([500, 1000, 1500, 2000, 2500, 4000, 5000]); r = pick([2, 4, 5, 10, 20]); n = pick([2, 3]);
+      cents = C * 100 * Math.pow(100 + r, n) / Math.pow(100, n); tries++;
+    } while ((Math.abs(cents - Math.round(cents)) > 1e-6) && tries < 500);
+    cents = Math.round(cents);
+    y = C * 100; for (i = 0; i < n; i++) y = y * (100 + r) / 100;
+    g13_chk(g13_near(y, cents), 'interes compuesto');
+    var simple = C * 100 + C * r * n;
+    if (v === 0) {
+      var w = [simple, C * 100 * (1 + r / 100) * n, Math.round(C * 100 * Math.pow(1 + r / 100, n - 1)), Math.round(C * 100 * Math.pow(1 + r / 100, n + 1)), Math.round(cents - C * 100)];
+      return g13_p(g13_mk('num4', 'Se depositan ' + C + ' € al ' + r + ' % de interés compuesto anual. ¿Cuánto dinero hay al cabo de ' + n + ' años?', g13_eur(cents), w.map(function (z) { return g13_eur(Math.round(z)); }),
+        'Cada año el dinero se multiplica por ' + g13_n(1 + r / 100) + ': ' + C + ' · ' + g13_n(1 + r / 100) + '^{' + n + '} = ' + g13_eur(cents) + '.'));
+    }
+    var dif = cents - simple;
+    g13_chk(dif > 0, 'comp>simple');
+    return g13_p(g13_mk('num4', 'Se depositan ' + C + ' € al ' + r + ' % anual durante ' + n + ' años. ¿Cuántos euros más produce el interés compuesto que el interés simple?', g13_eur(dif),
+      [g13_eur(cents - C * 100), g13_eur(simple - C * 100), g13_eur(Math.round(dif * 2)), g13_eur(Math.round(dif + C * r))].filter(function (s) { return s !== g13_eur(dif); }),
+      'Compuesto: ' + C + ' · ' + g13_n(1 + r / 100) + '^{' + n + '} = ' + g13_eur(cents) + '. Simple: ' + C + ' + ' + C + ' · ' + g13_n(r / 100) + ' · ' + n + ' = ' + g13_eur(simple) + '. Diferencia: ' + g13_eur(dif) + '.'));
+  }
+  var P, d, c2;
+  do { P = 20 * ri(1, 15); d = pick([10, 15, 20, 25, 30]); c2 = P * 121 * (100 - d) / 100; tries++; } while ((c2 % 1 !== 0 || c2 / 100 === Math.floor(c2 / 100) && false) && tries < 2000);
+  g13_chk(c2 % 1 === 0, 'iva int');
+  g13_chk(g13_near(P * 1.21 * (1 - d / 100), c2 / 100), 'iva');
+  var w3 = [P * (121 - d), P * 121, P * (100 - d), P * (100 + 21 + d), P * 100 * 1.21 * (1 - d / 100) + 0].map(function (z) { return g13_eur(Math.round(z)); });
+  return g13_p(g13_mk('num4', 'Un artículo cuesta ' + P + ' € sin IVA. Se le aplica un 21 % de IVA y después una rebaja del ' + d + ' %. ¿Cuál es el precio final?', g13_eur(c2), w3.concat([g13_eur(Math.round(c2 + P * 100 * 0.1))]),
+    'Con IVA: ' + P + ' · 1,21 = ' + g13_n(P * 1.21) + ' €. Con la rebaja: ' + g13_n(P * 1.21) + ' · ' + g13_n(1 - d / 100) + ' = ' + g13_eur(c2) + '. Los porcentajes no se suman: se encadenan.'));
+});
+
+/* ============================== num5: Sucesiones y progresiones ============================== */
+
+/* evaluar un término general */
+genr('num5', function () {
+  var v = ri(0, 2), k;
+  if (v === 0) {
+    var p = pick([1, 2, -1]), q = nz(-6, 6), r = nz(-8, 8);
+    k = ri(4, 9);
+    var val = p * k * k + q * k + r, loop = 0, i;
+    for (i = 1; i <= k; i++) loop = p * i * i + q * i + r;
+    g13_chk(loop === val, 'term pol');
+    var txt = 'a_{n} = ' + poly([p, q, r]).replace(/x/g, 'n');
+    var w = [p * (k - 1) * (k - 1) + q * (k - 1) + r, (p * k) * (p * k) + q * k + r, p * k * k + q * k - r, p * k * k - q * k + r, val + k];
+    return g13_mk('num5', 'En la sucesión ' + txt + ', el término a_{' + k + '} es', mn(val), w.map(mn),
+      'Se sustituye n = ' + k + ': ' + p + ' · ' + k * k + ' + (' + mn(q) + ') · ' + k + ' + (' + mn(r) + ') = ' + mn(val) + '.');
+  }
+  if (v === 1) {
+    var c = ri(1, 4), b = pick([2, 3]);
+    k = ri(3, 6);
+    var t = c * b, j; for (j = 2; j <= k; j++) t *= b;
+    var val2 = c * Math.pow(b, k);
+    g13_chk(t === val2, 'term exp');
+    return g13_mk('num5', 'En la sucesión a_{n} = ' + (c === 1 ? '' : c + ' · ') + b + '^{n}, el término a_{' + k + '} es', String(val2),
+      [c * Math.pow(b, k - 1), c * b * k, Math.pow(c * b, k), c * Math.pow(b, k + 1), c * b + k].map(String),
+      'Se sustituye n = ' + k + ': ' + (c === 1 ? '' : c + ' · ') + b + '^{' + k + '} = ' + val2 + '.');
+  }
+  var cc = ri(1, 6), sg = pick([1, -1]);
+  k = ri(5, 12);
+  var t2 = 0, m; for (m = 1; m <= k; m++) t2 = (m % 2 ? -1 : 1) * (m + cc);
+  var val3 = (k % 2 ? -1 : 1) * (k + cc);
+  g13_chk(t2 === val3, 'term alt');
+  return g13_mk('num5', 'En la sucesión a_{n} = (−1)^{n} · (n + ' + cc + '), el término a_{' + k + '} es', mn(val3),
+    [-val3, k + cc + 1, mn(-(k - 1 + cc)), k * cc, mn((k % 2 ? 1 : -1) * (k + cc + 1))].map(function (z) { return typeof z === 'string' ? z : mn(z); }),
+    'Con n = ' + k + ', (−1)^{' + k + '} = ' + (k % 2 ? '−1' : '1') + ', luego a_{' + k + '} = ' + (k % 2 ? '−' : '') + (k + cc) + '.');
+});
+
+/* diferencia, razón y primer término a partir de dos términos */
+genr('num5', function () {
+  var v = ri(0, 3), a1, d, r, p, q;
+  if (v === 0 || v === 1) {
+    a1 = ri(-5, 12); d = nz(-6, 8); p = ri(2, 4); q = p + ri(2, 4);
+    var x = a1 + (p - 1) * d, y = a1 + (q - 1) * d;
+    var seq = [], i; seq[1] = a1; for (i = 2; i <= q; i++) seq[i] = seq[i - 1] + d;
+    g13_chk(seq[p] === x && seq[q] === y, 'pa dos terminos');
+    if (v === 0) {
+      g13_chk((y - x) / (q - p) === d, 'd');
+      return g13_mk('num5', 'En una progresión aritmética a_{' + p + '} = ' + mn(x) + ' y a_{' + q + '} = ' + mn(y) + '. La diferencia d es', mn(d),
+        [(y - x), (y - x) / (q - p + 1), (y - x) / (q + p), -d, (y - x) / (q - p) + 1].map(g13_n).map(function (s) { return s; }),
+        'Entre ambos términos hay ' + (q - p) + ' saltos: d = (' + mn(y) + ' − (' + mn(x) + ')) : ' + (q - p) + ' = ' + mn(d) + '.');
+    }
+    return g13_mk('num5', 'En una progresión aritmética a_{' + p + '} = ' + mn(x) + ' y a_{' + q + '} = ' + mn(y) + '. El primer término a_{1} es', mn(a1),
+      [x - d * p, x - d * (p - 2), x, x + d * (p - 1), y - d * (q - 2)].map(mn),
+      'd = (' + mn(y) + ' − (' + mn(x) + ')) : ' + (q - p) + ' = ' + mn(d) + ' y a_{1} = a_{' + p + '} − ' + (p - 1) + ' · d = ' + mn(a1) + '.');
+  }
+  if (v === 2) {
+    r = pick([2, 3, -2]); a1 = ri(1, 3); p = ri(1, 3); q = p + pick([2, 3]);
+    var gx = a1 * Math.pow(r, p - 1), gy = a1 * Math.pow(r, q - 1);
+    g13_chk(Math.pow(r, q - p) === gy / gx, 'razon');
+    return g13_mk('num5', 'En una progresión geométrica a_{' + p + '} = ' + mn(gx) + ' y a_{' + q + '} = ' + mn(gy) + '. La razón r es', mn(r),
+      [gy / gx, (gy - gx) / (q - p), -r, Math.abs(r) + 1, r * r].map(g13_n),
+      'a_{' + q + '} : a_{' + p + '} = r^{' + (q - p) + '}, es decir, ' + mn(gy / gx) + ' = r^{' + (q - p) + '}, de donde r = ' + mn(r) + '.');
+  }
+  var m = ri(2, 5), X = ri(-6, 6);
+  d = nz(-5, 6);
+  var Y = X + (m + 1) * d;
+  var seq2 = [X], i2; for (i2 = 1; i2 <= m + 1; i2++) seq2.push(seq2[i2 - 1] + d);
+  g13_chk(seq2[m + 1] === Y, 'interpolar');
+  return g13_mk('num5', 'Se intercalan ' + m + ' números entre ' + mn(X) + ' y ' + mn(Y) + ' para formar una progresión aritmética. La diferencia es', mn(d),
+    [(Y - X) / m, (Y - X) / (m + 2), Y - X, -d, (Y - X) / (m + 1) + 1].map(g13_n),
+    'Con los extremos hay ' + (m + 2) + ' términos, es decir, ' + (m + 1) + ' saltos: d = (' + mn(Y) + ' − (' + mn(X) + ')) : ' + (m + 1) + ' = ' + mn(d) + '.');
+});
+
+/* suma de una progresión geométrica */
+genr('num5', function () {
+  var i;
+  if (Math.random() < 0.5) {
+    var m = ri(2, 5), sg = pick([1, -1]), a1 = m * m * ri(1, 4), terms = [];
+    for (i = 0; i < 3; i++) terms.push(g13_q(a1 * Math.pow(sg, i), Math.pow(m, i)));
+    var ans = g13_q(a1 * m, m - sg), sumx = 0;
+    for (i = 0; i < 400; i++) sumx += a1 * Math.pow(sg / m, i);
+    g13_chk(g13_near(g13_qv(ans), sumx), 'serie infinita');
+    var txt = terms.map(function (z, k) { return (k === 0 ? (z[0] < 0 ? '−' : '') : (z[0] < 0 ? ' − ' : ' + ')) + g13_qf([Math.abs(z[0]), z[1]]); }).join('');
+    var rr = (sg > 0 ? '' : '−') + '⟨1|' + m + '⟩';
+    var w = [g13_q(a1 * m, m + sg), g13_q(a1 * m * m, m * m - 1), g13_qa(terms[0], g13_qa(terms[1], terms[2])), g13_q(a1, m - sg)];
+    return g13_mk('num5', 'La suma de infinitos términos ' + txt + ' + … es', g13_qf(ans), w.map(g13_qf),
+      'Es una progresión geométrica de razón ' + rr + ' con |r| < 1, luego S = a_{1} / (1 − r) = ' + a1 + ' / (1 − ' + (sg > 0 ? '' : '(−') + '⟨1|' + m + '⟩' + (sg > 0 ? '' : ')') + ') = ' + g13_qf(ans) + '.');
+  }
+  var a1b = pick([1, 2, 4, 8, 16]), rm = pick([2, 3]), n = ri(3, 5);
+  var S = g13_q(0, 1), tt = g13_q(a1b, 1), k;
+  for (k = 0; k < n; k++) { S = g13_qa(S, tt); tt = g13_qm(tt, g13_q(1, rm)); }
+  var formula = g13_qd(g13_qm(g13_q(a1b, 1), g13_qs(g13_q(1, 1), g13_q(1, Math.pow(rm, n)))), g13_qs(g13_q(1, 1), g13_q(1, rm)));
+  g13_chk(S[0] === formula[0] && S[1] === formula[1], 'S_n frac');
+  var inf = g13_q(a1b * rm, rm - 1);
+  var w2 = [inf, g13_q(a1b * n, 1), g13_qm(g13_q(a1b, 1), g13_qs(g13_q(1, 1), g13_q(1, Math.pow(rm, n)))), g13_qa(S, g13_q(1, Math.pow(rm, n)))];
+  return g13_mk('num5', 'En una progresión geométrica a_{1} = ' + a1b + ' y r = ⟨1|' + rm + '⟩. La suma de los ' + n + ' primeros términos es', g13_qf(S), w2.map(g13_qf),
+    'S_{n} = a_{1}(1 − r^{n}) / (1 − r) = ' + a1b + ' · (1 − ⟨1|' + Math.pow(rm, n) + '⟩) / ⟨' + (rm - 1) + '|' + rm + '⟩ = ' + g13_qf(S) + '.');
+});
+
+/* siguiente término de una sucesión */
+genr('num5', function () {
+  var ty = ri(0, 5), t = [], i, c, d, r, a1, rule;
+  if (ty === 0) { a1 = ri(-6, 12); d = nz(-8, 9); for (i = 0; i < 6; i++) t.push(a1 + i * d); rule = 'Es aritmética de diferencia ' + mn(d) + '.'; }
+  else if (ty === 1) { a1 = ri(1, 4); r = pick([2, 3, -2, 4]); for (i = 0; i < 6; i++) t.push(a1 * Math.pow(r, i)); rule = 'Es geométrica de razón ' + mn(r) + '.'; }
+  else if (ty === 2) { c = ri(-2, 4); for (i = 1; i <= 6; i++) t.push(i * i + c); }
+  else if (ty === 3) { for (i = 1; i <= 6; i++) t.push(i * (i + 1) / 2); }
+  else if (ty === 4) { var x = ri(1, 4), y = ri(1, 5); t = [x, y]; for (i = 2; i < 6; i++) t.push(t[i - 1] + t[i - 2]); }
+  else { var s0 = ri(1, 5); t = [s0]; for (i = 1; i < 6; i++) t.push(t[i - 1] + i); }
+  var ans = t[5], l = t[4], pv = t[3];
+  if (ty === 0) g13_chk(ans === a1 + 5 * d, 'sig ar');
+  if (ty === 1) g13_chk(ans === a1 * Math.pow(r, 5), 'sig ge');
+  if (ty === 2) { g13_chk(ans === 36 + c, 'sig sq'); rule = 'Son los cuadrados n^{2}' + (c ? (c > 0 ? ' + ' : ' − ') + Math.abs(c) : '') + ': el sexto es 36' + (c ? (c > 0 ? ' + ' : ' − ') + Math.abs(c) : '') + ' = ' + ans + '.'; }
+  if (ty === 3) { g13_chk(ans === 21, 'sig tri'); g13_chk(ans === l + 6, 'sig tri 2'); rule = 'Las diferencias crecen de 1 en 1 (2, 3, 4, 5, 6): al último término se le suma 6, es decir, ' + l + ' + 6 = ' + ans + '.'; }
+  if (ty === 4) { g13_chk(ans === t[4] + t[3], 'sig fib'); rule = 'Cada término es la suma de los dos anteriores: ' + t[3] + ' + ' + t[4] + ' = ' + ans + '.'; }
+  if (ty === 5) { g13_chk(ans === l + 5, 'sig dif'); rule = 'Las diferencias son 1, 2, 3, 4, 5: al último término se le suma 5, es decir, ' + l + ' + 5 = ' + ans + '.'; }
+  var w = [l + (l - pv), ans + 1, ans - 1, l * 2, ans + 2, l + t[0]];
+  return g13_mk('num5', 'El siguiente término de ' + t.slice(0, 5).map(mn).join(', ') + ', … es', mn(ans), w.map(mn), rule);
+});
+
+/* problemas con progresiones */
+genr('num5', function () {
+  var v = ri(0, 3), a, d, n, i, S;
+  if (v === 0) {
+    a = ri(10, 40); d = ri(5, 20); n = ri(6, 12);
+    S = 0; for (i = 0; i < n; i++) S += a + i * d;
+    var an = a + (n - 1) * d;
+    g13_chk(S === n * (a + an) / 2, 'ahorro');
+    return g13_p(g13_mk('num5', 'El primer mes ahorro ' + a + ' € y cada mes ahorro ' + d + ' € más que el anterior. ¿Cuánto habré ahorrado en total al cabo de ' + n + ' meses?', S + ' €',
+      [(n * an) + ' €', (S - an) + ' €', g13_n(n * (a + d * n) / 2) + ' €', (a * n + d * n) + ' €', (S + d) + ' €'],
+      'En el mes ' + n + ' ahorro ' + a + ' + ' + (n - 1) + ' · ' + d + ' = ' + an + ' €. Suma = ' + n + ' · (' + a + ' + ' + an + ') : 2 = ' + S + ' €.'));
+  }
+  if (v === 1) {
+    a = ri(10, 30); d = ri(5, 15); n = ri(7, 15);
+    var target = a + (n - 1) * d, m = 1, cur = a; while (cur < target) { cur += d; m++; }
+    g13_chk(m === n, 'mes alcance');
+    return g13_p(g13_mk('num5', 'El primer mes ahorro ' + a + ' € y cada mes ' + d + ' € más que el anterior. ¿En qué mes ahorro ' + target + ' €?', 'mes ' + n,
+      ['mes ' + (n - 1), 'mes ' + (n + 1), 'mes ' + Math.round(target / d), 'mes ' + (n + 2)],
+      'a_{n} = ' + a + ' + (n − 1) · ' + d + ' = ' + target + ', así que (n − 1) · ' + d + ' = ' + (target - a) + ', n − 1 = ' + (n - 1) + ' y n = ' + n + '.'));
+  }
+  if (v === 2) {
+    var N0 = ri(2, 9) * 100, r = pick([2, 3]), h = ri(3, 6);
+    var cnt = N0; for (i = 0; i < h; i++) cnt *= r;
+    g13_chk(cnt === N0 * Math.pow(r, h), 'bacterias');
+    return g13_p(g13_mk('num5', 'Un cultivo tiene ' + N0 + ' bacterias y su número se ' + (r === 2 ? 'duplica' : 'triplica') + ' cada hora. ¿Cuántas habrá al cabo de ' + h + ' horas?', String(cnt),
+      [N0 * r * h, N0 * Math.pow(r, h - 1), N0 * Math.pow(r, h + 1), N0 + r * h * 100, N0 * Math.pow(h, r)].map(String),
+      'Es una progresión geométrica de razón ' + r + ': ' + N0 + ' · ' + r + '^{' + h + '} = ' + N0 + ' · ' + Math.pow(r, h) + ' = ' + cnt + '.'));
+  }
+  a = ri(8, 20); d = pick([2, 3, 4]); n = ri(8, 16);
+  S = 0; for (i = 0; i < n; i++) S += a + i * d;
+  var last = a + (n - 1) * d;
+  g13_chk(S === n * (2 * a + (n - 1) * d) / 2, 'butacas');
+  return g13_p(g13_mk('num5', 'En un teatro la primera fila tiene ' + a + ' butacas y cada fila tiene ' + d + ' más que la anterior. Si hay ' + n + ' filas, ¿cuántas butacas hay?', String(S),
+    [n * last, S - last, n * (a + d * n) / 2, n * a + d * n, S + d].map(function (z) { return g13_n(z); }),
+    'La última fila tiene ' + a + ' + ' + (n - 1) + ' · ' + d + ' = ' + last + ' butacas. Total = ' + n + ' · (' + a + ' + ' + last + ') : 2 = ' + S + '.'));
+});
+
+/* ============================== num6: Intervalos y números reales ============================== */
+
+/* de desigualdades a intervalos y al revés */
+genr('num6', function () {
+  var v = ri(0, 2), a = ri(-8, 6), b = a + ri(2, 9);
+  if (v === 0) {
+    var l = Math.random() < 0.5, h = Math.random() < 0.5;
+    var ineq = mn(a) + (l ? ' ≤ ' : ' < ') + 'x' + (h ? ' ≤ ' : ' < ') + mn(b);
+    var iv = function (l1, h1) { return (l1 ? '[' : '(') + mn(a) + ', ' + mn(b) + (h1 ? ']' : ')'); };
+    return g13_mk('num6', 'La desigualdad ' + ineq + ' corresponde al intervalo', iv(l, h), [iv(!l, h), iv(l, !h), iv(!l, !h), '[' + mn(b) + ', ' + mn(a) + ']'].filter(function (s) { return s !== iv(l, h); }),
+      'El corchete incluye el extremo (≤) y el paréntesis lo excluye (<): ' + iv(l, h) + '.');
+  }
+  if (v === 1) {
+    var kind = ri(0, 3), c = a;
+    var ineq2 = ['x > ' + mn(c), 'x ≥ ' + mn(c), 'x < ' + mn(c), 'x ≤ ' + mn(c)][kind];
+    var ivs = ['(' + mn(c) + ', +∞)', '[' + mn(c) + ', +∞)', '(−∞, ' + mn(c) + ')', '(−∞, ' + mn(c) + ']'];
+    return g13_mk('num6', 'La desigualdad ' + ineq2 + ' corresponde al intervalo', ivs[kind], ivs.filter(function (_, i) { return i !== kind; }),
+      'Los números ' + (kind < 2 ? 'mayores' : 'menores') + ' que ' + mn(c) + ' se escriben hacia ' + (kind < 2 ? '+∞' : '−∞') + '; ' + (kind % 2 ? 'el extremo se incluye (corchete)' : 'el extremo no se incluye (paréntesis)') + ' y el infinito siempre lleva paréntesis.');
+  }
+  var l3 = Math.random() < 0.5, h3 = Math.random() < 0.5;
+  var iv3 = (l3 ? '[' : '(') + mn(a) + ', ' + mn(b) + (h3 ? ']' : ')');
+  var f = function (ll, hh) { return mn(a) + (ll ? ' ≤ ' : ' < ') + 'x' + (hh ? ' ≤ ' : ' < ') + mn(b); };
+  return g13_mk('num6', 'El intervalo ' + iv3 + ' equivale a', f(l3, h3), [f(!l3, h3), f(l3, !h3), f(!l3, !h3)],
+    'Corchete: se incluye el extremo (≤). Paréntesis: no se incluye (<).');
+});
+
+/* tipos de números */
+genr('num6', function () {
+  var irr = ['√{2}', '√{3}', '√{5}', '√{6}', '√{7}', '√{10}', 'π', '2π', '1 + √{3}', '√{11}'];
+  var rat = ['√{4}', '√{9}', '√{16}', '√{25}', '√{36}', '⟨22|7⟩', '⟨3|8⟩', '0,25', '−⟨5|3⟩', '0,333…', '−7', '2,5', '√{49}', '0,1212…'];
+  var v = ri(0, 2);
+  if (v === 0) {
+    var good = pick(irr), w = shuffle(rat.slice()).slice(0, 3);
+    return g13_mk('num6', '¿Cuál de estos números es irracional?', good, w,
+      'Los irracionales tienen infinitas cifras decimales sin periodo; las raíces exactas, las fracciones y los decimales periódicos o exactos son racionales.');
+  }
+  if (v === 1) {
+    var good2 = pick(rat), w2 = shuffle(irr.slice()).slice(0, 3);
+    return g13_mk('num6', '¿Cuál de estos números es racional?', good2, w2,
+      'Un número es racional si se puede escribir como fracción (decimal exacto o periódico, o raíz exacta); √{2}, √{3}, π, … no.');
+  }
+  var cases = [
+    { t: String(ri(1, 99)), a: 'Naturales' },
+    { t: '−' + ri(1, 99), a: 'Enteros' },
+    { t: (function () { var k = ri(2, 9); return '√{' + k * k + '}'; })(), a: 'Naturales' },
+    { t: '−√{' + (function () { var k = ri(2, 9); return k * k; })() + '}', a: 'Enteros' },
+    { t: pick(['⟨3|4⟩', '⟨7|2⟩', '−⟨5|6⟩', '0,75', '−1,5', '0,666…']), a: 'Racionales' },
+    { t: pick(['√{2}', '√{5}', 'π', '√{7}', '√{12}']), a: 'Irracionales' }
+  ];
+  var cs = pick(cases), all = ['Naturales', 'Enteros', 'Racionales', 'Irracionales'];
+  return g13_mk('num6', 'El menor conjunto numérico al que pertenece ' + cs.t + ' es el de los', cs.a, all.filter(function (z) { return z !== cs.a; }),
+    cs.a === 'Naturales' ? 'Es un entero positivo (si hay raíz exacta, se calcula primero).' : cs.a === 'Enteros' ? 'Es un entero negativo (si hay raíz exacta, se calcula primero), por tanto no es natural.' : cs.a === 'Racionales' ? 'Es una fracción o un decimal exacto o periódico y no es entero.' : 'Tiene infinitas cifras decimales sin periodo.');
+});
+
+/* error absoluto y relativo */
+genr('num6', function () {
+  if (Math.random() < 0.5) {
+    var W = ri(1, 9), dec = ri(10000, 99999) , k = ri(1, 3), trunc = Math.random() < 0.5, f = Math.pow(10, 5 - k);
+    while (dec % 10 === 0 || (dec % f) * 2 === f) dec = ri(10000, 99999);
+    var X = W * 100000 + dec, A = trunc ? Math.floor(X / f) * f : Math.floor((X + f / 2) / f) * f;
+    var err = Math.abs(X - A);
+    g13_chk(g13_near(Math.abs(X / 1e5 - A / 1e5), err / 1e5), 'err abs');
+    var nm = ['las décimas', 'las centésimas', 'las milésimas'][k - 1];
+    var other = trunc ? Math.floor((X + f / 2) / f) * f : Math.floor(X / f) * f;
+    var ans = g13_num(err, 5);
+    var w = [g13_num(Math.abs(X - other), 5), g13_num(err * 10, 5), g13_num(err, 6), '−' + ans, g13_num(A, 5)].filter(function (s) { return s !== ans && s !== '0'; });
+    return g13_mk('num6', 'Se aproxima ' + g13_num(X, 5) + ' por ' + (trunc ? 'truncamiento' : 'redondeo') + ' a ' + nm + ' (' + g13_num(A, 5) + '). El error absoluto es', ans, w,
+      'Error absoluto = |valor real − aproximación| = |' + g13_num(X, 5) + ' − ' + g13_num(A, 5) + '| = ' + ans + '.');
+  }
+  var T = pick([20, 25, 40, 50, 80, 100, 125, 200, 250, 400]), p = pick([1, 2, 4, 5, 10, 20]), e = T * p / 100;
+  if (e % 1 !== 0) { T = 100; e = p; }
+  var M = Math.random() < 0.5 ? T + e : T - e;
+  g13_chk(g13_near(Math.abs(T - M) / T * 100, p), 'err rel');
+  return g13_mk('num6', 'La medida real es ' + T + ' y se mide ' + M + '. El error relativo, en porcentaje, es', p + ' %',
+    [g13_n(e / M * 100) + ' %', e + ' %', g13_n(e / T) + ' %', g13_n(p * 10) + ' %'],
+    'Error absoluto = |' + T + ' − ' + M + '| = ' + e + '. Error relativo = ' + e + ' : ' + T + ' = ' + g13_n(e / T) + ' = ' + p + ' %.');
+});
+
+/* enteros dentro de un intervalo */
+genr('num6', function () {
+  var a = ri(-6, 3), b = a + ri(3, 9), l = Math.random() < 0.5, h = Math.random() < 0.5, i;
+  var iv = (l ? '[' : '(') + mn(a) + ', ' + mn(b) + (h ? ']' : ')');
+  var lst = []; for (i = Math.floor(a) - 1; i <= b + 1; i++) if ((l ? i >= a : i > a) && (h ? i <= b : i < b)) lst.push(i);
+  var cnt = lst.length, sum = lst.reduce(function (s, x) { return s + x; }, 0);
+  var lo = l ? a : a + 1, hi = h ? b : b - 1;
+  g13_chk(cnt === hi - lo + 1, 'enteros intervalo');
+  var v = ri(0, 2);
+  if (v === 0) {
+    return g13_mk('num6', '¿Cuántos números enteros hay en el intervalo ' + iv + '?', String(cnt), [b - a, b - a + 1, b - a - 1, cnt + 2, cnt - 2].map(String),
+      'Los enteros son desde ' + mn(lo) + ' hasta ' + mn(hi) + ': ' + mn(hi) + ' − ' + g13_pr(lo) + ' + 1 = ' + cnt + '.');
+  }
+  if (v === 1) {
+    var sc = 0, k; for (k = a; k <= b; k++) sc += k;
+    return g13_mk('num6', 'La suma de todos los números enteros del intervalo ' + iv + ' es', mn(sum), [sc, sum + (l ? 0 : a) , sum - hi, sum + (h ? 0 : b), sum + 1, sum - 1].map(mn),
+      'Los enteros son ' + lst.map(mn).join(', ') + ', y suman ' + mn(sum) + '.');
+  }
+  return g13_mk('num6', 'El mayor número entero del intervalo ' + iv + ' es', mn(hi), [mn(b), mn(hi - 1), mn(b + 1), mn(lo)],
+    (h ? 'El extremo ' + mn(b) + ' sí pertenece al intervalo (corchete).' : 'El extremo ' + mn(b) + ' no pertenece al intervalo (paréntesis), así que el mayor entero es ' + mn(hi) + '.'));
+});
+
+/* problemas: nota mínima y taxi */
+genr('num6', function () {
+  if (Math.random() < 0.55) {
+    var ne = pick([3, 4]), mins = ne * 5, k, vals = [], tot, tries = 0, cmin;
+    do {
+      vals = []; for (k = 0; k < ne - 1; k++) vals.push(ri(6, 17) / 2);
+      tot = vals.reduce(function (s, x) { return s + x; }, 0); cmin = mins - tot; tries++;
+    } while ((cmin <= 0.5 || cmin > 9.5) && tries < 500);
+    var sol = null, c; for (c = 0; c <= 10; c += 0.5) if ((tot + c) / ne >= 5 - 1e-9) { sol = c; break; }
+    g13_chk(sol === cmin, 'nota minima');
+    var f = function (x, lc) { return (lc ? '[' : '(') + g13_n(x) + '; 10]'; };
+    var wA = [f(cmin, false), '[' + g13_n(cmin) + '; +∞)', '[5; 10]', f(10 - tot, true), '[' + g13_n(Math.max(0.5, mins / 2 - tot / 2)) + '; 10]'];
+    return g13_p(g13_mk('num6', 'Para aprobar hay que tener una media de al menos 5 en ' + ne + ' exámenes. Has sacado ' + vals.map(g13_n).join('; ') + '. ¿Qué nota x del último examen te sirve (la nota máxima es 10)?', f(cmin, true), wA.filter(function (s) { return s !== f(cmin, true); }),
+      'Hace falta (' + g13_n(tot) + ' + x) : ' + ne + ' ≥ 5, es decir, x ≥ ' + mins + ' − ' + g13_n(tot) + ' = ' + g13_n(cmin) + '. Como la nota máxima es 10: x ∈ [' + g13_n(cmin) + '; 10].'));
+  }
+  var base = pick([2, 3, 4, 5]), pk = pick([1, 2, 3, 1.5]), X = ri(4, 14), M = base + pk * X;
+  g13_chk(g13_near(base + pk * X, M) && base + pk * (X + 1) > M, 'taxi');
+  var wX = [g13_n((M) / pk), g13_n(X + 1)];
+  return g13_p(g13_mk('num6', 'Un taxi cobra ' + base + ' € de bajada y ' + g13_n(pk) + ' € por km. Si dispones como máximo de ' + g13_n(M) + ' €, ¿qué distancia x (en km) puedes recorrer?', '[0; ' + X + ']',
+    ['[0; ' + wX[0] + ']', '(0; ' + X + ')', '[' + base + '; ' + X + ']', '[0; ' + wX[1] + ']', '[0; ' + g13_n(M - base) + ']'],
+    'Hay que cumplir ' + base + ' + ' + g13_n(pk) + ' · x ≤ ' + g13_n(M) + ', es decir, x ≤ ' + g13_n((M - base) / pk) + '. Como la distancia no puede ser negativa: x ∈ [0; ' + X + '].'));
+});
+/* Generadores con números aleatorios, tanda 14: med1, geo1-geo5, fun1-fun3, est1-est2, com, pro */
+var G14_START = GENS.length;
+var G14_ERR = [];
+function g14_chk(c, m) { if (!c) G14_ERR.push(m); }
+function g14_close(a, b) { return Math.abs(a - b) < 1e-6 * Math.max(1, Math.abs(a), Math.abs(b)); }
+function g14_n(x) {
+  x = Math.round(x * 1e6) / 1e6;
+  var neg = x < 0; x = Math.abs(x);
+  var p = String(x).split('.');
+  return (neg ? '−' : '') + p[0] + (p[1] ? ',' + p[1] : '');
+}
+function g14_grp(t) { return String(t).replace(/(^|[^\d,])(\d{4,})(?!\d)/g, function (m, p, d) { return p + d.replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }); }
+function g14_genr(t, fn) {
+  genr(t, function () {
+    var q = fn();
+    q.q = g14_grp(q.q); q.a = g14_grp(q.a); q.w = q.w.map(g14_grp); q.e = g14_grp(q.e);
+    return q;
+  });
+}
+function g14_pi(k) { return k === 1 ? 'π' : g14_n(k) + 'π'; }
+/* c + kπ como texto */
+function g14_cp(c, k) {
+  if (c === 0) return g14_pi(k);
+  if (k === 0) return g14_n(c);
+  return g14_n(c) + (k < 0 ? ' − ' : ' + ') + g14_pi(Math.abs(k));
+}
+function g14_fr(a, b) {
+  var g = gcd(Math.abs(a), Math.abs(b)) || 1; a /= g; b /= g;
+  if (b < 0) { a = -a; b = -b; }
+  if (b === 1) return mn(a);
+  return (a < 0 ? '−' : '') + '⟨' + Math.abs(a) + '|' + b + '⟩';
+}
+/* incorrectas numéricas: candidatos reales (barajados) y luego relleno */
+function g14_ws(a, cands, fmt, allowNeg) {
+  var out = [], ca = fmt(a), push = function (x) {
+    if (!isFinite(x) || Math.abs(x - a) < 1e-9) return;
+    if (!allowNeg && a > 0 && x <= 0) return;
+    var s = fmt(x); if (s !== ca && out.indexOf(s) < 0) out.push(s);
+  };
+  shuffle(cands.slice()).forEach(push);
+  [a + 1, a - 1, a + 2, a - 2, a * 2, a + 10, a - 10, a * 3].forEach(push);
+  return out;
+}
+function g14_L(n, fm) { var o = []; for (var i = 0; i < n; i++) o.push(fm(i)); return o; }
+function g14_fact(n) { var f = 1; for (var i = 2; i <= n; i++) f *= i; return f; }
+function g14_Cb(n, k) { return g14_fact(n) / (g14_fact(k) * g14_fact(n - k)); }
+
+/* ================= med1 ================= */
+/* 1. capacidad de un recipiente */
+g14_genr('med1', function () {
+  if (Math.random() < 0.55) {
+    var a = pick([40, 50, 60, 80, 100]), b = pick([30, 40, 50]), c = pick([30, 40, 50]), V = a * b * c;
+    var L = (a / 10) * (b / 10) * (c / 10);
+    g14_chk(g14_close(L, V / 1000), 'med1 acuario');
+    return mk('med1', 'Un acuario mide ' + a + ' cm de largo, ' + b + ' cm de ancho y ' + c + ' cm de alto. ¿Cuántos litros caben cuando está lleno hasta el borde?',
+      g14_n(L) + ' L', g14_ws(L, [V / 100, V / 10, V / 10000, V], function (x) { return g14_n(x) + ' L'; }),
+      'Volumen = ' + a + '·' + b + '·' + c + ' = ' + V + ' cm^{3}. Como 1 L = 1 000 cm^{3}, son ' + g14_n(L) + ' L.');
+  }
+  var x = ri(1, 4), y = ri(2, 5), z = ri(1, 3), Lt = x * y * z * 1000;
+  return mk('med1', 'Un depósito en forma de ortoedro mide ' + x + ' m por ' + y + ' m por ' + z + ' m. ¿Cuántos litros de agua caben en él?',
+    g14_n(Lt) + ' L', g14_ws(Lt, [x * y * z * 100, x * y * z * 10000, x * y * z, x * y * z / 1000 * 1], function (v) { return g14_n(v) + ' L'; }),
+    'Volumen = ' + x + '·' + y + '·' + z + ' = ' + (x * y * z) + ' m^{3}, y 1 m^{3} = 1 000 L, así que son ' + g14_n(Lt) + ' L.');
+});
+/* 2. tiempo de llenado con un grifo */
+g14_genr('med1', function () {
+  var q = pick([50, 100, 200, 250, 500]), m3 = ri(2, 12), mins = m3 * 1000 / q;
+  if (mins !== Math.round(mins)) { m3 = 10; q = 250; mins = 40; }
+  var chk = 0; for (var t = 0; chk < m3 * 1000; t++) chk += q;
+  g14_chk(t === mins, 'med1 grifo');
+  return mk('med1', 'Un grifo vierte ' + q + ' L por minuto. ¿Cuántos minutos tarda en llenar un depósito de ' + m3 + ' m^{3}?',
+    g14_n(mins) + ' min', g14_ws(mins, [m3 * 100 / q, m3 * 10000 / q, m3 / q, m3 * 1000 * q / 100], function (x) { return g14_n(x) + ' min'; }),
+    m3 + ' m^{3} = ' + g14_n(m3 * 1000) + ' L. Tiempo = ' + g14_n(m3 * 1000) + ' : ' + q + ' = ' + mins + ' min.');
+});
+/* 3. escalas de mapas */
+g14_genr('med1', function () {
+  var E = pick([10000, 25000, 50000, 100000, 200000]), d, km, i;
+  if (Math.random() < 0.6) {
+    for (i = 0; i < 200; i++) { d = ri(2, 15); if ((d * E) % 10000 === 0) break; }
+    if ((d * E) % 10000 !== 0) { d = 10; E = 50000; }
+    km = d * E / 100000;
+    return mk('med1', 'En un mapa a escala 1 : ' + E + ' dos pueblos están a ' + d + ' cm. ¿Qué distancia real los separa?',
+      g14_n(km) + ' km', g14_ws(km, [d * E / 10000, d * E / 1000000, d * E / 1000, d * E / 100], function (x) { return g14_n(x) + ' km'; }),
+      d + ' cm · ' + E + ' = ' + g14_n(d * E) + ' cm = ' + g14_n(km) + ' km (100 000 cm = 1 km).');
+  }
+  var D = pick([2, 3, 4, 5, 6, 8, 10, 12]), cm = D * 100000 / E;
+  if (cm !== Math.round(cm * 10) / 10) { D = 10; E = 50000; cm = 20; }
+  return mk('med1', 'Dos ciudades distan ' + D + ' km en la realidad. ¿A qué distancia aparecen en un mapa a escala 1 : ' + E + '?',
+    g14_n(cm) + ' cm', g14_ws(cm, [D * 10000 / E, D * 1000000 / E, D * 1000 / E, D * E / 100000], function (x) { return g14_n(x) + ' cm'; }),
+    D + ' km = ' + g14_n(D * 100000) + ' cm. En el mapa: ' + g14_n(D * 100000) + ' : ' + E + ' = ' + g14_n(cm) + ' cm.');
+});
+/* 4. suma de medidas en varias unidades */
+g14_genr('med1', function () {
+  var A = ri(1, 9), B = ri(2, 9), C = ri(10, 90);
+  if (Math.random() < 0.5) {
+    var m = 1000 * A + 10 * B + C;
+    return mk('med1', 'Expresa en metros la suma de ' + A + ' km, ' + B + ' dam y ' + C + ' m.', g14_n(m) + ' m',
+      g14_ws(m, [100 * A + 10 * B + C, 1000 * A + 100 * B + C, 10000 * A + 10 * B + C, 1000 * A + B + C], function (x) { return g14_n(x) + ' m'; }),
+      A + ' km = ' + (1000 * A) + ' m y ' + B + ' dam = ' + (10 * B) + ' m. Total: ' + (1000 * A) + ' + ' + (10 * B) + ' + ' + C + ' = ' + g14_n(m) + ' m.');
+  }
+  var g = 1000 * A + 100 * B + C;
+  return mk('med1', 'Expresa en gramos la suma de ' + A + ' kg, ' + B + ' hg y ' + C + ' g.', g14_n(g) + ' g',
+    g14_ws(g, [100 * A + 10 * B + C, 1000 * A + 10 * B + C, 10000 * A + 100 * B + C, 1000 * A + B + C], function (x) { return g14_n(x) + ' g'; }),
+    A + ' kg = ' + (1000 * A) + ' g y ' + B + ' hg = ' + (100 * B) + ' g. Total: ' + (1000 * A) + ' + ' + (100 * B) + ' + ' + C + ' = ' + g14_n(g) + ' g.');
+});
+/* 5. PROBLEMA: llenado de una piscina */
+g14_genr('med1', function () {
+  var a, b, h, m3, q, t, i, j, found = false;
+  for (i = 0; i < 300 && !found; i++) {
+    a = pick([8, 10, 12, 15, 20]); b = pick([4, 5, 6, 8, 10]); h = pick([1, 2]); m3 = a * b * h;
+    for (t = 2; t <= 12 && !found; t++) { q = m3 * 50 / (3 * t); if (q === Math.round(q) && q >= 100 && q <= 3000 && q % 50 === 0) found = true; }
+    if (found) t--;
+  }
+  if (!found) { a = 10; b = 6; h = 2; m3 = 120; q = 1000; t = 4; }
+  var litros = m3 * 1000, mins = litros / q;
+  g14_chk(g14_close(mins / 60, t), 'med1 piscina ' + a + ' ' + b + ' ' + h + ' ' + q);
+  var r = mk('med1', 'Una piscina mide ' + a + ' m de largo, ' + b + ' m de ancho y ' + h + ' m de profundidad. Se llena desde vacía con un grifo de ' + q + ' L por minuto. ¿Cuántas horas tarda?',
+    t + ' h', g14_ws(t, [t * 10, t / 10, mins, m3 * 100 / q / 6], function (x) { return g14_n(x) + ' h'; }),
+    'Volumen = ' + a + '·' + b + '·' + h + ' = ' + m3 + ' m^{3} = ' + g14_n(litros) + ' L. Minutos: ' + g14_n(litros) + ' : ' + q + ' = ' + g14_n(mins) + ' min = ' + t + ' h.');
+  r.p = 1; return r;
+});
+
+/* ================= geo1 ================= */
+function g14_deg(x) { return g14_n(x) + '°'; }
+/* 1. ángulos de un triángulo en razón */
+g14_genr('geo1', function () {
+  var R3 = pick([[1, 2, 3], [2, 3, 4], [1, 1, 2], [2, 3, 5], [1, 3, 5], [3, 4, 5], [1, 4, 7], [1, 2, 9]]);
+  var s = R3[0] + R3[1] + R3[2], k = 180 / s;
+  if (k !== Math.round(k)) { R3 = [1, 2, 3]; s = 6; k = 30; }
+  var big = Math.random() < 0.5, mx = Math.max.apply(null, R3), mi = Math.min.apply(null, R3);
+  var ang = (big ? mx : mi) * k, tot = 0; R3.forEach(function (r) { tot += r * k; });
+  g14_chk(tot === 180, 'geo1 razon');
+  return mk('geo1', 'Los ángulos de un triángulo están en la razón ' + R3.join(' : ') + '. ¿Cuánto mide el ' + (big ? 'mayor' : 'menor') + ' de ellos?',
+    g14_deg(ang), g14_ws(ang, [(big ? mi : mx) * k, 180 / R3.length * (big ? mx : mi), ang * 2, ang / 2], g14_deg),
+    'Los ángulos suman 180° y hay ' + s + ' partes: cada parte vale ' + k + '°. El ' + (big ? 'mayor' : 'menor') + ' tiene ' + (big ? mx : mi) + ((big ? mx : mi) === 1 ? ' parte: ' : ' partes: ') + ang + '°.');
+});
+/* 2. triángulo isósceles */
+g14_genr('geo1', function () {
+  if (Math.random() < 0.5) {
+    var u = 2 * ri(10, 40), eq = (180 - u) / 2;
+    return mk('geo1', 'En un triángulo isósceles el ángulo desigual mide ' + u + '°. ¿Cuánto mide cada uno de los ángulos iguales?', g14_deg(eq),
+      g14_ws(eq, [180 - u, u, 90 - u, 180 - 2 * u], g14_deg),
+      'Los tres ángulos suman 180°: (180° − ' + u + '°) : 2 = ' + eq + '°.');
+  }
+  var e = ri(40, 80), un = 180 - 2 * e;
+  return mk('geo1', 'En un triángulo isósceles los ángulos iguales miden ' + e + '° cada uno. ¿Cuánto mide el ángulo desigual?', g14_deg(un),
+    g14_ws(un, [180 - e, 90 - e, 360 - 2 * e, e / 2], g14_deg),
+    'Los dos iguales suman ' + (2 * e) + '°, y 180° − ' + (2 * e) + '° = ' + un + '°.');
+});
+/* 3. diagonales de un polígono */
+g14_genr('geo1', function () {
+  var n = ri(5, 12), d = 0, i, j;
+  for (i = 0; i < n; i++) for (j = i + 1; j < n; j++) { var adj = (j - i === 1) || (i === 0 && j === n - 1); if (!adj) d++; }
+  g14_chk(d === n * (n - 3) / 2, 'geo1 diag');
+  if (Math.random() < 0.55) {
+    return mk('geo1', '¿Cuántas diagonales tiene un polígono convexo de ' + n + ' lados?', String(d),
+      g14_ws(d, [n * (n - 1) / 2, n * (n - 3), n - 3, n * (n - 2) / 2], String),
+      'Cada vértice se une con ' + (n - 3) + ' vértices no contiguos: ' + n + '·' + (n - 3) + ' : 2 = ' + d + ' diagonales (se divide entre 2 porque cada una se cuenta dos veces).');
+  }
+  return mk('geo1', 'Un polígono convexo tiene ' + d + ' diagonales. ¿Cuántos lados tiene?', String(n),
+    g14_ws(n, [n + 1, n - 1, d / 2, d - n], String),
+    'Con n lados hay n(n − 3)/2 diagonales. Para n = ' + n + ': ' + n + '·' + (n - 3) + ' : 2 = ' + d + '.');
+});
+/* 4. ángulo central y ángulo entre las agujas del reloj */
+g14_genr('geo1', function () {
+  if (Math.random() < 0.5) {
+    var n = pick([5, 6, 8, 9, 10, 12]), c = 360 / n;
+    return mk('geo1', 'El ángulo central de un polígono regular de ' + n + ' lados mide', g14_deg(c),
+      g14_wi(c, [180 / n, 180 - c, (n - 2) * 180 / n, 360 / (n - 1), c + 15], g14_deg),
+      'La circunferencia (360°) se reparte entre los ' + n + ' triángulos: 360° : ' + n + ' = ' + c + '°.');
+  }
+  var h = ri(1, 11), m = pick([0, 30]), ha = 30 * h + m / 2, ma = 6 * m, d = Math.abs(ha - ma);
+  d = Math.min(d, 360 - d);
+  var hf = ((30 * h + m / 2) % 360), mf = (ma % 360), dd = Math.abs(hf - mf); dd = Math.min(dd, 360 - dd);
+  g14_chk(d === dd, 'geo1 reloj');
+  return mk('geo1', '¿Qué ángulo (el menor) forman las agujas de un reloj a las ' + h + ':' + (m === 0 ? '00' : '30') + '?', g14_deg(d),
+    g14_ws(d, [360 - d, 30 * h, 30 * h + 15, Math.abs(30 * h - ma), 30 * Math.abs(h - (m === 0 ? 12 : 6))], g14_deg),
+    'Cada hora son 30° y cada minuto de la aguja larga 6°. La aguja horaria está en ' + g14_n(ha) + '° y la larga en ' + ma + '°: la diferencia es ' + g14_n(d) + '°.');
+});
+/* 5. PROBLEMAS */
+g14_genr('geo1', function () {
+  var r;
+  if (Math.random() < 0.55) {
+    var x = ri(10, 40), a = ri(5, 20), b = 180 - 3 * x - a;
+    if (b <= 0) { b = 20; x = 30; a = 70; }
+    var A1 = 2 * x + a, A2 = x + b, mayor = Math.max(A1, A2);
+    g14_chk(A1 + A2 === 180, 'geo1 paralelas');
+    r = mk('geo1', 'Dos rectas paralelas son cortadas por una secante. Dos ángulos interiores del mismo lado miden (2x + ' + a + ')° y (x + ' + b + ')°. ¿Cuánto mide el mayor de los dos?',
+      g14_deg(mayor), g14_ws(mayor, [Math.min(A1, A2), x, 3 * x + a, 2 * Math.abs(b - a) + a].filter(function (z) { return z < 180; }), g14_deg),
+      'Interiores del mismo lado son suplementarios: 2x + ' + a + ' + x + ' + b + ' = 180, luego 3x = ' + (180 - a - b) + ' y x = ' + x + '. Los ángulos miden ' + A1 + '° y ' + A2 + '°.');
+  } else {
+    var xa = ri(20, 50), d = ri(5, 30), A = xa, B = xa + d, C = 180 - A - B, ext = A + B;
+    if (C <= 0) { xa = 30; d = 10; A = 30; B = 40; C = 110; ext = 70; }
+    var mx = Math.max(A, B, C);
+    r = mk('geo1', 'En un triángulo ABC, el ángulo A mide x°, el ángulo B mide (x + ' + (B - A) + ')° y el ángulo exterior en C mide ' + ext + '°. ¿Cuánto mide el mayor ángulo interior del triángulo?',
+      g14_deg(mx), g14_ws(mx, [ext, 180 - ext, A, B, 180 - mx], g14_deg),
+      'El ángulo exterior es la suma de los interiores no adyacentes: x + x + ' + (B - A) + ' = ' + ext + ', luego x = ' + A + '°. Así B = ' + B + '° y C = 180° − ' + ext + '° = ' + C + '°.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= geo2 ================= */
+function g14_u2(x) { return g14_n(x) + ' cm^{2}'; }
+/* 1. sector circular: área o longitud de arco */
+g14_genr('geo2', function () {
+  var th = pick([60, 90, 120, 180, 270]), r, i;
+  var step = { 60: 6, 90: 2, 120: 3, 180: 2, 270: 2 }[th];
+  r = step * ri(1, 4);
+  if (th === 60 && r === 6) r = 6;
+  if (Math.random() < 0.5) {
+    var k = th / 360 * r * r;
+    g14_chk(g14_close(k * Math.PI, th / 360 * Math.PI * r * r) && k === Math.round(k), 'geo2 sector area');
+    if (k !== Math.round(k)) { r = 12; th = 90; k = 36; }
+    return mk('geo2', 'Un sector circular de ' + th + '° pertenece a un círculo de radio ' + r + ' cm. ¿Cuál es su área?',
+      g14_pi(k) + ' cm^{2}', g14_ws(k, [r * r, k * 2, k / 2, th * r / 180, 2 * r], function (x) { return g14_pi(x) + ' cm^{2}'; }),
+      'Área = ⟨' + th + '|360⟩·π·' + r + '^{2} = ' + g14_pi(k) + ' cm^{2}.');
+  }
+  var L = th * r / 180;
+  if (L !== Math.round(L)) { r = 6; th = 120; L = 4; }
+  g14_chk(g14_close(L * Math.PI, th / 360 * 2 * Math.PI * r), 'geo2 arco');
+  return mk('geo2', 'Un arco de circunferencia abarca un ángulo central de ' + th + '° en una circunferencia de radio ' + r + ' cm. ¿Cuánto mide el arco?',
+    g14_pi(L) + ' cm', g14_ws(L, [th / 360 * r * r, 2 * r, L * 2, L / 2, r], function (x) { return g14_pi(x) + ' cm'; }),
+    'Longitud = ⟨' + th + '|360⟩·2π·' + r + ' = ' + g14_pi(L) + ' cm.');
+});
+/* 2. corona circular */
+g14_genr('geo2', function () {
+  var r = ri(1, 6), R = r + ri(1, 5), k = R * R - r * r;
+  g14_chk(g14_close(k * Math.PI, Math.PI * R * R - Math.PI * r * r), 'geo2 corona');
+  return mk('geo2', 'Una corona circular está limitada por dos circunferencias concéntricas de radios ' + R + ' cm y ' + r + ' cm. ¿Cuál es su área?',
+    g14_pi(k) + ' cm^{2}', g14_ws(k, [(R - r) * (R - r), 2 * (R - r), R * R + r * r, R * R - r, 2 * (R * R - r * r)], function (x) { return g14_pi(x) + ' cm^{2}'; }),
+    'Área = πR^{2} − πr^{2} = π(' + R * R + ' − ' + r * r + ') = ' + g14_pi(k) + ' cm^{2}.');
+});
+/* 3. rombo y trapecio */
+g14_genr('geo2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var D = 2 * ri(3, 12), d = 2 * ri(2, 9), A = D * d / 2;
+    return mk('geo2', 'Un rombo tiene diagonales de ' + D + ' cm y ' + d + ' cm. ¿Cuál es su área?', g14_u2(A),
+      g14_ws(A, [D * d, D + d, 2 * (D + d), D * d / 4], g14_u2), 'Área del rombo = ⟨D·d|2⟩ = ⟨' + D + '·' + d + '|2⟩ = ' + A + ' cm^{2}.');
+  }
+  if (v === 1) {
+    var B = ri(8, 16), b = ri(3, B - 2), h = 2 * ri(2, 6), At = (B + b) * h / 2;
+    var cnt = 0, y; for (y = 0; y < 1; y++) cnt = (B + b) * h / 2;
+    g14_chk(cnt === At, 'geo2 trap');
+    return mk('geo2', 'Un trapecio tiene bases de ' + B + ' cm y ' + b + ' cm y altura ' + h + ' cm. ¿Cuál es su área?', g14_u2(At),
+      g14_ws(At, [(B + b) * h, B * h / 2, B * b * h / 2, (B - b) * h / 2], g14_u2), 'Área = ⟨(B + b)·h|2⟩ = ⟨(' + B + ' + ' + b + ')·' + h + '|2⟩ = ' + At + ' cm^{2}.');
+  }
+  var k = ri(1, 4), D2 = 6 * k, d2 = 8 * k, l = Math.sqrt((D2 / 2) * (D2 / 2) + (d2 / 2) * (d2 / 2)), P = 4 * l;
+  g14_chk(l === 5 * k, 'geo2 rombo lado');
+  return mk('geo2', 'Un rombo tiene diagonales de ' + D2 + ' cm y ' + d2 + ' cm. ¿Cuánto mide su perímetro?', g14_n(P) + ' cm',
+    g14_ws(P, [2 * (D2 + d2), 4 * (D2 / 2), D2 + d2, D2 * d2 / 2, 4 * (D2 / 2 + d2 / 2)], function (x) { return g14_n(x) + ' cm'; }),
+    'Las diagonales se cortan en ángulo recto: lado = √{' + (D2 / 2) + '^{2} + ' + (d2 / 2) + '^{2}} = ' + l + ' cm. Perímetro = 4·' + l + ' = ' + P + ' cm.');
+});
+/* 4. del área/longitud al lado o radio */
+g14_genr('geo2', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var r = ri(2, 9), k = r * r;
+    return mk('geo2', 'Una circunferencia mide ' + g14_pi(2 * r) + ' cm de longitud. ¿Cuál es el área del círculo?', g14_pi(k) + ' cm^{2}',
+      g14_ws(k, [2 * r, 4 * r * r, r, 2 * k, r * r / 2], function (x) { return g14_pi(x) + ' cm^{2}'; }),
+      'L = 2πr = ' + g14_pi(2 * r) + ' ⇒ r = ' + r + ' cm. Área = π·' + r + '^{2} = ' + g14_pi(k) + ' cm^{2}.');
+  }
+  if (v === 1) {
+    var s = ri(3, 15), A = s * s;
+    return mk('geo2', 'Un cuadrado tiene un área de ' + A + ' cm^{2}. ¿Cuánto mide su perímetro?', g14_n(4 * s) + ' cm',
+      g14_ws(4 * s, [2 * s, A / 4, 4 * A, s * 8, A], function (x) { return g14_n(x) + ' cm'; }),
+      'Lado = √{' + A + '} = ' + s + ' cm. Perímetro = 4·' + s + ' = ' + 4 * s + ' cm.');
+  }
+  var a = ri(3, 9), b = ri(a + 1, 14), Ar = a * b, P = 2 * (a + b);
+  return mk('geo2', 'Un rectángulo tiene un área de ' + Ar + ' cm^{2} y un lado de ' + a + ' cm. ¿Cuánto mide su perímetro?', g14_n(P) + ' cm',
+    g14_ws(P, [a + b, 2 * Ar, Ar, 2 * a + b, a + 2 * b], function (x) { return g14_n(x) + ' cm'; }),
+    'El otro lado mide ' + Ar + ' : ' + a + ' = ' + b + ' cm. Perímetro = 2·(' + a + ' + ' + b + ') = ' + P + ' cm.');
+});
+/* 5. PROBLEMAS: zona sombreada y figura compuesta */
+g14_genr('geo2', function () {
+  var r, rr;
+  if (Math.random() < 0.5) {
+    var a = ri(6, 14), b = ri(4, 10), rad = ri(1, Math.floor(Math.min(a, b) / 2));
+    var c = a * b, k = -rad * rad, val = a * b - Math.PI * rad * rad;
+    g14_chk(g14_close(val, c + k * Math.PI), 'geo2 sombreada');
+    r = mk('geo2', 'En un terreno rectangular de ' + a + ' m por ' + b + ' m hay una fuente circular de radio ' + rad + ' m. ¿Cuál es el área del terreno sin contar la fuente?',
+      g14_cp(c, k) + ' m^{2}', [g14_cp(c, -2 * rad), g14_cp(c, rad * rad), g14_n(c), g14_cp(c, -rad)].map(function (z) { return z + ' m^{2}'; }),
+      'Área del rectángulo = ' + a + '·' + b + ' = ' + c + ' m^{2}; área de la fuente = π·' + rad + '^{2} = ' + g14_pi(rad * rad) + ' m^{2}. Se restan: ' + g14_cp(c, k) + ' m^{2}.');
+  } else {
+    var w = ri(4, 10), h2 = 2 * ri(2, 6), P0 = 2 * w + h2, kp = h2 / 2, perim = P0 + Math.PI * kp;
+    g14_chk(g14_close(perim, 2 * w + h2 + Math.PI * h2 / 2), 'geo2 vallado');
+    r = mk('geo2', 'Una pista tiene forma de rectángulo de ' + w + ' m de largo y ' + h2 + ' m de ancho, con un semicírculo añadido sobre uno de los lados de ' + h2 + ' m (diámetro). ¿Cuánto mide el contorno de la pista?',
+      g14_cp(P0, kp) + ' m', [g14_cp(P0 + h2, kp), g14_cp(P0, h2), g14_cp(2 * w + h2, 2 * kp), g14_cp(P0 - h2, kp)].map(function (z) { return z + ' m'; }),
+      'El contorno tiene dos lados de ' + w + ' m, un lado de ' + h2 + ' m y media circunferencia: π·' + h2 + ' : 2 = ' + g14_pi(kp) + '. Total: ' + g14_cp(P0, kp) + ' m.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= geo3 ================= */
+var G14_TRI = [[3, 4, 5], [5, 12, 13], [8, 15, 17], [7, 24, 25], [20, 21, 29], [6, 8, 10]];
+function g14_cm(x) { return g14_n(x) + ' cm'; }
+function g14_mm(x) { return g14_n(x) + ' m'; }
+/* 1. Tales con sombras */
+g14_genr('geo3', function () {
+  var h = ri(2, 6) , s = ri(1, 4) * 2, kk = ri(2, 5), S = s * kk, H = h * kk;
+  g14_chk(H / h === S / s, 'geo3 sombras');
+  if (Math.random() < 0.6) {
+    return mk('geo3', 'Una vara de ' + h + ' m proyecta una sombra de ' + s + ' m. En el mismo momento, un árbol proyecta una sombra de ' + S + ' m. ¿Qué altura tiene el árbol?', g14_mm(H),
+      g14_ws(H, [h + S - s, H + s, h * S, S - s + h * 2, S / h], g14_mm), 'Los triángulos son semejantes: ⟨altura|' + S + '⟩ = ⟨' + h + '|' + s + '⟩, luego altura = ' + S + '·' + h + ' : ' + s + ' = ' + H + ' m.');
+  }
+  return mk('geo3', 'Un edificio de ' + H + ' m de altura proyecta una sombra de ' + S + ' m. ¿Qué sombra proyecta en ese momento una persona de ' + h + ' m?', g14_mm(s),
+    g14_ws(s, [S - H + h, h * S / 2, H * h / S + 1, S * H / h], g14_mm), 'Misma razón: ⟨' + H + '|' + S + '⟩ = ⟨' + h + '|x⟩, luego x = ' + h + '·' + S + ' : ' + H + ' = ' + s + ' m.');
+});
+/* 2. semejanza y volúmenes */
+g14_genr('geo3', function () {
+  var k = pick([2, 3, 4, 5]), V = ri(2, 9);
+  if (Math.random() < 0.55) {
+    var V2 = V * k * k * k;
+    return mk('geo3', 'Un cuerpo tiene un volumen de ' + V + ' cm^{3}. Se construye otro semejante con razón de semejanza ' + k + '. ¿Qué volumen tiene?', g14_n(V2) + ' cm^{3}',
+      g14_ws(V2, [V * k, V * k * k, V + k * k * k, V * k * 3], function (x) { return g14_n(x) + ' cm^{3}'; }),
+      'Los volúmenes se multiplican por la razón al cubo: ' + k + '^{3} = ' + k * k * k + ', y ' + V + '·' + k * k * k + ' = ' + g14_n(V2) + ' cm^{3}.');
+  }
+  return mk('geo3', 'Dos cuerpos semejantes tienen volúmenes de ' + V + ' cm^{3} y ' + g14_n(V * k * k * k) + ' cm^{3}. ¿Cuál es la razón de semejanza?', String(k),
+    g14_ws(k, [k * k, k * k * k, k * k * k / 3, k + 1], String),
+    'La razón de volúmenes es ' + k * k * k + ' y la razón de semejanza es su raíz cúbica: ' + k + '.');
+});
+/* 3. Pitágoras: distancia entre puntos y altura de isósceles */
+g14_genr('geo3', function () {
+  var t = pick(G14_TRI), kk = t[2] > 20 ? 1 : ri(1, 2), a = t[0] * kk, b = t[1] * kk, c = t[2] * kk;
+  g14_chk(a * a + b * b === c * c, 'geo3 terna');
+  if (Math.random() < 0.5) {
+    var x1 = ri(-4, 4), y1 = ri(-4, 4), sx = Math.random() < 0.5 ? 1 : -1, sy = Math.random() < 0.5 ? 1 : -1, x2 = x1 + sx * a, y2 = y1 + sy * b;
+    var dist = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+    g14_chk(g14_close(dist, c), 'geo3 dist');
+    return mk('geo3', '¿Cuál es la distancia entre los puntos A' + g4_pt(x1, y1) + ' y B' + g4_pt(x2, y2) + '?', g14_n(c),
+      g14_ws(c, [a + b, Math.max(a, b), c * c, (a + b) / 2, c + 1], g14_n), 'd = √{(' + mn(x2 - x1) + ')^{2} + (' + mn(y2 - y1) + ')^{2}} = √{' + a * a + ' + ' + b * b + '} = √{' + c * c + '} = ' + c + '.');
+  }
+  return mk('geo3', 'Un triángulo isósceles tiene lados iguales de ' + c + ' cm y base de ' + 2 * a + ' cm. ¿Cuánto mide su altura sobre la base?', g14_cm(b),
+    g14_ws(b, [c - a, c, Math.sqrt(c * c + a * a), c * c - a * a, 2 * b], g14_cm), 'La altura divide la base en dos partes de ' + a + ' cm: h = √{' + c + '^{2} − ' + a + '^{2}} = √{' + b * b + '} = ' + b + ' cm.');
+});
+/* 4. tipo de triángulo según sus lados */
+g14_genr('geo3', function () {
+  var cls = ri(0, 2), a, b, c, i, t;
+  if (cls === 0) { t = pick(G14_TRI); var k = t[2] > 20 ? 1 : ri(1, 3); a = t[0] * k; b = t[1] * k; c = t[2] * k; }
+  else {
+    for (i = 0; i < 200; i++) {
+      a = ri(4, 12); b = ri(4, 12); c = ri(Math.max(a, b), Math.min(a + b - 1, 15));
+      if (c < Math.max(a, b)) continue;
+      var s2 = a * a + b * b;
+      if ((cls === 1 && c * c < s2) || (cls === 2 && c * c > s2)) break;
+    }
+  }
+  var sd = [a, b, c].sort(function (x, y) { return x - y; }); a = sd[0]; b = sd[1]; c = sd[2];
+  var ok = (a + b > c), d = a * a + b * b, tipo = d === c * c ? 0 : d > c * c ? 1 : 2;
+  g14_chk(ok, 'geo3 desigualdad');
+  var names = ['Rectángulo', 'Acutángulo', 'Obtusángulo'], opts = names.concat(['No puede existir']);
+  return mk('geo3', 'Un triángulo tiene lados de ' + a + ' cm, ' + b + ' cm y ' + c + ' cm. Es un triángulo', names[tipo].toLowerCase().replace(/^./, function (m) { return m.toUpperCase(); }),
+    opts.filter(function (_, i) { return i !== tipo; }),
+    'Se compara ' + c + '^{2} = ' + c * c + ' con ' + a + '^{2} + ' + b + '^{2} = ' + d + ': ' + (tipo === 0 ? 'son iguales (rectángulo)' : tipo === 1 ? 'el cuadrado del lado mayor es menor (acutángulo)' : 'el cuadrado del lado mayor es mayor (obtusángulo)') + '. Además ' + a + ' + ' + b + ' > ' + c + ', así que existe.');
+});
+/* 5. PROBLEMA: escalera que resbala */
+g14_genr('geo3', function () {
+  var L = pick([10, 13, 17, 25, 26, 30]), pairs = [], x, y;
+  for (x = 1; x < L; x++) { y = Math.round(Math.sqrt(L * L - x * x)); if (x * x + y * y === L * L) pairs.push([x, y]); }
+  var p1 = pick(pairs), p2 = pick(pairs.filter(function (q) { return q[0] > p1[0]; }).concat([null]));
+  if (!p2) { var srt = pairs.slice().sort(function (u, v) { return u[0] - v[0]; }); p1 = srt[0]; p2 = srt[srt.length - 1]; }
+  var d = p1[1] - p2[1], mv = p2[0] - p1[0];
+  g14_chk(d > 0 && p1[0] * p1[0] + p1[1] * p1[1] === L * L && p2[0] * p2[0] + p2[1] * p2[1] === L * L, 'geo3 escalera');
+  var r = mk('geo3', 'Una escalera de ' + L + ' m está apoyada en una pared con su base a ' + p1[0] + ' m de ella. Se separa la base hasta que queda a ' + p2[0] + ' m de la pared. ¿Cuántos metros baja la parte superior de la escalera?', g14_mm(d),
+    g14_ws(d, [mv, p2[0] - p1[0] + 1, p2[1], p1[1], L - p2[1]], g14_mm),
+    'Altura inicial: √{' + L + '^{2} − ' + p1[0] + '^{2}} = ' + p1[1] + ' m. Altura final: √{' + L + '^{2} − ' + p2[0] + '^{2}} = ' + p2[1] + ' m. Baja ' + p1[1] + ' − ' + p2[1] + ' = ' + d + ' m.');
+  r.p = 1; return r;
+});
+
+/* ================= geo4 ================= */
+function g14_pv(k) { return g14_pi(k) + ' cm^{3}'; }
+function g14_v(x) { return g14_n(x) + ' cm^{3}'; }
+/* 1. volumen de un cono con generatriz */
+g14_genr('geo4', function () {
+  var t = pick([[3, 4, 5], [4, 3, 5], [6, 8, 10], [5, 12, 13]]), k = t[0] % 3 === 0 || t[1] % 3 === 0 ? 1 : 3, r = t[0] * k, h = t[1] * k, g = t[2] * k;
+  if (Math.random() < 0.5) { r = t[0]; h = t[1]; g = t[2]; }
+  g14_chk(r * r + h * h === g * g, 'geo4 cono terna');
+  var kk = r * r * h / 3;
+  if (kk !== Math.round(kk)) { r = 3; h = 4; g = 5; kk = 12; }
+  g14_chk(g14_close(kk * Math.PI, Math.PI * r * r * h / 3), 'geo4 cono V');
+  return mk('geo4', 'Un cono tiene radio ' + r + ' cm y generatriz ' + g + ' cm. ¿Cuál es su volumen?', g14_pv(kk),
+    g14_wi(kk, [r * r * h, r * r * g / 3, kk * 2, kk + r, g * r * r, kk / 2], g14_pv),
+    'Altura: h = √{' + g + '^{2} − ' + r + '^{2}} = ' + h + ' cm. Volumen = ⟨1|3⟩·π·' + r + '^{2}·' + h + ' = ' + g14_pi(kk) + ' cm^{3}.');
+});
+/* 2. diagonal del ortoedro */
+g14_genr('geo4', function () {
+  var q = pick([[1, 2, 2, 3], [2, 3, 6, 7], [2, 4, 4, 6], [1, 4, 8, 9], [4, 4, 7, 9], [2, 6, 9, 11], [3, 4, 12, 13]]), k = q[3] > 9 ? 1 : ri(1, 2);
+  var a = q[0] * k, b = q[1] * k, c = q[2] * k, D = q[3] * k, s = shuffle([a, b, c]);
+  g14_chk(a * a + b * b + c * c === D * D, 'geo4 diagonal');
+  return mk('geo4', 'Un ortoedro mide ' + s[0] + ' cm, ' + s[1] + ' cm y ' + s[2] + ' cm de arista. ¿Cuánto mide su diagonal (de un vértice al opuesto)?', g14_cm(D),
+    g14_ws(D, [a + b + c, Math.sqrt(a * a + b * b), (a * a + b * b + c * c), D - 1, Math.sqrt(a * a + c * c + b * b + 1)].filter(function (x) { return x === Math.round(x); }), g14_cm),
+    'D = √{a^{2} + b^{2} + c^{2}} = √{' + a * a + ' + ' + b * b + ' + ' + c * c + '} = √{' + D * D + '} = ' + D + ' cm.');
+});
+/* 3. hemisferio y esfera */
+g14_genr('geo4', function () {
+  var r = pick([3, 6, 9]), v = ri(0, 2);
+  if (v === 0) {
+    var k = 2 * r * r * r / 3;
+    g14_chk(g14_close(k * Math.PI, 2 / 3 * Math.PI * Math.pow(r, 3)), 'geo4 hemisferio');
+    return mk('geo4', 'Un hemisferio (media esfera) tiene radio ' + r + ' cm. ¿Cuál es su volumen?', g14_pv(k),
+      g14_ws(k, [4 * r * r * r / 3, r * r * r, 2 * r * r, 2 * r * r * r], g14_pv), 'Volumen = ⟨1|2⟩·⟨4|3⟩·π·' + r + '^{3} = ⟨2|3⟩·π·' + r * r * r + ' = ' + g14_pi(k) + ' cm^{3}.');
+  }
+  if (v === 1) {
+    var s = 4 * r * r;
+    return mk('geo4', 'Una esfera tiene radio ' + r + ' cm. ¿Cuál es su superficie?', g14_pi(s) + ' cm^{2}',
+      g14_ws(s, [r * r, 2 * r * r, 4 * r * r * r / 3, 3 * r * r, 4 * r], function (x) { return g14_pi(x) + ' cm^{2}'; }), 'Superficie = 4πr^{2} = 4·π·' + r * r + ' = ' + g14_pi(s) + ' cm^{2}.');
+  }
+  var A = 3 * r * r;
+  return mk('geo4', 'Un hemisferio macizo de radio ' + r + ' cm tiene su base plana. ¿Cuál es su área total (superficie curva más base)?', g14_pi(A) + ' cm^{2}',
+    g14_ws(A, [2 * r * r, 4 * r * r, 4 * r * r + r * r * 2, r * r], function (x) { return g14_pi(x) + ' cm^{2}'; }), 'Superficie curva = 2πr^{2} = ' + g14_pi(2 * r * r) + ' y la base = πr^{2} = ' + g14_pi(r * r) + '. Total: ' + g14_pi(A) + ' cm^{2}.');
+});
+/* 4. caras, vértices y aristas */
+g14_genr('geo4', function () {
+  var n = ri(3, 9), v = ri(0, 3);
+  if (v === 0 || v === 1) {
+    var C = n + 2, Vv = 2 * n, A = 3 * n;
+    g14_chk(C + Vv === A + 2, 'geo4 euler prisma');
+    var which = v === 0 ? 'aristas' : 'vértices', val = v === 0 ? A : Vv;
+    return mk('geo4', '¿' + (v === 0 ? 'Cuántas' : 'Cuántos') + ' ' + which + ' tiene un prisma cuya base es un polígono de ' + n + ' lados?', String(val),
+      g14_ws(val, [n + 2, n * 2 + 2, 2 * n, 3 * n, n * n, n + 1].filter(function (z) { return z !== val; }), String),
+      'En un prisma de base de ' + n + ' lados: ' + n + ' + 2 = ' + C + ' caras, 2·' + n + ' = ' + Vv + ' vértices y 3·' + n + ' = ' + A + ' aristas.');
+  }
+  if (v === 2) {
+    var Cp = n + 1, Vp = n + 1, Ap = 2 * n;
+    g14_chk(Cp + Vp === Ap + 2, 'geo4 euler piramide');
+    return mk('geo4', '¿Cuántas aristas tiene una pirámide cuya base es un polígono de ' + n + ' lados?', String(Ap),
+      g14_ws(Ap, [n + 1, 3 * n, n, n + 2, 2 * n + 2], String), 'Hay ' + n + ' aristas en la base y otras ' + n + ' laterales: ' + Ap + '. Comprobación (Euler): ' + Cp + ' + ' + Vp + ' = ' + Ap + ' + 2.');
+  }
+  var c = ri(5, 14), vv = ri(5, 14), a = c + vv - 2;
+  g14_chk(c + vv === a + 2, 'geo4 euler');
+  return mk('geo4', 'Un poliedro convexo tiene ' + c + ' caras y ' + vv + ' vértices. ¿Cuántas aristas tiene?', String(a),
+    g14_ws(a, [c + vv, c + vv + 2, c * vv, c + vv - 1, c + vv - 3], String), 'Fórmula de Euler: caras + vértices = aristas + 2, luego aristas = ' + c + ' + ' + vv + ' − 2 = ' + a + '.');
+});
+/* 5. PROBLEMAS: cuerpos compuestos */
+g14_genr('geo4', function () {
+  var r, v = ri(0, 2);
+  if (v === 0) {
+    var rad = pick([3, 6]), h = ri(2, 8), k1 = rad * rad * h, k2 = 2 * rad * rad * rad / 3, K = k1 + k2;
+    g14_chk(g14_close(K * Math.PI, Math.PI * rad * rad * h + 2 / 3 * Math.PI * Math.pow(rad, 3)), 'geo4 silo');
+    r = mk('geo4', 'Un silo está formado por un cilindro de radio ' + rad + ' m y ' + h + ' m de altura, coronado por una semiesfera del mismo radio. ¿Cuál es su volumen?', g14_pi(K) + ' m^{3}',
+      g14_ws(K, [k1 + 4 * rad * rad * rad / 3, k1 + k2 / 2, k1, k1 + rad * rad * rad, k1 - k2].map(function (z) { return z; }), function (x) { return g14_pi(x) + ' m^{3}'; }),
+      'Cilindro: π·' + rad + '^{2}·' + h + ' = ' + g14_pi(k1) + '. Semiesfera: ⟨2|3⟩·π·' + rad + '^{3} = ' + g14_pi(k2) + '. Suma: ' + g14_pi(K) + ' m^{3}.');
+  } else if (v === 1) {
+    var a = pick([3, 6, 9]), h1 = ri(2, 6), h2 = 3 * ri(1, 3), V = a * a * h1 + a * a * h2 / 3;
+    var Vc = 0, i; for (i = 0; i < h1; i++) Vc += a * a; Vc += a * a * h2 / 3;
+    g14_chk(V === Vc, 'geo4 casa');
+    r = mk('geo4', 'Una caseta tiene forma de prisma de base cuadrada de ' + a + ' m de lado y ' + h1 + ' m de altura, con un tejado en forma de pirámide de ' + h2 + ' m de altura sobre la misma base. ¿Cuál es el volumen total?', g14_n(V) + ' m^{3}',
+      g14_ws(V, [a * a * h1 + a * a * h2, a * a * h1, a * a * (h1 + h2) / 3, a * a * h1 + a * h2 / 3, a * a * h1 / 3 + a * a * h2], function (x) { return g14_n(x) + ' m^{3}'; }),
+      'Prisma: ' + a + '·' + a + '·' + h1 + ' = ' + a * a * h1 + ' m^{3}. Pirámide: ⟨1|3⟩·' + a * a + '·' + h2 + ' = ' + a * a * h2 / 3 + ' m^{3}. Total: ' + V + ' m^{3}.');
+  } else {
+    var rc = ri(2, 6), hc = 3 * ri(1, 3), K2 = 2 * rc * rc * hc / 3;
+    g14_chk(g14_close(K2 * Math.PI, Math.PI * rc * rc * hc - Math.PI * rc * rc * hc / 3), 'geo4 vaciado');
+    r = mk('geo4', 'A un cilindro macizo de radio ' + rc + ' cm y ' + hc + ' cm de altura se le vacía un cono con la misma base y la misma altura. ¿Qué volumen de material queda?', g14_pv(K2),
+      g14_ws(K2, [rc * rc * hc, rc * rc * hc / 3, rc * rc * hc * 4 / 3, K2 * 2, rc * rc * hc / 2], g14_pv),
+      'Cilindro: π·' + rc + '^{2}·' + hc + ' = ' + g14_pi(rc * rc * hc) + '. Cono: ⟨1|3⟩ de eso = ' + g14_pi(rc * rc * hc / 3) + '. Queda ' + g14_pi(K2) + ' cm^{3}.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= geo5 ================= */
+function g14_P(p) { return g4_pt(p[0], p[1]); }
+/* 1. simetría central y simetrías respecto a y = x, y = −x */
+g14_genr('geo5', function () {
+  var x = nz(-8, 8), y = nz(-8, 8), v = ri(0, 2);
+  if (v === 0) {
+    var cx = ri(-4, 4), cy = ri(-4, 4), r = [2 * cx - x, 2 * cy - y];
+    g14_chk((x + r[0]) / 2 === cx && (y + r[1]) / 2 === cy, 'geo5 central');
+    return mk('geo5', 'El simétrico del punto ' + g4_pt(x, y) + ' respecto al punto C' + g4_pt(cx, cy) + ' (simetría central) es', g14_P(r),
+      [g4_pt(-x, -y), g4_pt(cx - x, cy - y), g4_pt(x + 2 * cx, y + 2 * cy), g4_pt(2 * cx - x, y)], 'C es el punto medio entre P y P′: P′ = (2·' + mn(cx) + ' − ' + (x < 0 ? '(' + mn(x) + ')' : x) + ', 2·' + mn(cy) + ' − ' + (y < 0 ? '(' + mn(y) + ')' : y) + ') = ' + g14_P(r) + '.');
+  }
+  if (v === 1) {
+    return mk('geo5', 'El simétrico del punto ' + g4_pt(x, y) + ' respecto a la recta y = x es', g4_pt(y, x),
+      [g4_pt(-y, -x), g4_pt(x, -y), g4_pt(-x, y), g4_pt(-x, -y)], 'La simetría respecto a y = x intercambia las coordenadas: (x, y) → (y, x).');
+  }
+  return mk('geo5', 'El simétrico del punto ' + g4_pt(x, y) + ' respecto a la recta y = −x es', g4_pt(-y, -x),
+    [g4_pt(y, x), g4_pt(-x, y), g4_pt(x, -y), g4_pt(-x, -y)], 'La simetría respecto a y = −x intercambia las coordenadas y cambia ambos signos: (x, y) → (−y, −x).');
+});
+/* 2. homotecia */
+g14_genr('geo5', function () {
+  var x = nz(-6, 6), y = nz(-6, 6), k = pick([2, 3, -1, -2, 3]), v = ri(0, 1);
+  if (v === 0) {
+    var P = [k * x, k * y];
+    return mk('geo5', 'Se aplica una homotecia de centro el origen y razón ' + mn(k) + ' al punto ' + g4_pt(x, y) + '. La imagen es', g14_P(P),
+      [g4_pt(x + k, y + k), g4_pt(x / k === Math.round(x / k) ? x / k : x, y / k === Math.round(y / k) ? y / k : y), g4_pt(-k * x, k * y), g4_pt(k * x, -k * y), g4_pt(-x, -y)], 'Cada coordenada se multiplica por la razón: (' + mn(k) + '·' + (x < 0 ? '(' + mn(x) + ')' : x) + ', ' + mn(k) + '·' + (y < 0 ? '(' + mn(y) + ')' : y) + ') = ' + g14_P(P) + '.');
+  }
+  var cx = ri(-3, 3), cy = ri(-3, 3), kk = pick([2, 3, -2]), Q = [cx + kk * (x - cx), cy + kk * (y - cy)];
+  g14_chk(Q[0] - cx === kk * (x - cx), 'geo5 homotecia');
+  return mk('geo5', 'Se aplica una homotecia de centro C' + g4_pt(cx, cy) + ' y razón ' + mn(kk) + ' al punto ' + g4_pt(x, y) + '. La imagen es', g14_P(Q),
+    [g4_pt(kk * x, kk * y), g4_pt(cx + kk * x, cy + kk * y), g4_pt(x + kk * (x - cx), y + kk * (y - cy)), g4_pt(cx - kk * (x - cx), cy - kk * (y - cy))],
+    'El vector CP es (' + mn(x - cx) + ', ' + mn(y - cy) + '); multiplicado por ' + mn(kk) + ' y sumado a C da ' + g14_P(Q) + '.');
+});
+/* 3. giros de 180° y 270° */
+g14_genr('geo5', function () {
+  var x = nz(-8, 8), y = nz(-8, 8), v = pick([['180°', -x, -y, '(x, y) → (−x, −y)'], ['270° en sentido antihorario', y, -x, '(x, y) → (y, −x)'], ['90° en sentido antihorario', -y, x, '(x, y) → (−y, x)']]);
+  return mk('geo5', 'Al girar ' + v[0] + ' alrededor del origen el punto ' + g4_pt(x, y) + ', se obtiene', g4_pt(v[1], v[2]),
+    [g4_pt(x, -y), g4_pt(-x, y), g4_pt(y, x), g4_pt(-y, x), g4_pt(y, -x), g4_pt(-x, -y)].filter(function (s) { return s !== g4_pt(v[1], v[2]); }), 'Giro de ' + v[0] + ': ' + v[3] + '.');
+});
+/* 4. simetría de giro de polígonos regulares */
+g14_genr('geo5', function () {
+  var n = pick([3, 4, 5, 6, 8, 9, 10, 12]), a = 360 / n;
+  if (Math.random() < 0.6) {
+    return mk('geo5', '¿Cuál es el menor ángulo de giro (alrededor de su centro) que deja invariante un polígono regular de ' + n + ' lados?', g14_deg(a),
+      g14_wi(a, [180 / n, 360 - a, (n - 2) * 180 / n, n * 10, 90, a * 2], g14_deg), 'Se necesita girar un ángulo central: 360° : ' + n + ' = ' + a + '°.');
+  }
+  return mk('geo5', 'Un polígono regular de ' + n + ' lados, ¿cuántos giros distintos (incluido el de 0°) lo dejan invariante?', String(n),
+    g14_ws(n, [n - 1, n + 1, 2 * n, 360 / n], String), 'Los giros son múltiplos de 360° : ' + n + ' = ' + a + '°: hay ' + n + ' (0°, ' + a + '°, ' + 2 * a + '°, ...).');
+});
+/* 5. PROBLEMA: composición de transformaciones */
+g14_genr('geo5', function () {
+  var x = nz(-5, 5), y = nz(-5, 5), tx = ri(-4, 4), ty = ri(-4, 4), v = ri(0, 2);
+  var steps = [['traslación de vector ' + g4_pt(tx, ty), function (p) { return [p[0] + tx, p[1] + ty]; }],
+    ['giro de 90° en sentido antihorario alrededor del origen', function (p) { return [-p[1], p[0]]; }],
+    ['simetría respecto al eje X', function (p) { return [p[0], -p[1]]; }],
+    ['simetría respecto al eje Y', function (p) { return [-p[0], p[1]]; }],
+    ['giro de 180° alrededor del origen', function (p) { return [-p[0], -p[1]]; }]];
+  var order = shuffle([0, 1, 2, 3, 4]).slice(0, 3);
+  if (order.indexOf(0) < 0) order[0] = 0;
+  var p = [x, y], mid = [], txt = [], i;
+  for (i = 0; i < 3; i++) { p = steps[order[i]][1](p); mid.push(p); txt.push(steps[order[i]][0]); }
+  var wrongs = [];
+  var alt = [x, y]; for (i = 2; i >= 0; i--) alt = steps[order[i]][1](alt);
+  wrongs.push(g14_P(alt)); wrongs.push(g4_pt(-p[0], p[1])); wrongs.push(g4_pt(p[0], -p[1])); wrongs.push(g4_pt(p[1], p[0])); wrongs.push(g4_pt(-p[0], -p[1]));
+  var r = mk('geo5', 'Al punto ' + g4_pt(x, y) + ' se le aplican, por este orden: ' + txt[0] + ', ' + txt[1] + ' y ' + txt[2] + '. ¿Dónde acaba?', g14_P(p), wrongs.filter(function (s) { return s !== g14_P(p); }),
+    'Paso a paso: ' + g4_pt(x, y) + ' → ' + g14_P(mid[0]) + ' → ' + g14_P(mid[1]) + ' → ' + g14_P(mid[2]) + '.');
+  r.p = 1; return r;
+});
+
+function g14_wi(a, c, f, neg) { return g14_ws(a, c.filter(function (z) { return z === Math.round(z); }), f, neg); }
+/* ================= fun1 ================= */
+/* 1. dominio */
+g14_genr('fun1', function () {
+  var a = ri(1, 9), v = ri(0, 2);
+  if (v === 0) {
+    return mk('fun1', 'El dominio de f(x) = ⟨1|x ' + (a > 0 ? '−' : '+') + ' ' + a + '⟩ es', 'Todos los reales salvo x = ' + a,
+      ['Todos los reales salvo x = ' + mn(-a), 'x > ' + a, 'x ≥ ' + a, 'Todos los reales salvo x = 0'], 'No se puede dividir entre 0: x − ' + a + ' = 0 cuando x = ' + a + ', y ese valor se excluye.');
+  }
+  if (v === 1) {
+    return mk('fun1', 'El dominio de f(x) = √{x − ' + a + '} es', 'x ≥ ' + a,
+      ['x > ' + a, 'x ≤ ' + a, 'x ≥ ' + mn(-a), 'Todos los reales'], 'El radicando debe ser mayor o igual que 0: x − ' + a + ' ≥ 0, es decir x ≥ ' + a + '.');
+  }
+  return mk('fun1', 'El dominio de f(x) = ⟨1|x^{2} − ' + a * a + '⟩ es', 'Todos los reales salvo x = ±' + a,
+    ['Todos los reales salvo x = ' + a, 'Todos los reales salvo x = ' + a * a, 'Todos los reales salvo x = ' + mn(-a), 'x > ' + a], 'x^{2} − ' + a * a + ' = 0 cuando x = ' + a + ' o x = ' + mn(-a) + '; ambos se excluyen.');
+});
+/* 2. tasa de variación media */
+g14_genr('fun1', function () {
+  var p = nz(-4, 4), q = ri(-5, 5), a = ri(-3, 3), b = a + ri(1, 4);
+  var f = function (x) { return x * x + p * x + q; };
+  var tvm = (f(b) - f(a)) / (b - a);
+  g14_chk(tvm === a + b + p, 'fun1 tvm');
+  return mk('fun1', 'Para f(x) = ' + poly([1, p, q]) + ', la tasa de variación media en el intervalo [' + mn(a) + ', ' + mn(b) + '] es', mn(tvm),
+    g14_wi(tvm, [f(b) - f(a), f(b) + f(a), tvm + 1, tvm - 1, a + b, -tvm, p], mn, true),
+    'T.V.M. = ⟨f(' + mn(b) + ') − f(' + mn(a) + ')|' + mn(b) + ' − ' + (a < 0 ? '(' + mn(a) + ')' : a) + '⟩ = ⟨' + mn(f(b)) + ' − ' + (f(a) < 0 ? '(' + mn(f(a)) + ')' : f(a)) + '|' + (b - a) + '⟩ = ' + mn(tvm) + '.');
+});
+/* 3. función a trozos */
+g14_genr('fun1', function () {
+  var c = ri(1, 4), a = ri(-3, 3), p = pick([-2, -1, 2, 3]), q = ri(-4, 6);
+  var g1 = function (x) { return x + a; }, g2 = function (x) { return p * x + q; };
+  var x0 = pick([c, c, c - 1, c + 1, c + 2, c - 2]);
+  var val = x0 < c ? g1(x0) : g2(x0);
+  var ex = x0 < c ? 'Como ' + mn(x0) + ' < ' + c + ', se usa x ' + sgn(a) + ' ' + Math.abs(a) + ': ' : 'Como ' + mn(x0) + ' ≥ ' + c + ', se usa ' + poly([p, q]) + ': ';
+  return mk('fun1', 'Sea f(x) = x ' + (a < 0 ? '−' : '+') + ' ' + Math.abs(a) + ' si x < ' + c + ', y f(x) = ' + poly([p, q]) + ' si x ≥ ' + c + '. ¿Cuánto vale f(' + mn(x0) + ')?', mn(val),
+    g14_wi(val, [x0 < c ? g2(x0) : g1(x0), g1(x0) + g2(x0), -val, val + 1], mn, true), ex + 'f(' + mn(x0) + ') = ' + mn(val) + '.');
+});
+/* 4. velocidad media */
+g14_genr('fun1', function () {
+  var d, t1, t2, t3, T, i, vm;
+  for (i = 0; i < 300; i++) {
+    d = 5 * ri(2, 9); t1 = ri(1, 4); t2 = ri(1, 2); t3 = ri(1, 4); T = t1 + t2 + t3;
+    if ((20 * d) % T === 0) break;
+  }
+  if (!((20 * d) % T === 0)) { d = 20; t1 = 2; t2 = 1; t3 = 1; T = 4; }
+  vm = 2 * d / T;
+  g14_chk(g14_close(vm * T, 2 * d), 'fun1 vm');
+  var fk = function (x) { return g14_n(Math.round(x * 100) / 100) + ' km/h'; };
+  return mk('fun1', 'Una excursionista sale de casa, recorre ' + d + ' km en ' + t1 + ' h, descansa ' + t2 + ' h y regresa a casa por el mismo camino en ' + t3 + ' h. ¿Cuál es su velocidad media en todo el recorrido (descanso incluido)?', fk(vm),
+    g14_ws(vm, [d / t1, d / t3, (d / t1 + d / t3) / 2, 2 * d / (t1 + t3), d / T], fk),
+    'Recorre ' + d + ' + ' + d + ' = ' + 2 * d + ' km en ' + t1 + ' + ' + t2 + ' + ' + t3 + ' = ' + T + ' h: ' + 2 * d + ' : ' + T + ' = ' + g14_n(vm) + ' km/h.');
+});
+/* 5. PROBLEMA: depósito que se llena y se vacía */
+g14_genr('fun1', function () {
+  var v0 = 10 * ri(2, 10), q = 5 * ri(2, 8), T = ri(2, 6), s, i, V1 = v0 + q * T, tvac;
+  for (i = 0; i < 200; i++) { s = pick([5, 10, 15, 20, 25, 30]); if (V1 % s === 0) break; }
+  if (V1 % s !== 0) { s = 5; }
+  tvac = V1 / s;
+  var simV = v0, mins; for (mins = 0; mins < T; mins++) simV += q; var mm = 0; while (simV > 0) { simV -= s; mm++; }
+  g14_chk(mm === tvac && simV === 0, 'fun1 deposito');
+  var tot = T + tvac, fm = function (x) { return g14_n(Math.round(x * 100) / 100) + ' min'; };
+  var r = mk('fun1', 'Un depósito tiene ' + v0 + ' L. Durante ' + T + ' min se llena a ' + q + ' L/min; después se abre un desagüe que lo vacía a ' + s + ' L/min. ¿Cuántos minutos pasan desde el principio hasta que queda vacío?', fm(tot),
+    g14_ws(tot, [tvac, V1 / (s + q), v0 / s + T, T + (V1 - v0) / s, tvac - T], fm), 
+    'Tras el llenado: V = ' + v0 + ' + ' + q + '·' + T + ' = ' + V1 + ' L. Vaciado: ' + V1 + ' : ' + s + ' = ' + tvac + ' min. Total: ' + T + ' + ' + tvac + ' = ' + tot + ' min.');
+  r.p = 1; return r;
+});
+
+/* ================= fun2 ================= */
+/* 1. intersección de dos rectas */
+g14_genr('fun2', function () {
+  var x = ri(-5, 5), y = ri(-6, 6), m1 = nz(-4, 4), m2;
+  do { m2 = nz(-4, 4); } while (m2 === m1);
+  var n1 = y - m1 * x, n2 = y - m2 * x;
+  g14_chk(m1 * x + n1 === m2 * x + n2 && (n2 - n1) / (m1 - m2) === x, 'fun2 interseccion');
+  return mk('fun2', 'Las rectas y = ' + poly([m1, n1]) + ' e y = ' + poly([m2, n2]) + ' se cortan en el punto', g4_pt(x, y),
+    [g4_pt(y, x), g4_pt(-x, y), g4_pt(x, n1), g4_pt(x + 1, y), g4_pt(x, -y)], 'Igualando: ' + poly([m1, n1]) + ' = ' + poly([m2, n2]) + ' ⇒ x = ' + mn(x) + '; y sustituyendo, y = ' + mn(y) + '.');
+});
+/* 2. cortes de una parábola con los ejes */
+g14_genr('fun2', function () {
+  if (Math.random() < 0.6) {
+    var r1 = ri(-6, 4), r2 = r1 + ri(1, 7), b = -(r1 + r2), c = r1 * r2;
+    var f = function (x) { return x * x + b * x + c; };
+    g14_chk(f(r1) === 0 && f(r2) === 0, 'fun2 cortes');
+    var s = 'x = ' + mn(r1) + ' y x = ' + mn(r2);
+    return mk('fun2', 'Los puntos de corte de y = ' + poly([1, b, c]) + ' con el eje X son', s,
+      ['x = ' + mn(-r1) + ' y x = ' + mn(-r2), 'x = ' + mn(r1) + ' y x = ' + mn(-r2), 'x = ' + mn(-r1) + ' y x = ' + mn(r2), 'x = ' + mn(c) + ' y x = 0', 'x = 0 y x = ' + mn(b)].filter(function (z) { return z !== s; }),
+      'Se resuelve ' + poly([1, b, c]) + ' = 0: se factoriza como ' + bin(r1) + bin(r2) + ' = 0, con soluciones ' + mn(r1) + ' y ' + mn(r2) + '.');
+  }
+  var a = pick([1, 2, 3, -1, -2]), bb = nz(-6, 6), cc = nz(-9, 9);
+  return mk('fun2', 'El punto de corte de y = ' + poly([a, bb, cc]) + ' con el eje Y es', g4_pt(0, cc),
+    [g4_pt(cc, 0), g4_pt(0, bb), g4_pt(0, a), g4_pt(0, -cc), g4_pt(0, a + bb + cc)], 'Con el eje Y, x = 0: y = ' + mn(cc) + '. El punto es ' + g4_pt(0, cc) + '.');
+});
+/* 3. proyectil */
+g14_genr('fun2', function () {
+  var v = pick([10, 20, 30, 40]), h0 = pick([0, 0, 2, 5, 10]), t = v / 10, hmax = h0 + v * v / 20;
+  var sim = -1, tt, best = -1e9;
+  for (tt = 0; tt <= 10; tt += 0.5) { var hh = h0 + v * tt - 5 * tt * tt; if (hh > best) { best = hh; sim = tt; } }
+  g14_chk(g14_close(best, hmax) && sim === t, 'fun2 proyectil');
+  var eq = 'h(t) = −5t^{2} + ' + v + 't' + (h0 ? ' + ' + h0 : '');
+  if (Math.random() < 0.5) {
+    return mk('fun2', 'La altura (en metros) de un balón es ' + eq + ', con t en segundos. ¿Cuál es la altura máxima que alcanza?', g14_n(hmax) + ' m',
+      g14_ws(hmax, [t, v + h0, hmax + 5, h0 + v * v / 10, h0 + v * v / 40], g14_mm), 'El máximo está en el vértice: t = ' + v + ' : 10 = ' + t + ' s. Entonces h = ' + g14_n(hmax) + ' m.');
+  }
+  return mk('fun2', 'La altura (en metros) de un balón es ' + eq + ', con t en segundos. ¿En qué instante alcanza su altura máxima?', g14_n(t) + ' s',
+    g14_ws(t, [v, v / 5, v / 20, hmax, t + 1], function (x) { return g14_n(x) + ' s'; }), 'El vértice está en t = ⟨−b|2a⟩ = ⟨' + mn(-v) + '|−10⟩ = ' + t + ' s.');
+});
+/* 4. paralela / perpendicular */
+function g14_lineF(neg, den, c) { return 'y = ' + (neg ? '−' : '') + '⟨1|' + den + '⟩x' + (c === 0 ? '' : ' ' + sgn(c) + ' ' + Math.abs(c)); }
+g14_genr('fun2', function () {
+  var n = nz(-5, 5), y0 = ri(-5, 5);
+  if (Math.random() < 0.55) {
+    var m = pick([-3, -2, -1, 1, 2, 3, 4]), x0 = ri(-4, 4), n2 = y0 - m * x0;
+    g14_chk(m * x0 + n2 === y0, 'fun2 paralela');
+    return mk('fun2', 'La recta paralela a y = ' + poly([m, n]) + ' que pasa por ' + g4_pt(x0, y0) + ' es', 'y = ' + poly([m, n2]),
+      ['y = ' + poly([m, y0 + m * x0]), 'y = ' + poly([m, n]), 'y = ' + poly([-m, n2]), 'y = ' + poly([m, -n2]), 'y = ' + poly([m, y0])], 'Misma pendiente m = ' + mn(m) + '. Sustituyendo: ' + mn(y0) + ' = ' + mn(m) + '·' + (x0 < 0 ? '(' + mn(x0) + ')' : x0) + ' + n ⇒ n = ' + mn(n2) + '.');
+  }
+  var mp = pick([2, -2, 4, -4]), xp = mp * ri(-2, 2), nn = y0 + xp / mp, neg = mp > 0, den = Math.abs(mp);
+  g14_chk(g14_close(-xp / mp + nn, y0), 'fun2 perpendicular');
+  return mk('fun2', 'La recta perpendicular a y = ' + poly([mp, n]) + ' que pasa por ' + g4_pt(xp, y0) + ' es', g14_lineF(neg, den, nn),
+    [g14_lineF(!neg, den, nn), g14_lineF(neg, den, y0 - xp / mp), g14_lineF(!neg, den, y0 + xp / mp * -1), 'y = ' + poly([mp, y0 - mp * xp]), 'y = ' + poly([-mp, y0 + mp * xp])],
+    'La pendiente perpendicular es −⟨1|m⟩ = ' + (neg ? '−' : '') + '⟨1|' + den + '⟩. Sustituyendo ' + g4_pt(xp, y0) + ': n = ' + mn(nn) + '.');
+});
+/* 5. PROBLEMAS */
+g14_genr('fun2', function () {
+  var r;
+  if (Math.random() < 0.5) {
+    var r1 = ri(1, 4), r2 = r1 + 2 * ri(1, 4), b = r1 + r2, c = r1 * r2, xm = b / 2;
+    var Bf = function (x) { return -x * x + b * x - c; }, mx = Bf(xm);
+    var best = -1e9, xs; for (xs = 0; xs <= 20; xs += 0.5) if (Bf(xs) > best) best = Bf(xs);
+    g14_chk(best === mx && Bf(r1) === 0 && Bf(r2) === 0 && mx === ((r2 - r1) / 2) * ((r2 - r1) / 2), 'fun2 beneficio');
+    var ans = g14_n(mx) + ' (si ' + r1 + ' < x < ' + r2 + ')';
+    r = mk('fun2', 'El beneficio (en miles de euros) de una tienda es B(x) = ' + poly([-1, b, -c]) + ', con x en cientos de unidades vendidas. ¿Cuál es el beneficio máximo y entre qué valores de x es positivo?', ans,
+      [g14_n(mx + 1) + ' (si ' + r1 + ' < x < ' + r2 + ')', g14_n(mx) + ' (si x > ' + r2 + ')', g14_n(c) + ' (si ' + r1 + ' < x < ' + r2 + ')', g14_n(b * b / 4 + 1) + ' (si 0 < x < ' + b + ')'].filter(function (z) { return z !== ans; }),
+      'Raíces: x = ' + r1 + ' y x = ' + r2 + ' (B > 0 entre ellas). Vértice: x = ' + b + ' : 2 = ' + xm + ', y B(' + xm + ') = ' + g14_n(mx) + '.');
+  } else {
+    var d = ri(2, 6), p1 = ri(1, 4), k = ri(3, 12), p2 = p1 + d, fijo = d * k;
+    g14_chk(fijo + p1 * k === p2 * k && fijo + p1 * (k + 1) < p2 * (k + 1), 'fun2 tarifas');
+    r = mk('fun2', 'La empresa A cobra ' + fijo + ' € fijos más ' + p1 + ' € por km; la empresa B cobra ' + p2 + ' € por km sin cuota fija. ¿A partir de cuántos km sale más barata la empresa A?', 'Más de ' + k + ' km',
+      ['Menos de ' + k + ' km', 'Más de ' + fijo + ' km', 'Más de ' + (k + d) + ' km', 'Más de ' + (k + 2) + ' km', 'Más de ' + (k - 1) + ' km'],
+      'Cuestan igual cuando ' + fijo + ' + ' + p1 + 'x = ' + p2 + 'x ⇒ ' + fijo + ' = ' + d + 'x ⇒ x = ' + k + ' km. Para más de ' + k + ' km, A es más barata.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= fun3 ================= */
+function g14_eur(x) { return g14_n(Math.round(x * 100) / 100) + ' €'; }
+/* 1. interés compuesto */
+g14_genr('fun3', function () {
+  var C0 = pick([1000, 2000, 500, 5000]), rt = pick([10, 20, 50, 5]), t = ri(2, 3);
+  if (rt === 5 && t === 3) t = 2;
+  var C = C0; for (var i = 0; i < t; i++) C = C * (100 + rt) / 100;
+  g14_chk(g14_close(C, C0 * Math.pow(1 + rt / 100, t)), 'fun3 compuesto');
+  return mk('fun3', 'Se depositan ' + g14_n(C0) + ' € al ' + rt + ' % de interés compuesto anual. ¿Cuánto dinero hay al cabo de ' + t + ' años?', g14_eur(C),
+    g14_ws(C, [C0 * (1 + rt * t / 100), C0 * (1 + rt / 100) * t, C0 * rt * t / 100, C0 + rt * t, C0 * (1 + rt / 100)], g14_eur),
+    'Cada año se multiplica por ' + g14_n(1 + rt / 100) + ': ' + g14_n(C0) + '·' + g14_n(1 + rt / 100) + '^{' + t + '} = ' + g14_n(Math.round(C * 100) / 100) + ' €.');
+});
+/* 2. ecuación exponencial */
+g14_genr('fun3', function () {
+  var b = pick([2, 3, 5]), k = ri(1, 4), m = ri(2, b === 5 ? 3 : 4);
+  var N = Math.pow(b, m), x;
+  if (Math.random() < 0.5) {
+    x = m - k;
+    return mk('fun3', 'Resuelve ' + b + '^{x + ' + k + '} = ' + N, 'x = ' + mn(x), ['x = ' + mn(m + k), 'x = ' + mn(m * k), 'x = ' + mn(N - k), 'x = ' + mn(k - m), 'x = ' + mn(m)].filter(function (z) { return z !== 'x = ' + mn(x); }),
+      N + ' = ' + b + '^{' + m + '}, así que x + ' + k + ' = ' + m + ' y x = ' + mn(x) + '.');
+  }
+  return mk('fun3', 'Resuelve ' + b + '^{x} = ' + N, 'x = ' + m, ['x = ' + N / b, 'x = ' + (m + 1), 'x = ' + (m - 1), 'x = ' + b * m].filter(function (z) { return z !== 'x = ' + m; }),
+    N + ' = ' + b + '^{' + m + '}, luego x = ' + m + '.');
+});
+/* 3. función inversa */
+g14_genr('fun3', function () {
+  var v = ri(0, 2);
+  if (v === 0) {
+    var a = pick([2, 3, 4, 5, -2]), b = nz(-6, 6), x = ri(-3, 5), y = a * x + b;
+    g14_chk((y - b) / a === x, 'fun3 inv lineal');
+    return mk('fun3', 'Si f(x) = ' + poly([a, b]) + ', entonces f^{−1}(' + mn(y) + ') =', mn(x), g14_wi(x, [(y + b) / a, y / a - b, a * y + b, (y - b) * a, -x, x + 1], mn, true),
+      'f^{−1}(' + mn(y) + ') es el valor de x con f(x) = ' + mn(y) + ': ' + poly([a, b]) + ' = ' + mn(y) + ' ⇒ x = ' + mn(x) + '.');
+  }
+  if (v === 1) {
+    var kx = nz(-5, 5), xx = ri(-2, 3), yy = xx * xx * xx + kx;
+    return mk('fun3', 'Si f(x) = ' + poly([1, 0, 0, kx]) + ', ¿cuánto vale f^{−1}(' + mn(yy) + ')?', mn(xx), g14_wi(xx, [yy - kx, yy + kx, xx * xx, -xx, xx + 1], mn, true),
+      'Se busca x con x^{3} ' + sgn(kx) + ' ' + Math.abs(kx) + ' = ' + mn(yy) + ': x^{3} = ' + mn(xx * xx * xx) + ', luego x = ' + mn(xx) + '.');
+  }
+  var bs = pick([2, 3, 10]), e = ri(1, 4), N = Math.pow(bs, e);
+  return mk('fun3', 'Si f(x) = ' + bs + '^{x}, entonces f^{−1}(' + N + ') =', String(e), g14_wi(e, [N / bs, N, bs * e, e + 1, e - 1], String),
+    'La inversa de ' + bs + '^{x} es log_{' + bs + '} x: log_{' + bs + '} ' + N + ' = ' + e + ', porque ' + bs + '^{' + e + '} = ' + N + '.');
+});
+/* 4. propiedades de los logaritmos con datos */
+g14_genr('fun3', function () {
+  var b = pick([2, 3, 5, 10]), p = ri(2, 6), q = ri(1, 5), m = ri(2, 4);
+  if (Math.random() < 0.5) {
+    var val = m * p + q;
+    return mk('fun3', 'Si log_{' + b + '} A = ' + p + ' y log_{' + b + '} B = ' + q + ', ¿cuánto vale log_{' + b + '} (A^{' + m + '}·B)?', String(val),
+      g14_wi(val, [m * p * q, p * m + q * m, p + q, (p + q) * m, p * q + m], String), 'log(A^{' + m + '}·B) = ' + m + '·log A + log B = ' + m + '·' + p + ' + ' + q + ' = ' + val + '.');
+  }
+  var val2 = p - m * q;
+  return mk('fun3', 'Si log_{' + b + '} A = ' + p + ' y log_{' + b + '} B = ' + q + ', ¿cuánto vale log_{' + b + '} ⟨A|B^{' + m + '}⟩?', mn(val2),
+    g14_wi(val2, [(p - q) * m, p - q, p + m * q, p * q * m, p - q - m], mn, true), 'log⟨A|B^{' + m + '}⟩ = log A − ' + m + '·log B = ' + p + ' − ' + m + '·' + q + ' = ' + mn(val2) + '.');
+});
+/* 5. PROBLEMAS: depreciación y desintegración */
+g14_genr('fun3', function () {
+  var r;
+  if (Math.random() < 0.5) {
+    var P = pick([10000, 15000, 20000, 25000]), d = pick([10, 20, 30]), t = ri(2, 3);
+    var V = P; for (var i = 0; i < t; i++) V = V * (100 - d) / 100;
+    g14_chk(g14_close(V, P * Math.pow(1 - d / 100, t)), 'fun3 deprec');
+    var loss = P - V;
+    r = mk('fun3', 'Un coche de ' + g14_n(P) + ' € pierde un ' + d + ' % de su valor cada año (sobre el valor del año anterior). ¿Cuánto valor ha perdido al cabo de ' + t + ' años?', g14_eur(loss),
+      g14_ws(loss, [P * d * t / 100, V, P * (1 - d / 100) * t, P * d / 100, P - V + 100], g14_eur),
+      'Valor final: ' + g14_n(P) + '·' + g14_n(1 - d / 100) + '^{' + t + '} = ' + g14_n(Math.round(V * 100) / 100) + ' €. Pérdida: ' + g14_n(P) + ' − ' + g14_n(Math.round(V * 100) / 100) + ' = ' + g14_n(Math.round(loss * 100) / 100) + ' €.');
+  } else {
+    var M = pick([80, 160, 240, 400, 640]), k = pick([5, 10, 20]), n = ri(2, 4), T = n * k;
+    var rest = M; for (var j = 0; j < n; j++) rest = rest / 2;
+    g14_chk(g14_close(rest, M / Math.pow(2, T / k)), 'fun3 vida media');
+    var des = M - rest, fg = function (x) { return g14_n(Math.round(x * 100) / 100) + ' g'; };
+    r = mk('fun3', 'Una muestra de ' + M + ' g de una sustancia radiactiva tiene una vida media de ' + k + ' años (cada ' + k + ' años se reduce a la mitad). ¿Cuántos gramos se han desintegrado al cabo de ' + T + ' años?', fg(des),
+      g14_ws(des, [rest, M - M / T, M - M / 2, M - rest * 2, M / T * k], fg),
+      'Han pasado ' + T + ' : ' + k + ' = ' + n + ' vidas medias: quedan ' + M + ' : 2^{' + n + '} = ' + g14_n(rest) + ' g. Desintegrados: ' + M + ' − ' + g14_n(rest) + ' = ' + g14_n(des) + ' g.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= est1 ================= */
+function g14_sorted(a) { var b = a.slice(), i, j; for (i = 1; i < b.length; i++) { var v = b[i]; for (j = i - 1; j >= 0 && b[j] > v; j--) b[j + 1] = b[j]; b[j + 1] = v; } return b; }
+function g14_sum(a) { var s = 0, i; for (i = 0; i < a.length; i++) s += a[i]; return s; }
+function g14_r2(x) { return Math.round(x * 100) / 100; }
+function g14_gn(x) { return g14_n(g14_r2(x)); }
+/* 1. rango intercuartílico (8 datos) */
+g14_genr('est1', function () {
+  var pool = [], i; for (i = 1; i <= 30; i++) pool.push(i);
+  var d = shuffle(pool).slice(0, 8), s = g14_sorted(d);
+  var q1 = (s[1] + s[2]) / 2, q3 = (s[5] + s[6]) / 2, med = (s[3] + s[4]) / 2, ric = q3 - q1;
+  g14_chk(ric === (s[5] + s[6] - s[1] - s[2]) / 2 && s[0] < s[7], 'est1 ric');
+  return mk('est1', 'Dados los datos ' + d.join(', ') + ', ¿cuánto vale el rango intercuartílico Q_{3} − Q_{1}? (Q_{1} y Q_{3} son las medianas de la mitad inferior y de la mitad superior).', g14_n(ric),
+    g14_ws(ric, [s[7] - s[0], q3, q1, med, s[6] - s[1], s[5] - s[2]], g14_n), 'Ordenados: ' + s.join(', ') + '. Q_{1} = ' + g14_n(q1) + ' y Q_{3} = ' + g14_n(q3) + ', luego Q_{3} − Q_{1} = ' + g14_n(ric) + '.');
+});
+/* 2. media al añadir un dato */
+g14_genr('est1', function () {
+  var n = pick([4, 5, 9, 4]), m = ri(5, 8), x, t, i, tot = n * m;
+  for (i = 0; i < 100; i++) { x = ri(0, 10); if ((tot + x) % (n + 1) === 0 && x !== m) break; }
+  if ((tot + x) % (n + 1) !== 0) { n = 4; m = 6; x = 1; tot = 24; }
+  t = (tot + x) / (n + 1);
+  g14_chk(g14_close((n * m + x) / (n + 1), t), 'est1 media');
+  if (Math.random() < 0.5) {
+    return mk('est1', 'La media de ' + n + ' notas es ' + m + '. ¿Qué nota hay que sacar en el siguiente examen para que la media de las ' + (n + 1) + ' notas sea ' + t + '?', g14_n(x),
+      g14_ws(x, [t, 2 * t - m, (t + m) / 2 * 1, (n + 1) * t, t * (n + 1) - m, m - t], g14_n), 'Suma necesaria: ' + (n + 1) + '·' + t + ' = ' + (n + 1) * t + '. Ya hay ' + n + '·' + m + ' = ' + tot + ', así que hace falta ' + (n + 1) * t + ' − ' + tot + ' = ' + x + '.');
+  }
+  return mk('est1', 'La media de ' + n + ' datos es ' + m + '. Se añade un dato más, de valor ' + x + '. ¿Cuál es la nueva media?', g14_n(t),
+    g14_ws(t, [(m + x) / 2, m + x, (tot + x) / n, tot / (n + 1), t + 1], g14_n), 'Suma anterior: ' + n + '·' + m + ' = ' + tot + '. Nueva suma: ' + (tot + x) + '. Nueva media: ' + (tot + x) + ' : ' + (n + 1) + ' = ' + g14_n(t) + '.');
+});
+/* 3. porcentaje acumulado */
+g14_genr('est1', function () {
+  var N = pick([20, 25, 40, 50]), v = ri(1, 6), f = [1, 1, 1, 1], i, rest = N - 4;
+  for (i = 0; i < rest; i++) f[ri(0, 3)]++;
+  var j = pick([1, 2]), cum = 0, k; for (k = 0; k <= j; k++) cum += f[k];
+  var pct = cum * 100 / N, x = [v, v + 1, v + 2, v + 3];
+  g14_chk(g14_sum(f) === N && g14_close(pct * N / 100, cum), 'est1 acumulado');
+  var fp = function (z) { return g14_n(Math.round(z * 100) / 100) + ' %'; };
+  return mk('est1', 'x: ' + x.join(', ') + ' con frecuencias absolutas ' + f.join(', ') + '. ¿Qué porcentaje de los datos es menor o igual que ' + x[j] + '?', fp(pct),
+    g14_ws(pct, [f[j] * 100 / N, 100 - pct, cum, f[j], (cum - f[j]) * 100 / N], fp), 'Frecuencia acumulada hasta ' + x[j] + ': ' + f.slice(0, j + 1).join(' + ') + ' = ' + cum + '. Porcentaje: ' + cum + ' : ' + N + ' · 100 = ' + g14_n(pct) + ' %.');
+});
+/* 4. varianza y desviación típica */
+g14_genr('est1', function () {
+  if (Math.random() < 0.5) {
+    var m = ri(6, 14), a = ri(2, 6), dat = shuffle([m - a, m - a, m + a, m + a]);
+    var mean = g14_sum(dat) / 4, v = 0, i; for (i = 0; i < 4; i++) v += (dat[i] - mean) * (dat[i] - mean); v /= 4;
+    g14_chk(mean === m && v === a * a, 'est1 sigma');
+    return mk('est1', '¿Cuál es la desviación típica de los datos ' + dat.join(', ') + '?', g14_n(a),
+      g14_ws(a, [a * a, 2 * a, a / 2, a + 1, m], g14_n), 'La media es ' + m + ' y cada dato está a ' + a + ' de ella: varianza = ' + a + '^{2} = ' + a * a + ' y desviación típica = √{' + a * a + '} = ' + a + '.');
+  }
+  var d, mean2, i, tries;
+  for (tries = 0; tries < 500; tries++) { d = []; for (i = 0; i < 5; i++) d.push(ri(1, 10)); if (g14_sum(d) % 5 === 0) break; }
+  if (g14_sum(d) % 5 !== 0) d = [2, 4, 6, 8, 10];
+  mean2 = g14_sum(d) / 5; var ss = 0, ab = 0; for (i = 0; i < 5; i++) { ss += (d[i] - mean2) * (d[i] - mean2); ab += Math.abs(d[i] - mean2); }
+  var va = ss / 5, sq = 0; for (i = 0; i < 5; i++) sq += d[i] * d[i];
+  g14_chk(g14_close(va, sq / 5 - mean2 * mean2), 'est1 varianza');
+  return mk('est1', '¿Cuál es la varianza de los datos ' + d.join(', ') + '?', g14_gn(va),
+    g14_ws(va, [ss / 4, ss, Math.sqrt(va), ab / 5, sq / 5, va + 1], g14_gn), 'Media = ' + mean2 + '. Suma de cuadrados de las desviaciones = ' + ss + '. Varianza = ' + ss + ' : 5 = ' + g14_gn(va) + '.');
+});
+/* 5. PROBLEMAS: varianza de una tabla y media de datos agrupados */
+g14_genr('est1', function () {
+  var r, i, tries;
+  if (Math.random() < 0.55) {
+    var xs, fs, N, mean, va, sfx, sfx2;
+    for (tries = 0; tries < 4000; tries++) {
+      var x0 = ri(1, 5); xs = [x0, x0 + 1, x0 + 2, x0 + 3]; fs = [ri(1, 6), ri(1, 6), ri(1, 6), ri(1, 6)];
+      N = g14_sum(fs); sfx = 0; sfx2 = 0; for (i = 0; i < 4; i++) { sfx += xs[i] * fs[i]; sfx2 += xs[i] * xs[i] * fs[i]; }
+      if (sfx % N !== 0) continue;
+      mean = sfx / N; va = sfx2 / N - mean * mean;
+      if (Math.abs(va * 100 - Math.round(va * 100)) < 1e-9 && va > 0.4) break;
+    }
+    if (!(tries < 4000)) { xs = [1, 2, 3, 4]; fs = [2, 3, 3, 2]; N = 10; sfx = 25; mean = 2.5; va = 1.05; sfx2 = 0; for (i = 0; i < 4; i++) sfx2 += xs[i] * xs[i] * fs[i]; sfx = 0; for (i = 0; i < 4; i++) sfx += xs[i] * fs[i]; mean = sfx / N; va = sfx2 / N - mean * mean; }
+    var sv = 0; for (i = 0; i < 4; i++) sv += fs[i] * (xs[i] - mean) * (xs[i] - mean); sv /= N;
+    g14_chk(g14_close(sv, va), 'est1 tabla varianza');
+    r = mk('est1', 'x: ' + xs.join(', ') + ' con frecuencias absolutas ' + fs.join(', ') + '. ¿Cuánto vale la varianza?', g14_gn(va),
+      g14_ws(va, [sfx2 / N, mean * mean, va * N / (N - 1), sfx2 / N - mean, Math.sqrt(va), mean], g14_gn),
+      'N = ' + N + ', media = ' + sfx + ' : ' + N + ' = ' + g14_n(mean) + '. Σf·x^{2} = ' + sfx2 + '. Varianza = ' + sfx2 + ' : ' + N + ' − ' + g14_n(mean) + '^{2} = ' + g14_gn(va) + '.');
+  } else {
+    var f, N2, s, step = pick([10, 20]), fs2;
+    for (tries = 0; tries < 2000; tries++) { f = [ri(1, 8), ri(1, 8), ri(1, 8), ri(1, 8)]; N2 = g14_sum(f); s = 0; for (i = 0; i < 4; i++) s += f[i] * (step * i + step / 2); if ((s * 4) % N2 === 0 && (N2 === 10 || N2 === 20 || N2 === 25 || N2 === 16 || N2 === 8 || N2 === 5 || N2 === 4 || N2 === 2 || N2 === 40 || N2 === 50 || N2 === 32)) break; }
+    if (!(tries < 2000)) { f = [2, 3, 3, 2]; N2 = 10; s = 0; for (i = 0; i < 4; i++) s += f[i] * (step * i + step / 2); }
+    var me = s / N2, lows = 0, lo = 0; for (i = 0; i < 4; i++) lows += f[i] * step * i;
+    var uni = 0; for (i = 0; i < 4; i++) uni += step * i + step / 2; uni /= 4;
+    var iv = ''; for (i = 0; i < 4; i++) iv += (i ? ', ' : '') + '[' + step * i + ', ' + step * (i + 1) + ')';
+    r = mk('est1', 'Intervalos ' + iv + ' con frecuencias ' + f.join(', ') + '. ¿Cuál es la media aproximada (usando las marcas de clase)?', g14_gn(me),
+      g14_ws(me, [lows / N2, uni, step * (f.indexOf(Math.max.apply(null, f)) + 0.5), me + step / 2, me - step / 2, s / 4], g14_gn),
+      'Marcas de clase: ' + g14_L(4, function (i) { return step * i + step / 2; }).join(', ') + '. Σf·marca = ' + g14_n(s) + '; N = ' + N2 + '. Media = ' + g14_n(s) + ' : ' + N2 + ' = ' + g14_gn(me) + '.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= est2 ================= */
+function g14_lin(b, c) {
+  var bs = Math.abs(b) === 1 ? (b < 0 ? '−' : '') : g14_n(b);
+  return 'y = ' + bs + 'x' + (c === 0 ? '' : ' ' + sgn(c) + ' ' + g14_n(Math.abs(c)));
+}
+/* 1. coeficiente de correlación y pendiente a partir de σ */
+g14_genr('est2', function () {
+  if (Math.random() < 0.5) {
+    var pr = pick([[2, 5], [4, 5], [5, 6], [5, 4]]), sx = pr[0], sy = pr[1], r = pick([0.2, 0.4, 0.5, 0.6, 0.8, -0.4, -0.5, -0.6, -0.8]), sxy = r * sx * sy;
+    sxy = Math.round(sxy * 100) / 100;
+    g14_chk(g14_close(sxy / (sx * sy), r), 'est2 r');
+    var fr = function (z) { return g14_n(Math.round(z * 100) / 100); };
+    return mk('est2', 'En una distribución bidimensional σ_{x} = ' + sx + ', σ_{y} = ' + sy + ' y la covarianza es σ_{xy} = ' + g14_n(sxy) + '. ¿Cuánto vale el coeficiente de correlación r?', fr(r),
+      g14_ws(r, [sxy / sx, sxy / sy, sxy / (sx * sx), sxy, -r, sxy / (sx + sy)], fr, true), 'r = ⟨σ_{xy}|σ_{x}·σ_{y}⟩ = ⟨' + g14_n(sxy) + '|' + sx * sy + '⟩ = ' + fr(r) + '.');
+  }
+  var sx2 = pick([2, 3, 4]), b = pick([0.5, 1, 1.5, 2, 2.5, -0.5, -1, -1.5, -2]), sxy2 = b * sx2 * sx2, sy2 = 5;
+  g14_chk(g14_close(sxy2 / (sx2 * sx2), b), 'est2 pendiente');
+  var fb = function (z) { return g14_n(Math.round(z * 100) / 100); };
+  return mk('est2', 'De una distribución se sabe que σ_{x} = ' + sx2 + ' y σ_{xy} = ' + g14_n(sxy2) + '. ¿Cuál es la pendiente de la recta de regresión de y sobre x?', fb(b),
+    g14_ws(b, [sxy2 / sx2, sxy2, sxy2 / (sx2 * sx2 * sx2), -b, sxy2 / (2 * sx2), b * 2], fb, true), 'Pendiente = ⟨σ_{xy}|σ_{x}^{2}⟩ = ⟨' + g14_n(sxy2) + '|' + sx2 * sx2 + '⟩ = ' + fb(b) + '.');
+});
+/* 2. coeficiente de determinación */
+g14_genr('est2', function () {
+  var r = pick([0.5, 0.6, 0.7, 0.8, 0.9, -0.5, -0.6, -0.7, -0.8, -0.9]), R2 = Math.round(r * r * 100);
+  g14_chk(R2 === Math.round(r * r * 10000) / 100, 'est2 R2');
+  var fp = function (z) { return g14_n(Math.round(z * 100) / 100) + ' %'; };
+  return mk('est2', 'El coeficiente de correlación entre dos variables es r = ' + g14_n(r) + '. ¿Qué porcentaje de la variación de y explica la recta de regresión (r^{2})?', fp(R2),
+    g14_ws(R2, [Math.abs(r) * 100, 100 - R2, R2 / 2, Math.abs(r) * 50, 100 * (1 - Math.abs(r))], fp), 'r^{2} = (' + g14_n(r) + ')^{2} = ' + g14_n(Math.round(r * r * 100) / 100) + ', es decir, el ' + R2 + ' %.');
+});
+/* 3. ecuación de la recta de regresión */
+g14_genr('est2', function () {
+  var xm = ri(2, 8), ym = ri(3, 12), b = pick([0.5, 1, 2, 3, -1, -2, -0.5]), c = ym - b * xm;
+  g14_chk(g14_close(b * xm + c, ym), 'est2 recta');
+  return mk('est2', 'La recta de regresión de y sobre x tiene pendiente ' + g14_n(b) + ' y pasa por el punto (x̄, ȳ) = ' + g4_pt(xm, ym) + '. Su ecuación es', g14_lin(b, c),
+    [g14_lin(b, ym + b * xm), g14_lin(b, ym - xm), g14_lin(-b, c), g14_lin(b, ym), g14_lin(b, -c), g14_lin(b, xm - ym)], 'La recta pasa por (x̄, ȳ): y − ' + ym + ' = ' + g14_n(b) + '(x − ' + xm + '), de donde ' + g14_lin(b, c) + '.');
+});
+/* 4. centro de gravedad de una nube de puntos */
+g14_genr('est2', function () {
+  var xs, ys, i, tries;
+  for (tries = 0; tries < 5000; tries++) {
+    xs = []; ys = []; for (i = 0; i < 5; i++) { xs.push(ri(1, 9)); ys.push(ri(1, 9)); }
+    if (g14_sum(xs) % 5 === 0 && g14_sum(ys) % 5 === 0 && g14_sum(xs) !== g14_sum(ys)) break;
+  }
+  if (tries >= 5000) { xs = [1, 3, 5, 7, 9]; ys = [2, 3, 4, 5, 6]; }
+  var sx = g14_sum(xs), sy = g14_sum(ys), mx = sx / 5, my = sy / 5, pts = '';
+  for (i = 0; i < 5; i++) pts += (i ? ', ' : '') + g4_pt(xs[i], ys[i]);
+  var med = g14_sorted(xs)[2], medy = g14_sorted(ys)[2];
+  return mk('est2', 'Para los puntos ' + pts + ', ¿cuáles son las medias (x̄, ȳ)?', g4_pt(mx, my),
+    [g4_pt(my, mx), g4_pt(sx, sy), g4_pt(mx, mx), g4_pt(mx + 1, my), g4_pt(my, my), g4_pt(mx, my - 1)], 'x̄ = ' + sx + ' : 5 = ' + mx + ' e ȳ = ' + sy + ' : 5 = ' + my + '.');
+});
+/* 5. PROBLEMAS: pendiente a partir de una tabla y predicción a partir de parámetros */
+g14_genr('est2', function () {
+  var r, i, tries;
+  if (Math.random() < 0.55) {
+    var xs = pick([[1, 2, 3, 4, 5], [2, 4, 6, 8, 10]]), ys, n = 5, Sx = g14_sum(xs), Sxx = 0, Sy, Sxy, Syy, b;
+    for (i = 0; i < 5; i++) Sxx += xs[i] * xs[i];
+    for (tries = 0; tries < 3000; tries++) {
+      ys = []; for (i = 0; i < 5; i++) ys.push(ri(1, 10));
+      Sy = g14_sum(ys); Sxy = 0; Syy = 0; for (i = 0; i < 5; i++) { Sxy += xs[i] * ys[i]; Syy += ys[i] * ys[i]; }
+      var num = n * Sxy - Sx * Sy, den = n * Sxx - Sx * Sx;
+      if (num !== 0 && Math.abs(num / den * 10 - Math.round(num / den * 10)) < 1e-9 && Sy % 5 === 0 && num > 0 === (Math.random() < 0.8)) break;
+    }
+    if (tries >= 3000) { ys = [2, 3, 5, 6, 9]; Sy = 25; Sxy = 0; Syy = 0; for (i = 0; i < 5; i++) { Sxy += xs[i] * ys[i]; Syy += ys[i] * ys[i]; } }
+    var xm = Sx / 5, ym = Sy / 5, cov = 0, vx = 0, vy = 0;
+    for (i = 0; i < 5; i++) { cov += (xs[i] - xm) * (ys[i] - ym); vx += (xs[i] - xm) * (xs[i] - xm); vy += (ys[i] - ym) * (ys[i] - ym); }
+    b = cov / vx;
+    g14_chk(g14_close(b, (n * Sxy - Sx * Sy) / (n * Sxx - Sx * Sx)), 'est2 tabla pendiente');
+    var fb = function (z) { return g14_n(Math.round(z * 1000) / 1000); };
+    r = mk('est2', 'x: ' + xs.join(', ') + '; y: ' + ys.join(', ') + '. ¿Cuál es la pendiente de la recta de regresión de y sobre x? (Si no sale exacta, redondea a 3 decimales).', fb(b),
+      g14_ws(b, [cov / 5, cov / vy, cov / vx / 2, vx / cov, -b, cov], fb, true),
+      'x̄ = ' + g14_n(xm) + ', ȳ = ' + g14_n(ym) + '. Σ(x − x̄)(y − ȳ) = ' + g14_n(cov) + ' y Σ(x − x̄)^{2} = ' + g14_n(vx) + '. Pendiente = ' + g14_n(cov) + ' : ' + g14_n(vx) + ' = ' + fb(b) + '.');
+  } else {
+    var P = pick([[2, 5, 0.6], [2, 5, 0.8], [2, 5, -0.6], [4, 5, 0.8], [4, 5, -0.8], [5, 5, 0.6], [5, 5, -0.8]]), sx = P[0], sy = P[1], rr = P[2];
+    var bb = rr * sy / sx, x0, xm2 = ri(4, 12), ym2 = ri(10, 30), pred, ok = false;
+    for (tries = 0; tries < 100; tries++) { x0 = xm2 + pick([-4, -2, 2, 4, 5, -5]); pred = ym2 + bb * (x0 - xm2); if (g14_close(pred * 100, Math.round(pred * 100))) { ok = true; break; } }
+    if (!ok) { x0 = xm2 + 4; pred = ym2 + bb * 4; }
+    g14_chk(g14_close(bb, rr * sy / sx), 'est2 pred b');
+    var fq = function (z) { return g14_n(Math.round(z * 100) / 100); };
+    r = mk('est2', 'De dos variables se sabe: x̄ = ' + xm2 + ', ȳ = ' + ym2 + ', σ_{x} = ' + sx + ', σ_{y} = ' + sy + ' y r = ' + g14_n(rr) + '. Con la recta de regresión de y sobre x, ¿qué valor se predice para y cuando x = ' + mn(x0) + '?', fq(pred),
+      g14_ws(pred, [ym2 + rr * (x0 - xm2), ym2 + rr * sx / sy * (x0 - xm2), ym2 + bb * x0, ym2 - bb * (x0 - xm2), bb * (x0 - xm2), ym2 + bb], fq, true),
+      'Pendiente b = r·⟨σ_{y}|σ_{x}⟩ = ' + g14_n(rr) + '·⟨' + sy + '|' + sx + '⟩ = ' + g14_n(bb) + '. y = ' + ym2 + (bb < 0 ? ' − ' : ' + ') + g14_n(Math.abs(bb)) + '·(' + mn(x0) + ' − ' + xm2 + ') = ' + fq(pred) + '.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= com ================= */
+function g14_perms(arr) {
+  if (arr.length <= 1) return [arr.slice()];
+  var out = [], i, rest, sub, j;
+  for (i = 0; i < arr.length; i++) {
+    rest = arr.slice(0, i).concat(arr.slice(i + 1)); sub = g14_perms(rest);
+    for (j = 0; j < sub.length; j++) out.push([arr[i]].concat(sub[j]));
+  }
+  return out;
+}
+function g14_cnt(w) { var c = {}, i; for (i = 0; i < w.length; i++) c[w[i]] = (c[w[i]] || 0) + 1; return c; }
+/* 1. permutaciones con repetición (anagramas) */
+g14_genr('com', function () {
+  var w = pick(['ANA', 'OSO', 'MAMA', 'CASA', 'PEPE', 'LOLA', 'SALSA', 'TATA', 'BANANA', 'PAPAS']);
+  var all = g14_perms(w.split('')), set = {}, i; for (i = 0; i < all.length; i++) set[all[i].join('')] = 1;
+  var brute = Object.keys(set).length, c = g14_cnt(w), den = 1, k, rs = [];
+  for (k in c) { den *= g14_fact(c[k]); if (c[k] > 1) rs.push(c[k]); }
+  var f = g14_fact(w.length) / den;
+  g14_chk(f === brute, 'com anagramas ' + w);
+  var sumr = 0; rs.forEach(function (z) { sumr += z; });
+  return mk('com', '¿Cuántas ordenaciones distintas de letras se pueden formar con todas las letras de la palabra ' + w + '?', String(f),
+    g14_wi(f, [g14_fact(w.length), g14_fact(w.length) / 2, g14_fact(w.length) / sumr, g14_fact(w.length) / (rs[0] || 1), g14_fact(w.length) - den], String),
+    'Hay ' + w.length + ' letras' + (function () { var o = []; for (var kq in c) if (c[kq] > 1) o.push('la ' + kq + ' se repite ' + c[kq] + ' veces'); return ': ' + o.join(' y '); })() + ', luego ' + w.length + '! : ' + (den > 1 ? g14_L(1, function () { var o = []; for (var kk in c) if (c[kk] > 1) o.push(c[kk] + '!'); return o.join('·'); })[0] : '1') + ' = ' + f + '.');
+});
+/* 2. números con cifras distintas */
+g14_genr('com', function () {
+  var n, a, b, c, cnt = 0;
+  if (Math.random() < 0.55) {
+    n = ri(4, 6);
+    for (a = 0; a < n; a++) for (b = 0; b < n; b++) for (c = 0; c < n; c++) if (a !== 0 && a !== b && b !== c && a !== c) cnt++;
+    var f = (n - 1) * (n - 1) * (n - 2);
+    g14_chk(cnt === f, 'com cifras');
+    return mk('com', '¿Cuántos números de 3 cifras distintas se pueden formar con las cifras 0, 1, ..., ' + (n - 1) + '? (la primera cifra no puede ser 0)', String(f),
+      g14_wi(f, [n * (n - 1) * (n - 2), n * n * n, (n - 1) * (n - 1) * (n - 1), (n - 1) * (n - 2) * (n - 3), g14_Cb(n - 1, 3)], String),
+      'Primera cifra: ' + (n - 1) + ' opciones (no el 0); segunda: ' + (n - 1) + ' (el 0 ya sirve, pero no la primera); tercera: ' + (n - 2) + '. Total: ' + (n - 1) + '·' + (n - 1) + '·' + (n - 2) + ' = ' + f + '.');
+  }
+  n = pick([5, 6]);
+  for (a = 1; a <= n; a++) for (b = 1; b <= n; b++) for (c = 1; c <= n; c++) if (a !== b && b !== c && a !== c && c % 2 === 0) cnt++;
+  var ev = Math.floor(n / 2), f2 = ev * (n - 1) * (n - 2);
+  g14_chk(cnt === f2, 'com pares');
+  return mk('com', '¿Cuántos números pares de 3 cifras distintas se pueden formar con las cifras 1, 2, ..., ' + n + '?', String(f2),
+    g14_wi(f2, [n * (n - 1) * (n - 2), ev * n * n, ev * (n - 1) * (n - 1), n * (n - 1) * (n - 2) / 2 + ev, ev * g14_Cb(n - 1, 2)], String),
+    'La última cifra debe ser par: ' + ev + ' opciones. Luego quedan ' + (n - 1) + ' para la primera y ' + (n - 2) + ' para la segunda: ' + ev + '·' + (n - 1) + '·' + (n - 2) + ' = ' + f2 + '.');
+});
+/* 3. comités con composición fija */
+g14_genr('com', function () {
+  var h = ri(3, 6), m = ri(3, 6), k = ri(3, 4), j = ri(1, Math.min(2, k - 1)), N = h + m, mask, i, cnt = 0;
+  for (mask = 0; mask < (1 << N); mask++) {
+    var bits = 0, girls = 0; for (i = 0; i < N; i++) if (mask & (1 << i)) { bits++; if (i >= h) girls++; }
+    if (bits === k && girls === j) cnt++;
+  }
+  var f = g14_Cb(m, j) * g14_Cb(h, k - j);
+  g14_chk(cnt === f, 'com comite');
+  return mk('com', 'En un grupo hay ' + h + ' chicos y ' + m + ' chicas. ¿De cuántas formas se puede formar un equipo de ' + k + ' personas con exactamente ' + j + ' ' + (j === 1 ? 'chica' : 'chicas') + '?', String(f),
+    g14_wi(f, [g14_Cb(N, k), g14_Cb(m, j) + g14_Cb(h, k - j), g14_Cb(m, j) * g14_Cb(h, k), g14_Cb(m, j) * g14_fact(k - j), m * j * h * (k - j)], String),
+    'Se eligen las chicas: C(' + m + ', ' + j + ') = ' + g14_Cb(m, j) + ' y los chicos: C(' + h + ', ' + (k - j) + ') = ' + g14_Cb(h, k - j) + '. Se multiplican: ' + f + '.');
+});
+/* 4. regla del producto */
+g14_genr('com', function () {
+  var v = ri(0, 2), a, b, c, d, cnt = 0, i, j, l;
+  if (v === 0) {
+    a = ri(2, 5); b = ri(2, 5); c = ri(2, 4);
+    for (i = 0; i < a; i++) for (j = 0; j < b; j++) for (l = 0; l < c; l++) cnt++;
+    g14_chk(cnt === a * b * c, 'com menu');
+    return mk('com', 'Un menú ofrece ' + a + ' primeros, ' + b + ' segundos y ' + c + ' postres. ¿Cuántos menús distintos (uno de cada) se pueden pedir?', String(a * b * c),
+      g14_wi(a * b * c, [a + b + c, a * b + c, a * b * c - 1, (a + b) * c, a * b * c * 2], String), 'Se multiplican las opciones de cada plato: ' + a + '·' + b + '·' + c + ' = ' + a * b * c + '.');
+  }
+  if (v === 1) {
+    a = ri(3, 6);
+    for (i = 0; i < a; i++) for (j = 0; j < a; j++) for (l = 0; l < 100; l++) cnt++;
+    g14_chk(cnt === a * a * 100, 'com clave');
+    return mk('com', 'Una clave consta de 2 letras elegidas entre ' + a + ' letras (pueden repetirse) seguidas de 2 dígitos del 0 al 9 (pueden repetirse). ¿Cuántas claves distintas hay?', String(a * a * 100),
+      g14_wi(a * a * 100, [a * 2 * 20, a * (a - 1) * 90, a * a * 90, a * a * 10 * 2, a * a * 20], String), a + '·' + a + ' formas para las letras y 10·10 para los dígitos: ' + a * a + '·100 = ' + a * a * 100 + '.');
+  }
+  c = ri(3, 5);
+  for (i = 0; i < c; i++) for (j = 0; j < c; j++) for (l = 0; l < c; l++) if (i !== j && j !== l) cnt++;
+  g14_chk(cnt === c * (c - 1) * (c - 1), 'com bandera');
+  return mk('com', 'Una bandera tiene 3 franjas horizontales y se dispone de ' + c + ' colores. Dos franjas contiguas no pueden tener el mismo color (la 1ª y la 3ª sí). ¿Cuántas banderas distintas hay?', String(c * (c - 1) * (c - 1)),
+    g14_wi(c * (c - 1) * (c - 1), [c * c * c, c * (c - 1) * (c - 2), c * (c - 1) * c, c * c * (c - 1) + 1, c + c - 1 + c - 1], String),
+    'Primera franja: ' + c + ' colores; segunda: ' + (c - 1) + ' (distinta de la primera); tercera: ' + (c - 1) + ' (distinta de la segunda). Total: ' + c + '·' + (c - 1) + '·' + (c - 1) + ' = ' + c * (c - 1) * (c - 1) + '.');
+});
+/* 5. PROBLEMAS: personas juntas y "al menos una" */
+g14_genr('com', function () {
+  var r, n, p, i, cnt = 0, together = Math.random() < 0.5;
+  if (Math.random() < 0.55) {
+    n = ri(4, 6);
+    var arr = []; for (i = 0; i < n; i++) arr.push(i); p = g14_perms(arr);
+    for (i = 0; i < p.length; i++) {
+      var pa = p[i].indexOf(0), pb = p[i].indexOf(1), adj = Math.abs(pa - pb) === 1;
+      if (together ? adj : !adj) cnt++;
+    }
+    var tg = 2 * g14_fact(n - 1), f = together ? tg : g14_fact(n) - tg;
+    g14_chk(cnt === f, 'com fila');
+    r = mk('com', 'Se sientan en una fila ' + n + ' personas, entre ellas Ana y Luis. ¿De cuántas formas pueden sentarse si Ana y Luis ' + (together ? 'quieren estar juntos' : 'no quieren sentarse juntos') + '?', String(f),
+      g14_wi(f, [g14_fact(n), g14_fact(n - 1), tg + (together ? 0 : 0) + 2, together ? g14_fact(n) - tg : tg, g14_fact(n - 1) * 3, (g14_fact(n) - tg) / 2], String),
+      together ? 'Se tratan Ana y Luis como un bloque: (' + n + ' − 1)! = ' + g14_fact(n - 1) + ' ordenaciones, y dentro del bloque 2 formas: ' + tg + '.' : 'Total ' + n + '! = ' + g14_fact(n) + ' menos las que están juntos (2·' + (n - 1) + '! = ' + tg + '): ' + f + '.');
+  } else {
+    var h = ri(3, 6), m = ri(2, 4), k = ri(2, 3), N = h + m, mask, bits, girls, q;
+    for (mask = 0; mask < (1 << N); mask++) {
+      bits = 0; girls = 0; for (q = 0; q < N; q++) if (mask & (1 << q)) { bits++; if (q >= h) girls++; }
+      if (bits === k && girls >= 1) cnt++;
+    }
+    var f2 = g14_Cb(N, k) - g14_Cb(h, k);
+    g14_chk(cnt === f2, 'com al menos una');
+    r = mk('com', 'De un grupo de ' + h + ' chicos y ' + m + ' chicas se elige un equipo de ' + k + ' personas. ¿De cuántas formas puede haber al menos una chica?', String(f2),
+      g14_wi(f2, [g14_Cb(N, k), g14_Cb(h, k), m * g14_Cb(N - 1, k - 1), g14_Cb(m, 1) * g14_Cb(h, k - 1) + 1, g14_Cb(N, k) - m], String),
+      'Todos los equipos: C(' + N + ', ' + k + ') = ' + g14_Cb(N, k) + '. Los que no tienen chicas (solo chicos): C(' + h + ', ' + k + ') = ' + g14_Cb(h, k) + '. Diferencia: ' + f2 + '.');
+  }
+  r.p = 1; return r;
+});
+
+/* ================= pro ================= */
+function g14_fws(num, den, cands) {
+  var out = [], ca = g14_fr(num, den), v = num / den, push = function (n, d) {
+    if (!d || n <= 0 || n / d > 1 || Math.abs(n / d - v) < 1e-9) return;
+    var s = g14_fr(n, d); if (s !== ca && out.indexOf(s) < 0) out.push(s);
+  };
+  shuffle(cands.slice()).forEach(function (c) { push(c[0], c[1]); });
+  [[num + 1, den], [num - 1, den], [num, den + 1], [num + 2, den], [num, den - 1], [den - num, den], [num * 2, den]].forEach(function (c) { push(c[0], c[1]); });
+  return out;
+}
+/* 1. dos dados */
+g14_genr('pro', function () {
+  var a, b, cnt = 0, v = ri(0, 2), s, t;
+  if (v === 0) {
+    s = ri(3, 11); for (a = 1; a <= 6; a++) for (b = 1; b <= 6; b++) if (a + b === s) cnt++;
+    return mk('pro', 'Se lanzan dos dados. ¿Cuál es la probabilidad de que la suma sea ' + s + '?', g14_fr(cnt, 36),
+      g14_fws(cnt, 36, [[1, 36], [cnt, 12], [1, 11], [cnt, 6], [2, 36], [s - 1, 36 * 2], [1, 6]]), 'De los 36 resultados posibles, ' + cnt + ' suman ' + s + '. P = ⟨' + cnt + '|36⟩' + (gcd(cnt, 36) > 1 ? ' = ' + g14_fr(cnt, 36) : '') + '.');
+  }
+  if (v === 1) {
+    t = ri(8, 11); for (a = 1; a <= 6; a++) for (b = 1; b <= 6; b++) if (a + b >= t) cnt++;
+    var eq = 0; for (a = 1; a <= 6; a++) for (b = 1; b <= 6; b++) if (a + b === t) eq++;
+    return mk('pro', 'Se lanzan dos dados. ¿Cuál es la probabilidad de que la suma sea al menos ' + t + '?', g14_fr(cnt, 36),
+      g14_fws(cnt, 36, [[eq, 36], [cnt, 12], [cnt + 1, 36], [cnt - 1, 36], [t, 36], [cnt, 6]]), 'Resultados con suma ≥ ' + t + ': ' + cnt + ' de 36. P = ' + g14_fr(cnt, 36) + '.');
+  }
+  for (a = 1; a <= 6; a++) for (b = 1; b <= 6; b++) if (a === b) cnt++;
+  var d6 = 0; for (a = 1; a <= 6; a++) for (b = 1; b <= 6; b++) if (a === 6 || b === 6) d6++;
+  if (Math.random() < 0.5) {
+    return mk('pro', 'Se lanzan dos dados. ¿Cuál es la probabilidad de sacar el mismo número en ambos?', g14_fr(cnt, 36),
+      g14_fws(cnt, 36, [[1, 36], [1, 3], [6, 12], [2, 6 * 6 / 3], [12, 36]]), 'Hay 6 parejas iguales (1-1, 2-2, ..., 6-6) entre 36 resultados: ⟨6|36⟩ = ⟨1|6⟩.');
+  }
+  return mk('pro', 'Se lanzan dos dados. ¿Cuál es la probabilidad de que salga al menos un 6?', g14_fr(d6, 36),
+    g14_fws(d6, 36, [[12, 36], [10, 36], [1, 6], [1, 36], [2, 6], [25, 36]]), 'Por el suceso contrario: no sale ningún 6 en ' + 25 + ' de los 36 casos, así que P = 1 − ⟨25|36⟩ = ⟨11|36⟩.');
+});
+/* 2. monedas */
+g14_genr('pro', function () {
+  var n = ri(3, 5), tot = 1 << n, i, k, exact = 0, atleast = 0;
+  var kk = ri(1, n - 1);
+  for (i = 0; i < tot; i++) { var c = 0; for (k = 0; k < n; k++) if (i & (1 << k)) c++; if (c === kk) exact++; if (c >= 1) atleast++; }
+  g14_chk(exact === g14_Cb(n, kk) && atleast === tot - 1, 'pro monedas');
+  if (Math.random() < 0.5) {
+    return mk('pro', 'Se lanza una moneda ' + n + ' veces. ¿Cuál es la probabilidad de obtener al menos una cara?', g14_fr(atleast, tot),
+      g14_fws(atleast, tot, [[1, tot], [n, tot], [1, 2], [n, 2 * n], [tot - 2, tot], [tot / 2, tot]]), 'Suceso contrario: ninguna cara (todo cruces), con probabilidad ⟨1|' + tot + '⟩. Entonces P = 1 − ⟨1|' + tot + '⟩ = ⟨' + atleast + '|' + tot + '⟩.');
+  }
+  return mk('pro', 'Se lanza una moneda ' + n + ' veces. ¿Cuál es la probabilidad de obtener exactamente ' + kk + (kk === 1 ? ' cara' : ' caras') + '?', g14_fr(exact, tot),
+    g14_fws(exact, tot, [[1, tot], [kk, tot], [kk, n], [1, 2], [exact * 2, tot], [exact, tot - 1]]), 'Hay C(' + n + ', ' + kk + ') = ' + exact + ' casos favorables entre 2^{' + n + '} = ' + tot + ': P = ' + g14_fr(exact, tot) + '.');
+});
+/* 3. baraja española */
+g14_genr('pro', function () {
+  var palos = ['oros', 'copas', 'espadas', 'bastos'], deck = [], p, c, n = 0;
+  for (p = 0; p < 4; p++) for (c = 1; c <= 10; c++) deck.push([p, c]);
+  var fig = function (x) { return x[1] >= 8; }, rey = function (x) { return x[1] === 10; }, as = function (x) { return x[1] === 1; };
+  var cases = [
+    ['sea de oros o un rey', function (x) { return x[0] === 0 || rey(x); }, 13, 'oros: 10; reyes: 4; el rey de oros está en ambos: 10 + 4 − 1 = 13'],
+    ['sea una figura (sota, caballo o rey) o una carta de espadas', function (x) { return fig(x) || x[0] === 2; }, 19, 'figuras: 12; espadas: 10; figuras de espadas: 3; 12 + 10 − 3 = 19'],
+    ['sea un as o una carta de copas', function (x) { return as(x) || x[0] === 1; }, 13, 'ases: 4; copas: 10; el as de copas está en ambos: 4 + 10 − 1 = 13'],
+    ['sea un rey o una figura de bastos', function (x) { return rey(x) || (x[0] === 3 && fig(x)); }, 6, 'reyes: 4; figuras de bastos: 3; el rey de bastos está en ambos: 4 + 3 − 1 = 6']];
+  var cs = pick(cases), i; for (i = 0; i < 40; i++) if (cs[1](deck[i])) n++;
+  g14_chk(n === cs[2], 'pro baraja ' + cs[0]);
+  var wrong = [[n + 1, 40], [n - 1, 40], [n, 36], [n - 1 + 2, 40], [n + 2, 40]];
+  return mk('pro', 'Se extrae una carta de una baraja española de 40 cartas (4 palos de 10 cartas; sota, caballo y rey son las figuras). ¿Cuál es la probabilidad de que ' + cs[0] + '?', g14_fr(n, 40),
+    g14_fws(n, 40, wrong), 'Casos favorables: ' + cs[3] + '. P = ⟨' + n + '|40⟩' + (gcd(n, 40) > 1 ? ' = ' + g14_fr(n, 40) : '') + '.');
+});
+/* 4. bolas con devolución */
+g14_genr('pro', function () {
+  var Rr = ri(1, 5), B = ri(1, 5), T = Rr + B, i, j, mix = 0, same = 0;
+  for (i = 0; i < T; i++) for (j = 0; j < T; j++) { var ci = i < Rr, cj = j < Rr; if (ci !== cj) mix++; else same++; }
+  g14_chk(mix === 2 * Rr * B && mix + same === T * T, 'pro devolucion');
+  var ask = Math.random() < 0.5, num = ask ? mix : same;
+  return mk('pro', 'Una bolsa tiene ' + Rr + (Rr === 1 ? ' bola roja y ' : ' bolas rojas y ') + B + (B === 1 ? ' azul' : ' azules') + '. Se extraen dos bolas, devolviendo la primera a la bolsa antes de sacar la segunda. ¿Cuál es la probabilidad de que ' + (ask ? 'salga una de cada color (en cualquier orden)?' : 'las dos sean del mismo color?'), g14_fr(num, T * T),
+    g14_fws(num, T * T, ask ? [[Rr * B, T * T], [2 * Rr * B, T * (T - 1)], [Rr * B, T * (T - 1)], [same, T * T], [Rr + B, T * T]] : [[Rr * (Rr - 1) + B * (B - 1), T * (T - 1)], [Rr * Rr, T * T], [mix, T * T], [Rr * Rr + B * B + 1, T * T]]),
+    ask ? 'Rojo-azul: ' + Rr + '/' + T + ' · ' + B + '/' + T + ', y azul-rojo igual: P = 2·' + Rr + '·' + B + ' : ' + T * T + ' = ' + g14_fr(num, T * T) + '.' : 'Dos rojas: (' + Rr + '/' + T + ')^{2}; dos azules: (' + B + '/' + T + ')^{2}. Suma: ' + (Rr * Rr + B * B) + ' : ' + T * T + ' = ' + g14_fr(num, T * T) + '.');
+});
+/* 5. PROBLEMAS: dos urnas y máquinas defectuosas */
+g14_genr('pro', function () {
+  var r;
+  if (Math.random() < 0.55) {
+    var N1 = ri(3, 6), N2 = ri(3, 6), r1 = ri(1, N1 - 1), r2 = ri(1, N2 - 1), red = 0, red1 = 0, tot = 0, i, j;
+    for (i = 0; i < N1; i++) for (j = 0; j < N2; j++) { tot += 2; if (i < r1) { red++; red1++; } if (j < r2) red++; }
+    /* cada bola de la urna 1 pesa N2 veces y cada bola de la urna 2 pesa N1 veces: suceso (urna1, bola i) con peso N2 */
+    var w1 = 0, w2 = 0; for (i = 0; i < N1; i++) if (i < r1) w1 += N2; for (j = 0; j < N2; j++) if (j < r2) w2 += N1;
+    var D = 2 * N1 * N2, num = w1 + w2;
+    g14_chk(num === (r1 * N2 + r2 * N1) && D === 2 * N1 * N2, 'pro urnas');
+    if (Math.random() < 0.5) {
+      r = mk('pro', 'Se elige al azar una de dos urnas (con la misma probabilidad) y se extrae una bola. La urna A tiene ' + r1 + (r1 === 1 ? ' roja y ' : ' rojas y ') + (N1 - r1) + (N1 - r1 === 1 ? ' azul' : ' azules') + '; la urna B tiene ' + r2 + (r2 === 1 ? ' roja y ' : ' rojas y ') + (N2 - r2) + (N2 - r2 === 1 ? ' azul.' : ' azules.') + ' ¿Cuál es la probabilidad de que la bola sea roja?', g14_fr(num, D),
+        g14_fws(num, D, [[r1 + r2, N1 + N2], [r1 * N2 + r2 * N1, N1 * N2], [r1 * r2, N1 * N2], [w1, D], [r1 + r2, 2 * (N1 + N2)]]),
+        'P(roja) = ⟨1|2⟩·⟨' + r1 + '|' + N1 + '⟩ + ⟨1|2⟩·⟨' + r2 + '|' + N2 + '⟩ = ' + g14_fr(num, D) + '.');
+    } else {
+      r = mk('pro', 'Se elige al azar una de dos urnas (con la misma probabilidad) y se extrae una bola, que resulta ser roja. La urna A tiene ' + r1 + (r1 === 1 ? ' roja y ' : ' rojas y ') + (N1 - r1) + (N1 - r1 === 1 ? ' azul' : ' azules') + '; la urna B tiene ' + r2 + (r2 === 1 ? ' roja y ' : ' rojas y ') + (N2 - r2) + (N2 - r2 === 1 ? ' azul.' : ' azules.') + ' ¿Cuál es la probabilidad de que venga de la urna A?', g14_fr(w1, num),
+        g14_fws(w1, num, [[r1, N1], [r1, r1 + r2], [1, 2], [w1, D], [w2, num], [r1 * N2, r1 * N2 + r2 * N1 + 1]]),
+        'P(A si sale roja) = P(A y roja) : P(roja) = ⟨' + w1 + '|' + D + '⟩ : ⟨' + num + '|' + D + '⟩ = ' + g14_fr(w1, num) + '.');
+    }
+  } else {
+    var sets = [[50, 30, 20], [60, 30, 10], [40, 40, 20], [50, 25, 25], [70, 20, 10]], pcs = pick(sets), ds = [ri(1, 4), ri(1, 5), ri(2, 8)], cnt = 0, A = 0, k, tt = 0;
+    var items = 10000, nn;
+    for (k = 0; k < 3; k++) { nn = pcs[k] * 100; var def = nn * ds[k] / 100; cnt += def; if (k === 0) A = def; tt += nn; }
+    g14_chk(tt === items, 'pro maquinas');
+    var pD = cnt / 100;
+    var desc = 'Tres máquinas A, B y C fabrican el ' + pcs[0] + ' %, el ' + pcs[1] + ' % y el ' + pcs[2] + ' % de las piezas, con un ' + ds[0] + ' %, un ' + ds[1] + ' % y un ' + ds[2] + ' % de piezas defectuosas respectivamente. ';
+    if (Math.random() < 0.5) {
+      var fp = function (z) { return g14_n(Math.round(z * 100) / 100) + ' %'; };
+      r = mk('pro', desc + 'Se elige una pieza al azar. ¿Cuál es la probabilidad de que sea defectuosa?', fp(pD),
+        g14_ws(pD, [(ds[0] + ds[1] + ds[2]) / 3, ds[0] + ds[1] + ds[2], pD * 2, pD + 1, ds[0] * pcs[0] / 100], fp),
+        'P(defectuosa) = 0,' + (pcs[0] < 10 ? '0' : '') + pcs[0] + '·0,0' + ds[0] + ' + 0,' + pcs[1] + '·0,0' + ds[1] + ' + 0,' + pcs[2] + '·0,0' + ds[2] + ' = ' + g14_n(pD / 100) + ', es decir, el ' + g14_n(pD) + ' %.');
+    } else {
+      r = mk('pro', desc + 'Se elige una pieza al azar y resulta defectuosa. ¿Cuál es la probabilidad de que proceda de la máquina A?', g14_fr(A, cnt),
+        g14_fws(A, cnt, [[pcs[0], 100], [ds[0], ds[0] + ds[1] + ds[2]], [A, items], [1, 3], [A + 1, cnt]]),
+        'De 10 000 piezas, defectuosas: ' + cnt + ' en total, de las cuales ' + A + ' son de A. P = ⟨' + A + '|' + cnt + '⟩ = ' + g14_fr(A, cnt) + '.');
+    }
+  }
+  r.p = 1; return r;
+});
+/* Modo flash: preguntas de cabeza, sin papel (temas fl1–fl5) */
+var G15_START = GENS.length;
+function fl(t, fn) {
+  genr(t, function () {
+    var r = fn(), q = mk(t, r.q, r.a, r.w, r.e || f_exp(r));
+    q.fl = 1;
+    (r.bar || []).forEach(function (b) { b = String(b); if (q.w.indexOf(b) >= 0) barb(q.q, b); });
+    return q;
+  });
+}
+
+var F_RULES = [
+  [/^(\w) · \1 = \?/, 'Multiplicar es sumar exponentes: x · x = x^{1+1} = x^{2}. No es 2x.'],
+  [/^(\w) \+ \1 = \?/, 'Sumar es contar cuántas x hay: x + x = 2x. Solo se multiplica cuando hay un producto.'],
+  [/^(\w) · \1 · \1/, 'Tres factores iguales: x · x · x = x^{3}.'],
+  [/^[a-z]\^\{\d+\} · [a-z]\^\{\d+\}/, 'Misma base: se suman los exponentes.'],
+  [/^⟨\w\^\{/, 'Misma base: se restan los exponentes (arriba − abajo).'],
+  [/^\(\w\^\{\d+\}\)\^/, 'Potencia de una potencia: se multiplican los exponentes.'],
+  [/^\d+\w \+ \d+\w/, 'Sumar términos semejantes: se suman los coeficientes y la parte con letra no cambia.'],
+  [/^\d+\w · \d+\w/, 'Se multiplican los números entre sí y las letras entre sí: x · x = x^{2}.'],
+  [/^\(−\d+\) · /, 'Menos por menos da más.'],
+  [/^\(−\w\)\^\{2\}/, 'Exponente par: el signo menos desaparece.'],
+  [/^\(−\w\)\^\{3\}/, 'Exponente impar: el signo menos se queda.'],
+  [/^\w\^\{0\}/, 'Cualquier número distinto de 0 elevado a 0 vale 1.'],
+  [/^\d+\(\w \+/, 'Se reparte el número en todos los términos del paréntesis.'],
+  [/^−\(/, 'El menos delante del paréntesis cambia el signo de todo lo de dentro.'],
+  [/^√\{(\d+)\} \+ √\{\1\}/, 'Son dos raíces iguales: √k + √k = 2√k. Las raíces no se suman por dentro.'],
+  [/^√\{(\d+)\} · √\{\1\}/, 'Una raíz por sí misma devuelve el número: √k · √k = k.'],
+  [/^√\{\d+\} · √\{\d+\}/, 'Multiplicar raíces: se multiplican los radicandos, √a · √b = √{ab}.'],
+  [/^√\{\d+ \+ \d+\}/, 'Primero se suma dentro de la raíz y después se hace la raíz.'],
+  [/^√\{\d+\} \+ √\{\d+\}/, 'Se calcula cada raíz por separado y luego se suman. √a + √b no es √{a+b}.'],
+  [/^\(√/, 'Elevar al cuadrado una raíz cuadrada las anula.'],
+  [/^√\{\w\^\{2\}\}/, 'La raíz cuadrada nunca es negativa: √{x^{2}} = |x|.'],
+  [/^\d+√\{\d+\} [+−] /, 'Raíces iguales se suman como términos semejantes: se suman los coeficientes y la raíz no cambia.'],
+  [/^√\[3\]/, 'Raíz cúbica: ¿qué número al cubo da el radicando?'],
+  [/^√\{⟨/, 'La raíz de una fracción es la raíz del numerador entre la del denominador.'],
+  [/^Si x/, 'Se sustituye x por su valor y se calcula.'],
+  [/^\(a \+ \d+\) − \(a/, 'Se quita el paréntesis cambiando los signos de dentro: las a se anulan.'],
+  [/^\d+\w − \w/, 'Términos semejantes: la x sola es 1x, así que 7x − x = 6x.'],
+  [/^\w − \w \+/, 'x − x = 0, solo queda el número.'],
+  [/^\w\^\{2\} \+ \w\^\{2\}/, 'Términos semejantes: x^{2} + x^{2} = 2x^{2}. El exponente no cambia al sumar.'],
+  [/^\w · \w \+ \w · \w/, 'x · x = x^{2}, y sumar dos iguales da 2x^{2}.'],
+  [/^\d*√/, 'Se busca el mayor cuadrado perfecto que divide al radicando y se saca fuera (por ejemplo 45 = 9 · 5).'],
+  [/^(\d+)\^\{\d+\} · \1\^\{\d+\}/, 'Misma base: se suman los exponentes.'],
+  [/^\d+\^\{(\d+)\} · \d+\^\{\1\}/, 'Mismo exponente: se multiplican las bases y el exponente se queda.'],
+  [/^\d+\^\{−/, 'Exponente negativo: se invierte la base. a^{−n} = 1/a^{n}. El resultado no es negativo.'],
+  [/^10\^\{\d\}/, 'Potencia de 10: el exponente indica cuántos ceros lleva.'],
+  [/^\d+\^\{0\}/, 'Cualquier número distinto de 0 elevado a 0 vale 1.'],
+  [/\^\{⟨1\|2⟩\}/, 'Exponente ½ es raíz cuadrada.'],
+  [/\^\{⟨1\|3⟩\}/, 'Exponente ⅓ es raíz cúbica.'],
+  [/^−\d+\^/, 'Sin paréntesis, el menos va fuera: primero la potencia y después el signo.'],
+  [/^log_\{\d+\} ⟨1/, 'Logaritmo de 1 partido por una potencia de la base: es el exponente con signo cambiado (log_b ⟨1|b⟩ = −1).'],
+  [/^log_\{\d+\} 1 /, 'log de 1 es 0 en cualquier base.'],
+  [/^log_\{(\d+)\} \1 =/, 'log_b b = 1.'],
+  [/^log_\{\d+\} \d+ \+/, 'Suma de logaritmos = logaritmo del producto. Se suman los exponentes.'],
+  [/^log_\{\d+\} \d+ −/, 'Resta de logaritmos = logaritmo del cociente. Se restan los exponentes.'],
+  [/^log \d+ \+ log/, 'log a + log b = log(ab). Aquí el producto es una potencia de 10.'],
+  [/^log \d+\^/, 'log(a^{n}) = n · log a.'],
+  [/^log_\{\d+\} \d+ =|^log \d+ =/, 'El logaritmo es el exponente: ¿a qué se eleva la base para dar ese número?'],
+  [/^ln e\^/, 'ln y e^ son inversas: ln e^{n} = n.'],
+  [/^ln e =/, 'ln e = 1.'],
+  [/^ln 1/, 'ln 1 = 0.'],
+  [/^e\^\{ln/, 'e^ y ln se anulan: e^{ln k} = k.'],
+  [/^⟨1\|\d+⟩ \+ ⟨1\|\d+⟩/, 'Fracciones: denominador común. Los denominadores no se suman.'],
+  [/^⟨\d+\|\d+⟩ ·/, 'Producto de fracciones: numerador por numerador, denominador por denominador.'],
+  [/% de/, 'Porcentaje: divide entre 100 y multiplica.'],
+  [/^\(x \+ 1\)\(x − 1\)/, 'Suma por diferencia: (x+1)(x−1) = x^{2} − 1.'],
+  [/^\d+\^\{2\} =/, 'El cuadrado es multiplicar el número por sí mismo, no por 2.'],
+  [/→ x = /, 'Se hace la operación contraria en los dos lados.'],
+  [/ − \(−/, 'Restar un negativo es sumar.'],
+  [/^−\d+ − /, 'Dos negativos seguidos se suman y el resultado sigue siendo negativo.']
+];
+function f_exp(r) {
+  if (/^√\{\d+\} = \?$/.test(r.q) && /^\d+$/.test(r.a)) return 'Raíz exacta: ¿qué número al cuadrado da el radicando?';
+  for (var i = 0; i < F_RULES.length; i++) if (F_RULES[i][0].test(r.q)) return F_RULES[i][1];
+  return r.q.replace(/ = \?$/, '').replace(/ → \?$/, '') + ' = ' + r.a + '.';
+}
+function f_sq(c, k) { return (c === 1 ? '' : c) + '√{' + k + '}'; }
+function f_pw(a, n) { return n === 1 ? String(a) : a + '^{' + n + '}'; }
+function f_big(n) { return n >= 10000 ? String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : String(n); }
+function f_num(n) { return String(n).replace('-', '−'); }
+function f_dec(x) { return String(x).replace('.', ','); }
+function f_fr(a, b) { var g = gcd(Math.abs(a), Math.abs(b)) || 1; a /= g; b /= g; if (b < 0) { a = -a; b = -b; } return b === 1 ? f_num(a) : (a < 0 ? '−' : '') + '⟨' + Math.abs(a) + '|' + b + '⟩'; }
+var F_VARS = ['x', 'x', 'x', 'a', 'y', 't', 'b'];
+
+/* ---------- fl1: álgebra relámpago ---------- */
+var FL1 = [
+  function () { var v = pick(F_VARS); return { q: v + ' · ' + v + ' = ?', a: f_pw(v, 2), w: ['2' + v, f_pw(v, 3), v], bar: ['2' + v] }; },
+  function () { var v = pick(F_VARS); return { q: v + ' + ' + v + ' = ?', a: '2' + v, w: [f_pw(v, 2), '2' + f_pw(v, 2), v], bar: [f_pw(v, 2)] }; },
+  function () { var v = pick(F_VARS); return { q: v + ' · ' + v + ' · ' + v + ' = ?', a: f_pw(v, 3), w: ['3' + v, f_pw(v, 2), '3' + f_pw(v, 2)], bar: ['3' + v] }; },
+  function () { var v = pick(F_VARS), m = ri(2, 6), n = ri(2, 6); return { q: f_pw(v, m) + ' · ' + f_pw(v, n) + ' = ?', a: f_pw(v, m + n), w: [f_pw(v, m * n), f_pw(v, Math.abs(m - n) || 1), f_pw(v, m + n + 1)], bar: [f_pw(v, m * n)] }; },
+  function () { var v = pick(F_VARS), n = ri(2, 4), m = n + ri(1, 5); return { q: '⟨' + f_pw(v, m) + '|' + f_pw(v, n) + '⟩ = ?', a: f_pw(v, m - n), w: [f_pw(v, m + n), f_pw(v, m * n), f_pw(v, m + n - 1 > 0 && m + n - 1 !== m - n ? m + n - 1 : m - n + 2)], bar: [f_pw(v, m * n)] }; },
+  function () { var v = pick(F_VARS), m = ri(2, 4), n = ri(2, 4); return { q: '(' + f_pw(v, m) + ')^{' + n + '} = ?', a: f_pw(v, m * n), w: [f_pw(v, m + n), f_pw(v, m * n + m), f_pw(v, n)], bar: [f_pw(v, m + n)] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9), j = ri(2, 9); return { q: k + v + ' + ' + j + v + ' = ?', a: (k + j) + v, w: [(k * j) + v, (k + j) + f_pw(v, 2), (k * j) + f_pw(v, 2)], bar: [(k + j) + f_pw(v, 2)] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9), j = ri(2, 9); return { q: k + v + ' · ' + j + v + ' = ?', a: (k * j) + f_pw(v, 2), w: [(k + j) + f_pw(v, 2), (k * j) + v, (k + j) + v], bar: [(k * j) + v] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9); return { q: k + v + ' − ' + v + ' = ?', a: (k - 1) === 1 ? v : (k - 1) + v, w: [k + v, f_pw(v, 1) === v && (k + 1) + v, '0'].filter(Boolean), bar: [] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 6); return { q: v + ' − ' + v + ' + ' + k + ' = ?', a: String(k), w: [k + v, k + 1 + '', '0'], bar: [] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 6); return { q: f_pw(v, 2) + ' + ' + f_pw(v, 2) + ' = ?', a: '2' + f_pw(v, 2), w: [f_pw(v, 4), '2' + f_pw(v, 4), f_pw(v, 2)], bar: [f_pw(v, 4)] }; },
+  function () { var v = pick(F_VARS); return { q: '(−' + v + ')^{2} = ?', a: f_pw(v, 2), w: ['−' + f_pw(v, 2), v, '−' + v], bar: ['−' + f_pw(v, 2)] }; },
+  function () { var v = pick(F_VARS); return { q: '(−' + v + ')^{3} = ?', a: '−' + f_pw(v, 3), w: [f_pw(v, 3), '−' + f_pw(v, 2), f_pw(v, 2)], bar: [] }; },
+  function () { var v = pick(F_VARS); return { q: f_pw(v, 0) + ' (con ' + v + ' ≠ 0) = ?', a: '1', w: ['0', v, '−1'], bar: ['0'] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9), j = ri(2, 9); return { q: k + '(' + v + ' + ' + j + ') = ?', a: k + v + ' + ' + (k * j), w: [k + v + ' + ' + j, v + ' + ' + (k * j), (k + 1) + v + ' + ' + (k * j)], bar: [k + v + ' + ' + j] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 9); return { q: '−(' + v + ' − ' + k + ') = ?', a: '−' + v + ' + ' + k, w: ['−' + v + ' − ' + k, v + ' − ' + k, v + ' + ' + k], bar: ['−' + v + ' − ' + k] }; },
+  function () { var k = ri(2, 9), j = ri(2, 9); return { q: '(a + ' + k + ') − (a − ' + j + ') = ?', a: String(k + j), w: [f_num(k - j), 'a + ' + (k + j), '2a + ' + (k + j)], bar: [] }; },
+  function () { var k = pick([-5, -4, -3, -2, 2, 3, 4, 5]); return { q: 'Si x = ' + f_num(k) + ', ¿cuánto vale x^{2}?', a: String(k * k), w: [f_num(-k * k), f_num(2 * k), f_num(-2 * k)], bar: [f_num(-k * k)] }; },
+  function () { var v = pick(F_VARS), k = ri(2, 6); return { q: v + ' · ' + v + ' + ' + v + ' · ' + v + ' = ?', a: '2' + f_pw(v, 2), w: [f_pw(v, 4), '2' + v, '2' + f_pw(v, 4)], bar: [f_pw(v, 4)] }; }
+];
+FL1.forEach(function (f) { fl('fl1', f); });
+
+/* ---------- fl2: radicales relámpago ---------- */
+var FL2 = [
+  function () { var k = pick([2, 3, 5, 6, 7]); return { q: '√{' + k + '} + √{' + k + '} = ?', a: f_sq(2, k), w: ['√{' + (2 * k) + '}', String(2 * k), '√{' + k + '}'], bar: ['√{' + (2 * k) + '}', String(2 * k)] }; },
+  function () { var k = pick([2, 3, 5, 6, 7]); return { q: '√{' + k + '} · √{' + k + '} = ?', a: String(k), w: [f_sq(2, k), '√{' + (2 * k) + '}', String(k * k)], bar: [f_sq(2, k)] }; },
+  function () { var k = ri(2, 15); return { q: '√{' + (k * k) + '} = ?', a: String(k), w: [String(k + 1), String(k - 1), String(2 * k)], bar: [] }; },
+  function () { var k = pick([2, 3, 5, 6, 7]), m = ri(2, 4), j = k * m * m; return { q: '√{' + k + '} · √{' + j + '} = ?', a: String(k * m), w: ['√{' + (k + j) + '}', String(k * j), String(k * m + m)], bar: ['√{' + (k + j) + '}'] }; },
+  function () { var k = pick([2, 3, 5, 7]), a = ri(2, 6), b = ri(2, 6); return { q: a + '√{' + k + '} + ' + b + '√{' + k + '} = ?', a: f_sq(a + b, k), w: [(a + b) + k, '√{' + ((a + b) * k) + '}', f_sq(a * b, k)], bar: ['√{' + ((a + b) * k) + '}'] }; },
+  function () { var k = pick([2, 3, 5, 7]), a = ri(3, 8); return { q: a + '√{' + k + '} − √{' + k + '} = ?', a: f_sq(a - 1, k), w: [String(a), '√{' + ((a - 1) * k) + '}', f_sq(a, k)], bar: [] }; },
+  function () { var t = pick([[2, 2], [2, 3], [3, 2], [2, 5], [3, 3], [5, 2], [4, 2], [3, 5], [5, 3], [6, 2]]), a = t[0], b = t[1], n = a * a * b; return { q: '√{' + n + '} = ?', a: f_sq(a, b), w: [f_sq(b, a), a + ' + √{' + b + '}', f_sq(a * a, b)], bar: [a + ' + √{' + b + '}'] }; },
+  function () { var v = pick(['x', 'a', 't']); return { q: '√{' + v + '^{2}} = ?', a: '|' + v + '|', w: [v, '±' + v, v + '^{2}'], bar: [v + '^{2}'] }; },
+  function () { var t = pick([[3, 4, 5], [6, 8, 10], [5, 12, 13]]); return { q: '√{' + t[0] * t[0] + ' + ' + t[1] * t[1] + '} = ?', a: String(t[2]), w: [String(t[0] + t[1]), String(t[0] * t[0] + t[1] * t[1]), String(t[0] * t[1])], bar: [String(t[0] + t[1])] }; },
+  function () { var k = pick([2, 3, 4, 5, 10]); return { q: '√[3]{' + k * k * k + '} = ?', a: String(k), w: [String(k + 1), String(k * 3), String(k - 1)], bar: [] }; },
+  function () { var n = pick([2, 3, 4, 5]); return { q: '√{⟨1|' + n * n + '⟩} = ?', a: '⟨1|' + n + '⟩', w: ['⟨1|' + n * n + '⟩', String(n), '⟨1|' + (n + 1) + '⟩'], bar: ['⟨1|' + n * n + '⟩'] }; },
+  function () { var k = pick([2, 3, 5, 7, 11]); return { q: '(√{' + k + '})^{2} = ?', a: String(k), w: ['√{' + k + '}', String(2 * k), String(k * k)], bar: [String(2 * k)] }; },
+  function () { var t = pick([[4, 9], [9, 16], [1, 4], [16, 25], [4, 25], [9, 25], [1, 9]]); return { q: '√{' + t[0] + '} + √{' + t[1] + '} = ?', a: String(Math.sqrt(t[0]) + Math.sqrt(t[1])), w: ['√{' + (t[0] + t[1]) + '}', String(t[0] + t[1]), String(Math.sqrt(t[0]) * Math.sqrt(t[1]))], bar: ['√{' + (t[0] + t[1]) + '}'] }; },
+  function () { var k = pick([2, 3, 5]), j = pick([2, 3, 5, 7]); if (k === j) j = 11; return { q: '√{' + k + '} · √{' + j + '} = ?', a: '√{' + k * j + '}', w: ['√{' + (k + j) + '}', String(k * j), f_sq(k, j)], bar: ['√{' + (k + j) + '}'] }; }
+];
+FL2.forEach(function (f) { fl('fl2', f); });
+
+/* ---------- fl3: potencias relámpago ---------- */
+var FL3 = [
+  function () { var a = pick([2, 3, 5]), n = a === 2 ? ri(3, 8) : ri(2, 4); var v = Math.pow(a, n); return { q: f_pw(a, n) + ' = ?', a: String(v), w: [String(a * n), String(Math.pow(a, n - 1)), String(Math.pow(a, n + 1))], bar: [String(a * n)] }; },
+  function () { var a = pick([2, 3, 5, 7, 10, 100]); return { q: f_pw(a, 0) + ' = ?', a: '1', w: ['0', String(a), '−1'], bar: ['0'] }; },
+  function () { var a = pick([2, 3, 5, 10]), n = ri(1, 3), p = Math.pow(a, n); return { q: f_pw(a, '−' + n) + ' = ?', a: '⟨1|' + p + '⟩', w: ['−' + p, '−⟨1|' + p + '⟩', '⟨1|' + (a * n) + '⟩', String(p)], bar: ['−' + p] }; },
+  function () { var a = pick([2, 3, 5]), m = ri(2, 5), n = ri(2, 5); return { q: f_pw(a, m) + ' · ' + f_pw(a, n) + ' = ?', a: f_pw(a, m + n), w: [f_pw(a, m * n), f_pw(a * a, m + n), f_pw(a, Math.abs(m - n) || 1)], bar: [f_pw(a * a, m + n), f_pw(a, m * n)] }; },
+  function () { var a = pick([2, 3, 5]), n = ri(2, 4), m = n + ri(1, 4); return { q: '⟨' + f_pw(a, m) + '|' + f_pw(a, n) + '⟩ = ?', a: f_pw(a, m - n), w: ['1^{' + (m - n) + '}', f_pw(a, m * n), f_pw(a, m + n)], bar: ['1^{' + (m - n) + '}'] }; },
+  function () { var a = pick([2, 3, 5]), m = ri(2, 4), n = ri(2, 4); return { q: '(' + f_pw(a, m) + ')^{' + n + '} = ?', a: f_pw(a, m * n), w: [f_pw(a, m + n), f_pw(a, n), f_pw(a, m)], bar: [f_pw(a, m + n)] }; },
+  function () { var b = pick([4, 9, 16, 25, 36, 49]); return { q: f_pw(b, '⟨1|2⟩') + ' = ?', a: String(Math.sqrt(b)), w: [f_dec(b / 2) === String(Math.sqrt(b)) ? String(b * 2) : f_dec(b / 2), String(b * b), '⟨1|' + b + '⟩'], bar: [f_dec(b / 2)] }; },
+  function () { var b = pick([8, 27, 64, 125]), r = Math.round(Math.cbrt(b)); return { q: f_pw(b, '⟨1|3⟩') + ' = ?', a: String(r), w: ['⟨' + b + '|3⟩', String(b * 3), String(r * 3)], bar: ['⟨' + b + '|3⟩'] }; },
+  function () { var k = pick([2, 3, 4, 5]); return { q: '(−' + k + ')^{2} = ?', a: String(k * k), w: ['−' + k * k, String(2 * k), '−' + 2 * k], bar: ['−' + k * k] }; },
+  function () { var k = pick([2, 3, 4, 5]); return { q: '−' + k + '^{2} = ?', a: '−' + k * k, w: [String(k * k), String(2 * k), '−' + 2 * k], bar: [String(k * k)] }; },
+  function () { var k = pick([2, 3]); var o = Math.pow(-k, 3); return { q: '(−' + k + ')^{3} = ?', a: f_num(o), w: [String(-o), f_num(-3 * k), String(3 * k)], bar: [] }; },
+  function () { var n = ri(2, 4); return { q: f_pw(10, n) + ' = ?', a: f_big(Math.pow(10, n)), w: [f_big(10 * n), f_big(Math.pow(10, n - 1)), f_big(Math.pow(10, n + 1))], bar: [f_big(10 * n)] }; },
+  function () { var p = pick([[2, 5], [4, 5], [2, 50]]), m = ri(2, 3); return { q: f_pw(p[0], m) + ' · ' + f_pw(p[1], m) + ' = ?', a: f_pw(p[0] * p[1], m), w: [f_pw(p[0] + p[1], m), f_pw(p[0] * p[1], m * 2), f_pw(p[0] + p[1], m * 2)], bar: [f_pw(p[0] + p[1], m)] }; }
+];
+FL3.forEach(function (f) { fl('fl3', f); });
+
+/* ---------- fl4: logaritmos relámpago ---------- */
+var FL4 = [
+  function () { var b = pick([2, 3, 5]), n = ri(2, 4), x = Math.pow(b, n); return { q: 'log_{' + b + '} ' + x + ' = ?', a: String(n), w: [String(x / b), String(n + 1), String(b * n)], bar: [String(x / b)] }; },
+  function () { var n = ri(2, 4); return { q: 'log ' + Math.pow(10, n) + ' = ?', a: String(n), w: ['10', String(n + 1), String(n - 1)], bar: ['10'] }; },
+  function () { var b = pick([2, 3, 5, 10, 7]); return { q: 'log_{' + b + '} 1 = ?', a: '0', w: ['1', String(b), '−1'], bar: ['1'] }; },
+  function () { var b = pick([2, 3, 5, 7]); return { q: 'log_{' + b + '} ' + b + ' = ?', a: '1', w: ['0', String(b), '−1'], bar: [String(b)] }; },
+  function () { var b = pick([2, 3, 5]); return { q: 'log_{' + b + '} ⟨1|' + b + '⟩ = ?', a: '−1', w: ['0', '1', String(b)], bar: [] }; },
+  function () { return { q: 'ln e = ?', a: '1', w: ['0', 'e', '−1'], bar: ['e'] }; },
+  function () { return { q: 'ln 1 = ?', a: '0', w: ['1', 'e', '−1'], bar: ['1'] }; },
+  function () { var n = ri(2, 5); return { q: 'ln e^{' + n + '} = ?', a: String(n), w: ['e^{' + n + '}', 'e · ' + n, '1'], bar: ['e^{' + n + '}'] }; },
+  function () { var t = pick([[2, 5], [4, 25], [20, 5], [50, 2], [25, 4], [5, 20], [2, 50]]), v = Math.round(Math.log10(t[0] * t[1])); return { q: 'log ' + t[0] + ' + log ' + t[1] + ' = ?', a: String(v), w: ['log ' + (t[0] + t[1]), String(t[0] + t[1]), String(v + 1)], bar: ['log ' + (t[0] + t[1])] }; },
+  function () { var b = pick([2, 3]), m = ri(1, 3), n = ri(1, 3); return { q: 'log_{' + b + '} ' + Math.pow(b, m) + ' + log_{' + b + '} ' + Math.pow(b, n) + ' = ?', a: String(m + n), w: ['log_{' + b + '} ' + (Math.pow(b, m) + Math.pow(b, n)), String(m * n + (m * n === m + n ? 1 : 0)), String(m + n + 1)], bar: ['log_{' + b + '} ' + (Math.pow(b, m) + Math.pow(b, n))] }; },
+  function () { var b = pick([2, 3]), m = ri(3, 4), n = ri(1, 2); return { q: 'log_{' + b + '} ' + Math.pow(b, m) + ' − log_{' + b + '} ' + Math.pow(b, n) + ' = ?', a: String(m - n), w: ['log_{' + b + '} ' + (Math.pow(b, m) - Math.pow(b, n)), String(m + n), String(m - n + 1)], bar: ['log_{' + b + '} ' + (Math.pow(b, m) - Math.pow(b, n))] }; },
+  function () { var a = pick([3, 5, 7]), n = ri(2, 4); return { q: 'log ' + a + '^{' + n + '} = ?', a: n + ' log ' + a, w: ['(log ' + a + ')^{' + n + '}', 'log ' + (a * n), a + ' log ' + n], bar: ['(log ' + a + ')^{' + n + '}', 'log ' + (a * n), a + ' log ' + n] }; },
+  function () { var k = pick([3, 5, 7]); return { q: 'e^{ln ' + k + '} = ?', a: String(k), w: ['e · ' + k, 'ln ' + k, '1'], bar: ['e · ' + k] }; },
+  function () { var b = pick([2, 3, 5]), n = ri(2, 3); return { q: 'log_{' + b + '} ' + Math.pow(b, -n).toString().replace(/^.*$/, '⟨1|' + Math.pow(b, n) + '⟩') + ' = ?', a: '−' + n, w: [String(n), '⟨1|' + n + '⟩', '−' + Math.pow(b, n)], bar: [String(n)] }; }
+];
+FL4.forEach(function (f) { fl('fl4', f); });
+
+/* ---------- fl5: cálculo mental ---------- */
+var FL5 = [
+  function () { var n = pick([2, 3, 4, 5, 6, 10]); return { q: '⟨1|' + n + '⟩ + ⟨1|' + n + '⟩ = ?', a: f_fr(2, n), w: ['⟨2|' + 2 * n + '⟩', '⟨1|' + 2 * n + '⟩', '⟨1|' + n + '⟩'], bar: ['⟨2|' + 2 * n + '⟩'] }; },
+  function () { var t = pick([[2, 4], [2, 3], [2, 6], [3, 6], [2, 5], [3, 4], [4, 12]]); var a = t[0], b = t[1], num = b + a, den = a * b; return { q: '⟨1|' + a + '⟩ + ⟨1|' + b + '⟩ = ?', a: f_fr(num, den), w: ['⟨2|' + (a + b) + '⟩', '⟨1|' + (a + b) + '⟩', '⟨1|' + den + '⟩'], bar: ['⟨2|' + (a + b) + '⟩'] }; },
+  function () { var a = ri(3, 9), b = ri(6, 9); return { q: a + ' · ' + b + ' = ?', a: String(a * b), w: [String(a * b + b), String(a * b - a), String(a * b + 10)], bar: [] }; },
+  function () { var p = pick([10, 20, 25, 50, 75]), x = pick([40, 80, 120, 200]); var v = p * x / 100; return { q: p + ' % de ' + x + ' = ?', a: String(v), w: [String(x - v), String(p), String(v * 2)], bar: [String(p)] }; },
+  function () { var x = ri(2, 6); return { q: 'Si x = ' + x + ', ¿cuánto vale x^{2} + x?', a: String(x * x + x), w: [String(x * x), String(x * x - x), String(2 * x)], bar: [String(x * x)] }; },
+  function () { var n = pick([11, 12, 13, 14, 15, 20, 25]); return { q: n + '^{2} = ?', a: String(n * n), w: [String(n * n - n), String(n * n + n), String(2 * n)], bar: [String(2 * n)] }; },
+  function () { var k = ri(2, 9), j = ri(2, 9); return { q: '(−' + k + ') · (−' + j + ') = ?', a: String(k * j), w: ['−' + k * j, '−' + (k + j), String(k + j)], bar: ['−' + k * j] }; },
+  function () { var k = ri(3, 9), j = ri(2, 8); if (j === k) j = 1; return { q: k + ' − (−' + j + ') = ?', a: String(k + j), w: [f_num(k - j), '−' + (k + j), f_num(j - k)], bar: [f_num(k - j)] }; },
+  function () { var k = ri(2, 6), j = ri(3, 9); return { q: '−' + k + ' − ' + j + ' = ?', a: '−' + (k + j), w: [String(j - k), String(k + j), '−' + (j - k)], bar: [String(k + j)] }; },
+  function () { var x = ri(2, 9), b = ri(2, 9); return { q: 'x + ' + b + ' = ' + (x + b) + ' → x = ?', a: String(x), w: [String(x + 2 * b), f_num(-x), String(x + b)], bar: [String(x + 2 * b)] }; },
+  function () { var x = ri(2, 9), k = ri(2, 9); return { q: k + 'x = ' + k * x + ' → x = ?', a: String(x), w: [String(k * k * x), String(x + k), String(k * x + k)], bar: [String(k * k * x)] }; },
+  function () { var t = pick([[1, 2, 1, 3], [2, 3, 3, 4], [1, 2, 2, 3], [3, 4, 2, 3], [1, 3, 3, 5]]); return { q: '⟨' + t[0] + '|' + t[1] + '⟩ · ⟨' + t[2] + '|' + t[3] + '⟩ = ?', a: f_fr(t[0] * t[2], t[1] * t[3]), w: ['⟨' + t[0] * t[2] + '|' + (t[1] + t[3]) + '⟩', '⟨' + (t[0] + t[2]) + '|' + t[1] * t[3] + '⟩', '⟨' + t[0] * t[3] + '|' + t[1] * t[2] + '⟩'], bar: ['⟨' + (t[0] + t[2]) + '|' + t[1] * t[3] + '⟩'] }; },
+  function () { var x = pick([2, 3, 4, 5, 6]); return { q: '(x + 1)(x − 1) con x = ' + x + ' → ?', a: String(x * x - 1), w: [String(x * x + 1), String(x * x), String(2 * x)], bar: [String(x * x)] }; }
+];
+FL5.forEach(function (f) { fl('fl5', f); });
+/* Modo flash, 2.ª tanda: exponenciales, propiedades de logaritmos, ecuaciones rápidas, sistemas (fl6–fl9) */
+var G16_START = GENS.length;
+function lg(b, x) { return 'log_{' + b + '} ' + x; }
+function L(r) { return r; }
+
+/* ---------- fl6: exponenciales ---------- */
+var FL6 = [
+  function () { var a = pick([2, 3, 5]), k = ri(1, 2), p = Math.pow(a, k); return { q: f_pw(a, 'x − ' + k) + ' = ' + f_pw(a, 'x') + ' · ?', a: '⟨1|' + p + '⟩', w: ['−' + p, String(p), '⟨1|' + (a * k + 1) + '⟩'], bar: ['−' + p], e: 'a^{x−k} = a^{x} · a^{−k} = a^{x} · ⟨1|a^{k}⟩. El exponente negativo invierte, no cambia el signo.' }; },
+  function () { var a = pick([2, 3, 5]), k = ri(1, 3), p = Math.pow(a, k); return { q: f_pw(a, 'x + ' + k) + ' = ' + f_pw(a, 'x') + ' · ?', a: String(p), w: [String(a * k), String(a + k), String(p + a)], bar: [String(a * k)], e: 'a^{x+k} = a^{x} · a^{k}. Aquí a^{k} = ' + p + ', no a · k.' }; },
+  function () { var b = pick([2, 3, 5]), m = ri(2, 3); return { q: Math.pow(b, m) + '^{x} = ' + b + '^{?}', a: m + 'x', w: [m + ' + x', f_pw('x', m), '⟨x|' + m + '⟩'], bar: [m + ' + x'], e: Math.pow(b, m) + ' = ' + b + '^{' + m + '}, y (b^{m})^{x} = b^{mx}: se multiplican los exponentes.' }; },
+  function () { var b = pick([2, 3, 5]), n = pick([-3, -2, -1, 2, 3, 4]); var p = Math.pow(b, Math.abs(n)); if (b === 5 && Math.abs(n) > 3) n = 2; var v = n > 0 ? String(p) : '⟨1|' + p + '⟩'; return { q: f_pw(b, 'x') + ' = ' + v + ' → x = ?', a: f_num(n), w: [f_num(-n), f_num(n + 1), f_num(n - 1)], bar: [f_num(-n)], e: v.replace(/⟨1\|(\d+)⟩/, '1/$1') === String(p) || n > 0 ? p + ' = ' + b + '^{' + n + '}, así que x = ' + n + '.' : '⟨1|' + p + '⟩ = ' + b + '^{−' + (-n) + '}, así que x = ' + f_num(n) + '.' }; },
+  function () { var b = pick([2, 3, 5]), k = ri(1, 3), m = ri(k + 1, k + 4); return { q: f_pw(b, 'x + ' + k) + ' = ' + f_pw(b, m) + ' → x = ?', a: String(m - k), w: [String(m), String(m + k), String(k - m + 2 * k)], bar: [String(m)], e: 'Misma base: x + ' + k + ' = ' + m + ', luego x = ' + (m - k) + '.' }; },
+  function () { var b = pick([2, 3, 5]), m = ri(2, 6) * 2; return { q: f_pw(b, '2x') + ' = ' + f_pw(b, m) + ' → x = ?', a: String(m / 2), w: [String(m), String(2 * m), String(m - 2)], bar: [String(m)], e: 'Misma base: 2x = ' + m + ', luego x = ' + (m / 2) + '.' }; },
+  function () { var b = pick([2, 3, 5]); return { q: f_pw(b, 'x') + ' · ' + f_pw(b, 'x') + ' = ' + f_pw(b, '?'), a: '2x', w: [f_pw('x', 2), 'x', b + 'x'], bar: [f_pw('x', 2), b + 'x'], e: 'Misma base: se suman los exponentes, x + x = 2x.' }; },
+  function () { var b = pick([2, 3, 5]), k = ri(1, 3), p = Math.pow(b, k); var up = Math.random() < 0.5; return { q: up ? '⟨' + f_pw(b, 'x + ' + k) + '|' + f_pw(b, 'x') + '⟩ = ?' : '⟨' + f_pw(b, 'x') + '|' + f_pw(b, 'x + ' + k) + '⟩ = ?', a: up ? String(p) : '⟨1|' + p + '⟩', w: up ? [String(b * k), String(b + k), f_pw(b, 'x')] : ['⟨1|' + (b * k) + '⟩', String(p), '−' + p], bar: up ? [String(b * k)] : ['−' + p], e: 'Misma base: se restan los exponentes, (x + ' + k + ') − x = ' + k + ', y queda ' + b + '^{' + (up ? '' : '−') + k + '}.' }; },
+  function () { var a = pick([2, 3, 5]); return { q: a + ' · ' + f_pw(a, 'x') + ' = ' + f_pw(a, '?'), a: 'x + 1', w: [a + 'x', 'x', 'x + ' + a], bar: [a + 'x'], e: 'a = a^{1}, y al multiplicar se suman exponentes: x + 1.' }; },
+  function () { var a = pick([2, 3, 5]); return { q: f_pw(a, 'x') + ' + ' + f_pw(a, 'x') + ' = ?', a: '2 · ' + f_pw(a, 'x'), w: [f_pw(a, '2x'), f_pw(2 * a, 'x'), f_pw(a, 'x + 1') + ' + 1'], bar: [f_pw(a, '2x'), f_pw(2 * a, 'x')], e: 'Sumar dos iguales es el doble: 2 · ' + a + '^{x}. Solo se suman exponentes al multiplicar.' }; },
+  function () { var a = pick([2, 3, 5]); return { q: '(' + f_pw(a, 'x') + ')^{2} = ?', a: f_pw(a, '2x'), w: [f_pw(a, 'x + 2'), '2 · ' + f_pw(a, 'x'), f_pw(2 * a, 'x')], bar: [f_pw(a, 'x + 2')], e: 'Potencia de una potencia: se multiplican los exponentes, x · 2.' }; },
+  function () { var a = pick([2, 3, 5]), k = ri(1, 3); return { q: f_pw(a, '−x') + ' = ?', a: '⟨1|' + f_pw(a, 'x') + '⟩', w: ['−' + f_pw(a, 'x'), f_pw(a, 'x'), f_pw('(−' + a + ')', 'x')], bar: ['−' + f_pw(a, 'x')], e: 'Exponente negativo: se invierte, a^{−x} = 1/a^{x}.' }; }
+];
+FL6.forEach(function (f) { fl('fl6', f); });
+
+/* ---------- fl7: propiedades de los logaritmos (letras y números) ---------- */
+var LV = [['a', 'b'], ['x', 'y'], ['m', 'n'], ['p', 'q']];
+var FL7 = [
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: 'log(' + a + ' · ' + b + ') = ?', a: 'log ' + a + ' + log ' + b, w: ['log ' + a + ' · log ' + b, 'log(' + a + ' + ' + b + ')', '⟨log ' + a + '|log ' + b + '⟩'], bar: ['log ' + a + ' · log ' + b], e: 'Logaritmo de un producto = suma de logaritmos.' }; },
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: 'log ⟨' + a + '|' + b + '⟩ = ?', a: 'log ' + a + ' − log ' + b, w: ['⟨log ' + a + '|log ' + b + '⟩', 'log(' + a + ' − ' + b + ')', 'log ' + b + ' − log ' + a], bar: ['⟨log ' + a + '|log ' + b + '⟩', 'log(' + a + ' − ' + b + ')'], e: 'Logaritmo de un cociente = resta de logaritmos (numerador − denominador).' }; },
+  function () { var v = pick(LV), a = v[0], n = ri(2, 5); return { q: 'log ' + a + '^{' + n + '} = ?', a: n + ' log ' + a, w: ['(log ' + a + ')^{' + n + '}', 'log(' + n + a + ')', a + ' log ' + n], bar: ['(log ' + a + ')^{' + n + '}', 'log(' + n + a + ')'], e: 'El exponente baja multiplicando: log a^{n} = n · log a.' }; },
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: 'log ' + a + ' + log ' + b + ' = log(?)', a: a + b, w: [a + ' + ' + b, a + '^{' + b + '}', '⟨' + a + '|' + b + '⟩'], bar: [a + ' + ' + b], e: 'Suma de logaritmos = logaritmo del producto.' }; },
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: 'log ' + a + ' − log ' + b + ' = log(?)', a: '⟨' + a + '|' + b + '⟩', w: [a + ' − ' + b, a + b, '⟨' + b + '|' + a + '⟩'], bar: [a + ' − ' + b], e: 'Resta de logaritmos = logaritmo del cociente.' }; },
+  function () { var v = pick(LV), a = v[0], n = ri(2, 5); return { q: n + ' log ' + a + ' = log(?)', a: a + '^{' + n + '}', w: [n + a, n + '^{' + a + '}', a + ' + ' + n], bar: [n + a, a + ' + ' + n], e: 'El número que multiplica sube como exponente.' }; },
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: 'log_{' + b + '} ' + a + ' = ?', a: '⟨log ' + a + '|log ' + b + '⟩', w: ['⟨log ' + b + '|log ' + a + '⟩', 'log ' + a + ' − log ' + b, 'log ' + a + ' · log ' + b], bar: ['log ' + a + ' − log ' + b], e: 'Cambio de base: log_b a = log a / log b.' }; },
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: '2 log ' + a + ' + log ' + b + ' = log(?)', a: a + '^{2}' + b, w: ['2' + a + b, a + '^{2} + ' + b, '(' + a + b + ')^{2}'], bar: ['2' + a + b], e: '2 log a = log a^{2}, y luego se multiplica por b.' }; },
+  function () { var v = pick(LV), a = v[0], b = v[1]; return { q: 'log ' + a + ' − 2 log ' + b + ' = log(?)', a: '⟨' + a + '|' + b + '^{2}⟩', w: ['⟨' + a + '|2' + b + '⟩', '⟨' + a + '|' + b + '⟩', a + ' − ' + b + '^{2}'], bar: ['⟨' + a + '|2' + b + '⟩', a + ' − ' + b + '^{2}'], e: '2 log b = log b^{2}, y la resta es el cociente.' }; },
+  function () { var b = pick([2, 3, 5]); return { q: 'log_{' + b + '} ' + b + ' = ?', a: '1', w: ['0', String(b), '−1'], bar: [String(b)], e: 'log_b b = 1.' }; },
+  /* con números */
+  function () { var b = pick([2, 3, 5]), n = ri(1, 3), y = pick([2, 3, 4, 5, 6]); var x = y * Math.pow(b, n); return { q: lg(b, x) + ' − ' + lg(b, y) + ' = ?', a: String(n), w: [lg(b, x - y), String(Math.pow(b, n)), String(n + 1)], bar: [lg(b, x - y)], e: 'Resta de logaritmos = log del cociente: ' + x + '/' + y + ' = ' + Math.pow(b, n) + ' = ' + b + '^{' + n + '}.' }; },
+  function () { var b = pick([2, 3, 5]), x = ri(2, 6), y = ri(2, 6); return { q: lg(b, x) + ' + ' + lg(b, y) + ' = ' + lg(b, '?'), a: String(x * y), w: [String(x + y), String(Math.pow(x, y)), '⟨' + x + '|' + y + '⟩'], bar: [String(x + y)], e: 'Suma de logaritmos = log del producto: ' + x + ' · ' + y + ' = ' + x * y + '.' }; },
+  function () { var a = pick([2, 3, 5, 10]), n = ri(2, 3); return { q: n + ' log ' + a + ' = log ?', a: String(Math.pow(a, n)), w: [String(a * n), String(Math.pow(n, a)), String(a + n)], bar: [String(a * n)], e: 'n log a = log a^{n}: ' + a + '^{' + n + '} = ' + Math.pow(a, n) + '.' }; },
+  function () { var b = pick([2, 3, 5]), m = ri(1, 3), n = ri(2, 3), x = Math.pow(b, m); return { q: lg(b, x + '^{' + n + '}') + ' = ?', a: String(m * n), w: [String(x * n), String(Math.pow(x, n)), String(m + n)], bar: [String(x * n), String(m + n)], e: 'log_{' + b + '} ' + x + ' = ' + m + ', y el exponente ' + n + ' multiplica: ' + m + ' · ' + n + ' = ' + m * n + '.' }; },
+  function () { var b = pick([2, 3, 5]), m = ri(2, 3); return { q: 'log_{' + Math.pow(b, m) + '} ' + b + ' = ?', a: '⟨1|' + m + '⟩', w: [String(m), '−' + m, '⟨1|' + Math.pow(b, m) + '⟩'], bar: [String(m)], e: 'Como ' + b + ' = ' + Math.pow(b, m) + '^{1/' + m + '}, el logaritmo es 1/' + m + '.' }; },
+  function () { var t = pick([[4, 8, 3, 2], [8, 4, 2, 3], [9, 27, 3, 2], [27, 9, 2, 3], [4, 32, 5, 2], [8, 16, 4, 3]]); return { q: 'log_{' + t[0] + '} ' + t[1] + ' = ?', a: f_fr(t[2], t[3]), w: [f_fr(t[3], t[2]), f_num(t[1] - t[0]), f_fr(t[2] + t[3], 1)], bar: [f_num(t[1] - t[0])], e: 'Cambio de base a una base común: ' + t[1] + ' = b^{' + t[2] + '} y ' + t[0] + ' = b^{' + t[3] + '}, así que log = ' + t[2] + '/' + t[3] + '.' }; },
+  function () { var k = pick([['4', '2', 'a', '2a', 'log 2 = a, entonces log 4 = log 2^{2} = 2a'], ['8', '3', 'a', '3a', 'log 8 = log 2^{3} = 3a'], ['16', '4', 'a', '4a', 'log 16 = log 2^{4} = 4a']]); return { q: 'Si log 2 = a, ¿log ' + k[0] + ' = ?', a: k[3], w: [f_pw('a', k[1]), 'a + ' + k[1], k[0] + 'a'], bar: [f_pw('a', k[1]), 'a + ' + k[1]], e: k[4] + '.' }; },
+  function () { return { q: 'Si log 2 = a, ¿log 20 = ?', a: 'a + 1', w: ['20a', 'a + 20', '2a'], bar: ['20a', 'a + 20'], e: 'log 20 = log 2 + log 10 = a + 1.' }; },
+  function () { return { q: 'Si log 2 = a, ¿log 5 = ?', a: '1 − a', w: ['a − 1', '⟨1|a⟩', '5a'], bar: ['5a'], e: 'log 5 = log ⟨10|2⟩ = log 10 − log 2 = 1 − a.' }; },
+  function () { var b = pick([2, 3, 5]); return { q: lg(b, 0) + ' = ?', a: 'No existe', w: ['0', '1', '−1'], bar: ['0'], e: 'No existe el logaritmo de 0 ni el de un número negativo.' }; }
+];
+FL7.forEach(function (f) { fl('fl7', f); });
+
+/* ---------- fl8: ecuaciones logarítmicas y racionales rápidas ---------- */
+var FL8 = [
+  function () { var n = ri(1, 3); return { q: 'log x = ' + n + ' → x = ?', a: f_big(Math.pow(10, n)), w: [String(10 * n), String(n), String(n * n)], bar: [String(10 * n), String(n)], e: 'log x = n significa x = 10^{n}.' }; },
+  function () { var b = pick([2, 3, 5]), n = ri(2, 4); return { q: 'log_{' + b + '} x = ' + n + ' → x = ?', a: String(Math.pow(b, n)), w: [String(b * n), String(Math.pow(n, b)), String(b + n)], bar: [String(b * n)], e: 'log_b x = n significa x = b^{n} = ' + Math.pow(b, n) + '.' }; },
+  function () { var b = pick([2, 3, 5]); return { q: 'log_{' + b + '} x = −1 → x = ?', a: '⟨1|' + b + '⟩', w: ['−' + b, String(b), '−⟨1|' + b + '⟩'], bar: ['−' + b], e: 'x = b^{−1} = 1/b.' }; },
+  function () { return { q: 'ln x = 1 → x = ?', a: 'e', w: ['1', '0', '10'], bar: ['1'], e: 'ln x = 1 significa x = e^{1} = e.' }; },
+  function () { return { q: 'ln x = 0 → x = ?', a: '1', w: ['0', 'e', '−1'], bar: ['0'], e: 'x = e^{0} = 1.' }; },
+  function () { var t = pick([[8, 3, 2], [27, 3, 3], [25, 2, 5], [16, 2, 4], [64, 3, 4], [81, 4, 3], [125, 3, 5]]); return { q: 'log_{x} ' + t[0] + ' = ' + t[1] + ' → x = ?', a: String(t[2]), w: [f_dec(Math.round(t[0] / t[1] * 100) / 100), String(t[0] - t[1]), String(t[2] + 1)], bar: [f_dec(Math.round(t[0] / t[1] * 100) / 100)], e: 'x^{' + t[1] + '} = ' + t[0] + ', así que x = ' + t[2] + '.' }; },
+  function () { var k = pick([2, 3, 4, 5]), x = ri(2, 6), m = k * x; return { q: 'log x + log ' + k + ' = log ' + m + ' → x = ?', a: String(x), w: [String(m - k), String(m + k), String(m * k)], bar: [String(m - k)], e: 'log(' + k + 'x) = log ' + m + ', luego ' + k + 'x = ' + m + ' y x = ' + x + '.' }; },
+  function () { var k = pick([2, 3, 4, 5]), m = ri(2, 6); return { q: 'log x − log ' + k + ' = log ' + m + ' → x = ?', a: String(m * k), w: [String(m + k), String(m - k + 2 * k), '⟨' + m + '|' + k + '⟩'], bar: [String(m + k)], e: 'log ⟨x|' + k + '⟩ = log ' + m + ', luego x = ' + m + ' · ' + k + '.' }; },
+  function () { var s = pick([2, 3, 4, 5, 6]); return { q: '2 log x = log ' + s * s + ' → x = ?', a: String(s), w: ['⟨' + s * s + '|2⟩', String(2 * s * s), String(s * s)], bar: ['⟨' + s * s + '|2⟩', String(2 * s * s)], e: '2 log x = log x^{2}, luego x^{2} = ' + s * s + ' y x = ' + s + '.' }; },
+  function () { var b = pick([2, 3, 5]), n = ri(2, 3), p = Math.pow(b, n); return { q: 'log_{' + b + '}(x + 1) = ' + n + ' → x = ?', a: String(p - 1), w: [String(p + 1), String(n - 1), String(p)], bar: [String(p + 1)], e: 'x + 1 = ' + b + '^{' + n + '} = ' + p + ', luego x = ' + (p - 1) + '.' }; },
+  function () { var k = ri(1, 5); return { q: '¿Dominio de log(x − ' + k + ')?', a: 'x > ' + k, w: ['x ≥ ' + k, 'x < ' + k, 'x ≠ ' + k], bar: [], e: 'El argumento tiene que ser positivo: x − ' + k + ' > 0.' }; },
+  function () { var k = ri(2, 4), j = ri(2, 5); return { q: '⟨x|' + k + '⟩ = ' + j + ' → x = ?', a: String(k * j), w: ['⟨' + j + '|' + k + '⟩', String(k + j), String(j - k)], bar: ['⟨' + j + '|' + k + '⟩'], e: 'Se multiplica por ' + k + ' en los dos lados.' }; },
+  function () { var k = pick([2, 3, 4, 6]), j = pick([2, 3, 4, 5]); return { q: '⟨' + k + '|x⟩ = ' + j + ' → x = ?', a: f_fr(k, j), w: [String(k * j), f_fr(j, k), f_num(k - j)], bar: [String(k * j)], e: 'x = ' + k + ' / ' + j + '. El x está dividiendo: se despeja intercambiando.' }; },
+  function () { var t = pick([[2, 3, 6], [2, 4, 4], [3, 6, 6], [4, 6, 12], [2, 5, 10], [3, 4, 12], [2, 6, 6]]); return { q: 'Para quitar denominadores en ⟨x|' + t[0] + '⟩ + ⟨x|' + t[1] + '⟩ = 5, ¿por qué multiplicamos?', a: String(t[2]), w: [String(t[0] * t[1] === t[2] ? t[0] + t[1] : t[0] * t[1]), String(t[0] + t[1] + (t[0] + t[1] === t[2] ? 1 : 0)), String(t[2] * 2)], bar: [], e: 'Se multiplica por el mcm de ' + t[0] + ' y ' + t[1] + ': ' + t[2] + '.' }; },
+  function () { var k = pick([3, 4, 5, 6, 7, 8, 9]); return { q: '⟨x^{2} − ' + k * k + '|x − ' + k + '⟩ = ?', a: 'x + ' + k, w: ['x − ' + k, 'x^{2} − ' + k, 'x + ' + k * k], bar: ['x^{2} − ' + k], e: 'Factorizamos: x^{2} − ' + k * k + ' = (x + ' + k + ')(x − ' + k + '), y se simplifica el factor común.' }; },
+  function () { var k = pick([2, 3, 4, 5]); return { q: '⟨x + ' + k + '|' + k + '⟩ = ?', a: '⟨x|' + k + '⟩ + 1', w: ['x + 1', 'x', '⟨x|' + k + '⟩ + ' + k], bar: ['x + 1', 'x'], e: 'Cada término del numerador se divide entre ' + k + ': ⟨x|' + k + '⟩ + ⟨' + k + '|' + k + '⟩. No se puede tachar solo el ' + k + '.' }; },
+  function () { var k = pick([2, 3, 4, 5]); return { q: '⟨x(x + ' + k + ')|x⟩ = ?', a: 'x + ' + k, w: [String(k), 'x^{2} + ' + k, 'x + ' + k + 'x'], bar: [String(k)], e: 'Se simplifica el factor x que multiplica a todo el numerador: queda x + ' + k + '.' }; }
+];
+FL8.forEach(function (f) { fl('fl8', f); });
+
+/* ---------- fl9: sistemas, métodos rápidos ---------- */
+var FL9 = [
+  function () { var x = ri(2, 6), y = ri(1, x - 1); return { q: 'x + y = ' + (x + y) + ', x − y = ' + (x - y) + '. Sumando: 2x = ?', a: String(2 * x), w: [String(2 * y), String((x + y) * (x - y)), String(x + y + 1)], bar: [String(2 * y)], e: 'Sumamos: (x + y) + (x − y) = 2x, y ' + (x + y) + ' + ' + (x - y) + ' = ' + 2 * x + '.' }; },
+  function () { var x = ri(2, 6), y = ri(1, x - 1); return { q: 'x + y = ' + (x + y) + ', x − y = ' + (x - y) + '. Restando: 2y = ?', a: String(2 * y), w: [String(2 * x), f_num(-2 * y), String(y)], bar: [String(2 * x)], e: 'Restamos: (x + y) − (x − y) = 2y, y ' + (x + y) + ' − ' + (x - y) + ' = ' + 2 * y + '.' }; },
+  function () { var s = Math.random() < 0.5, a = ri(2, 5), b = ri(2, 5), c = ri(2, 6) * 2; var q = 'Para eliminar y en ' + a + 'x + ' + b + 'y = 5, ' + c + 'x ' + (s ? '− ' : '+ ') + b + 'y = 1, ¿qué hacemos?'; return { q: q, a: s ? 'Sumarlas' : 'Restarlas', w: [s ? 'Restarlas' : 'Sumarlas', 'Multiplicarlas', 'Dividirlas'], bar: [], e: s ? 'Los coeficientes de y son opuestos (+' + b + ' y −' + b + '): al sumar se anulan.' : 'Los coeficientes de y son iguales (+' + b + ' y +' + b + '): al restar se anulan.' }; },
+  function () { var k = ri(2, 4), m = ri(2, 5), s = (k + 1) * m; return { q: 'y = ' + k + 'x, x + y = ' + s + '. Sustituyendo: ' + (k + 1) + 'x = ?', a: String(s), w: [String(s - k), String(k * s), String(s + k)], bar: [String(s - k)], e: 'x + ' + k + 'x = ' + (k + 1) + 'x, y el segundo miembro no cambia: ' + s + '.' }; },
+  function () { var k = ri(2, 4), m = ri(2, 5), s = (k + 1) * m; return { q: 'y = ' + k + 'x, x + y = ' + s + ' → x = ?', a: String(m), w: [String(s - k), String(s), String(k * m)], bar: [String(s - k)], e: (k + 1) + 'x = ' + s + ', luego x = ' + m + '.' }; },
+  function () { var x0, a, c, b, d; do { x0 = ri(1, 5); a = pick([2, 3, 4]); c = ri(1, a - 1); b = pick([-3, -2, -1, 1, 2, 3]); d = b + (a - c) * x0; } while (d === 0); return { q: 'y = ' + a + 'x ' + (b < 0 ? '− ' : '+ ') + Math.abs(b) + ', y = ' + c + 'x ' + (d < 0 ? '− ' : '+ ') + Math.abs(d) + '. Igualando: x = ?', a: String(x0), w: [f_num(-x0), String(x0 + 1), String(Math.abs(d - b))], bar: [f_num(-x0)], e: 'Igualamos ' + a + 'x ' + (b < 0 ? '−' : '+') + ' ' + Math.abs(b) + ' = ' + c + 'x ' + (d < 0 ? '−' : '+') + ' ' + Math.abs(d) + ' y despejamos x = ' + x0 + '.' }; },
+  function () { var y0 = ri(1, 5), k = pick([2, 3]), c = pick([1, 2, 3]); var x = k * y0 + c; return { q: 'x = ' + k + 'y + ' + c + ', x = ' + x + ' → y = ?', a: String(y0), w: [String(y0 + 1), String(x + c), f_num(x - c)], bar: [String(x + c)], e: k + 'y + ' + c + ' = ' + x + ', luego ' + k + 'y = ' + (x - c) + ' y y = ' + y0 + '.' }; },
+  function () { var n = ri(1, 3); return { q: 'log x + log y = ' + n + ' → x · y = ?', a: f_big(Math.pow(10, n)), w: [String(10 * n), String(n), String(n * n)], bar: [String(10 * n), String(n)], e: 'log(xy) = ' + n + ', luego xy = 10^{' + n + '}.' }; },
+  function () { var n = ri(1, 3); return { q: 'log x − log y = ' + n + ' → ⟨x|y⟩ = ?', a: f_big(Math.pow(10, n)), w: [String(n), '1', String(10 * n)], bar: [String(n), '1'], e: 'log ⟨x|y⟩ = ' + n + ', luego ⟨x|y⟩ = 10^{' + n + '}.' }; },
+  function () { var b = pick([2, 3]), n = ri(2, 3); return { q: lg(b, 'x') + ' − ' + lg(b, 'y') + ' = ' + n + ' → ⟨x|y⟩ = ?', a: String(Math.pow(b, n)), w: [String(b * n), String(n), String(Math.pow(n, b))], bar: [String(b * n), String(n)], e: 'log_{' + b + '} ⟨x|y⟩ = ' + n + ', luego ⟨x|y⟩ = ' + b + '^{' + n + '}.' }; },
+  function () { var x = ri(2, 6), y = ri(1, 5); return { q: 'x = ' + x + ', x + y = ' + (x + y) + ' → y = ?', a: String(y), w: [String(x + y), String(x), String(x + y + x)], bar: [String(x + y)], e: 'Sustituimos x: ' + x + ' + y = ' + (x + y) + '.' }; }
+];
+FL9.forEach(function (f) { fl('fl9', f); });

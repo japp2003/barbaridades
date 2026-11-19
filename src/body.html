@@ -1,0 +1,149 @@
+<div class="wrap">
+  <header class="top">
+    <svg class="mark" viewBox="0 0 8 8" aria-hidden="true"><rect width="8" height="8" fill="#111"/><path d="M0 0h2v2H0zM4 0h2v2H4zM2 2h2v2H2zM6 2h2v2H6zM0 4h2v2H0zM4 4h2v2H4zM2 6h2v2H2zM6 6h2v2H6z" fill="#fff"/></svg>
+    <span class="brand">Gran Premio de Barbaridades</span>
+    <button class="mute" id="mute" type="button" aria-pressed="false">Sonido: sí</button>
+  </header>
+
+  <section id="s-course" hidden>
+    <div class="cintro">
+      <h1>¿En qué curso estás?</h1>
+      <p class="lead">Elige tu curso y verás los temas que te tocan este año.</p>
+    </div>
+    <div id="courses"></div>
+  </section>
+
+  <section id="s-start">
+    <div class="intro">
+      <h1>Gran Premio<br>de Barbaridades</h1>
+      <p class="lead">Cada acierto acelera el coche. Cada fallo lo frena. Cruza la meta en el menor tiempo posible.</p>
+      <canvas id="hero" aria-hidden="true"></canvas>
+    </div>
+    <div class="setup">
+      <div class="curbar"><span id="cur-name"></span><button class="link" id="cur-change" type="button">Cambiar de curso</button></div>
+      <div class="classbox" id="classbox" hidden>
+        <p class="kicker">Hoy toca</p>
+        <ul class="today" id="today"></ul>
+        <button class="link" id="unlock" type="button">Elegir otros temas</button>
+      </div>
+      <div class="modebar" id="modebar">
+        <div class="seg two" id="mode" role="radiogroup" aria-label="Modo de juego">
+          <button type="button" role="radio" id="mode-solo" aria-checked="true"><b>Individual</b><small>Tú contra el reloj</small></button>
+          <button type="button" role="radio" id="mode-duel" aria-checked="false"><b>Online</b><small>2 a 8 jugadores, cada uno en su casa</small></button>
+        </div>
+      </div>
+      <div class="seg two extras" id="extras" role="group" aria-label="Práctica">
+        <button type="button" id="practice"><b>Practicar mis fallos</b><small></small></button>
+        <button type="button" id="reto"><b>⚡ Reto del día</b><small></small></button>
+      </div>
+      <div id="picker">
+        <div class="row-h"><h2>Temas</h2><span class="row-btns"><button class="link" id="flash" type="button">⚡ Solo modo flash</button><button class="link" id="toggle-all" type="button">Quitar todos</button></span></div>
+        <p class="hintp"><button class="link" id="allt" type="button">Ver temas de otros cursos</button></p>
+        <div class="groups" id="groups"></div>
+      </div>
+      <div class="launch">
+        <div>
+          <h2>Distancia</h2>
+          <div class="seg" id="seg" role="radiogroup" aria-label="Distancia de la carrera"></div>
+          <h2 class="h2b">Nivel</h2>
+          <div class="seg three" id="lvl" role="radiogroup" aria-label="Nivel"></div>
+        </div>
+        <div class="go-col">
+          <p class="best" id="best"></p>
+          <button class="go" id="go" type="button">Salir a pista</button>
+        </div>
+      </div>
+      <div class="duelbox" id="duelbox" hidden>
+        <div id="d-join">
+          <h2>Carrera online</h2>
+          <p class="hintp">Uno crea un código de sala y se lo pasa a los demás (hasta 8). Todos escribís el mismo código y salís a la vez, con las mismas preguntas. Quien va por detrás recibe rebufo: hasta un 12 % más de velocidad si el líder le saca ventaja.</p>
+          <div class="dform">
+            <label>Tu nombre<input id="nick" type="text" maxlength="14" autocomplete="off" placeholder="Ej.: Lucía"></label>
+            <label>Código de sala<input id="roomcode" type="text" maxlength="12" autocomplete="off" placeholder="Ej.: k7x2" autocapitalize="none"></label>
+          </div>
+          <label class="chk"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
+          <div class="drow">
+            <button class="btn" id="newcode" type="button">Crear código</button>
+            <button class="go small" id="join" type="button">Entrar a la sala</button>
+          </div>
+          <p class="derr" id="d-err" role="alert"></p>
+        </div>
+        <div id="d-lobby" hidden>
+          <div class="row-h"><h2>Sala <b id="d-code"></b></h2><button class="link" id="leave" type="button">Salir de la sala</button></div>
+          <ul class="players" id="players"></ul>
+          <p class="hintp" id="d-cfg"></p>
+          <p class="hintp" id="d-status" aria-live="polite"></p>
+          <p class="hintp" id="d-diag"></p>
+          <button class="go" id="ready" type="button">Estoy listo</button>
+          <div class="report" id="d-report" hidden>
+            <h3>Informe de la clase</h3>
+            <div id="d-report-body"></div>
+            <button class="btn" id="d-print" type="button">Imprimir / PDF</button>
+          </div>
+        </div>
+      </div>
+      <ul class="rules">
+        <li>Acierto: sumas velocidad, y más si encadenas aciertos.</li>
+        <li>Fallo: pierdes más de la mitad de la velocidad y ves la regla correcta.</li>
+        <li>Si tardas demasiado en contestar, el coche frena solo (las preguntas largas dan más margen).</li>
+        <li>Teclas 1, 2, 3 y 4 para responder.</li>
+        <li>Cada pregunta que fallas se guarda en «Practicar mis fallos». Se supera acertándola 2 veces (las de números aleatorios vuelven con números nuevos).</li>
+        <li>Para tenerlo como app en el móvil: menú del navegador → «Añadir a pantalla de inicio».</li>
+      </ul>
+      <details class="teacher" id="progress" hidden>
+        <summary>Tu progreso en este dispositivo</summary>
+        <div id="prog"></div>
+      </details>
+      <details class="teacher" id="teacher">
+        <summary>Para el profe: enlace con los temas ya elegidos</summary>
+        <p>Elige los temas y la distancia arriba. Añade este código al final del enlace del juego y tus alumnos entrarán con esos temas fijados.</p>
+        <div class="codebox"><input id="code" type="text" readonly aria-label="Código de clase"><button class="btn" id="copycode" type="button">Copiar código</button></div>
+      </details>
+    </div>
+  </section>
+
+  <section id="s-race" hidden>
+    <div class="hud">
+      <div class="stat"><span class="lab">Tiempo</span><span class="val" id="h-time">0:00,0</span></div>
+      <div class="stat"><span class="lab">Velocidad</span><span class="val"><b id="h-v">0</b><small>km/h</small></span><span class="gauge"><i id="h-g"></i></span></div>
+      <div class="stat"><span class="lab">Meta en</span><span class="val"><b id="h-d">0</b><small>m</small></span></div>
+      <div class="stat"><span class="lab">Racha</span><span class="val" id="h-s">0</span></div>
+    </div>
+    <div class="stage">
+      <canvas id="cv"></canvas>
+      <div class="lights" id="lights" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="gotxt" id="gotxt" hidden>¡YA!</div>
+      <div class="pop" id="pop"></div>
+      <div class="draft" id="draft" hidden></div>
+    </div>
+    <div class="mini"><div class="mini-track"><i id="m-fill"></i><span id="m-dots"></span><b id="m-dot"></b></div>
+      <div class="rival" id="rival" hidden></div></div>
+    <div class="qcard">
+      <div class="qmeta"><span id="q-topic"></span><button class="link" id="quit" type="button">Abandonar</button></div>
+      <div class="qtext" id="q-text" aria-live="polite">Prepárate</div>
+      <div class="opts" id="opts"></div>
+      <div class="fb" id="fb" aria-live="assertive"></div>
+    </div>
+  </section>
+
+  <section id="s-end" hidden>
+    <div class="duelres" id="duelres" hidden></div>
+    <p class="kicker" id="e-kick">Bandera a cuadros</p>
+    <h2 class="bigtime" id="e-time"></h2>
+    <p class="sub" id="e-sub"></p>
+    <div class="stats" id="e-stats"></div>
+    <h3>Por tema</h3>
+    <div id="e-topics"></div>
+    <h3 id="e-miss-h">Para repasar</h3>
+    <div class="miss" id="e-miss"></div>
+    <h3 id="e-all-h">Todas las preguntas de la carrera</h3>
+    <div class="miss" id="e-all"></div>
+    <div class="actions">
+      <button class="btn main" id="again" type="button">Otra carrera</button>
+      <button class="btn" id="menu" type="button">Cambiar temas</button>
+      <button class="btn" id="copy" type="button">Copiar resultado</button>
+      <button class="btn" id="print" type="button">Imprimir / PDF</button>
+    </div>
+    <input class="share" id="share" type="text" readonly hidden aria-label="Resultado para copiar">
+  </section>
+</div>
