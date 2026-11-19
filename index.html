@@ -327,6 +327,11 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
 :root[data-theme="dark"] .chip[aria-pressed="true"] { color: #06140B; }
 .pr { display: inline-block; width: .11em; height: .46em; background: currentColor; border-radius: .03em; transform: skewX(-14deg); vertical-align: .5em; margin: 0 .08em 0 .1em; }
 .pr2 { width: .26em; background: linear-gradient(90deg, currentColor 0 38%, transparent 38% 62%, currentColor 62%); }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 12px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--good); background: var(--good-bg); color: var(--ink); border-radius: 999px; padding: 4px 10px; font-size: .85rem; font-weight: 600; }
+.badge i { font-style: normal; }
+.badge.off { border-color: var(--line); background: transparent; color: var(--muted); font-weight: 400; filter: grayscale(1); opacity: .65; }
+.newbadges { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; justify-content: center; }
 </style>
 
 <div class="wrap">
@@ -363,9 +368,10 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
           <button type="button" role="radio" id="mode-duel" aria-checked="false"><b>Online</b><small>2 a 8 jugadores, cada uno en su casa</small></button>
         </div>
       </div>
-      <div class="seg two extras" id="extras" role="group" aria-label="Práctica">
+      <div class="seg three extras" id="extras" role="group" aria-label="Práctica">
         <button type="button" id="practice"><b>Practicar mis fallos</b><small></small></button>
         <button type="button" id="reto"><b>⚡ Reto del día</b><small></small></button>
+        <button type="button" id="sim"><b>📝 Simulacro</b><small>15 preguntas, sin prisa, con nota</small></button>
       </div>
       <div id="picker">
         <div class="row-h"><h2>Temas</h2><span class="row-btns"><button class="link" id="flash" type="button">⚡ Solo modo flash</button><button class="link" id="toggle-all" type="button">Quitar todos</button></span></div>
@@ -423,6 +429,7 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
       </ul>
       <details class="teacher" id="progress" hidden>
         <summary>Tu progreso en este dispositivo</summary>
+        <div id="badges"></div>
         <div id="prog"></div>
       </details>
       <details class="teacher" id="teacher">
@@ -437,7 +444,7 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
     <div class="hud">
       <div class="stat"><span class="lab">Tiempo</span><span class="val" id="h-time">0:00,0</span></div>
       <div class="stat"><span class="lab">Velocidad</span><span class="val"><b id="h-v">0</b><small>km/h</small></span><span class="gauge"><i id="h-g"></i></span></div>
-      <div class="stat"><span class="lab">Meta en</span><span class="val"><b id="h-d">0</b><small>m</small></span></div>
+      <div class="stat"><span class="lab" id="h-dl">Meta en</span><span class="val"><b id="h-d">0</b><small id="h-du">m</small></span></div>
       <div class="stat"><span class="lab">Racha</span><span class="val" id="h-s">0</span></div>
     </div>
     <div class="stage">
@@ -462,6 +469,7 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
     <p class="kicker" id="e-kick">Bandera a cuadros</p>
     <h2 class="bigtime" id="e-time"></h2>
     <p class="sub" id="e-sub"></p>
+    <div class="newbadges" id="e-badges" hidden></div>
     <div class="stats" id="e-stats"></div>
     <h3>Por tema</h3>
     <div id="e-topics"></div>
@@ -16369,15 +16377,27 @@ function drawScene(view, S) {
   /* ---------- fallos guardados (para practicarlos después) ---------- */
   function loadFails() { try { var o = JSON.parse(store.get('gpa-fails') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
   function failKeys() { return Object.keys(loadFails()); }
+  /* repaso espaciado: un fallo superado vuelve a salir al cabo de 1, 3, 7 y 14 días */
+  var REV_DAYS = [1, 3, 7, 14], DAY_MS = 86400000;
+  function loadRev() { try { var o = JSON.parse(store.get('gpa-rev') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+  function dueKeys() { var r = loadRev(), n = Date.now(); return Object.keys(r).filter(function (k) { return r[k].due <= n; }); }
+  function practiceKeys() { var a = failKeys(); dueKeys().forEach(function (k) { if (a.indexOf(k) < 0) a.push(k); }); return a; }
   function noteFail(q, ok) {
     if (!q || !q.k) return;
-    var f = loadFails();
-    if (!ok) f[q.k] = { t: q.t, need: 2, at: Date.now() };
-    else if (f[q.k]) { f[q.k].need--; if (f[q.k].need <= 0) delete f[q.k]; }
-    else return;
+    var f = loadFails(), rv = loadRev(), now = Date.now();
+    if (!ok) { f[q.k] = { t: q.t, need: 2, at: now }; delete rv[q.k]; }
+    else if (f[q.k]) {
+      f[q.k].need--;
+      if (f[q.k].need <= 0) { delete f[q.k]; rv[q.k] = { t: q.t, s: 0, due: now + REV_DAYS[0] * DAY_MS }; }
+    } else if (rv[q.k] && rv[q.k].due <= now) {
+      if (race) race.revHit = true;
+      var s = rv[q.k].s + 1;
+      if (s >= REV_DAYS.length) delete rv[q.k]; else rv[q.k] = { t: q.t, s: s, due: now + REV_DAYS[s] * DAY_MS };
+    } else return;
     var ks = Object.keys(f);
     if (ks.length > 150) { ks.sort(function (a, b) { return f[a].at - f[b].at; }); ks.slice(0, ks.length - 150).forEach(function (k) { delete f[k]; }); }
     store.set('gpa-fails', JSON.stringify(f));
+    store.set('gpa-rev', JSON.stringify(rv));
   }
 
   /* ---------- historial de partidas (en este dispositivo) ---------- */
@@ -16390,11 +16410,78 @@ function drawScene(view, S) {
     if (h.length > 300) h = h.slice(h.length - 300);
     store.set('gpa-hist', JSON.stringify(h));
   }
-  var MODEN = { solo: 'Individual', duel: 'Online', practice: 'Fallos', reto: 'Reto del día' };
+
+  /* ---------- insignias y racha de días (en este dispositivo) ---------- */
+  var BADGES = [
+    ['first', '🏁', 'Primera bandera a cuadros', 'Termina tu primera carrera'],
+    ['d3', '🔥', 'Racha de 3 días', 'Juega 3 días seguidos'],
+    ['d7', '🔥', 'Semana perfecta', 'Juega 7 días seguidos'],
+    ['d14', '🔥', 'Quincena de hierro', 'Juega 14 días seguidos'],
+    ['ok100', '🎯', '100 aciertos', 'Acumula 100 respuestas correctas'],
+    ['ok500', '🎯', '500 aciertos', 'Acumula 500 respuestas correctas'],
+    ['ok1000', '🏆', '1000 aciertos', 'Acumula 1000 respuestas correctas'],
+    ['s10', '⚡', 'Racha de 10', '10 aciertos seguidos en una carrera'],
+    ['s20', '⚡', 'Racha de 20', '20 aciertos seguidos en una carrera'],
+    ['flash', '🧠', 'Calculadora humana', 'Una carrera flash de 10 preguntas o más sin fallar'],
+    ['sim8', '📝', 'Notable en simulacro', 'Saca 8 o más en un simulacro'],
+    ['sim10', '🥇', 'Matrícula de honor', 'Saca un 10 en un simulacro'],
+    ['rev', '♻️', 'Memoria de elefante', 'Acierta una pregunta de repaso espaciado']
+  ];
+  function loadAch() { try { var o = JSON.parse(store.get('gpa-ach') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+  function dnum(k) { return Math.round(Date.UTC(Math.floor(k / 10000), Math.floor(k / 100) % 100 - 1, k % 100) / 86400000); }
+  function loadDays() { try { var a = JSON.parse(store.get('gpa-days') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+  function streakDays() {
+    var s = {}, n = 0;
+    loadDays().forEach(function (k) { s[dnum(k)] = 1; });
+    var t = dnum(dayKey()), i = s[t] ? t : t - 1;
+    while (s[i]) { n++; i--; }
+    return n;
+  }
+  function topicName(k) { return TOPICS[k] || k; }
+  function updateAch(r) {
+    var days = loadDays();
+    if (days.indexOf(dayKey()) < 0) { days.push(dayKey()); store.set('gpa-days', JSON.stringify(days.slice(-120))); }
+    var ach = loadAch(), got = [], h = loadHist();
+    var okT = h.reduce(function (s, x) { return s + x.ok; }, 0), sd = streakDays();
+    var n = r.log.length, ok = r.log.filter(function (x) { return x.ok; }).length, nota = n ? ok / n * 10 : 0;
+    var test = {
+      first: h.length >= 1, d3: sd >= 3, d7: sd >= 7, d14: sd >= 14,
+      ok100: okT >= 100, ok500: okT >= 500, ok1000: okT >= 1000,
+      s10: r.maxStreak >= 10, s20: r.maxStreak >= 20,
+      flash: n >= 10 && ok === n && r.log.every(function (x) { return FLASHIDS.indexOf(x.t) >= 0; }),
+      sim8: r.mode === 'sim' && nota >= 8, sim10: r.mode === 'sim' && ok === n,
+      rev: !!r.revHit
+    };
+    var per = {};
+    h.forEach(function (x) { Object.keys(x.b || {}).forEach(function (k) { var e = per[k] || (per[k] = [0, 0]); e[0] += x.b[k][0]; e[1] += x.b[k][1]; }); });
+    Object.keys(per).forEach(function (k) { if (TOPICS[k] && per[k][1] >= 30 && per[k][0] / per[k][1] >= 0.85) test['m-' + k] = true; });
+    Object.keys(test).forEach(function (id) {
+      if (test[id] && !ach[id]) { ach[id] = Date.now(); got.push(id); }
+    });
+    if (got.length) store.set('gpa-ach', JSON.stringify(ach));
+    return got;
+  }
+  function badgeInfo(id) {
+    for (var i = 0; i < BADGES.length; i++) if (BADGES[i][0] === id) return BADGES[i];
+    if (id.indexOf('m-') === 0) return [id, '⭐', 'Experto en ' + topicName(id.slice(2)), 'Más de 30 preguntas del tema con un 85 % de aciertos'];
+    return [id, '🏅', id, ''];
+  }
+  function renderBadges() {
+    var ach = loadAch(), sd = streakDays(), ids = BADGES.map(function (b) { return b[0]; });
+    Object.keys(ach).forEach(function (k) { if (ids.indexOf(k) < 0) ids.push(k); });
+    var got = ids.filter(function (k) { return ach[k]; }).length;
+    $('badges').innerHTML = '<p>' + (sd ? '🔥 Racha: ' + sd + ' día' + (sd > 1 ? 's' : '') + ' seguido' + (sd > 1 ? 's' : '') + ' · ' : '') + '🏅 ' + got + ' insignia' + (got === 1 ? '' : 's') + '</p><div class="badges">' + ids.map(function (k) {
+      var b = badgeInfo(k);
+      return '<span class="badge' + (ach[k] ? '' : ' off') + '" title="' + b[3] + '"><i>' + b[1] + '</i>' + b[2] + '</span>';
+    }).join('') + '</div>';
+  }
+  var MODEN = { solo: 'Individual', duel: 'Online', practice: 'Fallos', reto: 'Reto del día', sim: 'Simulacro' };
+  var SIMN = 15;
   function renderProgress() {
     var h = loadHist(), box = $('prog');
     $('progress').hidden = h.length === 0;
     if (!h.length) return;
+    renderBadges();
     var name = D.nick ? safe(D.nick) + ': ' : '';
     var tot = h.reduce(function (s, x) { return s + x.n; }, 0), okt = h.reduce(function (s, x) { return s + x.ok; }, 0);
     var html = '<p>' + name + h.length + ' carrera' + (h.length > 1 ? 's' : '') + ' · ' + okt + ' de ' + tot + ' preguntas acertadas (' + (tot ? Math.round(okt / tot * 100) : 0) + ' %)</p>';
@@ -16419,11 +16506,11 @@ function drawScene(view, S) {
     }
     html += '<p class="ph">Últimas carreras</p><ul class="hist">' + h.slice(-8).reverse().map(function (x) {
       var dt = new Date(x.d);
-      return '<li><span>' + dt.getDate() + '/' + (dt.getMonth() + 1) + '</span><span>' + (MODEN[x.m] || '') + ' · ' + x.l + ' m</span><span>' + fmt2(x.t) + '</span><span>' + x.ok + '/' + x.n + '</span></li>';
+      return '<li><span>' + dt.getDate() + '/' + (dt.getMonth() + 1) + '</span><span>' + (MODEN[x.m] || '') + ' · ' + (x.m === 'sim' ? SIMN + ' preg.' : x.l + ' m') + '</span><span>' + fmt2(x.t) + '</span><span>' + x.ok + '/' + x.n + '</span></li>';
     }).join('') + '</ul><button class="link" id="histclear" type="button">Borrar mi historial</button>';
     box.innerHTML = html;
     $('histclear').addEventListener('click', function () {
-      if (!window.confirm || window.confirm('¿Borrar tu historial y tus fallos guardados?')) { store.set('gpa-hist', '[]'); store.set('gpa-fails', '{}'); renderProgress(); renderExtras(); }
+      if (!window.confirm || window.confirm('¿Borrar tu historial y tus fallos guardados?')) { store.set('gpa-hist', '[]'); store.set('gpa-fails', '{}'); store.set('gpa-rev', '{}'); renderProgress(); renderExtras(); }
     });
   }
   function retoTopics() { var c = cur(); return c ? c.fl.slice() : FLASHIDS.slice(); }
@@ -16431,9 +16518,9 @@ function drawScene(view, S) {
   function retoKey() { return 'gpa-reto-' + dayKey() + (st.curso ? '-' + st.curso : ''); }
   function retoBest() { var v = parseFloat(store.get(retoKey())); return isNaN(v) ? null : v; }
   function renderExtras() {
-    var nf = failKeys().length, pb = $('practice');
-    pb.disabled = nf === 0;
-    pb.innerHTML = '<b>Practicar mis fallos</b><small>' + (nf ? nf + ' tipo' + (nf > 1 ? 's' : '') + ' de pregunta por superar' : 'No tienes fallos pendientes') + '</small>';
+    var nf = failKeys().length, nd = dueKeys().length, pb = $('practice');
+    pb.disabled = nf + nd === 0;
+    pb.innerHTML = '<b>Practicar mis fallos</b><small>' + (nf + nd ? (nf ? nf + ' por superar' : '') + (nf && nd ? ' · ' : '') + (nd ? nd + ' de repaso' : '') : 'No tienes fallos pendientes') + '</small>';
     var rb = retoBest();
     $('reto').innerHTML = '<b>⚡ Reto del día</b><small>' + (rb === null ? 'Las mismas preguntas flash para ' + (cur() ? 'todo ' + cur().n : 'todos') + ' hoy' : 'Tu tiempo de hoy: ' + fmt2(rb)) + '</small>';
   }
@@ -16668,10 +16755,11 @@ function drawScene(view, S) {
   function startRace(opts) {
     opts = opts && (opts.topics || opts.mode) ? opts : { mode: 'solo' };
     var dz = opts.topics ? opts : null, mode = dz ? 'duel' : opts.mode;
-    var lvl = dz ? (LV[dz.lvl] ? dz.lvl : 'n') : mode === 'reto' ? 'n' : st.lvl;
+    var lvl = dz ? (LV[dz.lvl] ? dz.lvl : 'n') : mode === 'reto' || mode === 'sim' ? 'n' : st.lvl;
     var deck, len = dz ? dz.len : st.len;
     if (dz) deck = seeded(makeDeck(dz.topics, { noProb: lvOf(lvl).noProb }), dz.seed);
-    else if (mode === 'practice') { deck = keysDeck(failKeys()); if (!deck.n) return; len = 500; }
+    else if (mode === 'practice') { deck = keysDeck(practiceKeys()); if (!deck.n) return; len = 500; }
+    else if (mode === 'sim') { var sid = st.topics.filter(normal); if (!sid.length) sid = normalIds(); deck = makeDeck(sid, {}); len = SIMN * 60; lvl = 'f'; }
     else if (mode === 'reto') { deck = seeded(makeDeck(retoTopics()), dayKey() * 7919 + retoSalt()); len = 500; }
     else { if (!st.topics.length) return; deck = makeDeck(st.topics, { noProb: lvOf(lvl).noProb }); }
     if (race) { race.dead = true; clearTimers(); }
@@ -16684,6 +16772,7 @@ function drawScene(view, S) {
     Snd.ensure();
     show('s-race');
     view = fitCanvas($('cv'), raceHeight());
+    $('h-dl').textContent = mode === 'sim' ? 'Preguntas que faltan' : 'Meta en'; $('h-du').textContent = mode === 'sim' ? '' : 'm';
     $('q-topic').textContent = '';
     $('q-text').textContent = 'Prepárate';
     $('opts').innerHTML = '';
@@ -16741,7 +16830,7 @@ function drawScene(view, S) {
     var longest = 0;
     q.opts.forEach(function (o) { longest = Math.max(longest, plain(o.s).length); });
     var lv = lvOf(race.lvl);
-    race.grace = q.fl ? lv.flash : q.p ? (race.lvl === 'd' ? 45 : 60) : lv.grace * Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
+    race.grace = race.mode === 'sim' ? 600 : q.fl ? lv.flash : q.p ? (race.lvl === 'd' ? 45 : 60) : lv.grace * Math.min(10, 3 + (plain(q.q).length + longest) * 0.09);
   }
 
   function pop(text, bad) {
@@ -16757,6 +16846,7 @@ function drawScene(view, S) {
     race.lock = true;
     race.log.push({ t: q.t, q: q.q, a: q.a, e: q.e, ok: o.ok, picked: o.s, ms: performance.now() - race.qStart });
     noteFail(q, o.ok);
+    if (race.mode === 'sim' && race.log.length >= SIMN) { var rr = race; setTimeout(function () { if (race === rr && !rr.dead && rr.phase === 'run') { rr.dist = rr.total; finishRace(); } }, o.ok ? 150 : 1800); }
     for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
     if (o.ok) {
       var gain = 26 + Math.min(race.streak, 8) * 3;
@@ -16815,8 +16905,9 @@ function drawScene(view, S) {
         if (bonus > 0) race.boost = Math.max(race.boost, 0.6);
       }
       race.draft = bonus;
-      race.dist += race.v / 3.6 * dt * (1 + bonus);
-      if (race.dist >= race.total) finishRace();
+      if (race.mode === 'sim') race.dist += (race.total * Math.min(SIMN, race.log.length) / SIMN - race.dist) * Math.min(1, dt * 3);
+      else race.dist += race.v / 3.6 * dt * (1 + bonus);
+      if (race.dist >= race.total && race.phase === 'run') finishRace();
       if (race.duel) duelTick(now);
     } else if (race.phase === 'done') {
       race.dist += race.v / 3.6 * dt;
@@ -16835,7 +16926,7 @@ function drawScene(view, S) {
     $('h-time').textContent = fmt(r.phase === 'done' ? r.finalT : r.t);
     $('h-v').textContent = Math.round(r.v);
     $('h-g').style.width = Math.min(100, r.v / VMAX * 100) + '%';
-    $('h-d').textContent = Math.max(0, Math.ceil(r.total - r.dist));
+    $('h-d').textContent = r.mode === 'sim' ? Math.max(0, SIMN - r.log.length) : Math.max(0, Math.ceil(r.total - r.dist));
     $('h-s').textContent = r.streak;
     var pct = Math.min(100, r.dist / r.total * 100) + '%';
     $('m-fill').style.width = pct;
@@ -16868,21 +16959,31 @@ function drawScene(view, S) {
     var prev = solo ? getBest() : r.mode === 'reto' ? retoBest() : null, record = (solo || r.mode === 'reto') && (prev === null || r.finalT < prev);
     if (record) store.set(solo ? bestKey() : retoKey(), String(r.finalT));
     saveHist(r);
+    var newB = updateAch(r);
     show('s-end');
-    var kick = { duel: 'Carrera online terminada', practice: 'Práctica de fallos', reto: 'Reto del día' }[r.mode];
+    var bx = $('e-badges');
+    bx.hidden = !newB.length;
+    bx.innerHTML = newB.map(function (id) { var b = badgeInfo(id); return '<span class="badge"><i>' + b[1] + '</i>¡Nueva insignia! ' + b[2] + '</span>'; }).join('');
+    var kick = { duel: 'Carrera online terminada', practice: 'Práctica de fallos', reto: 'Reto del día', sim: 'Simulacro' }[r.mode];
     $('e-kick').textContent = kick ? kick + (r.mode === 'reto' && record ? ' · tu mejor tiempo de hoy' : '') : record ? (prev === null ? 'Primer tiempo en esta selección' : 'Nuevo récord personal') : 'Bandera a cuadros';
-    $('e-time').innerHTML = fmt2(r.finalT) + ' <small>min</small>';
+    $('e-time').innerHTML = r.mode === 'sim' ? (ok / n * 10).toFixed(1).replace('.', ',') + ' <small>/ 10</small>' : fmt2(r.finalT) + ' <small>min</small>';
     var left = failKeys().length;
     $('e-sub').textContent = r.total + ' m · nivel ' + lvOf(r.lvl).n.toLowerCase() +
       (r.mode === 'practice' ? ' · ' + (left ? 'te quedan ' + left + ' tipos de pregunta por superar (cada una se supera acertándola 2 veces)' : '¡has superado todos tus fallos!') :
        record || prev === null ? '' : ' · tu mejor tiempo ' + (r.mode === 'reto' ? 'de hoy ' : '') + 'es ' + fmt2(prev) + ' (' + (r.finalT - prev >= 0 ? '+' : '−') + Math.abs(r.finalT - prev).toFixed(1).replace('.', ',') + ' s)');
     var avgKmh = Math.round(r.total / r.finalT * 3.6);
-    $('e-stats').innerHTML = [
+    if (r.mode === 'sim') $('e-sub').textContent = 'Nota: ' + (ok / n * 10).toFixed(1).replace('.', ',') + ' sobre 10 · ' + n + ' preguntas del curso, sin límite de velocidad';
+    $('e-stats').innerHTML = (r.mode === 'sim' ? [
+      ['Nota', (ok / n * 10).toFixed(1).replace('.', ',') + ' / 10'],
+      ['Aciertos', ok + ' / ' + n],
+      ['Respuesta media', avg.toFixed(1).replace('.', ',') + ' s'],
+      ['Tiempo total', fmt2(r.finalT)]
+    ] : [
       ['Aciertos', ok + ' / ' + n + ' (' + pct + '%)'],
       ['Respuesta media', avg.toFixed(1).replace('.', ',') + ' s'],
       ['Mejor racha', String(r.maxStreak)],
       ['Velocidad media', avgKmh + ' km/h']
-    ].map(function (x) { return '<div class="stat"><span class="lab">' + x[0] + '</span><span class="val">' + x[1] + '</span></div>'; }).join('');
+    ]).map(function (x) { return '<div class="stat"><span class="lab">' + x[0] + '</span><span class="val">' + x[1] + '</span></div>'; }).join('');
 
     var by = {};
     r.log.forEach(function (x) { by[x.t] = by[x.t] || { n: 0, ok: 0 }; by[x.t].n++; if (x.ok) by[x.t].ok++; });
@@ -16905,10 +17006,10 @@ function drawScene(view, S) {
 
     var fails = keys.filter(function (k) { return by[k].ok < by[k].n; }).map(function (k) { return TOPICS[k] + ' ' + (by[k].n - by[k].ok); });
     var td = new Date();
-    r.shareText = (r.duel ? 'Online · ' : r.mode === 'reto' ? 'Reto del día ' + td.getDate() + '/' + (td.getMonth() + 1) + ' · ' : r.mode === 'practice' ? 'Práctica de fallos · ' : '') + 'Gran Premio de Barbaridades · ' + r.total + ' m · ' + fmt2(r.finalT) + ' · ' + ok + '/' + n + ' aciertos (' + pct + '%)' + (fails.length ? ' · Fallos: ' + fails.join(', ') : '');
+    r.shareText = (r.duel ? 'Online · ' : r.mode === 'reto' ? 'Reto del día ' + td.getDate() + '/' + (td.getMonth() + 1) + ' · ' : r.mode === 'practice' ? 'Práctica de fallos · ' : r.mode === 'sim' ? 'Simulacro · ' : '') + 'Gran Premio de Barbaridades · ' + r.total + ' m · ' + fmt2(r.finalT) + ' · ' + ok + '/' + n + ' aciertos (' + pct + '%)' + (fails.length ? ' · Fallos: ' + fails.join(', ') : '');
     $('share').hidden = true;
     $('copy').textContent = 'Copiar resultado';
-    $('again').textContent = r.duel ? 'Revancha' : r.mode === 'practice' ? (left ? 'Seguir practicando' : 'Otra carrera') : r.mode === 'reto' ? 'Repetir el reto' : 'Otra carrera';
+    $('again').textContent = r.duel ? 'Revancha' : r.mode === 'practice' ? (left ? 'Seguir practicando' : 'Otra carrera') : r.mode === 'reto' ? 'Repetir el reto' : r.mode === 'sim' ? 'Otro simulacro' : 'Otra carrera';
     $('menu').textContent = r.duel ? 'Salir de la sala' : 'Cambiar temas';
     $('duelres').hidden = !r.duel;
     r.endShown = true;
@@ -17275,11 +17376,12 @@ function drawScene(view, S) {
 
   /* ---------- eventos ---------- */
   $('go').addEventListener('click', function () { startRace({ mode: 'solo' }); });
+  $('sim').addEventListener('click', function () { startRace({ mode: 'sim' }); });
   $('practice').addEventListener('click', function () { startRace({ mode: 'practice' }); });
   $('reto').addEventListener('click', function () { startRace({ mode: 'reto' }); });
   $('again').addEventListener('click', function () {
     if (race && race.duel) { duelBackToLobby(); show('s-start'); }
-    else if (race && race.mode === 'practice' && failKeys().length) startRace({ mode: 'practice' });
+    else if (race && race.mode === 'practice' && practiceKeys().length) startRace({ mode: 'practice' });
     else if (race && race.mode === 'reto') startRace({ mode: 'reto' });
     else startRace();
   });

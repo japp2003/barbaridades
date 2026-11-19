@@ -32,9 +32,10 @@
           <button type="button" role="radio" id="mode-duel" aria-checked="false"><b>Online</b><small>2 a 8 jugadores, cada uno en su casa</small></button>
         </div>
       </div>
-      <div class="seg two extras" id="extras" role="group" aria-label="Práctica">
+      <div class="seg three extras" id="extras" role="group" aria-label="Práctica">
         <button type="button" id="practice"><b>Practicar mis fallos</b><small></small></button>
         <button type="button" id="reto"><b>⚡ Reto del día</b><small></small></button>
+        <button type="button" id="sim"><b>📝 Simulacro</b><small>15 preguntas, sin prisa, con nota</small></button>
       </div>
       <div id="picker">
         <div class="row-h"><h2>Temas</h2><span class="row-btns"><button class="link" id="flash" type="button">⚡ Solo modo flash</button><button class="link" id="toggle-all" type="button">Quitar todos</button></span></div>
@@ -92,6 +93,7 @@
       </ul>
       <details class="teacher" id="progress" hidden>
         <summary>Tu progreso en este dispositivo</summary>
+        <div id="badges"></div>
         <div id="prog"></div>
       </details>
       <details class="teacher" id="teacher">
@@ -106,7 +108,7 @@
     <div class="hud">
       <div class="stat"><span class="lab">Tiempo</span><span class="val" id="h-time">0:00,0</span></div>
       <div class="stat"><span class="lab">Velocidad</span><span class="val"><b id="h-v">0</b><small>km/h</small></span><span class="gauge"><i id="h-g"></i></span></div>
-      <div class="stat"><span class="lab">Meta en</span><span class="val"><b id="h-d">0</b><small>m</small></span></div>
+      <div class="stat"><span class="lab" id="h-dl">Meta en</span><span class="val"><b id="h-d">0</b><small id="h-du">m</small></span></div>
       <div class="stat"><span class="lab">Racha</span><span class="val" id="h-s">0</span></div>
     </div>
     <div class="stage">
@@ -131,6 +133,7 @@
     <p class="kicker" id="e-kick">Bandera a cuadros</p>
     <h2 class="bigtime" id="e-time"></h2>
     <p class="sub" id="e-sub"></p>
+    <div class="newbadges" id="e-badges" hidden></div>
     <div class="stats" id="e-stats"></div>
     <h3>Por tema</h3>
     <div id="e-topics"></div>
