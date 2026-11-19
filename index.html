@@ -342,6 +342,12 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
 :root[data-contrast="high"] .chip, :root[data-contrast="high"] .opt, :root[data-contrast="high"] .seg button, :root[data-contrast="high"] .cbtn { border-width: 2.5px; }
 :root[data-contrast="high"] .chip[aria-pressed="false"] { color: var(--ink); }
 :root[data-calm] .shake, :root[data-calm] .siren { animation: none !important; }
+.tbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; background: var(--accent); color: var(--accent-ink); border-radius: 6px; padding: 8px 12px; margin: 0 0 12px; }
+.tbar span { flex: 1; opacity: .9; }
+.tbar .link { color: var(--accent-ink); }
+body:not(.teacher-mode) .tonly { display: none !important; }
+.foot { text-align: center; margin: 28px 0 10px; }
+.foot .link { color: var(--muted); font-size: .85rem; }
 </style>
 
 <div class="wrap">
@@ -350,6 +356,7 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
     <span class="brand">Gran Premio de Barbaridades</span>
     <button class="mute" id="mute" type="button" aria-pressed="false">Sonido: sí</button>
   </header>
+  <div class="tbar tonly" id="tbar"><b>Modo profesor</b><span>Herramientas de clase activadas</span><button class="link" id="t-exit" type="button">Volver a alumno</button></div>
 
   <section id="s-course" hidden>
     <div class="cintro">
@@ -410,7 +417,7 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
             <label>Código de sala<input id="roomcode" type="text" maxlength="12" autocomplete="off" placeholder="Ej.: k7x2" autocapitalize="none"></label>
           </div>
           <div class="rooms" id="rooms" hidden></div>
-          <label class="chk"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
+          <label class="chk tonly"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
           <div class="drow">
             <button class="btn" id="newcode" type="button">Crear código</button>
             <button class="go small" id="join" type="button">Entrar a la sala</button>
@@ -458,13 +465,13 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
         <label class="chk"><input type="checkbox" id="hc"> Alto contraste (bordes y textos más marcados)</label>
         <label class="chk"><input type="checkbox" id="calm"> Menos movimiento (sin sacudidas ni destellos)</label>
       </details>
-      <details class="teacher" id="custom">
+      <details class="teacher tonly" id="custom">
         <summary>Para el profe: mis propias preguntas</summary>
         <p>Una pregunta por línea, con este formato (separadas por <b>|</b>): <code>Enunciado | Correcta | Mala 1 | Mala 2 | Mala 3 | Explicación (opcional)</code>. Puedes usar <code>x^{2}</code> y <code>√{x}</code>; las fracciones, con «/» (como 3/4). Aparecen como el tema «Mis preguntas» en todos los cursos y solo en este dispositivo.</p>
         <textarea id="custom-text" rows="6" spellcheck="false" placeholder="¿Cuánto es 3 · 4? | 12 | 7 | 34 | 1 | Multiplicar es sumar 3 cuatro veces."></textarea>
         <div class="codebox"><button class="btn" id="custom-save" type="button">Guardar mis preguntas</button><span class="hintp" id="custom-msg" aria-live="polite"></span></div>
       </details>
-      <details class="teacher" id="teacher">
+      <details class="teacher tonly" id="teacher">
         <summary>Para el profe: enlace con los temas ya elegidos</summary>
         <p>Elige los temas y la distancia arriba. Añade este código al final del enlace del juego y tus alumnos entrarán con esos temas fijados.</p>
         <div class="codebox"><input id="code" type="text" readonly aria-label="Código de clase"><button class="btn" id="copycode" type="button">Copiar código</button></div>
@@ -517,6 +524,7 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
     </div>
     <input class="share" id="share" type="text" readonly hidden aria-label="Resultado para copiar">
   </section>
+  <footer class="foot" id="foot"><button class="link" id="t-enter" type="button">Soy profesor</button></footer>
 </div>
 
 <script>
@@ -16599,6 +16607,18 @@ function drawScene(view, S) {
   $('paper').addEventListener('change', function () { st.paper = $('paper').checked; saveSetup(); });
   $('paper').checked = !!st.paper;
 
+
+  /* ---------- profesor / alumno ---------- */
+  function applyTeacher() {
+    var on = store.get('gpa-teacher') === '1' && !locked;
+    document.body.classList.toggle('teacher-mode', on);
+    if (!on && $('obs')) $('obs').checked = false;
+    var cs = !$('s-course').hidden, ss = !$('s-start').hidden;
+    $('foot').hidden = on || locked || !(cs || ss);
+  }
+  $('t-enter').addEventListener('click', function () { store.set('gpa-teacher', '1'); applyTeacher(); try { window.scrollTo(0, 0); } catch (e) { /* nada */ } });
+  $('t-exit').addEventListener('click', function () { store.set('gpa-teacher', '0'); applyTeacher(); });
+
   /* ---------- ajustes: color del coche, tamaño de letra, contraste ---------- */
   var CARS = [['#E8553D', 'Rojo'], ['#2F7DE1', 'Azul'], ['#17A35B', 'Verde'], ['#F0B232', 'Amarillo'], ['#9B5DE5', 'Morado'], ['#F2F4F8', 'Blanco'], ['#FF7AB6', 'Rosa']];
   function loadPrefs() { try { var o = JSON.parse(store.get('gpa-prefs') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
@@ -16820,6 +16840,7 @@ function drawScene(view, S) {
     ['s-course', 's-start', 's-race', 's-end'].forEach(function (i) { $(i).hidden = (i !== id); });
     heroRun = false;
     if (id !== 's-race') Snd.engineStop();
+    applyTeacher();
     if (id === 's-start') { startHero(); renderExtras(); renderProgress(); }
     try { window.scrollTo(0, 0); } catch (e) { /* sin scroll */ }
   }
@@ -17754,6 +17775,7 @@ function drawScene(view, S) {
   });
 
   applyPrefs();
+  applyTeacher();
   renderRooms();
   if (!hashRoom) { var lr = loadRooms()[0]; if (lr) { $('roomcode').value = lr.c; $('obs').checked = !!lr.o; } }
   applyHash(); renderChips(); renderSeg(); updateStart(); renderCourse(); renderCourses();

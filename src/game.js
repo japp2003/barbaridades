@@ -133,6 +133,18 @@
   $('paper').addEventListener('change', function () { st.paper = $('paper').checked; saveSetup(); });
   $('paper').checked = !!st.paper;
 
+
+  /* ---------- profesor / alumno ---------- */
+  function applyTeacher() {
+    var on = store.get('gpa-teacher') === '1' && !locked;
+    document.body.classList.toggle('teacher-mode', on);
+    if (!on && $('obs')) $('obs').checked = false;
+    var cs = !$('s-course').hidden, ss = !$('s-start').hidden;
+    $('foot').hidden = on || locked || !(cs || ss);
+  }
+  $('t-enter').addEventListener('click', function () { store.set('gpa-teacher', '1'); applyTeacher(); try { window.scrollTo(0, 0); } catch (e) { /* nada */ } });
+  $('t-exit').addEventListener('click', function () { store.set('gpa-teacher', '0'); applyTeacher(); });
+
   /* ---------- ajustes: color del coche, tamaño de letra, contraste ---------- */
   var CARS = [['#E8553D', 'Rojo'], ['#2F7DE1', 'Azul'], ['#17A35B', 'Verde'], ['#F0B232', 'Amarillo'], ['#9B5DE5', 'Morado'], ['#F2F4F8', 'Blanco'], ['#FF7AB6', 'Rosa']];
   function loadPrefs() { try { var o = JSON.parse(store.get('gpa-prefs') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
@@ -354,6 +366,7 @@
     ['s-course', 's-start', 's-race', 's-end'].forEach(function (i) { $(i).hidden = (i !== id); });
     heroRun = false;
     if (id !== 's-race') Snd.engineStop();
+    applyTeacher();
     if (id === 's-start') { startHero(); renderExtras(); renderProgress(); }
     try { window.scrollTo(0, 0); } catch (e) { /* sin scroll */ }
   }
@@ -1288,6 +1301,7 @@
   });
 
   applyPrefs();
+  applyTeacher();
   renderRooms();
   if (!hashRoom) { var lr = loadRooms()[0]; if (lr) { $('roomcode').value = lr.c; $('obs').checked = !!lr.o; } }
   applyHash(); renderChips(); renderSeg(); updateStart(); renderCourse(); renderCourses();

@@ -4,6 +4,7 @@
     <span class="brand">Gran Premio de Barbaridades</span>
     <button class="mute" id="mute" type="button" aria-pressed="false">Sonido: sí</button>
   </header>
+  <div class="tbar tonly" id="tbar"><b>Modo profesor</b><span>Herramientas de clase activadas</span><button class="link" id="t-exit" type="button">Volver a alumno</button></div>
 
   <section id="s-course" hidden>
     <div class="cintro">
@@ -64,7 +65,7 @@
             <label>Código de sala<input id="roomcode" type="text" maxlength="12" autocomplete="off" placeholder="Ej.: k7x2" autocapitalize="none"></label>
           </div>
           <div class="rooms" id="rooms" hidden></div>
-          <label class="chk"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
+          <label class="chk tonly"><input type="checkbox" id="obs"> Soy el profe: no juego, solo miro la sala y veo el informe de cada alumno (y elijo los temas)</label>
           <div class="drow">
             <button class="btn" id="newcode" type="button">Crear código</button>
             <button class="go small" id="join" type="button">Entrar a la sala</button>
@@ -112,13 +113,13 @@
         <label class="chk"><input type="checkbox" id="hc"> Alto contraste (bordes y textos más marcados)</label>
         <label class="chk"><input type="checkbox" id="calm"> Menos movimiento (sin sacudidas ni destellos)</label>
       </details>
-      <details class="teacher" id="custom">
+      <details class="teacher tonly" id="custom">
         <summary>Para el profe: mis propias preguntas</summary>
         <p>Una pregunta por línea, con este formato (separadas por <b>|</b>): <code>Enunciado | Correcta | Mala 1 | Mala 2 | Mala 3 | Explicación (opcional)</code>. Puedes usar <code>x^{2}</code> y <code>√{x}</code>; las fracciones, con «/» (como 3/4). Aparecen como el tema «Mis preguntas» en todos los cursos y solo en este dispositivo.</p>
         <textarea id="custom-text" rows="6" spellcheck="false" placeholder="¿Cuánto es 3 · 4? | 12 | 7 | 34 | 1 | Multiplicar es sumar 3 cuatro veces."></textarea>
         <div class="codebox"><button class="btn" id="custom-save" type="button">Guardar mis preguntas</button><span class="hintp" id="custom-msg" aria-live="polite"></span></div>
       </details>
-      <details class="teacher" id="teacher">
+      <details class="teacher tonly" id="teacher">
         <summary>Para el profe: enlace con los temas ya elegidos</summary>
         <p>Elige los temas y la distancia arriba. Añade este código al final del enlace del juego y tus alumnos entrarán con esos temas fijados.</p>
         <div class="codebox"><input id="code" type="text" readonly aria-label="Código de clase"><button class="btn" id="copycode" type="button">Copiar código</button></div>
@@ -171,4 +172,5 @@
     </div>
     <input class="share" id="share" type="text" readonly hidden aria-label="Resultado para copiar">
   </section>
+  <footer class="foot" id="foot"><button class="link" id="t-enter" type="button">Soy profesor</button></footer>
 </div>
