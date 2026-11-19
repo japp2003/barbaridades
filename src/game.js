@@ -97,7 +97,7 @@
 
   var st = { paper: false, topics: Object.keys(TOPICS).filter(function (k) { return normal(k); }), len: 1000, lvl: 'n', curso: null, sel: {} };
   var showAll = false;
-  var locked = false, hashRoom = null;
+  var locked = false, hashRoom = null, classCode = store.get('gpa-clase') || '';
   var CNT = {}, HASGEN = {};
   STATIC.forEach(function (q) { CNT[q.t] = (CNT[q.t] || 0) + 1; if (q.f) CNT.ficha = (CNT.ficha || 0) + 1; });
   GENS.forEach(function (g) { HASGEN[g.t] = true; });
@@ -218,6 +218,65 @@
     setTimeout(function () { try { window.location.reload(); } catch (e) { /* nada */ } }, 600);
   });
 
+
+  /* ---------- resultados anónimos para el profe (solo si se entra por un enlace de clase) ---------- */
+  function statsBase() { var u = window.ROOM_WS_URL || ''; return u ? u.replace(/^wss:/, 'https:').replace(/^ws:/, 'http:').replace(/\/$/, '') : ''; }
+  function shareClass(r) {
+    if (!classCode || !statsBase() || r.mode === 'practice' || !r.log.length || typeof fetch !== 'function') return;
+    var t = {}, m = [];
+    r.log.forEach(function (x) { var e = t[x.t] || (t[x.t] = [0, 0]); e[1]++; if (x.ok) e[0]++; else if (m.length < 40) m.push([x.k || 'x', String(x.q).slice(0, 140)]); });
+    try {
+      fetch(statsBase() + '/clase/' + classCode, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ c: st.curso || '', t: t, m: m }), keepalive: true }).catch(function () { /* sin conexión: no pasa nada */ });
+    } catch (e) { /* nada */ }
+  }
+  function renderShareInfo() {
+    var box = $('shareinfo');
+    box.hidden = !(classCode && statsBase());
+    if (box.hidden) return;
+    box.innerHTML = '📊 Tus resultados se envían a tu profe <b>sin tu nombre</b> (clase ' + safe(classCode) + '). <button class="link" id="share-off" type="button">Dejar de enviar</button>';
+    $('share-off').addEventListener('click', function () { classCode = ''; store.set('gpa-clase', ''); renderShareInfo(); });
+  }
+  function loadOverview() {
+    var code = $('t-clase').value.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 16), body = $('ov-body');
+    if (!statsBase()) { body.innerHTML = '<p class="hintp">La vista general solo funciona en la versión de GitHub Pages (japp2003.github.io/barbaridades).</p>'; return; }
+    if (code.length < 4) { body.innerHTML = '<p class="hintp">Elige un código de clase de 4 a 16 letras o números.</p>'; return; }
+    store.set('gpa-tclase', code); $('t-clase').value = code;
+    body.innerHTML = '<p class="hintp">Cargando…</p>';
+    fetch(statsBase() + '/clase/' + code).then(function (r) { return r.json(); }).then(function (a) {
+      if (!a || !a.r) { body.innerHTML = '<p class="hintp">Aún no hay resultados con el código <b>' + safe(code) + '</b>. Comparte el enlace de clase con tus alumnos y vuelve a pulsar «Ver resultados».</p>'; return; }
+      var rows = Object.keys(a.t || {}).filter(function (k) { return TOPICS[k] && a.t[k][1] >= 3; }).sort(function (x, y) { return a.t[x][0] / a.t[x][1] - a.t[y][0] / a.t[y][1]; });
+      var ok = 0, n = 0; Object.keys(a.t || {}).forEach(function (k) { ok += a.t[k][0]; n += a.t[k][1]; });
+      var cursos = Object.keys(a.c || {}).map(function (k) { var c = cursoById(k); return (c ? c.n + (c.d && /^Matem/.test(c.d) ? '' : '') : k) + ': ' + a.c[k]; }).join(' · ');
+      var h = '<p><b>' + a.r + '</b> carreras enviadas · ' + n + ' preguntas · ' + pctS(ok, n) + ' de aciertos' + (cursos ? '<br><small>' + safe(cursos) + '</small>' : '') + '</p>';
+      h += '<p class="ph">Temas, de peor a mejor</p>' + rows.map(function (k) {
+        var p = Math.round(a.t[k][0] / a.t[k][1] * 100);
+        return '<div class="trow"><span>' + TOPICS[k] + '</span><span class="bar' + (p < 70 ? ' low' : '') + '"><i style="width:' + p + '%"></i></span><span>' + a.t[k][0] + '/' + a.t[k][1] + '</span></div>';
+      }).join('');
+      var mq = Object.keys(a.m || {}).sort(function (x, y) { return a.m[y][0] - a.m[x][0]; }).slice(0, 15);
+      if (mq.length) h += '<p class="ph">Preguntas más falladas (las de números aleatorios salen con un ejemplo)</p><ul class="mq">' + mq.map(function (k) {
+        return '<li><span class="miss-q">' + R(safe(a.m[k][1])) + '</span><small>' + a.m[k][0] + ' fallos</small></li>';
+      }).join('') + '</ul>';
+      body.innerHTML = h;
+    }).catch(function () { body.innerHTML = '<p class="hintp">No se ha podido conectar con el servidor. Prueba de nuevo en un momento.</p>'; });
+  }
+  $('t-clase').value = store.get('gpa-tclase') || '';
+  $('ov-load').addEventListener('click', loadOverview);
+  $('ov-copy').addEventListener('click', function () {
+    var code = $('t-clase').value.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 16), b = $('ov-copy');
+    if (code.length < 4) { $('ov-body').innerHTML = '<p class="hintp">Escribe primero un código de clase de 4 a 16 letras o números.</p>'; return; }
+    store.set('gpa-tclase', code);
+    var url = '';
+    try { url = window.location.href.split('#')[0] + '#clase-' + code; } catch (e) { url = '#clase-' + code; }
+    var ok = function () { b.textContent = '¡Enlace copiado!'; setTimeout(function () { b.textContent = 'Copiar enlace de clase'; }, 1600); };
+    try { navigator.clipboard.writeText(url).then(ok, function () { window.prompt('Copia el enlace:', url); }); } catch (e) { try { window.prompt('Copia el enlace:', url); } catch (e2) { /* nada */ } }
+  });
+  $('ov-reset').addEventListener('click', function () {
+    var code = $('t-clase').value.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 16);
+    if (code.length < 4 || !statsBase()) return;
+    if (window.confirm && !window.confirm('¿Poner a cero los resultados de la clase ' + code + '?')) return;
+    fetch(statsBase() + '/clase/' + code + '/reiniciar', { method: 'POST', headers: { 'Content-Type': 'text/plain' } }).then(loadOverview, loadOverview);
+  });
+
   /* ---------- fallos guardados (para practicarlos después) ---------- */
   function loadFails() { try { var o = JSON.parse(store.get('gpa-fails') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
   function failKeys() { return Object.keys(loadFails()); }
@@ -234,7 +293,6 @@
       f[q.k].need--;
       if (f[q.k].need <= 0) { delete f[q.k]; rv[q.k] = { t: q.t, s: 0, due: now + REV_DAYS[0] * DAY_MS }; }
     } else if (rv[q.k] && rv[q.k].due <= now) {
-      if (race) race.revHit = true;
       var s = rv[q.k].s + 1;
       if (s >= REV_DAYS.length) delete rv[q.k]; else rv[q.k] = { t: q.t, s: s, due: now + REV_DAYS[s] * DAY_MS };
     } else return;
@@ -255,77 +313,12 @@
     store.set('gpa-hist', JSON.stringify(h));
   }
 
-  /* ---------- insignias y racha de días (en este dispositivo) ---------- */
-  var BADGES = [
-    ['first', '🏁', 'Primera bandera a cuadros', 'Termina tu primera carrera'],
-    ['d3', '🔥', 'Racha de 3 días', 'Juega 3 días seguidos'],
-    ['d7', '🔥', 'Semana perfecta', 'Juega 7 días seguidos'],
-    ['d14', '🔥', 'Quincena de hierro', 'Juega 14 días seguidos'],
-    ['ok100', '🎯', '100 aciertos', 'Acumula 100 respuestas correctas'],
-    ['ok500', '🎯', '500 aciertos', 'Acumula 500 respuestas correctas'],
-    ['ok1000', '🏆', '1000 aciertos', 'Acumula 1000 respuestas correctas'],
-    ['s10', '⚡', 'Racha de 10', '10 aciertos seguidos en una carrera'],
-    ['s20', '⚡', 'Racha de 20', '20 aciertos seguidos en una carrera'],
-    ['flash', '🧠', 'Calculadora humana', 'Una carrera flash de 10 preguntas o más sin fallar'],
-    ['sim8', '📝', 'Notable en simulacro', 'Saca 8 o más en un simulacro'],
-    ['sim10', '🥇', 'Matrícula de honor', 'Saca un 10 en un simulacro'],
-    ['rev', '♻️', 'Memoria de elefante', 'Acierta una pregunta de repaso espaciado']
-  ];
-  function loadAch() { try { var o = JSON.parse(store.get('gpa-ach') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
-  function dnum(k) { return Math.round(Date.UTC(Math.floor(k / 10000), Math.floor(k / 100) % 100 - 1, k % 100) / 86400000); }
-  function loadDays() { try { var a = JSON.parse(store.get('gpa-days') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
-  function streakDays() {
-    var s = {}, n = 0;
-    loadDays().forEach(function (k) { s[dnum(k)] = 1; });
-    var t = dnum(dayKey()), i = s[t] ? t : t - 1;
-    while (s[i]) { n++; i--; }
-    return n;
-  }
-  function topicName(k) { return TOPICS[k] || k; }
-  function updateAch(r) {
-    var days = loadDays();
-    if (days.indexOf(dayKey()) < 0) { days.push(dayKey()); store.set('gpa-days', JSON.stringify(days.slice(-120))); }
-    var ach = loadAch(), got = [], h = loadHist();
-    var okT = h.reduce(function (s, x) { return s + x.ok; }, 0), sd = streakDays();
-    var n = r.log.length, ok = r.log.filter(function (x) { return x.ok; }).length, nota = n ? ok / n * 10 : 0;
-    var test = {
-      first: h.length >= 1, d3: sd >= 3, d7: sd >= 7, d14: sd >= 14,
-      ok100: okT >= 100, ok500: okT >= 500, ok1000: okT >= 1000,
-      s10: r.maxStreak >= 10, s20: r.maxStreak >= 20,
-      flash: n >= 10 && ok === n && r.log.every(function (x) { return FLASHIDS.indexOf(x.t) >= 0; }),
-      sim8: r.mode === 'sim' && nota >= 8, sim10: r.mode === 'sim' && ok === n,
-      rev: !!r.revHit
-    };
-    var per = {};
-    h.forEach(function (x) { Object.keys(x.b || {}).forEach(function (k) { var e = per[k] || (per[k] = [0, 0]); e[0] += x.b[k][0]; e[1] += x.b[k][1]; }); });
-    Object.keys(per).forEach(function (k) { if (TOPICS[k] && per[k][1] >= 30 && per[k][0] / per[k][1] >= 0.85) test['m-' + k] = true; });
-    Object.keys(test).forEach(function (id) {
-      if (test[id] && !ach[id]) { ach[id] = Date.now(); got.push(id); }
-    });
-    if (got.length) store.set('gpa-ach', JSON.stringify(ach));
-    return got;
-  }
-  function badgeInfo(id) {
-    for (var i = 0; i < BADGES.length; i++) if (BADGES[i][0] === id) return BADGES[i];
-    if (id.indexOf('m-') === 0) return [id, '⭐', 'Experto en ' + topicName(id.slice(2)), 'Más de 30 preguntas del tema con un 85 % de aciertos'];
-    return [id, '🏅', id, ''];
-  }
-  function renderBadges() {
-    var ach = loadAch(), sd = streakDays(), ids = BADGES.map(function (b) { return b[0]; });
-    Object.keys(ach).forEach(function (k) { if (ids.indexOf(k) < 0) ids.push(k); });
-    var got = ids.filter(function (k) { return ach[k]; }).length;
-    $('badges').innerHTML = '<p>' + (sd ? '🔥 Racha: ' + sd + ' día' + (sd > 1 ? 's' : '') + ' seguido' + (sd > 1 ? 's' : '') + ' · ' : '') + '🏅 ' + got + ' insignia' + (got === 1 ? '' : 's') + '</p><div class="badges">' + ids.map(function (k) {
-      var b = badgeInfo(k);
-      return '<span class="badge' + (ach[k] ? '' : ' off') + '" title="' + b[3] + '"><i>' + b[1] + '</i>' + b[2] + '</span>';
-    }).join('') + '</div>';
-  }
   var MODEN = { solo: 'Individual', duel: 'Online', practice: 'Fallos', reto: 'Reto del día', sim: 'Simulacro' };
   var SIMN = 15;
   function renderProgress() {
     var h = loadHist(), box = $('prog');
     $('progress').hidden = h.length === 0;
     if (!h.length) return;
-    renderBadges();
     var name = D.nick ? safe(D.nick) + ': ' : '';
     var tot = h.reduce(function (s, x) { return s + x.n; }, 0), okt = h.reduce(function (s, x) { return s + x.ok; }, 0);
     var html = '<p>' + name + h.length + ' carrera' + (h.length > 1 ? 's' : '') + ' · ' + okt + ' de ' + tot + ' preguntas acertadas (' + (tot ? Math.round(okt / tot * 100) : 0) + ' %)</p>';
@@ -376,7 +369,7 @@
     heroRun = false;
     if (id !== 's-race') Snd.engineStop();
     applyTeacher();
-    if (id === 's-start') { startHero(); renderExtras(); renderProgress(); }
+    if (id === 's-start') { startHero(); renderExtras(); renderProgress(); renderShareInfo(); }
     try { window.scrollTo(0, 0); } catch (e) { /* sin scroll */ }
   }
 
@@ -474,15 +467,17 @@
   }
   function codeStr() {
     var ids = allIds().filter(function (k) { return st.topics.indexOf(k) >= 0; });
-    return '#l' + st.len + (ids.length ? '.' + ids.join('.') : '');
+    var tc = store.get('gpa-tclase') || '';
+    return '#l' + st.len + (ids.length ? '.' + ids.join('.') : '') + (tc ? '.clase-' + tc : '');
   }
   function parseHash() {
     var h = '';
     try { h = (window.location.hash || '').replace(/^#/, ''); } catch (e) { h = ''; }
     var ids = [], len = null;
     h.split('.').forEach(function (t) {
-      var m = /^l(500|1000|2000|3000)$/.exec(t), rm = /^sala-([a-z0-9]{3,12})$/.exec(t);
-      if (rm) hashRoom = rm[1];
+      var m = /^l(500|1000|2000|3000)$/.exec(t), rm = /^sala-([a-z0-9]{3,12})$/.exec(t), cm = /^clase-([a-z0-9]{4,16})$/.exec(t);
+      if (cm) { classCode = cm[1]; store.set('gpa-clase', classCode); }
+      else if (rm) hashRoom = rm[1];
       else if (m) len = parseInt(m[1], 10);
       else if (TOPICS[t] && ids.indexOf(t) < 0) ids.push(t);
     });
@@ -691,7 +686,7 @@
     if (!race || race.phase !== 'run' || race.lock) return;
     var q = race.cur, o = q.opts[i], btns = $('opts').children;
     race.lock = true;
-    race.log.push({ t: q.t, q: q.q, a: q.a, e: q.e, ok: o.ok, picked: o.s, ms: performance.now() - race.qStart });
+    race.log.push({ k: q.k, t: q.t, q: q.q, a: q.a, e: q.e, ok: o.ok, picked: o.s, ms: performance.now() - race.qStart });
     noteFail(q, o.ok);
     if (race.mode === 'sim' && race.log.length >= SIMN) { var rr = race; setTimeout(function () { if (race === rr && !rr.dead && rr.phase === 'run') { rr.dist = rr.total; finishRace(); } }, o.ok ? 150 : 1800); }
     for (var k = 0; k < btns.length; k++) btns[k].disabled = true;
@@ -806,11 +801,8 @@
     var prev = solo ? getBest() : r.mode === 'reto' ? retoBest() : null, record = (solo || r.mode === 'reto') && (prev === null || r.finalT < prev);
     if (record) store.set(solo ? bestKey() : retoKey(), String(r.finalT));
     saveHist(r);
-    var newB = updateAch(r);
+    shareClass(r);
     show('s-end');
-    var bx = $('e-badges');
-    bx.hidden = !newB.length;
-    bx.innerHTML = newB.map(function (id) { var b = badgeInfo(id); return '<span class="badge"><i>' + b[1] + '</i>¡Nueva insignia! ' + b[2] + '</span>'; }).join('');
     var kick = { duel: 'Carrera online terminada', practice: 'Práctica de fallos', reto: 'Reto del día', sim: 'Simulacro' }[r.mode];
     $('e-kick').textContent = kick ? kick + (r.mode === 'reto' && record ? ' · tu mejor tiempo de hoy' : '') : record ? (prev === null ? 'Primer tiempo en esta selección' : 'Nuevo récord personal') : 'Bandera a cuadros';
     $('e-time').innerHTML = r.mode === 'sim' ? (ok / n * 10).toFixed(1).replace('.', ',') + ' <small>/ 10</small>' : fmt2(r.finalT) + ' <small>min</small>';
