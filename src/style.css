@@ -343,4 +343,7 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
 body:not(.teacher-mode) .tonly { display: none !important; }
 .foot { text-align: center; margin: 28px 0 10px; }
 .foot .link { color: var(--muted); font-size: .85rem; }
+.vehs b { font-size: .92rem; letter-spacing: 0; text-transform: none; }
+.vehs button + button { border-left: 0; }
+.vehs button { border: 1px solid var(--line); }
 </style>

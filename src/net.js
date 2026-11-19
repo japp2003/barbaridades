@@ -273,8 +273,18 @@ function fillPoly(ctx, pts, fill) {
   ctx.fill();
 }
 
+var VEHICLE = 'car';   /* 'car' | 'sport' | 'f1' | 'moto' | 'truck' (se elige en Ajustes) */
+function wheelAt(ctx, x, y, r, ang, rim) {
+  ctx.fillStyle = '#10141B'; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#C9D1DC'; ctx.beginPath(); ctx.arc(x, y, r * 0.58, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#10141B'; ctx.lineWidth = 1.3;
+  for (var k = 0; k < 3; k++) {
+    var a = ang + k * Math.PI / 3, q = r * 0.58;
+    ctx.beginPath(); ctx.moveTo(x - Math.cos(a) * q, y - Math.sin(a) * q); ctx.lineTo(x + Math.cos(a) * q, y + Math.sin(a) * q); ctx.stroke();
+  }
+}
 function drawCar(ctx, x, yb, L, wheel, C, boost, v) {
-  var s = L / 100, bob = v > 5 ? Math.sin(wheel * 1.7) * 0.3 * s : 0;
+  var s = L / 100, bob = v > 5 ? Math.sin(wheel * 1.7) * 0.3 * s : 0, V = VEHICLE, ang = wheel / 0.33;
   ctx.fillStyle = 'rgba(0,0,0,.28)';
   ctx.beginPath();
   ctx.ellipse(x, yb + 1, L * 0.5, Math.max(2, 2.4 * s), 0, 0, Math.PI * 2);
@@ -283,29 +293,58 @@ function drawCar(ctx, x, yb, L, wheel, C, boost, v) {
   ctx.translate(x - L / 2, yb - 33 * s + bob);
   ctx.scale(s, s);
   if (boost > 0.02) {
-    var fl = 8 + 26 * boost;
-    fillPoly(ctx, [[3, 17], [3 - fl, 20.5], [3, 24]], C.gold);
-    fillPoly(ctx, [[3, 18.6], [3 - fl * 0.55, 20.5], [3, 22.4]], '#FFF4D0');
+    var fl = 8 + 26 * boost, fy = V === 'moto' ? 19 : V === 'f1' ? 21 : 20.5;
+    fillPoly(ctx, [[3, fy - 3.5], [3 - fl, fy], [3, fy + 3.5]], C.gold);
+    fillPoly(ctx, [[3, fy - 1.9], [3 - fl * 0.55, fy], [3, fy + 1.9]], '#FFF4D0');
   }
-  rr(ctx, 2, 14, 96, 12, 5); ctx.fillStyle = C.car; ctx.fill();
-  fillPoly(ctx, [[26, 14.5], [37, 3], [67, 3], [82, 14.5]], C.car);
-  fillPoly(ctx, [[32, 13.5], [40, 5.2], [51, 5.2], [51, 13.5]], '#0F1722');
-  fillPoly(ctx, [[54, 13.5], [54, 5.2], [65, 5.2], [74, 13.5]], '#0F1722');
-  ctx.fillStyle = 'rgba(255,255,255,.88)'; ctx.fillRect(6, 19.5, 88, 1.6);
-  ctx.fillStyle = '#10141B'; ctx.fillRect(1, 6, 11, 2.4); ctx.fillRect(4, 8, 2, 6.5);
-  ctx.fillStyle = C.gold; ctx.beginPath(); ctx.ellipse(96.5, 18, 2.4, 1.7, 0, 0, Math.PI * 2); ctx.fill();
-  var ang = wheel / 0.33, wx = [24, 77];
-  for (var i = 0; i < 2; i++) {
-    ctx.fillStyle = '#10141B'; ctx.beginPath(); ctx.arc(wx[i], 26, 7.4, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#C9D1DC'; ctx.beginPath(); ctx.arc(wx[i], 26, 4.3, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#10141B'; ctx.lineWidth = 1.3;
-    for (var k = 0; k < 3; k++) {
-      var a = ang + k * Math.PI / 3;
-      ctx.beginPath();
-      ctx.moveTo(wx[i] - Math.cos(a) * 4.3, 26 - Math.sin(a) * 4.3);
-      ctx.lineTo(wx[i] + Math.cos(a) * 4.3, 26 + Math.sin(a) * 4.3);
-      ctx.stroke();
-    }
+  if (V === 'sport') {
+    rr(ctx, 2, 16, 96, 10, 4); ctx.fillStyle = C.car; ctx.fill();
+    fillPoly(ctx, [[30, 16.5], [47, 8], [66, 8], [86, 16.5]], C.car);
+    fillPoly(ctx, [[38, 15.5], [49, 9.6], [57, 9.6], [57, 15.5]], '#0F1722');
+    fillPoly(ctx, [[60, 15.5], [60, 9.6], [66, 9.6], [78, 15.5]], '#0F1722');
+    ctx.fillStyle = 'rgba(255,255,255,.88)'; ctx.fillRect(6, 20.5, 88, 1.4);
+    ctx.fillStyle = '#10141B'; ctx.fillRect(1, 9, 13, 2.2); ctx.fillRect(5, 10.5, 2, 6);
+    ctx.fillStyle = C.gold; ctx.beginPath(); ctx.ellipse(96.5, 19.5, 2.6, 1.4, 0, 0, Math.PI * 2); ctx.fill();
+    wheelAt(ctx, 22, 26, 7.4, ang); wheelAt(ctx, 78, 26, 7.4, ang);
+  } else if (V === 'f1') {
+    fillPoly(ctx, [[8, 22], [12, 15.5], [52, 14], [98, 21.5], [98, 25], [8, 25.5]], C.car);
+    fillPoly(ctx, [[44, 14.5], [54, 11], [62, 14.2]], '#10141B');
+    ctx.fillStyle = C.ink; ctx.beginPath(); ctx.arc(52, 11.2, 3.4, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#10141B'; ctx.fillRect(1, 6.5, 14, 2.6); ctx.fillRect(7, 8.5, 2, 10);
+    ctx.fillRect(88, 24.5, 12, 2.4);
+    ctx.fillStyle = 'rgba(255,255,255,.88)'; ctx.fillRect(14, 20, 70, 1.3);
+    wheelAt(ctx, 20, 25.5, 8.2, ang); wheelAt(ctx, 82, 26, 7, ang);
+  } else if (V === 'moto') {
+    wheelAt(ctx, 17, 25.5, 8.4, ang); wheelAt(ctx, 82, 25.5, 8.4, ang);
+    ctx.strokeStyle = '#10141B'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.moveTo(72, 11); ctx.lineTo(82, 25.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(17, 25.5); ctx.lineTo(36, 19); ctx.stroke();
+    fillPoly(ctx, [[26, 18], [34, 11], [58, 9.5], [72, 12], [62, 20], [38, 21]], C.car);
+    fillPoly(ctx, [[22, 12], [36, 10.5], [38, 14], [24, 15]], '#10141B');
+    ctx.strokeStyle = '#10141B'; ctx.lineWidth = 2.6;
+    ctx.beginPath(); ctx.moveTo(70, 9.5); ctx.lineTo(76, 8); ctx.stroke();
+    fillPoly(ctx, [[32, 11], [36, 2], [48, 0.5], [56, 7], [58, 10], [40, 12]], C.ink);
+    ctx.strokeStyle = C.ink; ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(52, 4); ctx.lineTo(70, 8.5); ctx.stroke();
+    ctx.fillStyle = C.car; ctx.beginPath(); ctx.arc(52, -3, 4.6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0F1722'; ctx.beginPath(); ctx.arc(54, -3, 2.6, -0.5, 1.6); ctx.fill();
+    ctx.fillStyle = C.gold; ctx.beginPath(); ctx.ellipse(86, 11, 2, 1.6, 0, 0, Math.PI * 2); ctx.fill();
+  } else if (V === 'truck') {
+    rr(ctx, 2, 3, 62, 22, 2); ctx.fillStyle = C.ink; ctx.fill();
+    ctx.fillStyle = C.car; ctx.fillRect(2, 14, 62, 4);
+    fillPoly(ctx, [[64, 25], [64, 9], [82, 9], [93, 17.5], [98, 19], [98, 25]], C.car);
+    fillPoly(ctx, [[69, 11.5], [80, 11.5], [88, 17.5], [69, 17.5]], '#0F1722');
+    ctx.fillStyle = C.gold; ctx.beginPath(); ctx.ellipse(96.5, 21, 2, 1.5, 0, 0, Math.PI * 2); ctx.fill();
+    wheelAt(ctx, 14, 26, 6.6, ang); wheelAt(ctx, 34, 26, 6.6, ang); wheelAt(ctx, 82, 26, 6.6, ang);
+  } else {
+    rr(ctx, 2, 14, 96, 12, 5); ctx.fillStyle = C.car; ctx.fill();
+    fillPoly(ctx, [[26, 14.5], [37, 3], [67, 3], [82, 14.5]], C.car);
+    fillPoly(ctx, [[32, 13.5], [40, 5.2], [51, 5.2], [51, 13.5]], '#0F1722');
+    fillPoly(ctx, [[54, 13.5], [54, 5.2], [65, 5.2], [74, 13.5]], '#0F1722');
+    ctx.fillStyle = 'rgba(255,255,255,.88)'; ctx.fillRect(6, 19.5, 88, 1.6);
+    ctx.fillStyle = '#10141B'; ctx.fillRect(1, 6, 11, 2.4); ctx.fillRect(4, 8, 2, 6.5);
+    ctx.fillStyle = C.gold; ctx.beginPath(); ctx.ellipse(96.5, 18, 2.4, 1.7, 0, 0, Math.PI * 2); ctx.fill();
+    wheelAt(ctx, 24, 26, 7.4, ang); wheelAt(ctx, 77, 26, 7.4, ang);
   }
   ctx.restore();
 }

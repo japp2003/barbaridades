@@ -149,6 +149,7 @@
   var CARS = [['#E8553D', 'Rojo'], ['#2F7DE1', 'Azul'], ['#17A35B', 'Verde'], ['#F0B232', 'Amarillo'], ['#9B5DE5', 'Morado'], ['#F2F4F8', 'Blanco'], ['#FF7AB6', 'Rosa']];
   function loadPrefs() { try { var o = JSON.parse(store.get('gpa-prefs') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
   var PF = loadPrefs();
+  var VEHS = [['car', '🚗 Coche'], ['sport', '🚘 Deportivo'], ['f1', '🏎️ Monoplaza'], ['moto', '🏍️ Moto'], ['truck', '🚛 Camión']];
   function applyPrefs() {
     var r = document.documentElement;
     r.style.fontSize = (PF.fs && PF.fs > 100 ? PF.fs : 100) + '%';
@@ -156,6 +157,7 @@
     reduce = reduceSys || !!PF.calm;
     if (PF.calm) r.setAttribute('data-calm', '1'); else r.removeAttribute('data-calm');
     if (PF.car) r.style.setProperty('--car', PF.car); else r.style.removeProperty('--car');
+    VEHICLE = PF.veh && VEHS.some(function (v) { return v[0] === PF.veh; }) ? PF.veh : 'car';
     if (typeof resetColors === 'function') resetColors();
     renderPrefs();
   }
@@ -170,6 +172,13 @@
       b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
       b.addEventListener('click', function () { PF.car = i ? c[0] : null; savePrefs(); });
       sw.appendChild(b);
+    });
+    var vs = $('veh-seg'); vs.innerHTML = '';
+    VEHS.forEach(function (v) {
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio');
+      b.setAttribute('aria-checked', (PF.veh || 'car') === v[0] ? 'true' : 'false'); b.innerHTML = '<b>' + v[1] + '</b>';
+      b.addEventListener('click', function () { PF.veh = v[0]; savePrefs(); });
+      vs.appendChild(b);
     });
     var fsb = $('fs-seg').children;
     for (var i = 0; i < fsb.length; i++) fsb[i].setAttribute('aria-checked', String(PF.fs || 100) === fsb[i].getAttribute('data-fs') ? 'true' : 'false');
