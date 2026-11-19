@@ -98,6 +98,19 @@
         <div id="badges"></div>
         <div id="prog"></div>
       </details>
+      <details class="teacher" id="prefs">
+        <summary>Ajustes: coche, tamaño de letra y contraste</summary>
+        <p class="ph">Color del coche</p>
+        <div class="swatches" id="car-sw" role="radiogroup" aria-label="Color del coche"></div>
+        <p class="ph">Tamaño de letra</p>
+        <div class="seg three" id="fs-seg" role="radiogroup" aria-label="Tamaño de letra">
+          <button type="button" role="radio" data-fs="100"><b>Normal</b></button>
+          <button type="button" role="radio" data-fs="115"><b>Grande</b></button>
+          <button type="button" role="radio" data-fs="130"><b>Muy grande</b></button>
+        </div>
+        <label class="chk"><input type="checkbox" id="hc"> Alto contraste (bordes y textos más marcados)</label>
+        <label class="chk"><input type="checkbox" id="calm"> Menos movimiento (sin sacudidas ni destellos)</label>
+      </details>
       <details class="teacher" id="custom">
         <summary>Para el profe: mis propias preguntas</summary>
         <p>Una pregunta por línea, con este formato (separadas por <b>|</b>): <code>Enunciado | Correcta | Mala 1 | Mala 2 | Mala 3 | Explicación (opcional)</code>. Puedes usar <code>x^{2}</code> y <code>√{x}</code>; las fracciones, con «/» (como 3/4). Aparecen como el tema «Mis preguntas» en todos los cursos y solo en este dispositivo.</p>

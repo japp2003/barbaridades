@@ -335,6 +335,13 @@ table.rep th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06
 #custom-text { width: 100%; box-sizing: border-box; font: inherit; font-size: .9rem; background: var(--panel); color: var(--ink); border: 1.5px solid var(--line); border-radius: 6px; padding: 8px; }
 .rooms { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0; }
 code { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; font-size: .85em; }
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 12px; }
+.sw { width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--line); cursor: pointer; padding: 0; }
+.sw[aria-checked="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
+:root[data-contrast="high"] { --muted: var(--ink); --line: var(--ink); }
+:root[data-contrast="high"] .chip, :root[data-contrast="high"] .opt, :root[data-contrast="high"] .seg button, :root[data-contrast="high"] .cbtn { border-width: 2.5px; }
+:root[data-contrast="high"] .chip[aria-pressed="false"] { color: var(--ink); }
+:root[data-calm] .shake, :root[data-calm] .siren { animation: none !important; }
 </style>
 
 <div class="wrap">
@@ -436,6 +443,19 @@ code { background: var(--panel); border: 1px solid var(--line); border-radius: 4
         <summary>Tu progreso en este dispositivo</summary>
         <div id="badges"></div>
         <div id="prog"></div>
+      </details>
+      <details class="teacher" id="prefs">
+        <summary>Ajustes: coche, tamaño de letra y contraste</summary>
+        <p class="ph">Color del coche</p>
+        <div class="swatches" id="car-sw" role="radiogroup" aria-label="Color del coche"></div>
+        <p class="ph">Tamaño de letra</p>
+        <div class="seg three" id="fs-seg" role="radiogroup" aria-label="Tamaño de letra">
+          <button type="button" role="radio" data-fs="100"><b>Normal</b></button>
+          <button type="button" role="radio" data-fs="115"><b>Grande</b></button>
+          <button type="button" role="radio" data-fs="130"><b>Muy grande</b></button>
+        </div>
+        <label class="chk"><input type="checkbox" id="hc"> Alto contraste (bordes y textos más marcados)</label>
+        <label class="chk"><input type="checkbox" id="calm"> Menos movimiento (sin sacudidas ni destellos)</label>
       </details>
       <details class="teacher" id="custom">
         <summary>Para el profe: mis propias preguntas</summary>
@@ -16273,8 +16293,9 @@ function drawScene(view, S) {
     d: { n: 'Difícil', d: 'Menos tiempo, fallar duele más', grace: 0.7, flash: 2, loss: 0.65 }
   };
   function lvOf(k) { return LV[k] || LV.n; }
-  var reduce = false;
-  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+  var reduce = false, reduceSys = false;
+  try { reduceSys = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduceSys = false; }
+  reduce = reduceSys;
 
 
   /* ---------- sonido (WebAudio, sin archivos) ---------- */
@@ -16385,6 +16406,41 @@ function drawScene(view, S) {
   function bestKey() { return 'gpa-best-' + st.len + '-' + st.topics.slice().sort().join('.'); }
   function getBest() { var v = parseFloat(store.get(bestKey())); return isNaN(v) ? null : v; }
 
+
+
+  /* ---------- ajustes: color del coche, tamaño de letra, contraste ---------- */
+  var CARS = [['#E8553D', 'Rojo'], ['#2F7DE1', 'Azul'], ['#17A35B', 'Verde'], ['#F0B232', 'Amarillo'], ['#9B5DE5', 'Morado'], ['#F2F4F8', 'Blanco'], ['#FF7AB6', 'Rosa']];
+  function loadPrefs() { try { var o = JSON.parse(store.get('gpa-prefs') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+  var PF = loadPrefs();
+  function applyPrefs() {
+    var r = document.documentElement;
+    r.style.fontSize = (PF.fs && PF.fs > 100 ? PF.fs : 100) + '%';
+    if (PF.hc) r.setAttribute('data-contrast', 'high'); else r.removeAttribute('data-contrast');
+    reduce = reduceSys || !!PF.calm;
+    if (PF.calm) r.setAttribute('data-calm', '1'); else r.removeAttribute('data-calm');
+    if (PF.car) r.style.setProperty('--car', PF.car); else r.style.removeProperty('--car');
+    if (typeof resetColors === 'function') resetColors();
+    renderPrefs();
+  }
+  function savePrefs() { store.set('gpa-prefs', JSON.stringify(PF)); applyPrefs(); }
+  function renderPrefs() {
+    var sw = $('car-sw');
+    sw.innerHTML = '';
+    CARS.forEach(function (c, i) {
+      var on = (PF.car || CARS[0][0]) === c[0];
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'sw'; b.style.background = c[0]; b.title = c[1]; b.setAttribute('aria-label', c[1]);
+      b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
+      b.addEventListener('click', function () { PF.car = i ? c[0] : null; savePrefs(); });
+      sw.appendChild(b);
+    });
+    var fsb = $('fs-seg').children;
+    for (var i = 0; i < fsb.length; i++) fsb[i].setAttribute('aria-checked', String(PF.fs || 100) === fsb[i].getAttribute('data-fs') ? 'true' : 'false');
+    $('hc').checked = !!PF.hc; $('calm').checked = !!PF.calm;
+  }
+  Array.prototype.forEach.call($('fs-seg').children, function (b) { b.addEventListener('click', function () { PF.fs = +b.getAttribute('data-fs'); savePrefs(); }); });
+  $('hc').addEventListener('change', function () { PF.hc = $('hc').checked; savePrefs(); });
+  $('calm').addEventListener('change', function () { PF.calm = $('calm').checked; savePrefs(); });
 
   /* ---------- preguntas propias del profe (en este dispositivo) ---------- */
   function parseCustom(txt) {
@@ -17391,14 +17447,21 @@ function drawScene(view, S) {
     var rows = [['Alumno', 'Estado', 'Aciertos', 'Preguntas', '% acierto', 'Tema más flojo']].concat(lastRep);
     var txt = '\ufeff' + rows.map(function (r) { return r.map(function (x) { return '"' + String(x).replace(/"/g, '""') + '"'; }).join(';'); }).join('\r\n');
     var d = new Date(), name = 'informe-' + (D.code || 'sala') + '-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '.csv';
-    try {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
-      a.download = name; document.body.appendChild(a); a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-    } catch (e) {
-      try { navigator.clipboard.writeText(txt); $('d-csv').textContent = 'Copiado: pégalo en Excel'; } catch (e2) { /* nada */ }
-    }
+    var viaClip = function () { try { navigator.clipboard.writeText(txt); $('d-csv').textContent = 'Copiado: pégalo en Excel'; } catch (e2) { $('d-csv').textContent = 'No se ha podido descargar'; } };
+    var viaLink = function () {
+      try {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+        a.download = name; document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      } catch (e) { viaClip(); }
+    };
+    if (window.claude && window.claude.use) {
+      window.claude.use('downloads').then(function (dl) {
+        if (!dl) return viaClip();
+        return dl.save({ filename: name, data: txt }).catch(viaClip);
+      }, viaClip);
+    } else viaLink();
   });
   /* salas recientes y enlace directo */
   function loadRooms() { try { var a = JSON.parse(store.get('gpa-rooms') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
@@ -17497,6 +17560,7 @@ function drawScene(view, S) {
     }, 150);
   });
 
+  applyPrefs();
   renderRooms();
   if (!hashRoom) { var lr = loadRooms()[0]; if (lr) { $('roomcode').value = lr.c; $('obs').checked = !!lr.o; } }
   applyHash(); renderChips(); renderSeg(); updateStart(); renderCourse(); renderCourses();

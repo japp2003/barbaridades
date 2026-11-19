@@ -14,8 +14,9 @@
     d: { n: 'Difícil', d: 'Menos tiempo, fallar duele más', grace: 0.7, flash: 2, loss: 0.65 }
   };
   function lvOf(k) { return LV[k] || LV.n; }
-  var reduce = false;
-  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduce = false; }
+  var reduce = false, reduceSys = false;
+  try { reduceSys = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { reduceSys = false; }
+  reduce = reduceSys;
 
 
   /* ---------- sonido (WebAudio, sin archivos) ---------- */
@@ -126,6 +127,41 @@
   function bestKey() { return 'gpa-best-' + st.len + '-' + st.topics.slice().sort().join('.'); }
   function getBest() { var v = parseFloat(store.get(bestKey())); return isNaN(v) ? null : v; }
 
+
+
+  /* ---------- ajustes: color del coche, tamaño de letra, contraste ---------- */
+  var CARS = [['#E8553D', 'Rojo'], ['#2F7DE1', 'Azul'], ['#17A35B', 'Verde'], ['#F0B232', 'Amarillo'], ['#9B5DE5', 'Morado'], ['#F2F4F8', 'Blanco'], ['#FF7AB6', 'Rosa']];
+  function loadPrefs() { try { var o = JSON.parse(store.get('gpa-prefs') || '{}'); return o && typeof o === 'object' ? o : {}; } catch (e) { return {}; } }
+  var PF = loadPrefs();
+  function applyPrefs() {
+    var r = document.documentElement;
+    r.style.fontSize = (PF.fs && PF.fs > 100 ? PF.fs : 100) + '%';
+    if (PF.hc) r.setAttribute('data-contrast', 'high'); else r.removeAttribute('data-contrast');
+    reduce = reduceSys || !!PF.calm;
+    if (PF.calm) r.setAttribute('data-calm', '1'); else r.removeAttribute('data-calm');
+    if (PF.car) r.style.setProperty('--car', PF.car); else r.style.removeProperty('--car');
+    if (typeof resetColors === 'function') resetColors();
+    renderPrefs();
+  }
+  function savePrefs() { store.set('gpa-prefs', JSON.stringify(PF)); applyPrefs(); }
+  function renderPrefs() {
+    var sw = $('car-sw');
+    sw.innerHTML = '';
+    CARS.forEach(function (c, i) {
+      var on = (PF.car || CARS[0][0]) === c[0];
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'sw'; b.style.background = c[0]; b.title = c[1]; b.setAttribute('aria-label', c[1]);
+      b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', on ? 'true' : 'false');
+      b.addEventListener('click', function () { PF.car = i ? c[0] : null; savePrefs(); });
+      sw.appendChild(b);
+    });
+    var fsb = $('fs-seg').children;
+    for (var i = 0; i < fsb.length; i++) fsb[i].setAttribute('aria-checked', String(PF.fs || 100) === fsb[i].getAttribute('data-fs') ? 'true' : 'false');
+    $('hc').checked = !!PF.hc; $('calm').checked = !!PF.calm;
+  }
+  Array.prototype.forEach.call($('fs-seg').children, function (b) { b.addEventListener('click', function () { PF.fs = +b.getAttribute('data-fs'); savePrefs(); }); });
+  $('hc').addEventListener('change', function () { PF.hc = $('hc').checked; savePrefs(); });
+  $('calm').addEventListener('change', function () { PF.calm = $('calm').checked; savePrefs(); });
 
   /* ---------- preguntas propias del profe (en este dispositivo) ---------- */
   function parseCustom(txt) {
@@ -1132,14 +1168,21 @@
     var rows = [['Alumno', 'Estado', 'Aciertos', 'Preguntas', '% acierto', 'Tema más flojo']].concat(lastRep);
     var txt = '\ufeff' + rows.map(function (r) { return r.map(function (x) { return '"' + String(x).replace(/"/g, '""') + '"'; }).join(';'); }).join('\r\n');
     var d = new Date(), name = 'informe-' + (D.code || 'sala') + '-' + d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + '.csv';
-    try {
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
-      a.download = name; document.body.appendChild(a); a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
-    } catch (e) {
-      try { navigator.clipboard.writeText(txt); $('d-csv').textContent = 'Copiado: pégalo en Excel'; } catch (e2) { /* nada */ }
-    }
+    var viaClip = function () { try { navigator.clipboard.writeText(txt); $('d-csv').textContent = 'Copiado: pégalo en Excel'; } catch (e2) { $('d-csv').textContent = 'No se ha podido descargar'; } };
+    var viaLink = function () {
+      try {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([txt], { type: 'text/csv;charset=utf-8' }));
+        a.download = name; document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+      } catch (e) { viaClip(); }
+    };
+    if (window.claude && window.claude.use) {
+      window.claude.use('downloads').then(function (dl) {
+        if (!dl) return viaClip();
+        return dl.save({ filename: name, data: txt }).catch(viaClip);
+      }, viaClip);
+    } else viaLink();
   });
   /* salas recientes y enlace directo */
   function loadRooms() { try { var a = JSON.parse(store.get('gpa-rooms') || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
@@ -1238,6 +1281,7 @@
     }, 150);
   });
 
+  applyPrefs();
   renderRooms();
   if (!hashRoom) { var lr = loadRooms()[0]; if (lr) { $('roomcode').value = lr.c; $('obs').checked = !!lr.o; } }
   applyHash(); renderChips(); renderSeg(); updateStart(); renderCourse(); renderCourses();
